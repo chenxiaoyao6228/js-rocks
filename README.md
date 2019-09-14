@@ -1,1 +1,1 @@
-# Personal leetcode notesE
+# Personal leetcode notes
