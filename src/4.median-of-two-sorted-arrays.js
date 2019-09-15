@@ -35,7 +35,7 @@
 //   return result
 // }
 
-export function findMedianSortedArrays(nums1, nums2) {
+function findMedianSortedArrays(nums1, nums2) {
   let low = 0,
     high = nums1.length,
     len1 = nums1.length,
@@ -74,4 +74,8 @@ export function findMedianSortedArrays(nums1, nums2) {
       low = i + 1
     }
   }
+}
+
+module.exports = {
+  findMedianSortedArrays
 }
