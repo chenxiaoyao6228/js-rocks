@@ -10,7 +10,7 @@
 // v1
 // time  complexity O(n)
 // space complexity O(1)
-var moveZeroes = function(nums) {
+var moveZeroes1 = function(nums) {
   let k = 0
   for (let i = 0; i < nums.length; i++) {
     if (nums[i]) {
@@ -27,7 +27,7 @@ var moveZeroes = function(nums) {
 // v2
 // time  complexity O(n)
 // space complexity O(1)
-var moveZeroes = function(nums) {
+  var moveZeroes = function(nums) {
   let k = 0
   for (let i = 0; i < nums.length; i++) {
     if (nums[i]) {
