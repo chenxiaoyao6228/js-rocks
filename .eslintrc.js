@@ -1,27 +1,26 @@
 module.exports = {
-  "parserOptions": {
-    "ecmaVersion": 8,
-    "sourceType": "module",
+  parserOptions: {
+    ecmaVersion: 8,
+    sourceType: 'module'
   },
-  "plugins": [
-    "babel",
-    "prettier"
-  ],
-  "extends": ["eslint:recommended", "plugin:prettier/recommended"],
-  "env": {
-    "es6": true,
-    "browser": true,
-    "commonjs": true,
+  plugins: ['babel', 'prettier'],
+  extends: ['eslint:recommended', 'plugin:prettier/recommended'],
+  env: {
+    es6: true,
+    browser: true,
+    commonjs: true
   },
-  "globals": {
+  globals: {
     process: true,
     describe: true,
     test: true,
     __dirname: true,
     expect: true,
-    jest: true
+    jest: true,
+    beforeEach: true,
+    afterEach: true
   },
-  "rules": {
-    "prettier/prettier": "error"
+  rules: {
+    'prettier/prettier': 'error'
   }
 }
