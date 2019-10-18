@@ -7,6 +7,28 @@
  * @param {number[]} nums
  * @return {void} Do not return anything, modify nums in-place instead.
  */
+// count all the numbers and then fill the answer
+// function sortColors(nums) {
+//   let counterMap = {
+//     0: 0,
+//     1: 0,
+//     2: 0
+//   }
+//   for (let i = 0; i < nums.length; i++) {
+//     counterMap[nums[i]]++
+//   }
+//   let index = 0
+//   for (let i = 0; i < counterMap[0]; i++) {
+//     nums[index++] = 0
+//   }
+//   for (let i = 0; i < counterMap[1]; i++) {
+//     nums[index++] = 1
+//   }
+//   for (let i = 0; i < counterMap[2]; i++) {
+//     nums[index++] = 2
+//   }
+// }
+
 // var sortColors = function(nums) {
 //   let zero = -1
 //   let two = nums.length
@@ -32,9 +54,6 @@
 //   nums[b] = temp
 // }
 
-// v2
-// runtime beats 60.79%
-// memeory usage beats 85.71%
 function sortColors(nums) {
   let n0 = -1,
     n1 = -1,
