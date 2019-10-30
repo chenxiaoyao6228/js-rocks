@@ -17,6 +17,31 @@
  * @param {number} k
  * @return {ListNode}
  */
+
+// use an extra stack
+var reverseKGroup = function(head, k) {
+  if (head == null) return null
+  let stack = []
+  let dummy = new ListNode(0)
+  dummy.next = head
+  let current = dummy
+  let next = dummy.next
+  while (next != null) {
+    for (let i = 0; i < k && next != null; i++) {
+      stack.push(next)
+      next = next.next
+    }
+    if (stack.length !== k) return dummy.next
+    // reverse [nk, nk+n]
+    while (stack.length !== 0) {
+      current.next = stack.pop()
+      current = current.next
+    }
+    current.next = next
+  }
+  return dummy.next
+}
+
 // var reverseKGroup = function(head, k) {
 //   let current = head
 //   let count = 0
@@ -37,42 +62,42 @@
 //   return head
 // }
 
-var reverseKGroup = function(head, k) {
-  if (!head) return null
-  // insert a empty note
-  let dummy = new ListNode(0)
-  dummy.next = head
-  let prev = dummy
-  while (prev != null) {
-    // reverse [nk, nk+n] elements
-    // return the last node in prev round of reverse
-    // prev will go to next cycle as first node
-    prev = reverse(prev, k)
-  }
-  return dummy.next
-}
+// var reverseKGroup = function(head, k) {
+//   if (!head) return null
+//   // insert a empty note
+//   let dummy = new ListNode(0)
+//   dummy.next = head
+//   let prev = dummy
+//   while (prev != null) {
+//     // reverse [nk, nk+n] elements
+//     // return the last node in prev round of reverse
+//     // prev will go to next cycle as first node
+//     prev = reverse(prev, k)
+//   }
+//   return dummy.next
+// }
 
-function reverse(prev, k) {
-  // defined k elements in a group
-  let last = prev
-  for (let i = 0; i < k + 1; i++) {
-    last = last.next
-    // the last n element cannot fill k or just fill
-    if (last == null && i !== k) {
-      return null
-    }
-  }
-  let tail = prev.next
-  let curr = prev.next.next
-  while (curr !== last) {
-    let next = curr.next
-    curr.next = prev.next
-    prev.next = curr
-    tail.next = next
-    curr = next // next iteration
-  }
-  return tail
-}
+// function reverse(prev, k) {
+//   // defined k elements in a group
+//   let last = prev
+//   for (let i = 0; i < k + 1; i++) {
+//     last = last.next
+//     // the last n element cannot fill k or just fill
+//     if (last == null && i !== k) {
+//       return null
+//     }
+//   }
+//   let tail = prev.next
+//   let curr = prev.next.next
+//   while (curr !== last) {
+//     let next = curr.next
+//     curr.next = prev.next
+//     prev.next = curr
+//     tail.next = next
+//     curr = next // next iteration
+//   }
+//   return tail
+// }
 
 function ListNode(val) {
   this.val = val
