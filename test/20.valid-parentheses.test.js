@@ -1,0 +1,10 @@
+const { isValid } = require('../src/20.valid-parentheses')
+test('isValid', () => {
+  expect(isValid('')).toEqual(true)
+  expect(isValid('(')).toEqual(false)
+  expect(isValid('((')).toEqual(false)
+  expect(isValid('()')).toEqual(true)
+  expect(isValid('()[]{}')).toEqual(true)
+  expect(isValid('(]')).toEqual(false)
+  expect(isValid('{[]}')).toEqual(true)
+})
