@@ -17,28 +17,27 @@
  * @return {ListNode}
  */
 // var insertionSortList = function(head) {
-//   if (head == null) {
+//   if (head == null || head.next == null) {
 //     return head
 //   }
-//   let dummy = new ListNode(null)
+//   let dummy = new ListNode(-Infinity)
 //   dummy.next = head // 插入一个节点
-//   let pre = head
-//   let cur = head
-//   let next = null
+//   let pre = dummy
+//   let cur = head.next // 从第二个开始
 //   while (cur != null) {
-//     next = cur.next // 保存下个节点
 //     while (pre.next != null && pre.next.val < cur.val) {
 //       pre = pre.next // 找到要插入的位置的前一个节点
 //     }
+//     let next = cur.next // 保存下个节点
 //     cur.next = pre.next
 //     pre.next = cur
-//     pre = dummy // 重设dummy
 //     cur = next // 处理下个节点
+//     pre = dummy // 重设dummy
 //   }
 //   return dummy.next
 // }
 function insertionSortList(head) {
-  var before = { val: -Number.MAX_VALUE, next: null } // 这个next:null很巧妙
+  var before = { val: -Number.MAX_VALUE, next: null }
 
   while (head) {
     var prev = before
