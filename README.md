@@ -1,1 +1,9 @@
-# Personal leetcode notes
+## 为什么要有这个repo
+* 刷题面试
+* 线上的不方便调试
+* 可以保存自己的笔记
+
+## 资源
+* LeetCode-VSCode插件
+
+## 已解题目
