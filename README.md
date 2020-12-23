@@ -8,8 +8,9 @@
 
 ## 一. JS相关面试题
 
-主要搜集一些 Javascript 相关的手写题.
+### JS
 
+- 实现 数组转树
 - 实现 function 的 bind
 - 实现 function 的 call
 - 实现 function 的 apply
@@ -70,3 +71,5 @@
 ## LeetCode
 
 算法是每个程序员都避不开的话题, 按照目前的趋势来看, 前端面试至少要刷到 Medium 才算有底.
+
+* 递归相关
