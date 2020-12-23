@@ -48,4 +48,22 @@ function countChange(n) {
   return change(n, 0, 0)
 }
 
-export { getRandomNums, countChange }
+/**
+ * 带记忆功能的斐波那契数列
+ *
+ * @param {*} n
+ * @return {*}
+ */
+function fibWithMemo(n) {
+  let cache = {}
+  if (Object.prototype.hasOwnProperty.call(cache, n)) {
+    return cache[n]
+  } else if (n <= 2) {
+    return 1
+  } else {
+    cache[n] = fibWithMemo(n - 1) + fibWithMemo(n - 2)
+  }
+  return cache[n]
+}
+
+export { getRandomNums, countChange, fibWithMemo }

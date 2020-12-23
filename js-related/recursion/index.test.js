@@ -1,4 +1,4 @@
-import { getRandomNums, countChange } from './'
+import { getRandomNums, countChange, fibWithMemo } from './'
 
 describe('recursion', () => {
   test('getRandomNumber', () => {
@@ -16,5 +16,8 @@ describe('recursion', () => {
     expect(countChange(10)).toEqual(7)
     expect(countChange(20)).toEqual(14)
     expect(countChange(30)).toEqual(22)
+  })
+  test('fibWithMemo', () => {
+    expect(fibWithMemo(10)).toEqual(55)
   })
 })
