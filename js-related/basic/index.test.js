@@ -1,4 +1,4 @@
-import { arrayToTree } from './'
+import { arrayToTree, curriedAdd } from './'
 
 describe('basic', () => {
   test('array to tree', () => {
@@ -69,5 +69,11 @@ describe('basic', () => {
     }
     let result = arrayToTree(input)
     expect(JSON.stringify(result).length).toEqual(JSON.stringify(output).length)
+  })
+  test('currying', () => {
+    let res1 = curriedAdd(1)(2)(3)()
+    let res2 = curriedAdd(1, 2)(3)(4, 5)()
+    expect(res1).toEqual(6)
+    expect(res2).toEqual(15)
   })
 })

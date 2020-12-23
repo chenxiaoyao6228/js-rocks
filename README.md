@@ -1,6 +1,8 @@
 # JS-Rock
 
-<img align=center src="http://note.youdao.com/yws/public/resource/1f466420b40e359c829bda0a8716b54a/xmlnote/WEBRESOURCEdac017d3c7c6daa9fdf86b6d5a33ae2d/67297" />
+<div style="text-align:center;">
+    <img align=center src="http://note.youdao.com/yws/public/resource/1f466420b40e359c829bda0a8716b54a/xmlnote/WEBRESOURCEdac017d3c7c6daa9fdf86b6d5a33ae2d/67297" />
+</div>
 
 从 2017 年 12 月接触 FCC 了解前端开始, 三年的前端编程时光转瞬即逝, 自己依然没有成为自己想要的样子. 偶尔感叹人生, 但更多确是释然: **别人科班四年甚至更久的付出, 你凭什么超越? 也许这辈子都无法超越了呢?**. 平心而论,自己虽不是咸鱼, 但也称不上有多努力. 毕竟`Talk is cheap, show me the code.`, 作为普通人,能做的也就只能是**保持乐观,相信时间的力量**了.
 
