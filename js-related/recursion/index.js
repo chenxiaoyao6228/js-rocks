@@ -27,4 +27,25 @@ function getRandomNums(n) {
   }
 }
 
-export { getRandomNums }
+/**
+ * 两元一支雪糕，三支雪糕棍换一支雪糕，给一个钱，能得到多少雪糕，怎么用代码实现
+ *
+ * @param {*} n
+ * @return {*}
+ */
+function countChange(n) {
+  function change(money, stick, result) {
+    // base case: 钱 / 2 + 雪糕棍 < 3
+    if (money < 2 && stick < 3) {
+      return result
+    } else {
+      let countChangeCount = Math.floor(money / 2) + Math.floor(stick / 3)
+      result += countChangeCount
+      // 递减项
+      return change(money % 2, countChangeCount + (stick % 3), result)
+    }
+  }
+  return change(n, 0, 0)
+}
+
+export { getRandomNums, countChange }

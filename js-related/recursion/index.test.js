@@ -1,4 +1,4 @@
-import { getRandomNums } from './'
+import { getRandomNums, countChange } from './'
 
 describe('recursion', () => {
   test('getRandomNumber', () => {
@@ -10,5 +10,11 @@ describe('recursion', () => {
       expect(res.length).toEqual(5)
       expect([...new Set(res)].length).toEqual(5)
     }
+  })
+  test('countChange', () => {
+    expect(countChange(3)).toEqual(1)
+    expect(countChange(10)).toEqual(7)
+    expect(countChange(20)).toEqual(14)
+    expect(countChange(30)).toEqual(22)
   })
 })
