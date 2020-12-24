@@ -1,8 +1,10 @@
 # JS-Rock
 
-<div style="text-align:center;">
-    <img align=center src="http://note.youdao.com/yws/public/resource/1f466420b40e359c829bda0a8716b54a/xmlnote/WEBRESOURCEdac017d3c7c6daa9fdf86b6d5a33ae2d/67297" />
-</div>
+<p align="center">
+  <a href="#">
+    <img width="200" src="./assets/js-rock.png"></img>
+  </a>
+</p>
 
 从 2017 年 12 月接触 FCC 了解前端开始, 三年的前端编程时光转瞬即逝, 自己依然没有成为自己想要的样子. 偶尔感叹人生, 但更多确是释然: **别人科班四年甚至更久的付出, 你凭什么超越? 也许这辈子都无法超越了呢?**. 平心而论,自己虽不是咸鱼, 但也称不上有多努力. 毕竟`Talk is cheap, show me the code.`, 作为普通人,能做的也就只能是**保持乐观,相信时间的力量**了.
 
@@ -12,7 +14,9 @@
 
 ### JS
 
-- 实现 数组转树
+- ~~实现 数组转树~~
+- ~~currying （函数式编程柯里化）~~
+- 正则相关练习
 - 实现 function 的 bind
 - 实现 function 的 call
 - 实现 function 的 apply
@@ -24,17 +28,14 @@
 - 实现一个 promise
 - 格式化数组数字
 - 实现 ES6 的 class
-- regex
 - debounce （防抖）
 - throttle （节流）
 - deepclone（实现一个深度克隆）
 - memolize （返回一个可存储函数执行结果的函数）
-- promisify(将一个函数转化为 promise 的使用)
-- currying （函数式编程柯里化）
 
 ### 异步编程
 
-- 红绿灯
+- 红绿灯问题
 - retry （重试发一个 ajax，失败的时候会自动重试）
 - 用 XMLHttpRequest 实现一个 promise 的 ajax
 - 实现一个 sleep 函数
