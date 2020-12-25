@@ -17,7 +17,7 @@
 - ~~实现 数组转树~~
 - ~~currying （函数式编程柯里化）~~
 - 正则相关练习
-- 实现 function 的 bind
+- ~~实现 function 的 bind~~
 - 实现 function 的 call
 - 实现 function 的 apply
 - 实现 instanceOf
@@ -74,5 +74,3 @@
 ## LeetCode
 
 算法是每个程序员都避不开的话题, 按照目前的趋势来看, 前端面试至少要刷到 Medium 才算有底.
-
-* 递归相关
