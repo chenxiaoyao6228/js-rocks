@@ -1,7 +1,7 @@
 {
   "name": "javascript-rock",
   "version": "1.0.0",
-  "description": "javascript interview question collections",
+  "description": "javascript kata collections",
   "main": "index.js",
   "scripts": {
     "lint-staged": "linted-staged",

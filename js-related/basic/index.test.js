@@ -1,4 +1,5 @@
-import { arrayToTree, curriedAdd } from './'
+// import { arrayToTree, curriedAdd } from './index.start.js'
+import { arrayToTree, curriedAdd } from './index.finish.js'
 
 describe('basic', () => {
   test('array to tree', () => {

@@ -6,64 +6,116 @@
   </a>
 </p>
 
-从 2017 年 12 月接触 FCC 了解前端开始, 三年的前端编程时光转瞬即逝, 自己依然没有成为自己想要的样子. 偶尔感叹人生, 但更多确是释然: **别人科班四年甚至更久的付出, 你凭什么超越? 也许这辈子都无法超越了呢?**. 平心而论,自己虽不是咸鱼, 但也称不上有多努力. 毕竟`Talk is cheap, show me the code.`, 作为普通人,能做的也就只能是**保持乐观,相信时间的力量**了.
+## 前言
 
-由于自己在很长的一段时间内估计 Javascript 和 Typescript 都是主力编程语言, 这个项目目前主要分为三个部分, js 相关的面试题, Code-Kata 编程练习题, 以及 LeetCode 解题集合, 与[blog](https://github.com/chenxiaoyao6228/blog)这个 repo 互为补充.
+### 初衷
 
-## 一. JS相关面试题
+编程与钢琴这类技能一样, 技艺的精进需要持续不断的刻意练习.  
 
-### JS
+> Code Kata是《程序员修炼之道》的作者Dave Thomas发明的一种练习编程的活动，每次一到两个小时，做一个小题目，用TDD的方式来实现，不断地重构。正如Thomas在Code Kata网站上所说，不管你是要成为优秀的音乐家还是运动员，你都得不断练习——你有天赋，很好；你熟知音乐或体育的理论，很好；但你必须得练习，持续而大量地练习，否则你就是个外行人。而软件行业一直以来并不重视练习，似乎大家都很满足于“知道某个东西”（比如“了解设计模式”、“了解重构理论”）而不是真正通过练习掌握某个东西，无怪乎这个行业里充斥着如此之多的外行人。-- By 熊节 <不敢止步: 一个软件工匠的12年>
 
-- ~~实现 数组转树~~
-- ~~currying （函数式编程柯里化）~~
-- 正则相关练习
-- ~~实现 function 的 bind~~
-- 实现 function 的 call
-- 实现 function 的 apply
-- 实现 instanceOf
-- 实现一个 new 函数
-- 实现一个继承
-- 实现一个 JSON.parse
-- 实现一个 JSON.stringify
-- 实现一个 promise
-- 格式化数组数字
-- 实现 ES6 的 class
-- debounce （防抖）
-- throttle （节流）
-- deepclone（实现一个深度克隆）
-- memolize （返回一个可存储函数执行结果的函数）
+这个项目分为三个部分, Javascript相关的知识点, Code-Kata 编程练习题, 以及 LeetCode 解题集合, 与[这个](https://github.com/chenxiaoyao6228/blog)repo 互为补充.
+
+### 如何使用
+
+安装依赖, 并执行测试
+
+```bash
+yarn && yarn test:watch
+```
+
+打开相应的文件夹, 每个文件夹下面会对应三个文件, `*.test.js`为测试文件, `*.start.js`为起始文件 `*.finish.js`为参考实现, 使用的时候将`finish`文件注释, 完成`start`文件让测试即可.
+
+index.test.js
+
+```js
+// import { arrayToTree, curriedAdd } from './index.finish.js'
+import { arrayToTree} from './index.start.js'
+```
+
+ 也可以自己选择一个task, 自己用TDD的方式完成, **任务分解->写测试->实现->重构**, 完整的流程走下来相信一定会有收获.
+
+## 一. JS相关
+
+### 基本数据结构
+
+由于JS没有官方的SDK,需要由社区提供一套作为补充,如underscore,lodash, moment.js等, 当我们不想因为要使用某个方法而引入完整的库的时候,我们需要自己去实现.
+
+- [x] 实现 数组转树
+- [x] 实现 function 的 bind
+- [ ] 正则相关练习
+- [ ] 实现 function 的 call
+- [ ] 实现 function 的 apply
+- [ ] 实现 instanceOf
+- [ ] 实现一个 new 函数
+- [ ] 实现一个继承
+- [ ] 实现一个 JSON.parse
+- [ ] 实现一个 JSON.stringify
+- [ ] 格式化数组数字
+- [ ] 实现 ES6 的 class
+- [ ] debounce （防抖）
+- [ ] throttle （节流）
+- [ ] deepclone（实现一个深度克隆）
+- [ ] memolize （返回一个可存储函数执行结果的函数）
+- [ ] template 替换方法
 
 ### 异步编程
 
-- 红绿灯问题
-- retry （重试发一个 ajax，失败的时候会自动重试）
-- 用 XMLHttpRequest 实现一个 promise 的 ajax
-- 实现一个 sleep 函数
-- series 流程控制，顺序执行两个 callback
-- scheduleTask(实现一个同时执行若干个任务的调度任务器)
-- lazyMan Promise 版本 （微信经典面试题 lazyman）
-- lazyMan 普通 版本 （微信经典面试题 lazyman）
-- eventBus （实现一个事件系统的 on 监听函数和 emit 发送事件的函数）
-- parallel 并行执行两个 callback
-- waterfall 串行执行有参数传递
+- [ ] 实现一个 promise
+- [ ] 红绿灯问题
+- [ ] retry （重试发一个 ajax，失败的时候会自动重试）
+- [ ] 用 XMLHttpRequest 实现一个 promise 的 ajax
+- [ ] 实现一个 sleep 函数
+- [ ] series 流程控制，顺序执行两个 callback
+- [ ] scheduleTask(实现一个同时执行若干个任务的调度任务器)
+- [ ] lazyMan Promise 版本 （微信经典面试题 lazyman）
+- [ ] lazyMan 普通 版本 （微信经典面试题 lazyman）
+- [ ] eventBus （实现一个事件系统的 on 监听函数和 emit 发送事件的函数）
+- [ ] parallel 并行执行两个 callback
+- [ ] waterfall 串行执行有参数传递
+- [ ] 用setTimeout实现setInterval
 
-### 浏览器和其他
+### 函数式思想
 
-- 实现 JSONP
-- 实现双向绑定
-- 获取所有 dom 的元素节点
-- template 替换方法
+- [x] currying (柯里化)
+- [ ] 实现compose
+- [ ] 实现chain方法
+
+### 框架相关
+
+- [x] 实现一个完整的AngularJS
+- [ ] 实现一个简易的JQuery
+- [ ] 使用Object.defineProperty和Proxy实现Vue的双向绑定
+- [ ] 实现简易的带hooks的react
+- [ ] 实现一个简易的webpack
+
+### 组件编写
+
+#### Vue
+
+- [ ] 用TDD的方式写一个Button组件
+- [ ] 用TDD的方式写一个Swiper组件
+
+#### React
+
+- [ ] 用TDD的方式写一个Button组件
+- [ ] 用TDD的方式写一个Swiper组件
+
+### 其他
+
+- [ ] 实现一个类axios的http封装库
+- [ ] 实现 JSONP
 
 ## 二.Code Kata
 
-> Code Kata 的概念是由 David Thomas 提出的，他是《程序员修炼之道：从小工到专家》的作者之一。这个概念主要指的是，针对某一种特定技术或技能进行重复性的练习，从而将其熟练掌握.
+收集一些kata, 涉及**TDD**, **重构**, 与前端非紧密相关
 
 ### Kata 列表
 
-- gilderose
-- marsover
-- multicurrency
-- rentalstore
+- [x] gilderose
+- [x] marsover
+- [x] multicurrency
+- [x] rentalstore
 
 ### 一些很好的资源
 
@@ -74,3 +126,12 @@
 ## LeetCode
 
 算法是每个程序员都避不开的话题, 按照目前的趋势来看, 前端面试至少要刷到 Medium 才算有底.
+
+### 数据结构
+
+- [ ] 堆
+- [ ] 二叉树
+
+### 精选题解
+
+- [ ] TODO
