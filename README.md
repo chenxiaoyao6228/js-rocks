@@ -35,6 +35,8 @@ import { arrayToTree} from './index.start.js'
 
  也可以自己选择一个task, 自己用TDD的方式完成, **任务分解->写测试->实现->重构**, 完整的流程走下来相信一定会有收获.
 
+对于一些复杂的任务, 可能会开新的分支, 完整的流程
+
 ## 一. JS相关
 
 ### 基本数据结构
@@ -43,9 +45,9 @@ import { arrayToTree} from './index.start.js'
 
 - [x] 实现 数组转树
 - [x] 实现 function 的 bind
-- [ ] 正则相关练习
 - [ ] 实现 function 的 call
 - [ ] 实现 function 的 apply
+- [ ] 正则相关练习
 - [ ] 实现 instanceOf
 - [ ] 实现一个 new 函数
 - [ ] 实现一个继承
@@ -58,6 +60,7 @@ import { arrayToTree} from './index.start.js'
 - [ ] deepclone（实现一个深度克隆）
 - [ ] memolize （返回一个可存储函数执行结果的函数）
 - [ ] template 替换方法
+- [ ] 实现lodash的get方法
 
 ### 异步编程
 
@@ -70,22 +73,29 @@ import { arrayToTree} from './index.start.js'
 - [ ] scheduleTask(实现一个同时执行若干个任务的调度任务器)
 - [ ] lazyMan Promise 版本 （微信经典面试题 lazyman）
 - [ ] lazyMan 普通 版本 （微信经典面试题 lazyman）
-- [ ] eventBus （实现一个事件系统的 on 监听函数和 emit 发送事件的函数）
 - [ ] parallel 并行执行两个 callback
 - [ ] waterfall 串行执行有参数传递
 - [ ] 用setTimeout实现setInterval
 
+### 面向对象
+
+- [ ] eventBus （实现一个事件系统的 on 监听函数和 emit 发送事件的函数）
+- [ ] 实现一个简易的依赖注入框架
+
 ### 函数式思想
 
 - [x] currying (柯里化)
-- [ ] 实现compose
+- [x] 实现compose(pipe)
 - [ ] 实现chain方法
 
 ### 框架相关
 
-- [x] 实现一个完整的AngularJS
+- [x] 实现一个简易的AngularJS
 - [ ] 实现一个简易的JQuery
-- [ ] 使用Object.defineProperty和Proxy实现Vue的双向绑定
+- [ ] 实现一个选择器引擎
+- [ ] 实现一个模板解析器
+- [ ] 使用Object.defineProperty实现Vue的双向绑定
+- [ ] 使用Proxy实现Vue的双向绑定
 - [ ] 实现简易的带hooks的react
 - [ ] 实现一个简易的webpack
 
@@ -108,7 +118,7 @@ import { arrayToTree} from './index.start.js'
 
 ## 二.Code Kata
 
-收集一些kata, 涉及**TDD**, **重构**, 与前端非紧密相关
+收集一些kata, 涉及**TDD**, **重构**.
 
 ### Kata 列表
 
@@ -116,11 +126,14 @@ import { arrayToTree} from './index.start.js'
 - [x] marsover
 - [x] multicurrency
 - [x] rentalstore
+- [ ] 康威生命游戏
 
 ### 一些很好的资源
 
 [coding-dojo-handbooks](https://www.amazon.com/Coding-Dojo-Handbook-Emily-Bache/dp/919811803X)
+
 [Awesome Katas](https://github.com/gamontal/awesome-katas)
+
 [project-euler](https://www.freecodecamp.org/learn/coding-interview-prep/project-euler)
 
 ## LeetCode
@@ -129,6 +142,7 @@ import { arrayToTree} from './index.start.js'
 
 ### 数据结构
 
+- [ ] 哈希表
 - [ ] 堆
 - [ ] 二叉树
 

@@ -1,0 +1,3 @@
+function pipe() {}
+
+export { pipe }
