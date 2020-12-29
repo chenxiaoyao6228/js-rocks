@@ -24,7 +24,7 @@
 yarn && yarn test:watch
 ```
 
-打开相应的文件夹, 每个文件夹下面会对应三个文件, `*.test.js`为测试文件, `*.start.js`为起始文件 `*.finish.js`为参考实现, 使用的时候将`finish`文件注释, 完成`start`文件让测试即可.
+打开相应的文件夹, 每个文件夹下面会对应三个文件, `*.test.js`为测试文件, `*.start.js`为起始文件 `*.finish.js`为参考实现, 使用的时候将`finish`文件注释, 完成`start`文件让测试通过即可.
 
 index.test.js
 
@@ -33,9 +33,7 @@ index.test.js
 import { arrayToTree} from './index.start.js'
 ```
 
- 也可以自己选择一个task, 自己用TDD的方式完成, **任务分解->写测试->实现->重构**, 完整的流程走下来相信一定会有收获.
-
-对于一些复杂的任务, 可能会开新的分支, 完整的流程
+也可以自己选择一个task, 自己用TDD的方式完成, **任务分解->写测试->实现->重构**, 完整的流程走下来相信一定会有收获.
 
 ## 一. JS相关
 
@@ -44,27 +42,23 @@ import { arrayToTree} from './index.start.js'
 由于JS没有官方的SDK,需要由社区提供一套作为补充,如underscore,lodash, moment.js等, 当我们不想因为要使用某个方法而引入完整的库的时候,我们需要自己去实现.
 
 - [x] 实现 数组转树
-- [x] 实现 function 的 bind
-- [ ] 实现 function 的 call
-- [ ] 实现 function 的 apply
-- [ ] 正则相关练习
+- [x] 实现 function 的 bind, call, apply
+- [x] 实现一个 new 函数
 - [ ] 实现 instanceOf
-- [ ] 实现一个 new 函数
 - [ ] 实现一个继承
-- [ ] 实现一个 JSON.parse
-- [ ] 实现一个 JSON.stringify
-- [ ] 格式化数组数字
 - [ ] 实现 ES6 的 class
-- [ ] debounce （防抖）
-- [ ] throttle （节流）
-- [ ] deepclone（实现一个深度克隆）
-- [ ] memolize （返回一个可存储函数执行结果的函数）
+- [ ] 实现JSON.parse和JSON.stringify
+- [ ] 格式化数组数字
+- [ ] 实现debounce(防抖)与throttle(节流）
+- [ ] deepClone（实现一个深度克隆）
+- [ ] memorize （返回一个可存储函数执行结果的函数）
 - [ ] template 替换方法
 - [ ] 实现lodash的get方法
+- [ ] 正则相关练习
 
 ### 异步编程
 
-- [ ] 实现一个 promise
+- [ ] 实现一个符合PromiseA+规范的Promise
 - [ ] 红绿灯问题
 - [ ] retry （重试发一个 ajax，失败的时候会自动重试）
 - [ ] 用 XMLHttpRequest 实现一个 promise 的 ajax
@@ -118,23 +112,23 @@ import { arrayToTree} from './index.start.js'
 
 ## 二.Code Kata
 
-收集一些kata, 涉及**TDD**, **重构**.
+收集一些kata, 利用Javascript和TypeScript实现, 涉及**TDD**, **重构**等题目
 
 ### Kata 列表
 
-- [x] gilderose
-- [x] marsover
-- [x] multicurrency
-- [x] rentalstore
+- [x] Gilderose
+- [x] Marsover
+- [x] Multicurrency
+- [x] Rentalstore
 - [ ] 康威生命游戏
 
-### 一些很好的资源
+### 资源参考
 
-[coding-dojo-handbooks](https://www.amazon.com/Coding-Dojo-Handbook-Emily-Bache/dp/919811803X)
+- [coding-dojo-handbooks](https://www.amazon.com/Coding-Dojo-Handbook-Emily-Bache/dp/919811803X)
 
-[Awesome Katas](https://github.com/gamontal/awesome-katas)
+- [Awesome Katas](https://github.com/gamontal/awesome-katas)
 
-[project-euler](https://www.freecodecamp.org/learn/coding-interview-prep/project-euler)
+- [project-euler](https://www.freecodecamp.org/learn/coding-interview-prep/project-euler)
 
 ## LeetCode
 

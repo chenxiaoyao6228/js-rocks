@@ -1,4 +1,4 @@
-import { getRandomNums, countChange, fibWithMemo } from './'
+import { getRandomNums, countChange, fibWithMemo } from './index.finish'
 
 describe('recursion', () => {
   test('getRandomNumber', () => {
