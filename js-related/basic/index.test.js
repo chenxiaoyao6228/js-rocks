@@ -144,6 +144,7 @@ describe('myApply', () => {
 describe('lodash get method', () => {
   test('should return undefined when not found instead of throwing errors', () => {
     let object = { a: { b: { c: 1 } } }
+    expect(get(object, 'b')).toEqual(undefined)
     expect(get(object, 'a.c')).toEqual(undefined)
     expect(get(object, 'a.b.d')).toEqual(undefined)
     expect(get(object, 'a.c.d')).toEqual(undefined)
@@ -163,6 +164,7 @@ describe('lodash get method', () => {
   })
   test('should support explicitly pass default value', () => {
     var object = { a: [{ b: { c: 3 } }] }
+    expect(get(object, 'b', 'default')).toEqual('default')
     expect(get(object, 'a.b.c', 'default')).toEqual('default')
     expect(get(object, ['a', '1', 'b', 'c'], 'default')).toEqual('default')
   })

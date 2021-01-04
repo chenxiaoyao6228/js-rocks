@@ -62,6 +62,12 @@ function myBind(fn, context) {
 //   }
 // }
 
+/**
+ * 实现call方法
+ *
+ * @param {*} context
+ * @return {*}
+ */
 function myCall(context) {
   context[this.name] = this //通过函数的name属性可以拿到函数名
   var args = []
@@ -73,6 +79,13 @@ function myCall(context) {
   return result
 }
 
+/**
+ * 实现apply方法
+ *
+ * @param {*} context
+ * @param {*} arr
+ * @return {*}
+ */
 function myApply(context, arr) {
   context[this.name] = this //通过函数的name属性可以拿到函数名
   var args = []
