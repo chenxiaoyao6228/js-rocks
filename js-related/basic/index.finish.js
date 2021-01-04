@@ -90,7 +90,7 @@ function myApply(context, arr) {
  * @param {*} object: 要查询的对象
  * @param {*} path: 查询路径
  */
-function get(object, path) {
+function get(object, path, defaultValue) {
   let pathArr
   if (typeof path === 'string') {
     path = path.replace(/\[(\d+)\]/g, '.$1')
@@ -103,6 +103,9 @@ function get(object, path) {
   while (pathArr.length > 0) {
     let p = pathArr.shift()
     res = res === undefined ? Object(res)[p] : res[p]
+  }
+  if (res === undefined && defaultValue) {
+    res = defaultValue
   }
   return res
 }

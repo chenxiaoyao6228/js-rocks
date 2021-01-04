@@ -161,4 +161,9 @@ describe('lodash get method', () => {
     expect(get(object, ['a', '0', 'b', 'c'])).toEqual(3)
     expect(get(object, ['a', '0', 'b', 'd'])).toEqual(undefined)
   })
+  test('should support explicitly pass default value', () => {
+    var object = { a: [{ b: { c: 3 } }] }
+    expect(get(object, 'a.b.c', 'default')).toEqual('default')
+    expect(get(object, ['a', '1', 'b', 'c'], 'default')).toEqual('default')
+  })
 })
