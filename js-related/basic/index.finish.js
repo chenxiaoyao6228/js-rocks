@@ -91,6 +91,7 @@ function myApply(context, arr) {
  * @param {*} path: 查询路径
  */
 function get(object, path) {
+  path = path.replace(/\[(\d+)\]/g, '.$1')
   let pathArr = path.split('.')
   let p = pathArr.shift()
   let res = object[p]

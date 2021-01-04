@@ -142,10 +142,18 @@ describe('myApply', () => {
 })
 
 describe('lodash get method', () => {
-  let object1 = { a: { b: { c: 1 } } }
   test('should return undefined when not found instead of throwing errors', () => {
-    expect(get(object1, 'a.c')).toEqual(undefined)
-    expect(get(object1, 'a.b.d')).toEqual(undefined)
-    expect(get(object1, 'a.c.d')).toEqual(undefined)
+    let object = { a: { b: { c: 1 } } }
+    expect(get(object, 'a.c')).toEqual(undefined)
+    expect(get(object, 'a.b.d')).toEqual(undefined)
+    expect(get(object, 'a.c.d')).toEqual(undefined)
+  })
+  test('should support object property as array', () => {
+    var object = { a: [{ b: { c: 3 } }] }
+    expect(get(object, 'a[0].b.c')).toEqual(3)
+    expect(get(object, 'a[0].b.d')).toEqual(undefined)
+    expect(get(object, 'a[0].c.d')).toEqual(undefined)
+    expect(get(object, 'a[1]')).toEqual(undefined)
+    expect(get(object, 'a[1].b')).toEqual(undefined)
   })
 })
