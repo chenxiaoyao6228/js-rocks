@@ -1,10 +1,11 @@
-// import { arrayToTree, curriedAdd, myBind,  myApply, myCall } from './index.start.js'
+// import { arrayToTree, curriedAdd, myBind,  myApply, myCall, get} from './index.start.js'
 import {
   arrayToTree,
   curriedAdd,
   myBind,
   myApply,
-  myCall
+  myCall,
+  get
 } from './index.finish.js'
 
 test('array to tree', () => {
@@ -137,5 +138,34 @@ describe('myApply', () => {
     let context = { firstName: 'York' }
     let res = greet.myApply(context, ['Chan'])
     expect(res).toEqual('Hello York Chan!')
+  })
+})
+
+describe('lodash get method', () => {
+  test('should return undefined when not found instead of throwing errors', () => {
+    let object = { a: { b: { c: 1 } } }
+    expect(get(object, 'b')).toEqual(undefined)
+    expect(get(object, 'a.c')).toEqual(undefined)
+    expect(get(object, 'a.b.d')).toEqual(undefined)
+    expect(get(object, 'a.c.d')).toEqual(undefined)
+  })
+  test('should support object property as array', () => {
+    let object = { a: [{ b: { c: 3 } }] }
+    expect(get(object, 'a[0].b.c')).toEqual(3)
+    expect(get(object, 'a[0].b.d')).toEqual(undefined)
+    expect(get(object, 'a[0].c.d')).toEqual(undefined)
+    expect(get(object, 'a[1]')).toEqual(undefined)
+    expect(get(object, 'a[1].b')).toEqual(undefined)
+  })
+  test('should support path as array', () => {
+    let object = { a: [{ b: { c: 3 } }] }
+    expect(get(object, ['a', '0', 'b', 'c'])).toEqual(3)
+    expect(get(object, ['a', '0', 'b', 'd'])).toEqual(undefined)
+  })
+  test('should support explicitly pass default value', () => {
+    let object = { a: [{ b: { c: 3 } }] }
+    expect(get(object, 'b', 'default')).toEqual('default')
+    expect(get(object, 'a.b.c', 'default')).toEqual('default')
+    expect(get(object, ['a', '1', 'b', 'c'], 'default')).toEqual('default')
   })
 })

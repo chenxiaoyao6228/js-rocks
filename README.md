@@ -53,8 +53,7 @@ import { arrayToTree} from './index.start.js'
 - [ ] deepClone（实现一个深度克隆）
 - [ ] memorize （返回一个可存储函数执行结果的函数）
 - [ ] template 替换方法
-- [ ] 实现lodash的get方法
-- [ ] 正则相关练习
+- [x] 实现lodash的get方法
 
 ### 异步编程
 
