@@ -31,4 +31,33 @@ function myBind() {
   // TODO
 }
 
-export { arrayToTree, curriedAdd, myBind }
+/**
+ * 实现call方法
+ *
+ * @param {*} context
+ * @return {*}
+ */
+function myCall() {
+  // TODO
+}
+
+/**
+ * 实现apply方法
+ *
+ * @param {*} context
+ * @param {*} arr
+ * @return {*}
+ */
+function myApply() {
+  // TODO
+}
+
+/**
+ * 实现一个get方法,获取对象中的属性,若无,返回undefined
+ *
+ * @param {*} object: 要查询的对象
+ * @param {*} path: 查询路径
+ */
+function get() {}
+
+export { arrayToTree, curriedAdd, myBind, myCall, myApply, get }

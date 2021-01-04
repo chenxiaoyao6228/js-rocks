@@ -62,6 +62,12 @@ function myBind(fn, context) {
 //   }
 // }
 
+/**
+ * 实现call方法
+ *
+ * @param {*} context
+ * @return {*}
+ */
 function myCall(context) {
   context[this.name] = this //通过函数的name属性可以拿到函数名
   var args = []
@@ -73,6 +79,13 @@ function myCall(context) {
   return result
 }
 
+/**
+ * 实现apply方法
+ *
+ * @param {*} context
+ * @param {*} arr
+ * @return {*}
+ */
 function myApply(context, arr) {
   context[this.name] = this //通过函数的name属性可以拿到函数名
   var args = []
@@ -84,4 +97,30 @@ function myApply(context, arr) {
   return result
 }
 
-export { arrayToTree, curriedAdd, myBind, myApply, myCall }
+/**
+ * 实现一个get方法,获取对象中的属性,若无,返回undefined
+ *
+ * @param {*} object: 要查询的对象
+ * @param {*} path: 查询路径
+ */
+function get(object, path, defaultValue) {
+  let pathArr
+  if (typeof path === 'string') {
+    path = path.replace(/\[(\d+)\]/g, '.$1')
+    pathArr = path.split('.')
+  } else {
+    pathArr = path
+  }
+  let p = pathArr.shift()
+  let res = object[p]
+  while (pathArr.length > 0) {
+    let p = pathArr.shift()
+    res = res === undefined ? Object(res)[p] : res[p]
+  }
+  if (res === undefined && defaultValue) {
+    res = defaultValue
+  }
+  return res
+}
+
+export { arrayToTree, curriedAdd, myBind, myApply, myCall, get }
