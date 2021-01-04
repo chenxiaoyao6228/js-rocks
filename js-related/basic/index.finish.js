@@ -84,4 +84,21 @@ function myApply(context, arr) {
   return result
 }
 
-export { arrayToTree, curriedAdd, myBind, myApply, myCall }
+/**
+ * 实现一个get方法,获取对象中的属性,若无,返回undefined
+ *
+ * @param {*} object: 要查询的对象
+ * @param {*} path: 查询路径
+ */
+function get(object, path) {
+  let pathArr = path.split('.')
+  let p = pathArr.shift()
+  let res = object[p]
+  while (pathArr.length > 0) {
+    let p = pathArr.shift()
+    res = res === undefined ? Object(res)[p] : res[p]
+  }
+  return res
+}
+
+export { arrayToTree, curriedAdd, myBind, myApply, myCall, get }

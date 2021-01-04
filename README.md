@@ -14,7 +14,7 @@
 
 > Code Kata是《程序员修炼之道》的作者Dave Thomas发明的一种练习编程的活动，每次一到两个小时，做一个小题目，用TDD的方式来实现，不断地重构。正如Thomas在Code Kata网站上所说，不管你是要成为优秀的音乐家还是运动员，你都得不断练习——你有天赋，很好；你熟知音乐或体育的理论，很好；但你必须得练习，持续而大量地练习，否则你就是个外行人。而软件行业一直以来并不重视练习，似乎大家都很满足于“知道某个东西”（比如“了解设计模式”、“了解重构理论”）而不是真正通过练习掌握某个东西，无怪乎这个行业里充斥着如此之多的外行人。-- By 熊节 <不敢止步: 一个软件工匠的12年>
 
-这个项目分为三个部分, Javascript相关的知识点, Code-Kata 编程练习题, 以及 LeetCode 解题集合, 与[这个](https://github.com/chenxiaoyao6228/blog)repo 互为补充.
+这个项目分为四个部分, Javascript相关的知识点, Code-Kata 编程练习题, LeetCode 解题集合, 以及书单整理, 与[这个](https://github.com/chenxiaoyao6228/blog)repo 互为补充.
 
 ### 如何使用
 
@@ -41,6 +41,7 @@ import { arrayToTree} from './index.start.js'
 
 由于JS没有官方的SDK,需要由社区提供一套作为补充,如underscore,lodash, moment.js等, 当我们不想因为要使用某个方法而引入完整的库的时候,我们需要自己去实现.
 
+- [ ] 正则相关练习
 - [x] 实现 数组转树
 - [x] 实现 function 的 bind, call, apply
 - [x] 实现一个 new 函数
@@ -54,11 +55,10 @@ import { arrayToTree} from './index.start.js'
 - [ ] memorize （返回一个可存储函数执行结果的函数）
 - [ ] template 替换方法
 - [ ] 实现lodash的get方法
-- [ ] 正则相关练习
 
 ### 异步编程
 
-- [ ] 实现一个符合PromiseA+规范的Promise
+- [x] 实现一个Promise, 包括then, catch, finally, all, race等方法
 - [ ] 红绿灯问题
 - [ ] retry （重试发一个 ajax，失败的时候会自动重试）
 - [ ] 用 XMLHttpRequest 实现一个 promise 的 ajax
@@ -73,25 +73,26 @@ import { arrayToTree} from './index.start.js'
 
 ### 面向对象
 
-- [ ] eventBus （实现一个事件系统的 on 监听函数和 emit 发送事件的函数）
+- [ ] eventBus （实现一个事件系统的 on 监听函数和 emit 发送事件的函数)
 - [ ] 实现一个简易的依赖注入框架
 
 ### 函数式思想
 
 - [x] currying (柯里化)
-- [x] 实现compose(pipe)
-- [ ] 实现chain方法
+- [x] 实现compose(pipe, chain)
 
 ### 框架相关
 
-- [x] 实现一个简易的AngularJS
+- [x] 实现一个简易的AngularJS, 包含双向数据绑定,模板解析,依赖注入,组件化等功能
 - [ ] 实现一个简易的JQuery
-- [ ] 实现一个选择器引擎
-- [ ] 实现一个模板解析器
 - [ ] 使用Object.defineProperty实现Vue的双向绑定
 - [ ] 使用Proxy实现Vue的双向绑定
 - [ ] 实现简易的带hooks的react
 - [ ] 实现一个简易的webpack
+- [ ] 实现一个选择器引擎
+- [ ] 实现一个模板解析器
+- [ ] 实现一个正则引擎
+- [ ] 实现一个markdown编辑器
 
 ### 组件编写
 
@@ -107,7 +108,7 @@ import { arrayToTree} from './index.start.js'
 
 ### 其他
 
-- [ ] 实现一个类axios的http封装库
+- [x] 实现一个类axios的http封装库
 - [ ] 实现 JSONP
 
 ## 二.Code Kata
@@ -130,7 +131,7 @@ import { arrayToTree} from './index.start.js'
 
 - [project-euler](https://www.freecodecamp.org/learn/coding-interview-prep/project-euler)
 
-## LeetCode
+## 三.LeetCode
 
 算法是每个程序员都避不开的话题, 按照目前的趋势来看, 前端面试至少要刷到 Medium 才算有底.
 
@@ -143,3 +144,22 @@ import { arrayToTree} from './index.start.js'
 ### 精选题解
 
 - [ ] TODO
+
+## 四. 书单
+
+适合前端程序员的好书或者资源
+
+### JS语言
+
+- [ ] [You-Dont-Know-JS](https://github.com/getify/You-Dont-Know-JS)
+- [ ] [Javascript正则小书]()
+
+### dom
+
+- [ ] [domenlightenment](http://domenlightenment.com/)
+
+### 框架
+
+- [ ] 深入浅出VueJS
+- [ ] Build-your-own-angularJS
+- [ ] Javascript框架设计

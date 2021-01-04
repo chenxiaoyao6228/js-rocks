@@ -1,10 +1,11 @@
-// import { arrayToTree, curriedAdd, myBind,  myApply, myCall } from './index.start.js'
+// import { arrayToTree, curriedAdd, myBind,  myApply, myCall, get } from './index.start.js'
 import {
   arrayToTree,
   curriedAdd,
   myBind,
   myApply,
-  myCall
+  myCall,
+  get
 } from './index.finish.js'
 
 test('array to tree', () => {
@@ -137,5 +138,14 @@ describe('myApply', () => {
     let context = { firstName: 'York' }
     let res = greet.myApply(context, ['Chan'])
     expect(res).toEqual('Hello York Chan!')
+  })
+})
+
+describe('lodash get method', () => {
+  let object1 = { a: { b: { c: 1 } } }
+  test('should return undefined when not found instead of throwing errors', () => {
+    expect(get(object1, 'a.c')).toEqual(undefined)
+    expect(get(object1, 'a.b.d')).toEqual(undefined)
+    expect(get(object1, 'a.c.d')).toEqual(undefined)
   })
 })
