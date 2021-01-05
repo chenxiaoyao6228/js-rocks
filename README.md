@@ -43,10 +43,6 @@ import { arrayToTree} from './index.start.js'
 
 - [x] 实现 数组转树
 - [x] 实现 function 的 bind, call, apply
-- [x] 实现一个 new 函数
-- [ ] 实现 instanceOf
-- [ ] 实现一个继承
-- [ ] 实现 ES6 的 class
 - [ ] 实现JSON.parse和JSON.stringify
 - [ ] 格式化数组数字
 - [ ] 实现debounce(防抖)与throttle(节流）
@@ -54,6 +50,12 @@ import { arrayToTree} from './index.start.js'
 - [ ] memorize （返回一个可存储函数执行结果的函数）
 - [ ] template 替换方法
 - [x] 实现lodash的get方法
+
+### 继承与类
+
+- [x] 实现一个 new 函数
+- [x] 实现 ES6 的 class
+- [ ] 实现 instanceOf
 
 ### 异步编程
 
@@ -70,7 +72,7 @@ import { arrayToTree} from './index.start.js'
 - [ ] waterfall 串行执行有参数传递
 - [ ] 用setTimeout实现setInterval
 
-### 面向对象
+### 面向对象的设计模式
 
 - [ ] eventBus （实现一个事件系统的 on 监听函数和 emit 发送事件的函数）
 - [ ] 实现一个简易的依赖注入框架
@@ -85,6 +87,7 @@ import { arrayToTree} from './index.start.js'
 
 - [x] 实现一个简易的AngularJS
 - [ ] 实现一个简易的JQuery
+- [ ] 实现模块加载器
 - [ ] 实现一个选择器引擎
 - [ ] 实现一个模板解析器
 - [ ] 使用Object.defineProperty实现Vue的双向绑定
