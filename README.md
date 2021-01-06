@@ -14,7 +14,9 @@
 
 > Code Kata是《程序员修炼之道》的作者Dave Thomas发明的一种练习编程的活动，每次一到两个小时，做一个小题目，用TDD的方式来实现，不断地重构。正如Thomas在Code Kata网站上所说，不管你是要成为优秀的音乐家还是运动员，你都得不断练习——你有天赋，很好；你熟知音乐或体育的理论，很好；但你必须得练习，持续而大量地练习，否则你就是个外行人。而软件行业一直以来并不重视练习，似乎大家都很满足于“知道某个东西”（比如“了解设计模式”、“了解重构理论”）而不是真正通过练习掌握某个东西，无怪乎这个行业里充斥着如此之多的外行人。-- By 熊节 <不敢止步: 一个软件工匠的12年>
 
-这个项目分为三个部分, Javascript相关的知识点, Code-Kata 编程练习题, 以及 LeetCode 解题集合, 与[这个](https://github.com/chenxiaoyao6228/blog)repo 互为补充.
+这个项目分为四个部分, Javascript相关的知识点, 组件编写, Code-Kata 编程练习题, 以及 LeetCode 解题集合, 与[这个](https://github.com/chenxiaoyao6228/blog)repo 互为补充.
+
+为了保持master分支的Git记录清爽, 每个feature完成会进行git rebase, 因此会失去tdd 的commit的过程(每次pr之前要copy feature分支, 避免rebase之后记录就没有了, 暂时想到只这个办法😂), 要查看的话可以切换到特定的分支进行查看
 
 ### 如何使用
 
@@ -81,38 +83,43 @@ import { arrayToTree} from './index.start.js'
 
 - [x] currying (柯里化)
 - [x] 实现compose(pipe)
-- [ ] 实现chain方法
+- [x] 实现partial, partialRight
 
 ### 框架相关
 
-- [x] 实现一个简易的AngularJS
 - [ ] 实现一个简易的JQuery
+- [x] 实现一个简易的AngularJS
+- [ ] 使用一个带Vdom的Vue,参考Vue 0.1.0
+- [ ] 使用Proxy实现Vue的双向绑定
+- [ ] 实现简易的带hooks的react
 - [ ] 实现模块加载器
 - [ ] 实现一个选择器引擎
 - [ ] 实现一个模板解析器
-- [ ] 使用Object.defineProperty实现Vue的双向绑定
-- [ ] 使用Proxy实现Vue的双向绑定
-- [ ] 实现简易的带hooks的react
 - [ ] 实现一个简易的webpack
-
-### 组件编写
-
-#### Vue
-
-- [ ] 用TDD的方式写一个Button组件
-- [ ] 用TDD的方式写一个Swiper组件
-
-#### React
-
-- [ ] 用TDD的方式写一个Button组件
-- [ ] 用TDD的方式写一个Swiper组件
 
 ### 其他
 
-- [ ] 实现一个类axios的http封装库
+- [x] 实现一个类axios的http封装库
 - [ ] 实现 JSONP
 
-## 二.Code Kata
+## 二.组件编写
+
+### 原生
+
+- [ ] 用TDD的方式写一个Button组件
+- [ ] 用TDD的方式写一个Swiper组件
+
+### Vue
+
+- [ ] 用TDD的方式写一个Button组件
+- [ ] 用TDD的方式写一个Swiper组件
+
+### React
+
+- [ ] 用TDD的方式写一个Button组件
+- [ ] 用TDD的方式写一个Swiper组件
+
+## 三.Code Kata
 
 收集一些kata, 利用Javascript和TypeScript实现, 涉及**TDD**, **重构**等题目
 
@@ -132,7 +139,7 @@ import { arrayToTree} from './index.start.js'
 
 - [project-euler](https://www.freecodecamp.org/learn/coding-interview-prep/project-euler)
 
-## LeetCode
+## 四.LeetCode
 
 算法是每个程序员都避不开的话题, 按照目前的趋势来看, 前端面试至少要刷到 Medium 才算有底.
 

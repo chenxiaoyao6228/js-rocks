@@ -1,3 +1,12 @@
-function pipe() {}
+function pipe() {
+  // TODO
+}
 
-export { pipe }
+function partial() {
+  // TODO
+}
+function partialRight() {
+  // TODO
+}
+
+export { pipe, partial, partialRight }

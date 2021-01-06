@@ -16,8 +16,38 @@
  * @param {*} fns
  * @return {*}
  */
-export function pipe(...fns) {
+function pipe(...fns) {
   return arg => {
     return fns.reduce((acc, fn) => fn(acc), arg)
   }
 }
+
+/**
+ * partial
+ *
+ * @param {*} fn
+ * @return {*}
+ */
+function partial(fn) {
+  let partialArgs = arguments.length > 1 ? [].slice.call(arguments, 1) : []
+  return function() {
+    let args = partialArgs.concat([].slice.call(arguments))
+    return fn.apply(fn, args)
+  }
+}
+
+/**
+ * partialRight
+ *
+ * @param {*} fn
+ * @return {*}
+ */
+function partialRight(fn) {
+  let partialArgs = arguments.length > 1 ? [].slice.call(arguments, 1) : []
+  return function() {
+    let args = [].slice.call(arguments).concat(partialArgs)
+    return fn.apply(fn, args)
+  }
+}
+
+export { pipe, partial, partialRight }
