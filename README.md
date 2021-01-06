@@ -83,7 +83,7 @@ import { arrayToTree} from './index.start.js'
 
 - [x] currying (柯里化)
 - [x] 实现compose(pipe)
-- [x] 实现partial
+- [x] 实现partial, partialRight
 
 ### 框架相关
 

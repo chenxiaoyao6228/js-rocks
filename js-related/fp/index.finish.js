@@ -22,6 +22,12 @@ function pipe(...fns) {
   }
 }
 
+/**
+ * partial
+ *
+ * @param {*} fn
+ * @return {*}
+ */
 function partial(fn) {
   let partialArgs = arguments.length > 1 ? [].slice.call(arguments, 1) : []
   return function() {
@@ -30,4 +36,18 @@ function partial(fn) {
   }
 }
 
-export { pipe, partial }
+/**
+ * partialRight
+ *
+ * @param {*} fn
+ * @return {*}
+ */
+function partialRight(fn) {
+  let partialArgs = arguments.length > 1 ? [].slice.call(arguments, 1) : []
+  return function() {
+    let args = [].slice.call(arguments).concat(partialArgs)
+    return fn.apply(fn, args)
+  }
+}
+
+export { pipe, partial, partialRight }
