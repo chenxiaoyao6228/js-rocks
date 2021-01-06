@@ -45,13 +45,61 @@ import { arrayToTree} from './index.start.js'
 
 - [x] 实现 数组转树
 - [x] 实现 function 的 bind, call, apply
-- [ ] 实现JSON.parse和JSON.stringify
-- [ ] 格式化数组数字
-- [ ] 实现debounce(防抖)与throttle(节流）
-- [ ] deepClone（实现一个深度克隆）
-- [ ] memorize （返回一个可存储函数执行结果的函数）
-- [ ] template 替换方法
 - [x] 实现lodash的get方法
+- [ ] deepClone（实现一个深度克隆）
+- [ ] 实现isFunction, isArray
+- [ ] 实现isArrayLike
+- [ ] 实现JSON.parse和JSON.stringify
+- [ ] 实现debounce(防抖)与throttle(节流）
+- [ ] memorize （返回一个可存储函数执行结果的函数）
+
+### 字符串扩展
+
+ES5/ES6
+
+- [ ] template
+- [ ] startWith
+- [ ] endWith
+- [ ] contains(includes)
+- [ ] pad(fillZero)
+- [ ] trim
+- [ ] repeat
+
+风格转化
+
+- [ ] camelize, capitalize, dasherize, underscored
+
+标签处理
+
+- [ ] stripTags
+- [ ] stripScripts
+- [ ] escapeHTML
+- [ ] unescapeHTML
+
+### 数组扩展
+
+- [ ] eachSlice
+- [ ] detect
+- [ ] grep
+- [ ] include
+- [ ] inGroupsOf
+- [ ] invoke
+- [ ] max
+- [ ] min
+- [ ] partition
+- [ ] pluck
+- [ ] reject
+- [ ] sortBy
+- [ ] zip
+- [ ] size
+- [ ] first, last
+- [ ] compact
+- [ ] flatten
+- [ ] without
+- [ ] uniq
+- [ ] intersect
+- [ ] clone
+- [ ] inspect
 
 ### 继承与类
 
@@ -92,10 +140,11 @@ import { arrayToTree} from './index.start.js'
 - [ ] 使用一个带Vdom的Vue,参考Vue 0.1.0
 - [ ] 使用Proxy实现Vue的双向绑定
 - [ ] 实现简易的带hooks的react
-- [ ] 实现模块加载器
+- [ ] 实现commonJS模块加载器
 - [ ] 实现一个选择器引擎
 - [ ] 实现一个模板解析器
 - [ ] 实现一个简易的webpack
+- [ ] 实现一个前端监控平台
 
 ### 其他
 
