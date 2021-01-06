@@ -1,5 +1,5 @@
 import { isFunction } from '../utils'
-import { pipe } from './index.finish'
+import { pipe, partial } from './index.finish'
 
 describe('fp', () => {
   describe('pipe', () => {
@@ -30,5 +30,16 @@ describe('fp', () => {
       expect(res).toEqual(3)
     })
     // TODO auto currying
+  })
+  describe('partial', () => {
+    test('basic', () => {
+      function greet(greeting, name) {
+        return greeting + ' ' + name
+      }
+      let sayHello = partial(greet, 'hi')
+      expect(typeof sayHello).toEqual('function')
+      expect(sayHello('allen')).toEqual('hi allen')
+    })
+    test('should support placeholder', () => {})
   })
 })
