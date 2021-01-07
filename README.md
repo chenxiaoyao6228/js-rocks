@@ -57,13 +57,12 @@ import { arrayToTree} from './index.start.js'
 
 ES5/ES6
 
-- [ ] template
 - [ ] startWith
 - [ ] endWith
 - [ ] contains(includes)
 - [ ] pad(fillZero)
 - [ ] trim
-- [ ] repeat
+- [x] repeat
 
 风格转化
 
@@ -107,9 +106,21 @@ ES5/ES6
 - [x] 实现 ES6 的 class
 - [ ] 实现 instanceOf
 
+### 日期扩展
+
+传入一个日期
+
+- [ ] 求当前月份的天数 getDaysInMonth
+- [ ] 判断所在年是否为闰年 isLeapYear
+- [ ] 判断所在季度的第一天 getFirstDateInQuarter
+- [ ] 判断所在季度的最后一天 getLastDateInQuarter
+- [ ] 判断所在月的第一天 getFirstDateInMonth
+- [ ] 判断所在月的最后一天 getLastDateInMonth
+- [ ] 判断与另外日期相隔多少天 getDatePeriod
+
 ### 异步编程
 
-- [ ] 实现一个符合PromiseA+规范的Promise
+- [x] 实现一个Promise
 - [ ] 红绿灯问题
 - [ ] retry （重试发一个 ajax，失败的时候会自动重试）
 - [ ] 用 XMLHttpRequest 实现一个 promise 的 ajax
