@@ -60,8 +60,8 @@ ES5/ES6
 - [ ] startWith
 - [ ] endWith
 - [ ] contains(includes)
-- [ ] pad(fillZero)
-- [ ] trim
+- [x] padStart, padEnd(fillZero)
+- [x] trim, trimStart, trimEnd
 - [x] repeat
 
 风格转化

@@ -1,4 +1,11 @@
-import { repeat, padStart, padEnd } from './index.finish'
+import {
+  repeat,
+  padStart,
+  padEnd,
+  trim,
+  trimStart,
+  trimEnd
+} from './index.finish'
 
 test('repeat', () => {
   expect(repeat('allen', 2)).toEqual('allenallen')
@@ -17,5 +24,17 @@ describe('pad', () => {
     expect(padEnd('abc', 10, 'foo')).toEqual('abcfoofoof')
     expect(padEnd('abc', 6, '123456')).toEqual('abc123')
     expect(padEnd('abc', 1)).toEqual('abc')
+  })
+})
+
+describe('trim', () => {
+  test('trim', () => {
+    expect(trim(' hello ')).toEqual('hello')
+  })
+  test('trimStart', () => {
+    expect(trimStart(' hello ')).toEqual('hello ')
+  })
+  test('trimEnd', () => {
+    expect(trimEnd(' hello ')).toEqual(' hello')
   })
 })
