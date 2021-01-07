@@ -41,4 +41,54 @@ function trimEnd() {
   // TODO
 }
 
-export { repeat, padStart, padEnd, trim, trimStart, trimEnd }
+/**
+ * 下划线处理
+ *
+ * @param {*} target
+ * @return {*}
+ */
+function underscored() {
+  // TODO
+}
+
+/**
+ * 连字符
+ *
+ * @param {*} target
+ * @return {*}
+ */
+function dasherize() {
+  // TODO
+}
+
+/**
+ * 首字母大写, 其余小写
+ *
+ * @param {*} target
+ * @return {*}
+ */
+function capitalize() {
+  // TODO
+}
+
+/**
+ * 驼峰式
+ *
+ * @param {*} target
+ * @return {*}
+ */
+function camelize() {
+  // TODO
+}
+export {
+  repeat,
+  padStart,
+  padEnd,
+  trim,
+  trimStart,
+  trimEnd,
+  underscored,
+  dasherize,
+  capitalize,
+  camelize
+}

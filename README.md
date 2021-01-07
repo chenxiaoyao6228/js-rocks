@@ -57,8 +57,7 @@ import { arrayToTree} from './index.start.js'
 
 ES5/ES6
 
-- [ ] startWith
-- [ ] endWith
+- [ ] startWith, endWith
 - [ ] contains(includes)
 - [x] padStart, padEnd(fillZero)
 - [x] trim, trimStart, trimEnd
@@ -66,7 +65,7 @@ ES5/ES6
 
 风格转化
 
-- [ ] camelize, capitalize, dasherize, underscored
+- [x] camelize, capitalize, dasherize, underscored
 
 标签处理
 

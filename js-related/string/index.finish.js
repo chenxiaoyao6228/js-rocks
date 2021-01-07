@@ -67,4 +67,66 @@ function trim(target) {
   return target.replace(/\s+(\w+)\s*/, '$1')
 }
 
-export { repeat, padStart, padEnd, trim, trimStart, trimEnd }
+/**
+ * 下划线处理
+ *
+ * @param {*} target
+ * @return {*}
+ */
+function underscored(target) {
+  return target
+    .replace(/([a-z])([A-Z])/g, '$1_$2')
+    .replace(/-/g, '_')
+    .toLowerCase()
+}
+
+/**
+ * 连字符
+ *
+ * @param {*} target
+ * @return {*}
+ */
+function dasherize(target) {
+  return target
+    .replace(/([a-z])([A-Z])/g, '$1_$2')
+    .replace(/_/g, '-')
+    .toLowerCase()
+}
+
+/**
+ * 首字母大写, 其余小写
+ *
+ * @param {*} target
+ * @return {*}
+ */
+function capitalize(target) {
+  return target.charAt(0).toUpperCase() + target.slice(1).toLowerCase()
+}
+
+/**
+ * 驼峰式
+ *
+ * @param {*} target
+ * @return {*}
+ */
+function camelize(target) {
+  if (target.indexOf('_') < 0 && target.indexOf('_') < 0) {
+    return target
+  }
+  return target.replace(/[-_][^-_]/g, function(match) {
+    return match.charAt(1).toUpperCase()
+  })
+}
+
+export {
+  repeat,
+  padStart,
+  padEnd,
+  trim,
+  trimStart,
+  trimEnd,
+  underscored,
+  dasherize,
+  capitalize,
+  camelize
+}

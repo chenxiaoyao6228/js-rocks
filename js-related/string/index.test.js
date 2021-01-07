@@ -4,7 +4,11 @@ import {
   padEnd,
   trim,
   trimStart,
-  trimEnd
+  trimEnd,
+  underscored,
+  dasherize,
+  capitalize,
+  camelize
 } from './index.finish'
 
 test('repeat', () => {
@@ -36,5 +40,20 @@ describe('trim', () => {
   })
   test('trimEnd', () => {
     expect(trimEnd(' hello ')).toEqual(' hello')
+  })
+})
+
+describe('format string', () => {
+  test('underscored', () => {
+    expect(underscored('yorkIsHandsome')).toEqual('york_is_handsome')
+  })
+  test('dasherize', () => {
+    expect(dasherize('yorkIsHandsome')).toEqual('york-is-handsome')
+  })
+  test('capitalize', () => {
+    expect(capitalize('yorkIsHandsome')).toEqual('Yorkishandsome')
+  })
+  test('camelize', () => {
+    expect(camelize('york-is_handsome')).toEqual('yorkIsHandsome')
   })
 })
