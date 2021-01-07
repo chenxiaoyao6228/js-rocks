@@ -23,4 +23,24 @@ function repeat(target, n) {
   return total
 }
 
-export { repeat }
+function padStart(target, n, filling) {
+  if (target.length >= n) return target
+  var res
+  filling = filling || ' '
+  var lenToFill = n - target.length
+  var textToFill = new Array(n).join(filling).substr(0, lenToFill)
+  res = textToFill + target
+  return res
+}
+
+function padEnd(target, n, filling) {
+  if (target.length >= n) return target
+  var res
+  filling = filling || ' '
+  var lenToFill = n - target.length
+  var textToFill = new Array(n).join(filling).substr(0, lenToFill)
+  res = target + textToFill
+  return res
+}
+
+export { repeat, padStart, padEnd }
