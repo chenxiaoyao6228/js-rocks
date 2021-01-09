@@ -43,12 +43,11 @@ import { arrayToTree} from './index.start.js'
 
 由于JS没有官方的SDK,需要由社区提供一套作为补充,如underscore,lodash, moment.js等, 当我们不想因为要使用某个方法而引入完整的库的时候,我们需要自己去实现.
 
-- [x] 实现 数组转树
+- [x] ⭐实现is-xx函数(isFunction, isArray)
 - [x] ⭐ 实现 function 的 bind, call, apply
 - [ ] ⭐deepClone（实现一个深度克隆）
 - [x] 实现lodash的get方法
-- [ ] 实现isFunction, isArray
-- [ ] 实现isArrayLike
+- [x] 实现 数组转树
 - [ ] 实现JSON.parse和JSON.stringify
 - [ ] 实现debounce(防抖)与throttle(节流）
 - [ ] memorize （返回一个可存储函数执行结果的函数）
