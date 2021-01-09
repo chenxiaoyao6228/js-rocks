@@ -44,9 +44,9 @@ import { arrayToTree} from './index.start.js'
 由于JS没有官方的SDK,需要由社区提供一套作为补充,如underscore,lodash, moment.js等, 当我们不想因为要使用某个方法而引入完整的库的时候,我们需要自己去实现.
 
 - [x] 实现 数组转树
-- [x] 实现 function 的 bind, call, apply
+- [x] ⭐ 实现 function 的 bind, call, apply
+- [ ] ⭐deepClone（实现一个深度克隆）
 - [x] 实现lodash的get方法
-- [ ] deepClone（实现一个深度克隆）
 - [ ] 实现isFunction, isArray
 - [ ] 实现isArrayLike
 - [ ] 实现JSON.parse和JSON.stringify
@@ -102,7 +102,7 @@ ES5/ES6
 ### 继承与类
 
 - [x] 实现一个 new 函数
-- [x] 实现 ES6 的 class
+- [x] ⭐实现 ES6 的 class
 - [ ] 实现 instanceOf
 
 ### 日期扩展
@@ -119,7 +119,7 @@ ES5/ES6
 
 ### 异步编程
 
-- [x] 实现一个Promise
+- [x] ⭐实现一个Promise
 - [ ] 红绿灯问题
 - [ ] retry （重试发一个 ajax，失败的时候会自动重试）
 - [ ] 用 XMLHttpRequest 实现一个 promise 的 ajax
@@ -134,7 +134,7 @@ ES5/ES6
 
 ### 面向对象的设计模式
 
-- [ ] eventBus （实现一个事件系统的 on 监听函数和 emit 发送事件的函数）
+- [ ] ⭐eventBus （实现一个事件系统的 on 监听函数和 emit 发送事件的函数）
 - [ ] 实现一个简易的依赖注入框架
 
 ### 函数式思想
@@ -147,36 +147,35 @@ ES5/ES6
 
 - [ ] 实现一个简易的JQuery
 - [x] 实现一个简易的AngularJS
-- [ ] 使用一个带Vdom的Vue,参考Vue 0.1.0
+- [ ] ⭐使用一个带Vdom的Vue,参考Vue 0.1.0
 - [ ] 使用Proxy实现Vue的双向绑定
-- [ ] 实现简易的带hooks的react
+- [ ] ⭐实现简易的带hooks的react
 - [ ] 实现commonJS模块加载器
 - [ ] 实现一个选择器引擎
 - [ ] 实现一个模板解析器
-- [ ] 实现一个简易的webpack
+- [ ] ⭐实现一个简易的webpack
 - [ ] 实现一个前端监控平台
 
 ### 其他
 
-- [x] 实现一个类axios的http封装库
+- [x] ⭐实现一个类axios的http封装库
 - [ ] 实现 JSONP
 
 ## 二.组件编写
-
-### 原生
-
-- [ ] 用TDD的方式写一个Button组件
-- [ ] 用TDD的方式写一个Swiper组件
 
 ### Vue
 
 - [ ] 用TDD的方式写一个Button组件
 - [ ] 用TDD的方式写一个Swiper组件
+- [ ] ⭐用TDD的方式写一个Tree组件
+- [ ] ⭐用TDD的方式写一个Table组件
 
 ### React
 
 - [ ] 用TDD的方式写一个Button组件
 - [ ] 用TDD的方式写一个Swiper组件
+- [ ] ⭐用TDD的方式写一个Tree组件
+- [ ] ⭐用TDD的方式写一个Table组件
 
 ## 三.Code Kata
 
