@@ -21,7 +21,7 @@
     "singleQuote": true
   },
   "jest": {
-    "testEnvironment": "node",
+    "testEnvironment": "jsdom",
     "coverageThreshold": {
       "global": {
         "branches": 90,
