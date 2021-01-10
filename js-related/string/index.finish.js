@@ -118,6 +118,25 @@ function camelize(target) {
   })
 }
 
+/**
+ * 判断字符串的包含关系
+ *
+ * @param {*} target
+ * @param {*} search
+ * @param {*} start: 搜索的起始
+ * @return {*}
+ */
+function contains(target, search, start) {
+  if (typeof start !== 'number') {
+    start = 0
+  }
+
+  if (start + search.length > target.length) {
+    return false
+  }
+  return target.indexOf(search, start) > -1
+}
+
 export {
   repeat,
   padStart,
@@ -128,5 +147,6 @@ export {
   underscored,
   dasherize,
   capitalize,
-  camelize
+  camelize,
+  contains
 }

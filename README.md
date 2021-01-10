@@ -16,8 +16,6 @@
 
 这个项目分为四个部分, Javascript相关的知识点, 组件编写, Code-Kata 编程练习题, 以及 LeetCode 解题集合, 与[这个](https://github.com/chenxiaoyao6228/blog)repo 互为补充.
 
-为了保持master分支的Git记录清爽, 每个feature完成会进行git rebase, 因此会失去tdd 的commit的过程(每次pr之前要copy feature分支, 避免rebase之后记录就没有了, 暂时想到只这个办法😂), 要查看的话可以切换到特定的分支进行查看
-
 ### 如何使用
 
 安装依赖, 并执行测试
@@ -57,7 +55,7 @@ import { arrayToTree} from './index.start.js'
 ES5/ES6
 
 - [ ] startWith, endWith
-- [ ] contains(includes)
+- [x] contains(includes)
 - [x] padStart, padEnd(fillZero)
 - [x] trim, trimStart, trimEnd
 - [x] repeat

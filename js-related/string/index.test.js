@@ -8,7 +8,8 @@ import {
   underscored,
   dasherize,
   capitalize,
-  camelize
+  camelize,
+  contains
 } from './index.finish'
 
 test('repeat', () => {
@@ -56,4 +57,13 @@ describe('format string', () => {
   test('camelize', () => {
     expect(camelize('york-is_handsome')).toEqual('yorkIsHandsome')
   })
+})
+
+test('contains', () => {
+  let str = 'To be, or not to be, that is the question.'
+  expect(contains(str, 'To be')).toEqual(true)
+  expect(contains(str, 'question')).toEqual(true)
+  expect(contains(str, 'nonexistent')).toEqual(false)
+  expect(contains(str, 'To be', 1)).toEqual(false)
+  expect(contains(str, 'TO BE')).toEqual(false)
 })
