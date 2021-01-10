@@ -54,7 +54,7 @@ import { arrayToTree} from './index.start.js'
 
 ES5/ES6
 
-- [ ] startWith, endWith
+- [x] startWith, endWith
 - [x] contains(includes)
 - [x] padStart, padEnd(fillZero)
 - [x] trim, trimStart, trimEnd

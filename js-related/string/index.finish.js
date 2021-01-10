@@ -137,6 +137,38 @@ function contains(target, search, start) {
   return target.indexOf(search, start) > -1
 }
 
+/**
+ *   是否在头部包含子字符串
+ *
+ * @param {*} target
+ * @param {*} search
+ * @param {*} start
+ * @return {*}
+ */
+function startsWith(target, search, start) {
+  var pos = start > 0 ? start : 0
+  return (
+    String.prototype.substring.call(target, pos, pos + search.length) === search
+  )
+}
+
+/**
+ *   是否在尾部包含子字符串
+ *
+ * @param {*} target
+ * @param {*} search
+ * @param {*} start
+ * @return {*}
+ */
+function endsWith(target, search, len) {
+  if (len === undefined || len > target.length) {
+    len = target.length
+  }
+  return (
+    String.prototype.substring.call(target, len - search.length, len) === search
+  )
+}
+
 export {
   repeat,
   padStart,
@@ -148,5 +180,7 @@ export {
   dasherize,
   capitalize,
   camelize,
-  contains
+  contains,
+  startsWith,
+  endsWith
 }

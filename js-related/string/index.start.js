@@ -80,6 +80,43 @@ function capitalize() {
 function camelize() {
   // TODO
 }
+
+/**
+ * 判断字符串的包含关系
+ *
+ * @param {*} target
+ * @param {*} search
+ * @param {*} start: 搜索的起始
+ * @return {*}
+ */
+function contains() {
+  // TODO
+}
+
+/**
+ *   是否在头部包含子字符串
+ *
+ * @param {*} target
+ * @param {*} search
+ * @param {*} start
+ * @return {*}
+ */
+function startsWith() {
+  // TODO
+}
+
+/**
+ *   是否在尾部包含子字符串
+ *
+ * @param {*} target
+ * @param {*} search
+ * @param {*} start
+ * @return {*}
+ */
+function endsWith() {
+  // TODO
+}
+
 export {
   repeat,
   padStart,
@@ -90,5 +127,8 @@ export {
   underscored,
   dasherize,
   capitalize,
-  camelize
+  camelize,
+  contains,
+  startsWith,
+  endsWith
 }

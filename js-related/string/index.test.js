@@ -9,7 +9,9 @@ import {
   dasherize,
   capitalize,
   camelize,
-  contains
+  contains,
+  startsWith,
+  endsWith
 } from './index.finish'
 
 test('repeat', () => {
@@ -66,4 +68,20 @@ test('contains', () => {
   expect(contains(str, 'nonexistent')).toEqual(false)
   expect(contains(str, 'To be', 1)).toEqual(false)
   expect(contains(str, 'TO BE')).toEqual(false)
+})
+
+test('startWith', () => {
+  let str = 'To be, or not to be, that is the question.'
+
+  expect(startsWith(str, 'To be')).toEqual(true)
+  expect(startsWith(str, 'not to be')).toEqual(false)
+  expect(startsWith(str, 'not to be', 10)).toEqual(true)
+})
+
+test('endsWith', () => {
+  let str = 'To be, or not to be, that is the question.'
+
+  expect(endsWith(str, 'question.')).toEqual(true)
+  expect(endsWith(str, 'to be')).toEqual(false)
+  expect(endsWith(str, 'to be', 19)).toEqual(true)
 })
