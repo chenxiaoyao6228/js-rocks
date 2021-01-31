@@ -7,7 +7,12 @@ import {
   compact,
   pluck,
   max,
-  min
+  min,
+  groupBy,
+  sortBy,
+  union,
+  intersect,
+  diff
 } from './index.finish'
 describe('array related methods', () => {
   test('contains', () => {
@@ -33,12 +38,10 @@ describe('array related methods', () => {
     expect(target).toEqual([1, [2, [3, [4]], 5]])
     expect(result).toEqual([1, 2, [3, [4]], 5])
   })
-  // 数组去重
   test('unique', () => {
     let target = [0, 1, 1, 2, 2, 3, 4]
     expect(unique(target)).toEqual([0, 1, 2, 3, 4])
   })
-  // 去除数组中的undefined和null, 不影响原来的数组
   test('compact', () => {
     let target = [0, 1, false, 2, undefined, 3, 4, null]
     let result = compact(target)
@@ -92,6 +95,42 @@ describe('array related methods', () => {
         })
         expect(result).toEqual({ name: 'moe', age: 40 })
       })
+    })
+  })
+  describe('groupBy', () => {
+    test('property shorthand', () => {
+      let result = groupBy(['one', 'two', 'three'], 'length')
+      expect(result).toEqual({ '3': ['one', 'two'], '5': ['three'] })
+    })
+    test('with predicate', () => {
+      let result = groupBy([6.1, 4.2, 6.3], Math.floor)
+      expect(result).toEqual({ '4': [4.2], '6': [6.1, 6.3] })
+    })
+  })
+  test('union', () => {
+    expect(union([2], [1, 2])).toEqual([2, 1])
+  })
+  test('intersect', () => {
+    expect(intersect([2, 1], [2, 3])).toEqual([2])
+  })
+  test('diff', () => {
+    expect(diff([2, 1], [2, 3])).toEqual([1])
+  })
+  describe('sortBy', () => {
+    let users = [
+      { user: 'fred', age: 48 },
+      { user: 'barney', age: 36 },
+      { user: 'fred', age: 40 },
+      { user: 'barney', age: 34 }
+    ]
+    test('with string iteratee', () => {
+      let res = sortBy(users, 'user')
+      expect(res).toEqual([
+        { user: 'barney', age: 36 },
+        { user: 'barney', age: 34 },
+        { user: 'fred', age: 48 },
+        { user: 'fred', age: 40 }
+      ])
     })
   })
 })
