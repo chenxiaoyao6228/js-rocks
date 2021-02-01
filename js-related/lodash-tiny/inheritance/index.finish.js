@@ -56,4 +56,18 @@ function Class(classDefinition) {
   return Base
 }
 
-export { myNew, Class }
+function instanceOf(L, R) {
+  //L 表示左表达式，R 表示右表达式
+  var O = R.prototype // 取 R 的显示原型
+  L = L.__proto__ // 取 L 的隐式原型
+  while (L) {
+    if (O === L) {
+      // 当 O 严格等于 L 时，返回 true
+      return true
+    }
+    L = L.__proto__
+  }
+  return false
+}
+
+export { myNew, Class, instanceOf }

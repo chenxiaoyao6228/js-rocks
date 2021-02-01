@@ -69,7 +69,7 @@ import { arrayToTree} from './index.start.js'
 
 - [x] 实现一个 new 函数
 - [x] ⭐实现 ES6 的 class
-- [ ] 实现 instanceOf
+- [x] 实现 instanceOf
 
 ### 日期扩展
 
@@ -86,9 +86,9 @@ import { arrayToTree} from './index.start.js'
 ### 异步编程
 
 - [x] ⭐ 实现一个Promise
+- [x] 用 XMLHttpRequest 实现一个基于promise 的 ajax
 - [ ] 红绿灯问题
 - [ ] retry （重试发一个 ajax，失败的时候会自动重试）
-- [ ] 用 XMLHttpRequest 实现一个 promise 的 ajax
 - [ ] 实现一个 sleep 函数
 - [ ] series 流程控制，顺序执行两个 callback
 - [ ] scheduleTask(实现一个同时执行若干个任务的调度任务器)

@@ -1,4 +1,4 @@
-import { myNew, Class } from './index.finish'
+import { myNew, Class, instanceOf } from './index.finish'
 
 test('myNew', () => {
   function Person(name) {
@@ -8,6 +8,14 @@ test('myNew', () => {
   expect(child).toBeDefined()
   expect(child instanceof Person).toEqual(true)
   expect(child.name).toEqual('york')
+})
+
+test('instanceOf', () => {
+  function Person() {}
+  let person = new Person()
+  expect(person instanceof Person).toEqual(true)
+  expect(instanceOf(person, Person)).toEqual(true)
+  expect(instanceOf(person, Object)).toEqual(true)
 })
 
 describe('Class', () => {

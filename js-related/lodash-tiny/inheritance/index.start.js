@@ -8,4 +8,17 @@ function myNew() {
   // TODO
 }
 
-export { myNew }
+/**
+ * 实现一个Class方法, 完成继承的功能
+ *
+ * @param {*} classDefinition
+ */
+function Class() {
+  // TODO
+}
+
+function instanceOf() {
+  // TODO
+}
+
+export { myNew, Class, instanceOf }

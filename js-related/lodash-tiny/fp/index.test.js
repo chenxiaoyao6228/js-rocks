@@ -1,4 +1,4 @@
-import { isFunction } from '../utils'
+import { isFunction } from '../types'
 import { pipe, partial, partialRight } from './index.finish'
 
 describe('fp', () => {
