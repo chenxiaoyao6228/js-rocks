@@ -1,4 +1,4 @@
-# JS-Rock
+# JS-Rocks
 
 <p align="center">
   <a href="#">
@@ -39,31 +39,21 @@ import { arrayToTree} from './index.start.js'
 
 由于JS没有官方的SDK,需要由社区提供一套作为补充,如underscore,lodash, moment.js等, 当我们不想因为要使用某个方法而引入完整的库的时候,我们需要自己去实现.
 
-### 基本
-
-- [x] ⭐ 实现is-xx函数(isFunction, isArray)
-- [x] ⭐ 实现 function 的 bind, call, apply
-- [x] 实现lodash的get方法
-- [x] 实现 数组转树
-- [ ] ⭐ deepClone（实现一个深度克隆）
-- [ ] 实现JSON.parse和JSON.stringify
-- [ ] 实现debounce(防抖)与throttle(节流）
-- [ ] memorize （返回一个可存储函数执行结果的函数）
-
 ### 字符串扩展
 
-- [x] startWith, endWith, contains(includes), padStart, padEnd(fillZero), trim, trimStart, trimEnd, repeat, camelize, capitalize, dasherize, underscored
+字符:
 
-### 标签处理
+- [x] startWith, endWith, contains(includes), padStart, padEnd(fillZero)
+- [x] trim, trimStart, trimEnd, repeat, camelize, capitalize, dasherize, underscored
 
-- [ ] stripTags
-- [ ] stripScripts
-- [ ] escapeHTML
-- [ ] unescapeHTML
+标签处理:
+
+- [ ] stripTags, stripScripts, escapeHTML, unescapeHTML
 
 ### 数组扩展
 
-- [x] contains, removeAt,remove,flatten,unique,compact,pluck,max, min,  groupBy,sortBy,union,intersect,diff
+- [x] contains, removeAt,remove,flatten,unique,compact,pluck,
+- [x] max, min,  groupBy,sortBy,union,intersect,diff
 
 ### 继承与类
 
@@ -86,7 +76,8 @@ import { arrayToTree} from './index.start.js'
 ### 异步编程
 
 - [x] ⭐ 实现一个Promise
-- [x] 用 XMLHttpRequest 实现一个基于promise 的 ajax
+- [x] ⭐ 实现一个类axios的http封装库
+- [ ] 实现 JSONP
 - [ ] 红绿灯问题
 - [ ] retry （重试发一个 ajax，失败的时候会自动重试）
 - [ ] 实现一个 sleep 函数
@@ -98,10 +89,10 @@ import { arrayToTree} from './index.start.js'
 - [ ] waterfall 串行执行有参数传递
 - [ ] 用setTimeout实现setInterval
 
-### 面向对象的设计模式
+### 面向对象与设计模式
 
 - [ ] ⭐ eventBus （实现一个事件系统的 on 监听函数和 emit 发送事件的函数）
-- [ ] 实现一个简易的依赖注入框架
+- [ ] ⭐ 实现一个简易的依赖注入框架
 
 ### 函数式思想
 
@@ -109,7 +100,18 @@ import { arrayToTree} from './index.start.js'
 - [x] 实现compose(pipe)
 - [x] 实现partial, partialRight
 
-框架相关
+### 其他
+
+- [x] ⭐ 实现is-xx函数(isFunction, isArray)
+- [x] ⭐ 实现 function 的 bind, call, apply
+- [x] 实现lodash的get方法
+- [x] 实现 数组转树
+- [ ] ⭐ deepClone（实现一个深度克隆）
+- [ ] 实现JSON.parse和JSON.stringify
+- [ ] ⭐ 实现debounce(防抖)与throttle(节流）
+- [ ] memorize （返回一个可存储函数执行结果的函数）
+
+### 框架相关
 
 - [x] ⭐ 实现一个Angular-tiny
 - [x] ⭐ 实现一个简易的webpack
@@ -120,11 +122,6 @@ import { arrayToTree} from './index.start.js'
 - [ ] 实现一个选择器引擎
 - [ ] 实现一个模板解析器
 - [ ] 实现一个前端监控平台
-
-### 其他
-
-- [x] ⭐ 实现一个类axios的http封装库
-- [ ] 实现 JSONP
 
 ## 二.组件编写
 
