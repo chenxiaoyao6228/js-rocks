@@ -85,3 +85,5 @@ test('endsWith', () => {
   expect(endsWith(str, 'to be')).toEqual(false)
   expect(endsWith(str, 'to be', 19)).toEqual(true)
 })
+
+test('stripTags', () => {})

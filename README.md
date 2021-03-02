@@ -65,13 +65,13 @@ import { arrayToTree} from './index.start.js'
 
 传入一个日期
 
-- [ ] 求当前月份的天数 getDaysInMonth
-- [ ] 判断所在年是否为闰年 isLeapYear
-- [ ] 判断所在季度的第一天 getFirstDateInQuarter
-- [ ] 判断所在季度的最后一天 getLastDateInQuarter
-- [ ] 判断所在月的第一天 getFirstDateInMonth
-- [ ] 判断所在月的最后一天 getLastDateInMonth
-- [ ] 判断与另外日期相隔多少天 getDatePeriod
+- [x] 求当前月份的天数 getDaysInMonth
+- [x] 判断所在年是否为闰年 isLeapYear
+- [x] 判断所在季度的第一天 getFirstDateInQuarter
+- [x] 判断所在季度的最后一天 getLastDateInQuarter
+- [x] 判断所在月的第一天 getFirstDateInMonth
+- [x] 判断所在月的最后一天 getLastDateInMonth
+- [x] 判断与另外日期相隔多少天 getDatePeriod
 
 ### 异步编程
 
