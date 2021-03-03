@@ -41,14 +41,8 @@ import { arrayToTree} from './index.start.js'
 
 ### 字符串扩展
 
-字符:
-
 - [x] startWith, endWith, contains(includes), padStart, padEnd(fillZero)
 - [x] trim, trimStart, trimEnd, repeat, camelize, capitalize, dasherize, underscored
-
-标签处理:
-
-- [ ] stripTags, stripScripts, escapeHTML, unescapeHTML
 
 ### 数组扩展
 
@@ -75,19 +69,17 @@ import { arrayToTree} from './index.start.js'
 
 ### 异步编程
 
-- [x] ⭐ 实现一个Promise
-- [x] ⭐ 实现一个类axios的http封装库
-- [ ] 实现 JSONP
-- [ ] 红绿灯问题
-- [ ] retry （重试发一个 ajax，失败的时候会自动重试）
+- [x] 用setTimeout实现setInterval
 - [ ] 实现一个 sleep 函数
 - [ ] series 流程控制，顺序执行两个 callback
+- [ ] parallel 并行执行两个 callback
+- [ ] waterfall 串行执行有参数传递
+- [ ] 红绿灯问题
+- [ ] retry （重试发一个 ajax，失败的时候会自动重试）
 - [ ] scheduleTask(实现一个同时执行若干个任务的调度任务器)
 - [ ] lazyMan Promise 版本 （微信经典面试题 lazyman）
 - [ ] lazyMan 普通 版本 （微信经典面试题 lazyman）
-- [ ] parallel 并行执行两个 callback
-- [ ] waterfall 串行执行有参数传递
-- [ ] 用setTimeout实现setInterval
+- [ ] ⭐ 实现一个Promise
 
 ### 面向对象与设计模式
 
