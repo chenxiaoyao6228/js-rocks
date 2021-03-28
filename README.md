@@ -70,16 +70,16 @@ import { arrayToTree} from './index.start.js'
 ### 异步编程
 
 - [x] 用setTimeout实现setInterval
+- [x] ⭐ [实现一个Promise](https://github.com/chenxiaoyao6228/TDD-Promise)
 - [ ] 实现一个 sleep 函数
 - [ ] series 流程控制，顺序执行两个 callback
 - [ ] parallel 并行执行两个 callback
 - [ ] waterfall 串行执行有参数传递
 - [ ] 红绿灯问题
-- [ ] retry （重试发一个 ajax，失败的时候会自动重试）
+- [ ] retry （重试发一个ajax，失败的时候会自动重试）
 - [ ] scheduleTask(实现一个同时执行若干个任务的调度任务器)
-- [ ] lazyMan Promise 版本 （微信经典面试题 lazyman）
-- [ ] lazyMan 普通 版本 （微信经典面试题 lazyman）
-- [ ] ⭐ 实现一个Promise
+- [ ] lazyMan Promise 版本 （微信经典面试题lazyman）
+- [ ] lazyMan 普通 版本 （微信经典面试题lazyman）
 
 ### 面向对象与设计模式
 
@@ -105,10 +105,10 @@ import { arrayToTree} from './index.start.js'
 
 ### 框架相关
 
-- [x] ⭐ 实现一个Angular-tiny
-- [x] ⭐ 实现一个简易的webpack
+- [x] ⭐ [实现一个Angular-tiny](https://github.com/chenxiaoyao6228/angular-tiny)
+- [x] ⭐ [实现简易的带hooks的react](https://github.com/chenxiaoyao6228/york/tree/master/packages/facade)
+- [ ] ⭐ 实现一个简易的webpack
 - [ ] ⭐ 使用一个Vue-tiny
-- [ ] ⭐ 实现简易的带hooks的react
 - [ ] 实现一个简易的JQuery
 - [ ] 实现commonJS模块加载器
 - [ ] 实现一个选择器引擎
@@ -119,17 +119,11 @@ import { arrayToTree} from './index.start.js'
 
 ### Vue
 
-- [ ] 用TDD的方式写一个Button组件
-- [ ] 用TDD的方式写一个Swiper组件
-- [ ] ⭐ 用TDD的方式写一个Tree组件
-- [ ] ⭐ 用TDD的方式写一个Table组件
+- [x] [用Vue写一个组件库](https://github.com/chenxiaoyao6228/graceful-ui)
 
 ### React
 
-- [ ] 用TDD的方式写一个Button组件
-- [ ] 用TDD的方式写一个Swiper组件
-- [ ] ⭐ 用TDD的方式写一个Tree组件
-- [ ] ⭐ 用TDD的方式写一个Table组件
+- [x]  [用React写一个组件库](https://chenxiaoyao6228.github.io/one-ui)
 
 ## 三.Code Kata
 
