@@ -54,4 +54,20 @@ describe('MPromise', () => {
     expect(fulfillSpy).not.toHaveBeenCalled()
     expect(rejectSpy).toHaveBeenCalledWith('fail')
   })
+  test('can reject just once', async () => {
+    let rejectSpy = jest.fn()
+    let rejectRef
+    let promise = new MPromise((resolve, reject) => {
+      reject('fail')
+      rejectRef = reject
+    })
+    promise.then(null, rejectSpy)
+
+    await new Promise(resolve => setTimeout(resolve, 1))
+    expect(rejectSpy.mock.calls.length).toEqual(1)
+
+    rejectRef('fail again')
+    await new Promise(resolve => setTimeout(resolve, 1))
+    expect(rejectSpy.mock.calls.length).toEqual(1)
+  })
 })
