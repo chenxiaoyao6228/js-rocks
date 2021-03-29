@@ -1,11 +1,12 @@
-// import { arrayToTree, curriedAdd, myBind,  myApply, myCall, get} from './index.start.js'
+// import { arrayToTree, curriedAdd, myBind,  myApply, myCall, get, deepClone} from './index.start.js'
 import {
   arrayToTree,
   curriedAdd,
   myBind,
   myApply,
   myCall,
-  get
+  get,
+  deepClone
 } from './index.finish.js'
 
 test('array to tree', () => {
@@ -168,4 +169,25 @@ describe('lodash get method', () => {
     expect(get(object, 'a.b.c', 'default')).toEqual('default')
     expect(get(object, ['a', '1', 'b', 'c'], 'default')).toEqual('default')
   })
+})
+
+test('deepClone', () => {
+  let testObj = {
+    a: 2,
+    b: {
+      'b-1': 1
+    },
+    c: [
+      'c-1',
+      {
+        'c-2': 'c-2'
+      }
+    ],
+    d: {
+      'd-1': [['d-1-1']]
+    }
+  }
+
+  let clonedObj = deepClone(testObj)
+  expect(JSON.stringify(clonedObj)).toEqual(JSON.stringify(testObj))
 })

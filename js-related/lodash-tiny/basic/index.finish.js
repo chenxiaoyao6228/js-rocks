@@ -123,4 +123,40 @@ function get(object, path, defaultValue) {
   return res
 }
 
-export { arrayToTree, curriedAdd, myBind, myApply, myCall, get }
+// 最简单的方法: JSON.stringify
+// 常规: 递归
+function deepClone(obj) {
+  if (!isObject(obj) && !isArray(obj)) return
+  let result = isArray(obj) ? [] : {}
+
+  if (isObject(obj)) {
+    for (let key in obj) {
+      if (isObject(obj[key]) || isArray(obj[key])) {
+        result[key] = deepClone(obj[key])
+      } else {
+        result[key] = obj[key]
+      }
+    }
+  } else if (isArray(obj)) {
+    let res = []
+    obj.forEach((item, index) => {
+      if (isArray(item) || isObject(obj)) {
+        res[index] = deepClone(item)
+      } else {
+        res[index] = item
+      }
+    })
+    return res
+  }
+  return result
+
+  function isArray(obj) {
+    return Object.prototype.toString.call(obj) === '[object Array]'
+  }
+
+  function isObject(obj) {
+    return Object.prototype.toString.call(obj) === '[object Object]'
+  }
+}
+
+export { arrayToTree, curriedAdd, myBind, myApply, myCall, get, deepClone }

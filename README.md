@@ -98,7 +98,7 @@ import { arrayToTree} from './index.start.js'
 - [x] ⭐ 实现 function 的 bind, call, apply
 - [x] 实现lodash的get方法
 - [x] 实现 数组转树
-- [ ] ⭐ deepClone（实现一个深度克隆）
+- [x] ⭐ deepClone
 - [ ] 实现JSON.parse和JSON.stringify
 - [x] ⭐ 实现debounce(防抖)与throttle(节流）
 - [ ] memorize （返回一个可存储函数执行结果的函数）
