@@ -119,4 +119,57 @@ describe('MPromise', () => {
     await new Promise(resolve => setTimeout(resolve, 1))
     expect(finallySpy).toHaveBeenCalledWith('fail')
   })
+
+  // chaining
+  test('does not require a success handler each time', async () => {
+    let promise = new MPromise(resolve => {
+      resolve('ok')
+    })
+    let fulfillSpy = jest.fn()
+    let rejectSpy = jest.fn()
+    promise.then(fulfillSpy)
+    promise.then(null, rejectSpy)
+    await new Promise(resolve => setTimeout(resolve, 1))
+    expect(fulfillSpy).toHaveBeenCalledWith('ok')
+  })
+  test('can register rejection handler with catch', async () => {
+    let promise = new MPromise((resolve, reject) => {
+      reject('fail')
+    })
+    let rejectSpy = jest.fn()
+    promise.catch(rejectSpy)
+    await new Promise(resolve => setTimeout(resolve, 1))
+    expect(rejectSpy).toHaveBeenCalled()
+  })
+  test('allows penetrate value to the next promise if the current one has no return value', async () => {
+    let promise = new MPromise(resolve => {
+      resolve(20)
+    })
+    let fulfilledSpy = jest.fn()
+    promise
+      .then()
+      .then()
+      .then(fulfilledSpy)
+    await new Promise(resolve => setTimeout(resolve, 100)) // 100ms保证
+    expect(fulfilledSpy).toHaveBeenCalledWith(20)
+  })
+
+  test('allows chaining handlers with return value', async () => {
+    let resolveRef
+    let promise = new MPromise(resolve => {
+      resolveRef = resolve
+    })
+    let fulfilledSpy = jest.fn()
+    promise
+      .then(result => {
+        return result + 1
+      })
+      .then(result => {
+        return result * 2
+      })
+      .then(fulfilledSpy)
+    resolveRef(20)
+    await new Promise(resolve => setTimeout(resolve, 100))
+    expect(fulfilledSpy).toHaveBeenCalledWith(42)
+  })
 })

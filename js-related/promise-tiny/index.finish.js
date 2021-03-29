@@ -27,24 +27,35 @@ class MPromise {
   scheduleQueue() {
     setTimeout(() => {
       while (this.pending.length) {
-        let [onFulfilled, onRejected] = this.pending.shift()
+        let [promise, onFulfilled, onRejected] = this.pending.shift()
         if (this.state === 1) {
-          onFulfilled(this.value)
-        } else if (this.state === 2) {
-          onRejected(this.value)
+          // 触发下一个promise
+          if (isFunction(onFulfilled)) {
+            promise.resolve(onFulfilled(this.value))
+          } else {
+            promise.resolve(this.value)
+          }
+        } else {
+          if (isFunction(onRejected)) {
+            promise.reject(onRejected(this.value))
+          } else {
+            promise.reject(this.value)
+          }
         }
       }
     })
   }
 
   then(onFulfilled, onRejected) {
-    this.pending.push([onFulfilled, onRejected])
+    let promise = new MPromise(() => {})
+    this.pending.push([promise, onFulfilled, onRejected])
     if (this.state === 1) {
       this.scheduleQueue(this.value)
     }
+    return promise
   }
   catch(onRejected) {
-    this.then(() => {}, onRejected)
+    this.then(null, onRejected)
   }
   finally(onFinally) {
     this.then(onFinally, onFinally)

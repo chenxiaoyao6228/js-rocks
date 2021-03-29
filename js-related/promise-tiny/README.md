@@ -22,16 +22,24 @@
 
 ### resolve延迟绑定
 
-resolve必须在下一个事件循环周期中执行, 否则then中的`onFulfilled`和`onRejected`函数还未绑定
+resolve必须在下一个事件循环周期中执行, 否则then中的`onFulfilled`和`onRejected`函数还未绑定, 下面的代码中如果不加setTimeout会报错
 
 ```js
+// app
+let promise = new MPromise(resolve => {
+  resolve('a-ok')
+})
+promise.then(promiseSpy)
+
+
+// promise内部
 resolve(value) {
-    // setTimeout(() => {
-      this.state = 1
-      this.value = value
-      this.onFulfilled(value)
-    // })
-  }
+  // setTimeout(() => {
+    this.state = 1
+    this.value = value
+    this.onFulfilled(value)
+  // })
+}
 ```
 
 ### 绑定 this
@@ -40,4 +48,40 @@ resolve 和 reject 会在 executor 作用域中执行，需要将`this`绑定到
 
 ### Promise 链条
 
-then 中要返回另一个 promise, 形成 promise 链条, 推入队列的时候保存下一个promise
+每个promise的then行成了单个promise链条的起点
+
+```js
+let promise = new MPromise(resolve => {
+  resolve(42)
+})
+promise.then(firstSpy) // 链条1的起点
+promise.then(secondSpy) // 链条2的起点
+```
+
+```js
+promise.then(firstSpy).then('..').then('..') // 链条的不断延伸
+```
+
+then 中要返回另一个 promise, 形成 promise 链条, 同时当前promise队列要保存下一个promise的指针
+
+```js
+then(onFulfilled = () => {}, onRejected) {
+  let promise = new MPromise(() => {})
+  // 保存下一个promise
+  this.pending.push([promise, onFulfilled, onRejected])
+  if (this.state === 1) {
+    this.scheduleQueue(this.value)
+  }
+  return promise
+}
+```
+
+这样在当前promise resolve的时候调用下一个promise的resolve, 形成`链式反应`
+
+```js
+ while (this.pending.length) {
+  let [promise, onFulfilled, onRejected] = this.pending.shift()
+  // 触发链条上的下一个promise
+  promise.resolve(this.value)
+}
+```
