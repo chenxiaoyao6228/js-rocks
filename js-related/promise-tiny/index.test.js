@@ -30,4 +30,16 @@ describe('MPromise', () => {
     expect(promiseSpy.mock.calls.length).toEqual(1)
     expect(promiseSpy).toHaveBeenCalledWith(42)
   })
+  test('may have multiple callbacks', async () => {
+    let firstSpy = jest.fn()
+    let secondSpy = jest.fn()
+    let promise = new MPromise(resolve => {
+      resolve(42)
+    })
+    promise.then(firstSpy)
+    promise.then(secondSpy)
+    await new Promise(resolve => setTimeout(resolve, 1))
+    expect(firstSpy).toHaveBeenCalledWith(42)
+    expect(secondSpy).toHaveBeenCalledWith(42)
+  })
 })

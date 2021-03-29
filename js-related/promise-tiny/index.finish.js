@@ -5,7 +5,7 @@ class MPromise {
     }
     this.state = null
     this.value = null
-    this.onFulfilled = null
+    this.onFulfilled = []
     resolver(this.resolve.bind(this))
   }
   resolve(value) {
@@ -15,11 +15,13 @@ class MPromise {
       }
       this.state = 1
       this.value = value
-      this.onFulfilled(value)
+      this.onFulfilled.forEach(callback => {
+        callback(value)
+      })
     })
   }
   then(onFulfilled) {
-    this.onFulfilled = onFulfilled
+    this.onFulfilled.push(onFulfilled)
   }
 }
 
