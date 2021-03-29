@@ -225,4 +225,22 @@ describe('MPromise', () => {
     await new Promise(resolve => setTimeout(resolve, 100))
     expect(fulfilledSpy).toHaveBeenCalledWith([1, 2, 3])
   })
+  // Promise.race
+  test('can resolve an array of promises to array of results and get the fastest result', async () => {
+    let fulfilledSpy = jest.fn()
+    const promise1 = new MPromise(resolve => {
+      setTimeout(resolve, 100, 'one')
+    })
+
+    const promise2 = new MPromise(resolve => {
+      setTimeout(resolve, 50, 'two')
+    })
+
+    MPromise.race([promise1, promise2]).then(value => {
+      fulfilledSpy(value)
+      // Both resolve, but promise2 is faster
+    })
+    await new Promise(resolve => setTimeout(resolve, 150))
+    expect(fulfilledSpy).toHaveBeenCalledWith('two')
+  })
 })

@@ -18,7 +18,15 @@ class MPromise {
       reject(reason)
     })
   }
-
+  static race(promises) {
+    return new MPromise(resolve => {
+      promises.forEach(promise => {
+        promise.then(res => {
+          resolve(res)
+        })
+      })
+    })
+  }
   static all(promises) {
     let result = []
     return new MPromise(resolve => {
