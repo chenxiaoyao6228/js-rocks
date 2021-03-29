@@ -42,4 +42,16 @@ describe('MPromise', () => {
     expect(firstSpy).toHaveBeenCalledWith(42)
     expect(secondSpy).toHaveBeenCalledWith(42)
   })
+
+  test('can reject a promise', async () => {
+    let promise = new MPromise((resolve, reject) => {
+      reject('fail')
+    })
+    let fulfillSpy = jest.fn()
+    let rejectSpy = jest.fn()
+    promise.then(fulfillSpy, rejectSpy)
+    await new Promise(resolve => setTimeout(resolve, 1))
+    expect(fulfillSpy).not.toHaveBeenCalled()
+    expect(rejectSpy).toHaveBeenCalledWith('fail')
+  })
 })

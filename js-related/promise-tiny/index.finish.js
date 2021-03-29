@@ -3,25 +3,45 @@ class MPromise {
     if (!isFunction(resolver)) {
       throw new Error('resolver must be a function')
     }
-    this.state = null
+    this.state = 0
     this.value = null
-    this.onFulfilled = []
-    resolver(this.resolve.bind(this))
+    this.pending = []
+    resolver(this.resolve.bind(this), this.reject.bind(this))
   }
   resolve(value) {
+    if (this.state) {
+      return
+    }
+    this.state = 1
+    this.value = value
+    this.scheduleQueue()
+  }
+  reject(reason) {
+    if (this.state) {
+      return
+    }
+    this.state = 2
+    this.value = reason
+    this.scheduleQueue()
+  }
+  scheduleQueue() {
     setTimeout(() => {
-      if (this.state === 1) {
-        return
+      while (this.pending.length) {
+        let [onFulfilled, onRejected] = this.pending.shift()
+        if (this.state === 1) {
+          onFulfilled(this.value)
+        } else if (this.state === 2) {
+          onRejected(this.value)
+        }
       }
-      this.state = 1
-      this.value = value
-      this.onFulfilled.forEach(callback => {
-        callback(value)
-      })
     })
   }
-  then(onFulfilled) {
-    this.onFulfilled.push(onFulfilled)
+
+  then(onFulfilled, onRejected) {
+    this.pending.push([onFulfilled, onRejected])
+    if (this.state === 1) {
+      this.scheduleQueue(this.value)
+    }
   }
 }
 
