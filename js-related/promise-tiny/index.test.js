@@ -101,6 +101,15 @@ describe('MPromise', () => {
   })
 
   // finally
+  test('invokes a finally handler when fulfilled', async () => {
+    let promise = new MPromise(resolve => {
+      resolve('ok')
+    })
+    let finallySpy = jest.fn()
+    promise.finally(finallySpy)
+    await new Promise(resolve => setTimeout(resolve, 1))
+    expect(finallySpy).toHaveBeenCalledWith('ok')
+  })
   test('invokes a finally handler when rejected', async () => {
     let promise = new MPromise((resolve, reject) => {
       reject('fail')
@@ -108,6 +117,6 @@ describe('MPromise', () => {
     let finallySpy = jest.fn()
     promise.finally(finallySpy)
     await new Promise(resolve => setTimeout(resolve, 1))
-    expect(finallySpy).toHaveBeenCalled()
+    expect(finallySpy).toHaveBeenCalledWith('fail')
   })
 })
