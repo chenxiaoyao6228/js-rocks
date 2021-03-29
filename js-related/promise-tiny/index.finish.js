@@ -13,6 +13,11 @@ class MPromise {
       resolve(value)
     })
   }
+  static reject(reason) {
+    return new MPromise((resolve, reject) => {
+      reject(reason)
+    })
+  }
   resolve(value) {
     if (this.state) {
       return

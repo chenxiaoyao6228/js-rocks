@@ -190,7 +190,7 @@ describe('MPromise', () => {
         return v * 2
       })
       .then(fulfilledSpy)
-    await new Promise(resolve => setTimeout(resolve, 1000))
+    await new Promise(resolve => setTimeout(resolve, 100))
     expect(fulfilledSpy).toHaveBeenCalledWith(42)
   })
   // Promise.resolve
@@ -199,8 +199,18 @@ describe('MPromise', () => {
     let rejectedSpy = jest.fn()
     let promise = MPromise.resolve('ok')
     promise.then(fulfilledSpy, rejectedSpy)
-    await new Promise(resolve => setTimeout(resolve, 1000))
+    await new Promise(resolve => setTimeout(resolve, 100))
     expect(fulfilledSpy).toHaveBeenCalledWith('ok')
     expect(rejectedSpy).not.toHaveBeenCalled()
+  })
+  // Promise.reject
+  test('can make an immediately rejected promise', async () => {
+    let fulfilledSpy = jest.fn()
+    let rejectedSpy = jest.fn()
+    let promise = MPromise.reject('fail')
+    promise.then(fulfilledSpy, rejectedSpy)
+    await new Promise(resolve => setTimeout(resolve, 100))
+    expect(fulfilledSpy).not.toHaveBeenCalled()
+    expect(rejectedSpy).toHaveBeenCalledWith('fail')
   })
 })
