@@ -18,6 +18,23 @@ class MPromise {
       reject(reason)
     })
   }
+
+  static all(promises) {
+    let result = []
+    return new MPromise(resolve => {
+      let count = 0
+      promises.forEach((promise, index) => {
+        count++
+        promise.then(res => {
+          result[index] = res
+          count--
+          if (count === 0) {
+            resolve(result)
+          }
+        })
+      })
+    })
+  }
   resolve(value) {
     if (this.state) {
       return

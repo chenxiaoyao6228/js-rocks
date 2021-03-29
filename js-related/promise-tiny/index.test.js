@@ -213,4 +213,16 @@ describe('MPromise', () => {
     expect(fulfilledSpy).not.toHaveBeenCalled()
     expect(rejectedSpy).toHaveBeenCalledWith('fail')
   })
+  // Promise.all
+  test('can resolve an array of promises to array of results', async () => {
+    let promise = MPromise.all([
+      MPromise.resolve(1),
+      MPromise.resolve(2),
+      MPromise.resolve(3)
+    ])
+    let fulfilledSpy = jest.fn()
+    promise.then(fulfilledSpy)
+    await new Promise(resolve => setTimeout(resolve, 100))
+    expect(fulfilledSpy).toHaveBeenCalledWith([1, 2, 3])
+  })
 })
