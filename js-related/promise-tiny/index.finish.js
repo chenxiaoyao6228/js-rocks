@@ -43,6 +43,12 @@ class MPromise {
       this.scheduleQueue(this.value)
     }
   }
+  catch(onRejected) {
+    this.then(() => {}, onRejected)
+  }
+  finally(onFinally) {
+    this.then(onFinally, onFinally)
+  }
 }
 
 function isFunction(fn) {

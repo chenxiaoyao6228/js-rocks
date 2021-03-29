@@ -9,6 +9,7 @@ describe('MPromise', () => {
       MPromise()
     }).toThrow()
   })
+  // resolve
   test('can resolve a promise', async () => {
     let promiseSpy = jest.fn()
     let promise = new MPromise(resolve => {
@@ -43,6 +44,7 @@ describe('MPromise', () => {
     expect(secondSpy).toHaveBeenCalledWith(42)
   })
 
+  // rejected
   test('can reject a promise', async () => {
     let promise = new MPromise((resolve, reject) => {
       reject('fail')
@@ -69,5 +71,43 @@ describe('MPromise', () => {
     rejectRef('fail again')
     await new Promise(resolve => setTimeout(resolve, 1))
     expect(rejectSpy.mock.calls.length).toEqual(1)
+  })
+  test('cannot fulfill a promise once rejected', async () => {
+    let resolveRef, rejectRef
+    let promise = new MPromise((resolve, reject) => {
+      resolveRef = resolve
+      rejectRef = reject
+    })
+    let fulfillSpy = jest.fn()
+    let rejectSpy = jest.fn()
+
+    promise.then(fulfillSpy, rejectSpy)
+    rejectRef('fail')
+    await new Promise(resolve => setTimeout(resolve, 1))
+    resolveRef('success')
+    await new Promise(resolve => setTimeout(resolve, 1))
+    expect(fulfillSpy).not.toHaveBeenCalled()
+  })
+
+  // catch
+  test('can register rejection handler with catch', async () => {
+    let promise = new MPromise((resolve, reject) => {
+      reject('fail')
+    })
+    let rejectSpy = jest.fn()
+    promise.catch(rejectSpy)
+    await new Promise(resolve => setTimeout(resolve, 1))
+    expect(rejectSpy).toHaveBeenCalled()
+  })
+
+  // finally
+  test('invokes a finally handler when rejected', async () => {
+    let promise = new MPromise((resolve, reject) => {
+      reject('fail')
+    })
+    let finallySpy = jest.fn()
+    promise.finally(finallySpy)
+    await new Promise(resolve => setTimeout(resolve, 1))
+    expect(finallySpy).toHaveBeenCalled()
   })
 })
