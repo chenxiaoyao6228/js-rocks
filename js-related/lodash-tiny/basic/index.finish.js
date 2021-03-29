@@ -1,3 +1,4 @@
+import { isArray, isObject } from '../types'
 /**
  * 数组转树
  *
@@ -149,14 +150,51 @@ function deepClone(obj) {
     return res
   }
   return result
+}
 
-  function isArray(obj) {
-    return Object.prototype.toString.call(obj) === '[object Array]'
+function stringify(obj) {
+  if (typeof obj !== 'object' || obj === null || obj instanceof Array) {
+    return value(obj)
   }
 
-  function isObject(obj) {
-    return Object.prototype.toString.call(obj) === '[object Object]'
+  return (
+    '{' +
+    Object.keys(obj)
+      .map(function(k) {
+        return typeof obj[k] === 'function'
+          ? null
+          : '"' + k + '":' + value(obj[k])
+      })
+      .filter(function(i) {
+        return i
+      }) +
+    '}'
+  )
+  function value(val) {
+    switch (typeof val) {
+      case 'string':
+        return '"' + val.replace(/\\/g, '\\\\').replace('"', '\\"') + '"'
+      case 'number':
+      case 'boolean':
+        return '' + val
+      case 'function':
+        return 'null'
+      case 'object':
+        if (val instanceof Date) return '"' + val.toISOString() + '"'
+        if (val instanceof Array) return '[' + val.map(value).join(',') + ']'
+        if (val === null) return 'null'
+        return stringify(val)
+    }
   }
 }
 
-export { arrayToTree, curriedAdd, myBind, myApply, myCall, get, deepClone }
+export {
+  arrayToTree,
+  curriedAdd,
+  myBind,
+  myApply,
+  myCall,
+  get,
+  deepClone,
+  stringify
+}
