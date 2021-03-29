@@ -8,6 +8,11 @@ class MPromise {
     this.pending = []
     resolver(this.resolve.bind(this), this.reject.bind(this))
   }
+  static resolve(value) {
+    return new MPromise(resolve => {
+      resolve(value)
+    })
+  }
   resolve(value) {
     if (this.state) {
       return

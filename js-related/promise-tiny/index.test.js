@@ -193,4 +193,14 @@ describe('MPromise', () => {
     await new Promise(resolve => setTimeout(resolve, 1000))
     expect(fulfilledSpy).toHaveBeenCalledWith(42)
   })
+  // Promise.resolve
+  test('makes an immediately resolved promise with resolve', async () => {
+    let fulfilledSpy = jest.fn()
+    let rejectedSpy = jest.fn()
+    let promise = MPromise.resolve('ok')
+    promise.then(fulfilledSpy, rejectedSpy)
+    await new Promise(resolve => setTimeout(resolve, 1000))
+    expect(fulfilledSpy).toHaveBeenCalledWith('ok')
+    expect(rejectedSpy).not.toHaveBeenCalled()
+  })
 })
