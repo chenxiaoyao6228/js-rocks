@@ -83,7 +83,7 @@ import { arrayToTree} from './index.start.js'
 
 ### 面向对象与设计模式
 
-- [ ] ⭐ eventBus （实现一个事件系统的 on 监听函数和 emit 发送事件的函数）
+- [x] ⭐ eventBus （实现一个事件系统的 on 监听函数和 emit 发送事件的函数）
 - [ ] ⭐ 实现一个简易的依赖注入框架
 
 ### 函数式思想
@@ -99,9 +99,8 @@ import { arrayToTree} from './index.start.js'
 - [x] 实现lodash的get方法
 - [x] 实现 数组转树
 - [x] ⭐ deepClone
-- [ ] 实现JSON.parse和JSON.stringify
+- [x] 实现JSON.parse和JSON.stringify
 - [x] ⭐ 实现debounce(防抖)与throttle(节流）
-- [ ] memorize （返回一个可存储函数执行结果的函数）
 
 ### 框架相关
 
