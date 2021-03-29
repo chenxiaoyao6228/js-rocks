@@ -1,6 +1,22 @@
-function MPromise(resolver) {
-  if (!isFunction(resolver)) {
-    throw new Error('resolver must be a function')
+class MPromise {
+  constructor(resolver) {
+    if (!isFunction(resolver)) {
+      throw new Error('resolver must be a function')
+    }
+    this.state = null
+    this.value = null
+    this.onFulfilled = null
+    resolver(this.resolve.bind(this))
+  }
+  resolve(value) {
+    setTimeout(() => {
+      this.state = 1
+      this.value = value
+      this.onFulfilled(value)
+    })
+  }
+  then(onFulfilled) {
+    this.onFulfilled = onFulfilled
   }
 }
 

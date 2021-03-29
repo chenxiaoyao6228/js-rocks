@@ -12,11 +12,27 @@
 - producer: resolve, reject
 - consumer: then, catch, finally
 
+- all
+- race
+- Promise.resolve, promise.reject
+
 ### 宏任务与任务
 
 浏览器内置的 Promise 使用的是 micro-task, 我们只能使用 macro-ask 模拟, 这里使用的是 setTimeout
 
-### resolve在下一个digest cycle中执行
+### resolve延迟绑定
+
+resolve必须在下一个事件循环周期中执行, 否则then中的`onFulfilled`和`onRejected`函数还未绑定
+
+```js
+resolve(value) {
+    // setTimeout(() => {
+      this.state = 1
+      this.value = value
+      this.onFulfilled(value)
+    // })
+  }
+```
 
 ### 绑定 this
 
