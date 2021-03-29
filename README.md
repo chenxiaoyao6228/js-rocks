@@ -70,7 +70,7 @@ import { arrayToTree} from './index.start.js'
 ### 异步编程
 
 - [x] 用setTimeout实现setInterval
-- [x] ⭐ [实现一个Promise](https://github.com/chenxiaoyao6228/TDD-Promise)
+- [x] ⭐ [实现一个Promise](https://github.com/chenxiaoyao6228/js-rocks/tree/feat-promise/js-related/promise-tiny)
 - [ ] 实现一个 sleep 函数
 - [ ] series 流程控制，顺序执行两个 callback
 - [ ] parallel 并行执行两个 callback
