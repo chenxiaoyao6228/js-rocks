@@ -10,6 +10,9 @@ class MPromise {
   }
   resolve(value) {
     setTimeout(() => {
+      if (this.state === 1) {
+        return
+      }
       this.state = 1
       this.value = value
       this.onFulfilled(value)
