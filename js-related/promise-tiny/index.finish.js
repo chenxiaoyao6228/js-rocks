@@ -12,9 +12,13 @@ class MPromise {
     if (this.state) {
       return
     }
-    this.state = 1
-    this.value = value
-    this.scheduleQueue()
+    if (value && isFunction(value.then)) {
+      value.then(this.resolve.bind(this), this.reject.bind(this))
+    } else {
+      this.state = 1
+      this.value = value
+      this.scheduleQueue()
+    }
   }
   reject(reason) {
     if (this.state) {

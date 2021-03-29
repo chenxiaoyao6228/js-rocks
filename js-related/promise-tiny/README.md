@@ -85,3 +85,47 @@ then(onFulfilled = () => {}, onRejected) {
   promise.resolve(this.value)
 }
 ```
+
+### ⭐ promise返回promise
+
+关键的点在于这个promise插入链条中的何处
+
+一开始的想法是在scheduleQueue函数里面处理
+
+```js
+if (isFunction(onFulfilled)) {
+let returnResult = onFulfilled(this.value)
+if (isFunction(returnResult instanceof MPromise)) {
+  // 当前promise作为consumer, returnResult作为producer
+  return promise.then(
+    () => {
+      return returnResult.resolve(returnResult.value)
+    },
+    () => {
+      return returnResult.reject(returnResult.value)
+    }
+  )
+} else {
+  promise.resolve(returnResult)
+}
+```
+
+最后发现只能在resolve里面处理
+
+当value被返回的时候, 该value(promise)的resolve会在未来的某个时刻调用
+
+而此时我们的当前的promise已经被挂起
+
+当value的resolve被调用的时候,会把值传给promise的resolve, 此时promise继续
+
+```js
+resolve(value) {
+  if (value && isFunction(value.then)) {
+    value.then(this.resolve.bind(this), this.reject.bind(this))
+  } else {
+    this.state = 1
+    this.value = value
+    this.scheduleQueue()
+  }
+}
+```

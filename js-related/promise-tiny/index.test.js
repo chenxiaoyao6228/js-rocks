@@ -172,4 +172,25 @@ describe('MPromise', () => {
     await new Promise(resolve => setTimeout(resolve, 100))
     expect(fulfilledSpy).toHaveBeenCalledWith(42)
   })
+
+  // return promise
+  test('waits on promise returned from handler', async () => {
+    let promise = new MPromise(resolve => {
+      resolve(20)
+    })
+    let fulfilledSpy = jest.fn()
+    promise
+      .then(v => {
+        let promise2 = new MPromise(resolve => {
+          resolve(v + 1)
+        })
+        return promise2
+      })
+      .then(v => {
+        return v * 2
+      })
+      .then(fulfilledSpy)
+    await new Promise(resolve => setTimeout(resolve, 1000))
+    expect(fulfilledSpy).toHaveBeenCalledWith(42)
+  })
 })
