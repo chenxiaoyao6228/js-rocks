@@ -41,14 +41,8 @@ import { arrayToTree} from './index.start.js'
 
 ### 字符串扩展
 
-字符:
-
 - [x] startWith, endWith, contains(includes), padStart, padEnd(fillZero)
 - [x] trim, trimStart, trimEnd, repeat, camelize, capitalize, dasherize, underscored
-
-标签处理:
-
-- [ ] stripTags, stripScripts, escapeHTML, unescapeHTML
 
 ### 数组扩展
 
@@ -75,23 +69,21 @@ import { arrayToTree} from './index.start.js'
 
 ### 异步编程
 
-- [x] ⭐ 实现一个Promise
-- [x] ⭐ 实现一个类axios的http封装库
-- [ ] 实现 JSONP
-- [ ] 红绿灯问题
-- [ ] retry （重试发一个 ajax，失败的时候会自动重试）
+- [x] 用setTimeout实现setInterval
+- [x] ⭐ [实现一个Promise](https://github.com/chenxiaoyao6228/TDD-Promise)
 - [ ] 实现一个 sleep 函数
 - [ ] series 流程控制，顺序执行两个 callback
-- [ ] scheduleTask(实现一个同时执行若干个任务的调度任务器)
-- [ ] lazyMan Promise 版本 （微信经典面试题 lazyman）
-- [ ] lazyMan 普通 版本 （微信经典面试题 lazyman）
 - [ ] parallel 并行执行两个 callback
 - [ ] waterfall 串行执行有参数传递
-- [ ] 用setTimeout实现setInterval
+- [ ] 红绿灯问题
+- [ ] retry （重试发一个ajax，失败的时候会自动重试）
+- [ ] scheduleTask(实现一个同时执行若干个任务的调度任务器)
+- [ ] lazyMan Promise 版本 （微信经典面试题lazyman）
+- [ ] lazyMan 普通 版本 （微信经典面试题lazyman）
 
 ### 面向对象与设计模式
 
-- [ ] ⭐ eventBus （实现一个事件系统的 on 监听函数和 emit 发送事件的函数）
+- [x] ⭐ eventBus （实现一个事件系统的 on 监听函数和 emit 发送事件的函数）
 - [ ] ⭐ 实现一个简易的依赖注入框架
 
 ### 函数式思想
@@ -106,17 +98,16 @@ import { arrayToTree} from './index.start.js'
 - [x] ⭐ 实现 function 的 bind, call, apply
 - [x] 实现lodash的get方法
 - [x] 实现 数组转树
-- [ ] ⭐ deepClone（实现一个深度克隆）
-- [ ] 实现JSON.parse和JSON.stringify
-- [ ] ⭐ 实现debounce(防抖)与throttle(节流）
-- [ ] memorize （返回一个可存储函数执行结果的函数）
+- [x] ⭐ deepClone
+- [x] 实现JSON.parse和JSON.stringify
+- [x] ⭐ 实现debounce(防抖)与throttle(节流）
 
 ### 框架相关
 
-- [x] ⭐ 实现一个Angular-tiny
-- [x] ⭐ 实现一个简易的webpack
+- [x] ⭐ [实现一个Angular-tiny](https://github.com/chenxiaoyao6228/angular-tiny)
+- [x] ⭐ [实现简易的带hooks的react](https://github.com/chenxiaoyao6228/york/tree/master/packages/facade)
+- [ ] ⭐ 实现一个简易的webpack
 - [ ] ⭐ 使用一个Vue-tiny
-- [ ] ⭐ 实现简易的带hooks的react
 - [ ] 实现一个简易的JQuery
 - [ ] 实现commonJS模块加载器
 - [ ] 实现一个选择器引擎
@@ -127,17 +118,11 @@ import { arrayToTree} from './index.start.js'
 
 ### Vue
 
-- [ ] 用TDD的方式写一个Button组件
-- [ ] 用TDD的方式写一个Swiper组件
-- [ ] ⭐ 用TDD的方式写一个Tree组件
-- [ ] ⭐ 用TDD的方式写一个Table组件
+- [x] [用Vue写一个组件库](https://github.com/chenxiaoyao6228/graceful-ui)
 
 ### React
 
-- [ ] 用TDD的方式写一个Button组件
-- [ ] 用TDD的方式写一个Swiper组件
-- [ ] ⭐ 用TDD的方式写一个Tree组件
-- [ ] ⭐ 用TDD的方式写一个Table组件
+- [x]  [用React写一个组件库](https://chenxiaoyao6228.github.io/one-ui)
 
 ## 三.Code Kata
 

@@ -1,11 +1,13 @@
-// import { arrayToTree, curriedAdd, myBind,  myApply, myCall, get} from './index.start.js'
+// import { arrayToTree, curriedAdd, myBind,  myApply, myCall, get, deepClone} from './index.start.js'
 import {
   arrayToTree,
   curriedAdd,
   myBind,
   myApply,
   myCall,
-  get
+  get,
+  deepClone,
+  stringify
 } from './index.finish.js'
 
 test('array to tree', () => {
@@ -168,4 +170,77 @@ describe('lodash get method', () => {
     expect(get(object, 'a.b.c', 'default')).toEqual('default')
     expect(get(object, ['a', '1', 'b', 'c'], 'default')).toEqual('default')
   })
+})
+
+test('deepClone', () => {
+  let testObj = {
+    a: 2,
+    b: {
+      'b-1': 1
+    },
+    c: [
+      'c-1',
+      {
+        'c-2': 'c-2'
+      }
+    ],
+    d: {
+      'd-1': [['d-1-1']]
+    }
+  }
+
+  let clonedObj = deepClone(testObj)
+  expect(JSON.stringify(clonedObj)).toEqual(JSON.stringify(testObj))
+})
+
+// thanks https://gist.github.com/andrew8088/6f53af9579266d5c62c8
+describe('stringify', function() {
+  function check(o) {
+    return function() {
+      expect(stringify(o)).toEqual(JSON.stringify(o))
+    }
+  }
+
+  test('string', check('andrew'))
+  test('string with special chars', check('this"is a \\test'))
+  test('number', check(10))
+  test('true', check(true))
+  test('false', check(false))
+  test('null', check(null))
+  test('array', check(['one', 'two', 1, { name: 'andrew' }]))
+  test('empty object', check({}))
+  test('string prop', check({ name: 'andrew' }))
+  test('number prop', check({ name: 'andrew', age: 24 }))
+  test(
+    'boolean prop',
+    check({ name: 'andrew', age: 24, married: false, single: true })
+  )
+  test(
+    'date prop',
+    check({
+      name: 'andrew',
+      age: 24,
+      married: false,
+      single: true,
+      date: new Date()
+    })
+  )
+  test('array prop of strings', check({ array: ['one', 'two'] }))
+  test(
+    'array prop of differing values',
+    check({ array: ['one', 2, false, null, { value: 'five', or: 2 }] })
+  )
+  test('null prop', check({ array: ['one', 'two'], nothing: null }))
+  test(
+    'object prop',
+    check({
+      name: 'andrew',
+      address: { streetAddress: '21st street', city: 'New York', state: 'NY' }
+    })
+  )
+  test('functions', check({ name: 'andrew', doSomething: function() {} }))
+  test(
+    'functions in array property',
+    check({ name: 'andrew', doSomething: [function() {}] })
+  )
 })

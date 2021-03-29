@@ -1,3 +1,4 @@
+import { isArray, isObject } from '../types'
 /**
  * 数组转树
  *
@@ -123,4 +124,77 @@ function get(object, path, defaultValue) {
   return res
 }
 
-export { arrayToTree, curriedAdd, myBind, myApply, myCall, get }
+// 最简单的方法: JSON.stringify
+// 常规: 递归
+function deepClone(obj) {
+  if (!isObject(obj) && !isArray(obj)) return
+  let result = isArray(obj) ? [] : {}
+
+  if (isObject(obj)) {
+    for (let key in obj) {
+      if (isObject(obj[key]) || isArray(obj[key])) {
+        result[key] = deepClone(obj[key])
+      } else {
+        result[key] = obj[key]
+      }
+    }
+  } else if (isArray(obj)) {
+    let res = []
+    obj.forEach((item, index) => {
+      if (isArray(item) || isObject(obj)) {
+        res[index] = deepClone(item)
+      } else {
+        res[index] = item
+      }
+    })
+    return res
+  }
+  return result
+}
+
+function stringify(obj) {
+  if (typeof obj !== 'object' || obj === null || obj instanceof Array) {
+    return value(obj)
+  }
+
+  return (
+    '{' +
+    Object.keys(obj)
+      .map(function(k) {
+        return typeof obj[k] === 'function'
+          ? null
+          : '"' + k + '":' + value(obj[k])
+      })
+      .filter(function(i) {
+        return i
+      }) +
+    '}'
+  )
+  function value(val) {
+    switch (typeof val) {
+      case 'string':
+        return '"' + val.replace(/\\/g, '\\\\').replace('"', '\\"') + '"'
+      case 'number':
+      case 'boolean':
+        return '' + val
+      case 'function':
+        return 'null'
+      case 'object':
+        if (val instanceof Date) return '"' + val.toISOString() + '"'
+        if (val instanceof Array) return '[' + val.map(value).join(',') + ']'
+        if (val === null) return 'null'
+        return stringify(val)
+    }
+  }
+}
+
+export {
+  arrayToTree,
+  curriedAdd,
+  myBind,
+  myApply,
+  myCall,
+  get,
+  deepClone,
+  stringify
+}
