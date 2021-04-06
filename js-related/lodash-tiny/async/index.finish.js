@@ -9,4 +9,33 @@ function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms))
 }
 
-export { mySetInterval, sleep }
+function series(arr) {
+  let next = function() {
+    let fn = arr.shift()
+    if (!fn) {
+      return
+    }
+    fn(next)
+  }
+  next()
+}
+
+function parallel(arr, finallyCallback) {
+  let counter = 0
+  let res = []
+  function resolve(index, value) {
+    res[index] = value
+  }
+  arr.forEach((fn, index) => {
+    counter++
+    fn(value => {
+      counter--
+      resolve(index, value)
+      if (counter === 0) {
+        finallyCallback(res)
+      }
+    })
+  })
+}
+
+export { mySetInterval, sleep, series, parallel }

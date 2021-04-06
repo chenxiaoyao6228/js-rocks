@@ -67,6 +67,7 @@
     "@commitlint/cli": "^8.1.0",
     "@commitlint/config-conventional": "^8.1.0",
     "@commitlint/prompt": "~8.1.0",
+    "async": "^3.2.0",
     "babel-jest": "^24.9.0",
     "commitizen": "^4.0.3",
     "cz-conventional-changelog": "~3.0.2",
