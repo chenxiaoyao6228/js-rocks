@@ -13,7 +13,7 @@ function callbackMain() {
     if (callbacks.length) {
       let callback = callbacks.shift()
       callback()
-      callbacks.push(callback)
+      callbacks.push(callback) // 实现循环亮灯
     }
   }
 
