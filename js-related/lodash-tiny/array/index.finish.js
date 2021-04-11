@@ -16,19 +16,16 @@ function remove(target, item) {
   return false
 }
 
-// 数组拍平
-function flatten(target) {
-  let result = []
-  target.forEach(function(item) {
+function flattenDeep(arr = [], res = []) {
+  arr.forEach(item => {
     if (Array.isArray(item)) {
-      result = result.concat(item)
+      res = res.concat(flattenDeep(item, []))
     } else {
-      result.push(item)
+      res.push(item)
     }
   })
-  return result
+  return res
 }
-
 // 数组去重
 function unique(target) {
   // 法1: 数组->集合->数组
@@ -147,7 +144,7 @@ export {
   contains,
   removeAt,
   remove,
-  flatten,
+  flattenDeep,
   unique,
   compact,
   pluck,

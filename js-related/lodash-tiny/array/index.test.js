@@ -2,7 +2,7 @@ import {
   contains,
   removeAt,
   remove,
-  flatten,
+  flattenDeep,
   unique,
   compact,
   pluck,
@@ -32,12 +32,12 @@ describe('array related methods', () => {
     expect(result).toEqual(true)
     expect(target).toEqual([10, 30])
   })
-  test('flatten', () => {
+  test('flattenDeep', () => {
     let target = [1, [2, [3, [4]], 5]]
-    let result = flatten(target)
-    expect(target).toEqual([1, [2, [3, [4]], 5]])
-    expect(result).toEqual([1, 2, [3, [4]], 5])
+    let res = flattenDeep(target)
+    expect(res).toEqual([1, 2, 3, 4, 5])
   })
+
   test('unique', () => {
     let target = [0, 1, 1, 2, 2, 3, 4]
     expect(unique(target)).toEqual([0, 1, 2, 3, 4])

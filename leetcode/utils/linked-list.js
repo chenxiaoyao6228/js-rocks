@@ -1,7 +1,7 @@
 // linked-list with value and next property for leetcode solution
 // for full version of linked-list, check the data-structure folder
 
-const { ListNode } = require('../24.swap-nodes-in-pairs')
+const { ListNode } = require('../src/24.swap-nodes-in-pairs')
 
 function push(head, value) {
   let originHead = head
