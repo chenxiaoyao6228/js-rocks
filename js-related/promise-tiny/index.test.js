@@ -1,23 +1,26 @@
 import MPromise from './index.finish'
 
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms))
+}
+
 describe('MPromise', () => {
   test('is a function', () => {
     expect(MPromise instanceof Function).toBe(true)
   })
   test('expects a function as an argument', () => {
     expect(() => {
-      MPromise()
+      new MPromise()
     }).toThrow()
   })
-  // resolve
+  //   // resolve
   test('can resolve a promise', async () => {
     let promiseSpy = jest.fn()
     let promise = new MPromise(resolve => {
       resolve('a-ok')
     })
-
     promise.then(promiseSpy)
-    await new Promise(resolve => setTimeout(resolve, 1))
+    await sleep(1)
     expect(promiseSpy).toHaveBeenCalledWith('a-ok')
   })
   test('may only be resolved once', async () => {
@@ -27,7 +30,7 @@ describe('MPromise', () => {
       resolve(43)
     })
     promise.then(promiseSpy)
-    await new Promise(resolve => setTimeout(resolve, 1))
+    await sleep(1)
     expect(promiseSpy.mock.calls.length).toEqual(1)
     expect(promiseSpy).toHaveBeenCalledWith(42)
   })
@@ -39,12 +42,11 @@ describe('MPromise', () => {
     })
     promise.then(firstSpy)
     promise.then(secondSpy)
-    await new Promise(resolve => setTimeout(resolve, 1))
+    await sleep(1)
     expect(firstSpy).toHaveBeenCalledWith(42)
     expect(secondSpy).toHaveBeenCalledWith(42)
   })
-
-  // rejected
+  //   // rejected
   test('can reject a promise', async () => {
     let promise = new MPromise((resolve, reject) => {
       reject('fail')
@@ -52,7 +54,8 @@ describe('MPromise', () => {
     let fulfillSpy = jest.fn()
     let rejectSpy = jest.fn()
     promise.then(fulfillSpy, rejectSpy)
-    await new Promise(resolve => setTimeout(resolve, 1))
+    await sleep(1)
+    await sleep(1)
     expect(fulfillSpy).not.toHaveBeenCalled()
     expect(rejectSpy).toHaveBeenCalledWith('fail')
   })
@@ -64,12 +67,10 @@ describe('MPromise', () => {
       rejectRef = reject
     })
     promise.then(null, rejectSpy)
-
-    await new Promise(resolve => setTimeout(resolve, 1))
+    await sleep(1)
     expect(rejectSpy.mock.calls.length).toEqual(1)
-
     rejectRef('fail again')
-    await new Promise(resolve => setTimeout(resolve, 1))
+    await sleep(1)
     expect(rejectSpy.mock.calls.length).toEqual(1)
   })
   test('cannot fulfill a promise once rejected', async () => {
@@ -80,34 +81,31 @@ describe('MPromise', () => {
     })
     let fulfillSpy = jest.fn()
     let rejectSpy = jest.fn()
-
     promise.then(fulfillSpy, rejectSpy)
     rejectRef('fail')
-    await new Promise(resolve => setTimeout(resolve, 1))
+    await sleep(1)
     resolveRef('success')
-    await new Promise(resolve => setTimeout(resolve, 1))
+    await sleep(1)
     expect(fulfillSpy).not.toHaveBeenCalled()
   })
-
-  // catch
+  //   // catch
   test('can register rejection handler with catch', async () => {
     let promise = new MPromise((resolve, reject) => {
       reject('fail')
     })
     let rejectSpy = jest.fn()
     promise.catch(rejectSpy)
-    await new Promise(resolve => setTimeout(resolve, 1))
+    await sleep(1)
     expect(rejectSpy).toHaveBeenCalled()
   })
-
-  // finally
+  //   // finally
   test('invokes a finally handler when fulfilled', async () => {
     let promise = new MPromise(resolve => {
       resolve('ok')
     })
     let finallySpy = jest.fn()
     promise.finally(finallySpy)
-    await new Promise(resolve => setTimeout(resolve, 1))
+    await sleep(1)
     expect(finallySpy).toHaveBeenCalledWith('ok')
   })
   test('invokes a finally handler when rejected', async () => {
@@ -116,11 +114,10 @@ describe('MPromise', () => {
     })
     let finallySpy = jest.fn()
     promise.finally(finallySpy)
-    await new Promise(resolve => setTimeout(resolve, 1))
+    await sleep(1)
     expect(finallySpy).toHaveBeenCalledWith('fail')
   })
-
-  // chaining
+  //   // chaining
   test('does not require a success handler each time', async () => {
     let promise = new MPromise(resolve => {
       resolve('ok')
@@ -129,7 +126,7 @@ describe('MPromise', () => {
     let rejectSpy = jest.fn()
     promise.then(fulfillSpy)
     promise.then(null, rejectSpy)
-    await new Promise(resolve => setTimeout(resolve, 1))
+    await sleep(1)
     expect(fulfillSpy).toHaveBeenCalledWith('ok')
   })
   test('can register rejection handler with catch', async () => {
@@ -138,7 +135,7 @@ describe('MPromise', () => {
     })
     let rejectSpy = jest.fn()
     promise.catch(rejectSpy)
-    await new Promise(resolve => setTimeout(resolve, 1))
+    await sleep(1)
     expect(rejectSpy).toHaveBeenCalled()
   })
   test('allows penetrate value to the next promise if the current one has no return value', async () => {
@@ -150,10 +147,9 @@ describe('MPromise', () => {
       .then()
       .then()
       .then(fulfilledSpy)
-    await new Promise(resolve => setTimeout(resolve, 100)) // 100ms保证
+    await sleep(100) // 100ms保证
     expect(fulfilledSpy).toHaveBeenCalledWith(20)
   })
-
   test('allows chaining handlers with return value', async () => {
     let resolveRef
     let promise = new MPromise(resolve => {
@@ -169,11 +165,10 @@ describe('MPromise', () => {
       })
       .then(fulfilledSpy)
     resolveRef(20)
-    await new Promise(resolve => setTimeout(resolve, 100))
+    await sleep(100)
     expect(fulfilledSpy).toHaveBeenCalledWith(42)
   })
-
-  // return promise
+  //   // return promise
   test('waits on promise returned from handler', async () => {
     let promise = new MPromise(resolve => {
       resolve(20)
@@ -190,30 +185,30 @@ describe('MPromise', () => {
         return v * 2
       })
       .then(fulfilledSpy)
-    await new Promise(resolve => setTimeout(resolve, 100))
+    await sleep(100)
     expect(fulfilledSpy).toHaveBeenCalledWith(42)
   })
-  // Promise.resolve
+  //   // Promise.resolve
   test('makes an immediately resolved promise with resolve', async () => {
     let fulfilledSpy = jest.fn()
     let rejectedSpy = jest.fn()
     let promise = MPromise.resolve('ok')
     promise.then(fulfilledSpy, rejectedSpy)
-    await new Promise(resolve => setTimeout(resolve, 100))
+    await sleep(100)
     expect(fulfilledSpy).toHaveBeenCalledWith('ok')
     expect(rejectedSpy).not.toHaveBeenCalled()
   })
-  // Promise.reject
+  //   // Promise.reject
   test('can make an immediately rejected promise', async () => {
     let fulfilledSpy = jest.fn()
     let rejectedSpy = jest.fn()
     let promise = MPromise.reject('fail')
     promise.then(fulfilledSpy, rejectedSpy)
-    await new Promise(resolve => setTimeout(resolve, 100))
+    await sleep(100)
     expect(fulfilledSpy).not.toHaveBeenCalled()
     expect(rejectedSpy).toHaveBeenCalledWith('fail')
   })
-  // Promise.all
+  //   // Promise.all
   test('can resolve an array of promises to array of results', async () => {
     let promise = MPromise.all([
       MPromise.resolve(1),
@@ -222,25 +217,23 @@ describe('MPromise', () => {
     ])
     let fulfilledSpy = jest.fn()
     promise.then(fulfilledSpy)
-    await new Promise(resolve => setTimeout(resolve, 100))
+    await sleep(100)
     expect(fulfilledSpy).toHaveBeenCalledWith([1, 2, 3])
   })
-  // Promise.race
+  //   // Promise.race
   test('can resolve an array of promises to array of results and get the fastest result', async () => {
     let fulfilledSpy = jest.fn()
     const promise1 = new MPromise(resolve => {
       setTimeout(resolve, 100, 'one')
     })
-
     const promise2 = new MPromise(resolve => {
       setTimeout(resolve, 50, 'two')
     })
-
     MPromise.race([promise1, promise2]).then(value => {
       fulfilledSpy(value)
       // Both resolve, but promise2 is faster
     })
-    await new Promise(resolve => setTimeout(resolve, 150))
+    await sleep(150)
     expect(fulfilledSpy).toHaveBeenCalledWith('two')
   })
 })
