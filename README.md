@@ -68,7 +68,11 @@ import { arrayToTree } from './index.start.js'
 - [x] Rentalstore
 - [ ] 康威生命游戏
 
-## 四.LeetCode
+## 四. SICP JS版本
+
+30年经典书目, 原先基于LISP, 后改写成python等多种语言
+
+## 五.LeetCode
 
 算法是每个程序员都避不开的话题
 
