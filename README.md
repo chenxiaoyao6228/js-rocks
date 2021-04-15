@@ -14,7 +14,7 @@
 
 > Code Kata 是《程序员修炼之道》的作者 Dave Thomas 发明的一种练习编程的活动，每次一到两个小时，做一个小题目，用 TDD 的方式来实现，不断地重构。正如 Thomas 在 Code Kata 网站上所说，不管你是要成为优秀的音乐家还是运动员，你都得不断练习——你有天赋，很好；你熟知音乐或体育的理论，很好；但你必须得练习，持续而大量地练习，否则你就是个外行人。而软件行业一直以来并不重视练习，似乎大家都很满足于“知道某个东西”（比如“了解设计模式”、“了解重构理论”）而不是真正通过练习掌握某个东西，无怪乎这个行业里充斥着如此之多的外行人。-- By 熊节 <不敢止步: 一个软件工匠的 12 年>
 
-类似的观点,在[在提高代码能力这事上，没有银弹](https://zhuanlan.zhihu.com/p/31209277)这些文章中也提到了
+类似的观点,在[这里](https://zhuanlan.zhihu.com/p/31209277), [这里](https://mp.weixin.qq.com/s/WLclvb8HGE1qCaF5NNkTjw)中也提到了
 
 这个项目分为四个部分, Javascript 相关的知识点, 组件编写, Code-Kata 编程练习题, 以及 LeetCode 解题集合, 与[这个](https://github.com/chenxiaoyao6228/blog)repo 互为补充.
 
@@ -70,7 +70,7 @@ import { arrayToTree } from './index.start.js'
 
 ## 四. SICP JS版本
 
-30年经典书目, 原先基于LISP, 后改写成python等多种语言
+30年经典书目, 原先基于Lisp,  JS版本包含了一个JS解释器的实现
 
 ## 五.LeetCode
 
