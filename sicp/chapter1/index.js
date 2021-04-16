@@ -700,4 +700,143 @@ function sum_of_squares_of_prime(a, b) {
 
 console.log('sum_of_squares_of_prime(1,7)', sum_of_squares_of_prime(1, 7)) // 1 + 4 + 9 + 25 + 49
 
+// 1.3.2 lambda函数, 条件语句
+
+// 1.3.3 过程作为一般性方法
+// 通过区间折半寻找方程的根
+function positive(n) {
+  return n > 0
+}
+function negative(n) {
+  return n < 0
+}
+
+function close_enough(a, b) {
+  return abs(a, b) < 0.0001
+}
+
+function search(f, neg_point, pos_point) {
+  const midpoint = average(neg_point, pos_point)
+  if (close_enough(neg_point, pos_point)) {
+    return midpoint
+  } else {
+    const test_value = f(midpoint)
+    return positive(test_value)
+      ? search(f, neg_point, midpoint)
+      : negative(test_value)
+      ? search(f, midpoint, pos_point)
+      : midpoint
+  }
+}
+
+function error(str) {
+  return new Error(str)
+}
+
+function half_interval_method(f, a, b) {
+  const a_value = f(a)
+  const b_value = f(b)
+
+  return negative(a_value) && positive(b_value)
+    ? search(f, a, b)
+    : negative(b_value) && positive(a_value)
+    ? search(f, b, a)
+    : error('values are not of opposite sign')
+}
+const math_sign = Math.sign
+
+console.log(half_interval_method(math_sign, 2, 4))
+
+console.log(
+  'half_interval_method(x => cube(x) - 2 * x - 3, 1, 2)',
+  half_interval_method(x => cube(x) - 2 * x - 3, 1, 2)
+)
+
+/*
+ 寻找函数的不动点
+ 在数学中，函数的不动点或定点是指被这个函数映射到其自身一个点
+ f(x)=x^2-3x+4， 2是函数的一个不动点, 因为f(2) = 2
+ 也不是每一个函数都具有不动点。例如定义在实数上的函数f(x)=x+1  就没有不动点。因为对于任意的实数，x永远不会等于x+1
+*/
+const tolerance = 0.0001
+function fixed_point(f, first_guess) {
+  function close_enough(x, y) {
+    return abs(x - y) < tolerance
+  }
+  function try_with(guess) {
+    const next = f(guess)
+    return close_enough(guess, next) ? next : try_with(next)
+  }
+
+  return try_with(first_guess)
+}
+const math_cos = Math.cos
+console.log(fixed_point(math_cos, 1), 'fixed_point(math_cos, 1)')
+
+/*
+ 函数不动点与平方根查找: 计算一个数的平方根,就相当于找到一个y, 使得y^2 = x, 
+ 转换一下就是y = x/y, 也就是找到函数y-> x/y的不动点
+
+ 为了防止震荡, 这里将公式稍微变形了一下, 也就是 y-> 1/2 * (x / y)
+ 这种常用于帮助收敛的技术, 称为"平均阻尼"技术
+*/
+
+function sqrt_fix_point(x) {
+  return fixed_point(y => average(y, x / y), 1.0)
+}
+
+console.log('sqrt_fix_point(4)', sqrt_fix_point(4))
+
+// exercise 1.35
+const golden_rate_val = fixed_point(x => 1 + 1 / x, 1.0)
+console.log('golden_rate_val', golden_rate_val)
+
+// exercise 1.36
+
+const log = Math.log
+const fixed_p = fixed_point(x => log(1000) / log(x), 1.1)
+console.log('fixed_p', fixed_p)
+
+// exercise 1.37 TODO
+function cont_frac(n, d, k) {
+  function fraction(i) {
+    return i > k ? 0 : n(i) / (d(i) + fraction(i + 1))
+  }
+  return fraction(1)
+}
+
+// eslint-disable-next-line
+function cont_frac_iter(n, d, k) {
+  function fraction(i, current) {
+    return i === 0 ? current : fraction(i - 1, n(i) / (d(i) + current))
+  }
+  return fraction(k, 0)
+}
+
+// exercise 1.3.8
+function get_value_of_e(k) {
+  return (
+    2 +
+    cont_frac(
+      () => 1,
+      i => ((i + 1) % 3 < 1 ? (2 * (i + 1)) / 3 : 1),
+      k
+    )
+  )
+}
+const value_of_e = get_value_of_e(20)
+console.log('value_of_e', value_of_e)
+
+// exercise 1.3.9
+function tan_cf(x, k) {
+  return cont_frac(
+    i => (i === 1 ? x : -x * x),
+    i => 2 * i - 1,
+    k
+  )
+}
+const math_PI = Math.PI
+const tan_cf_value = tan_cf(math_PI, 14)
+console.log('tan_cf_value', tan_cf_value)
+
 export { sum_of_squares_of_larger_two, count_change, pascal_triangle, is_prime }
