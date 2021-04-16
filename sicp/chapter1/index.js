@@ -252,7 +252,24 @@ function sine(angle) {
 
 // 1.2.4
 
+// exercise 1.16
+// 实现一个O(log n)的求指数方法, 依据: (b ^ (n/2))^2 = (b ^ 2) ^ (n/2)
+// tips: 定义一个变量收集对应的值
+function fast_exp_iter(total, base, exp) {
+  return exp === 0
+    ? total
+    : is_even(exp)
+    ? fast_exp_iter(total, base * base, exp / 2)
+    : fast_exp_iter(total * base, base, exp - 1)
+}
+function fast_exp(base, exp) {
+  return fast_exp_iter(1, base, exp)
+}
+
+console.log(fast_exp(2, 5))
+
 // exercise 1.17
+// 假定我们使用的语言中并没有实现乘法, 请利用加法的方式实现乘法
 function is_even(n) {
   return n % 2 === 0
 }
@@ -280,6 +297,9 @@ function fast_times(a, b) {
 
 console.log(fast_times(2, 5))
 
+// exercise 1.1.8
+//  基于加, 加倍, 折半的运算, 求两数乘积
+
 function fast_times_iter(total, a, b) {
   return b === 1
     ? total + a
@@ -295,4 +315,183 @@ function fast(a, b) {
 
 console.log(fast(2, 5))
 
-export { sum_of_squares_of_larger_two, count_change, pascal_triangle }
+// exercise 1.19
+// TODO
+
+// 1.2.6 欧几里得算法求最大公约数
+// 如果r是a除以b的余数, 那么a和b的公约数正好也是b和r的公约数
+// GCD(a, b) = GCD(b, r)
+
+function GCD(a, b) {
+  function remainder(a, b) {
+    return a % b
+  }
+  return b == 0 ? a : GCD(b, remainder(a, b))
+}
+console.log(GCD(10, 25))
+console.log(GCD(66, 99))
+
+// TODO  lame定理与exercise 1.20
+
+// 1.2.6 素(质)数检测
+
+// 法一
+function is_prime(n) {
+  return n === smallest_divisor(n) // 找到n与2的最小公约数
+}
+function smallest_divisor(n) {
+  return find_smallest_divisor(n, 2)
+  function find_smallest_divisor(n, test_divisor) {
+    return square(test_divisor) > n
+      ? n
+      : divides(test_divisor, n)
+      ? test_divisor
+      : find_smallest_divisor(n, test_divisor + 1)
+  }
+
+  function divides(a, b) {
+    return b % a === 0
+  }
+}
+
+// 法二: 费马检测
+// 基于费马小定理: 如果n是一个素数,a是除n以外的任意正整数
+function expmod(base, exp, m) {
+  return exp === 0
+    ? 1
+    : is_even(exp)
+    ? square(expmod(base, exp / 2, m)) % m
+    : (base * expmod(base, exp - 1, m)) % m
+}
+console.log(expmod(4, 3, 5))
+
+const math_floor = Math.floor
+const math_random = Math.random
+
+function fermat_test(n) {
+  function try_it(a) {
+    return expmod(a, n, n) === a
+  }
+  return try_it(1 + math_floor(math_random() * (n - 1)))
+}
+
+// eslint-disable-next-line
+console.log('fermat_test(97)',	fermat_test(97));
+
+// 进行n次费马检测 => 概率算法
+function fast_is_prime(n, times) {
+  return times === 0
+    ? true
+    : fermat_test(n)
+    ? fast_is_prime(n, times - 1)
+    : false
+}
+
+console.log('fast_is_prime(97, 3)', fast_is_prime(97, 3))
+
+// exercise 1.21
+console.log('smallest_divisor(199)', smallest_divisor(199))
+console.log('smallest_divisor(199)', smallest_divisor(1999))
+console.log('smallest_divisor(199)', smallest_divisor(19999))
+
+// exercise 1.22
+// 没有任何赋值的过程!!!!
+const is_undefined = n => n === undefined
+const display = (v, n = 1) => console.log(('' + v).repeat(n))
+const get_time = () => Date.now()
+
+console.log('****************************************************************')
+
+function timed_prime_test(n) {
+  display(n)
+  return start_prime_test(n, get_time())
+}
+function start_prime_test(n, start_time) {
+  return is_prime(n) ? report_prime(get_time() - start_time) : true
+}
+
+function report_prime(elapsed_time) {
+  display(' *** ')
+  return display(elapsed_time)
+}
+
+function search_for_primes(start, times) {
+  return times === 0
+    ? true
+    : start > 2 && start % 2 === 0
+    ? search_for_primes(start + 1, times)
+    : // if we get undefined -> its a prime
+    is_undefined(timed_prime_test(start))
+    ? search_for_primes(start + 2, times - 1)
+    : search_for_primes(start + 2, times)
+}
+
+// search_for_primes(10000, 3)
+// search_for_primes(100000, 3)
+// search_for_primes(1000000, 3);
+
+// TODO 1.23-1.28
+
+// *******************************************
+
+// 1.3 高阶函数
+// 1.3.1 函数作为参数
+// 求和公式
+
+// 计算从a到b的自然数的和
+function sum_integers(a, b) {
+  return a > b ? 0 : a + sum_integers(a + 1, b)
+}
+console.log('sum_integers(1, 4)', sum_integers(1, 4))
+
+// 计算从a到b的自然数的立方和
+function sum_cubes(a, b) {
+  return a > b ? 0 : cube(a) + sum_cubes(a + 1, b)
+}
+
+console.log('sum_cubes(1,4)', sum_cubes(1, 4))
+
+// 等差数列
+function pi_sum(a, b) {
+  return a > b ? 0 : 1 / (a * (a + 2)) + pi_sum(a + 4, b)
+}
+
+console.log('pi_sum(1, 11)', pi_sum(1, 11))
+
+function create_sum(a, b, term, next) {
+  return function sum(a, b) {
+    return a > b ? 0 : term(a) + sum(next(a), b)
+  }
+}
+
+const sum_integers_new = (a, b) =>
+  create_sum(
+    a,
+    b,
+    a => a,
+    a => a + 1
+  )(a, b)
+
+console.log('sum_integers_new(1, 4)', sum_integers_new(1, 4))
+
+const sum_cubes_new = (a, b) =>
+  create_sum(
+    a,
+    b,
+    a => cube(a),
+    a => a + 1
+  )(a, b)
+
+console.log('sum_cubes_new(1,4)', sum_cubes_new(1, 4))
+
+const pi_sum_new = (a, b) =>
+  create_sum(
+    a,
+    b,
+    a => 1 / (a * (a + 2)),
+    a => a + 4
+  )(a, b)
+
+console.log('pi_sum_new(1, 11)', pi_sum_new(1, 11))
+
+export { sum_of_squares_of_larger_two, count_change, pascal_triangle, is_prime }
