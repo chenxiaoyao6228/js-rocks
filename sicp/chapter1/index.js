@@ -337,7 +337,7 @@ console.log(GCD(66, 99))
 
 // 法一
 function is_prime(n) {
-  return n === smallest_divisor(n) // 找到n与2的最小公约数
+  return n <= 1 ? false : n === smallest_divisor(n) // 找到n与2的最小公约数
 }
 function smallest_divisor(n) {
   return find_smallest_divisor(n, 2)
@@ -376,7 +376,7 @@ function fermat_test(n) {
 }
 
 // eslint-disable-next-line
-console.log('fermat_test(97)',	fermat_test(97));
+console.log('fermat_test(97)', fermat_test(97))
 
 // 进行n次费马检测 => 概率算法
 function fast_is_prime(n, times) {
@@ -415,6 +415,7 @@ function report_prime(elapsed_time) {
   return display(elapsed_time)
 }
 
+// eslint-disable-next-line
 function search_for_primes(start, times) {
   return times === 0
     ? true
@@ -436,7 +437,7 @@ function search_for_primes(start, times) {
 
 // 1.3 高阶函数
 // 1.3.1 函数作为参数
-// 求和公式
+// 观察下面的例子, 实现通用的求和公式
 
 // 计算从a到b的自然数的和
 function sum_integers(a, b) {
@@ -458,10 +459,12 @@ function pi_sum(a, b) {
 
 console.log('pi_sum(1, 11)', pi_sum(1, 11))
 
+// 通用的求和公式, term为当前项, next为下一项
 function create_sum(a, b, term, next) {
-  return function sum(a, b) {
+  function sum(a, b) {
     return a > b ? 0 : term(a) + sum(next(a), b)
   }
+  return sum(a, b)
 }
 
 const sum_integers_new = (a, b) =>
@@ -470,7 +473,7 @@ const sum_integers_new = (a, b) =>
     b,
     a => a,
     a => a + 1
-  )(a, b)
+  )
 
 console.log('sum_integers_new(1, 4)', sum_integers_new(1, 4))
 
@@ -480,7 +483,7 @@ const sum_cubes_new = (a, b) =>
     b,
     a => cube(a),
     a => a + 1
-  )(a, b)
+  )
 
 console.log('sum_cubes_new(1,4)', sum_cubes_new(1, 4))
 
@@ -490,8 +493,211 @@ const pi_sum_new = (a, b) =>
     b,
     a => 1 / (a * (a + 2)),
     a => a + 4
-  )(a, b)
+  )
 
 console.log('pi_sum_new(1, 11)', pi_sum_new(1, 11))
+
+// 使用上面的sum求定积分
+function integral(f, a, b, dx) {
+  function add_dx(x) {
+    return x + dx
+  }
+  return create_sum(a + dx / 2, b, f, add_dx) * dx
+}
+
+console.log('integral(cube, 0, 1, 0.01)', integral(cube, 0, 1, 0.01))
+console.log('integral(cube, 0, 1, 0.001)', integral(cube, 0, 1, 0.001))
+
+// ex1.29 辛普森规则计算积分
+function inc(x) {
+  return x + 1
+}
+function identity(x) {
+  return x
+}
+function simpsons_rule_integral(f, a, b, n) {
+  function get_h() {
+    return (b - a) / n
+  }
+  function y(k) {
+    return f(a + k * get_h())
+  }
+  function term(k) {
+    return k === 0 || k === n ? y(k) : is_even(k) ? 2 * y(k) : 4 * y(k)
+  }
+
+  return create_sum(0, n, term, inc) * (get_h() / 3)
+}
+console.log(
+  'simpsons_rule_integral(cube, 0, 1, 0.01)',
+  simpsons_rule_integral(cube, 0, 1, 100)
+)
+
+// exercise 1.30
+// 通用求和公式的迭代写法
+
+function create_sum_iter(a, b, term, next) {
+  function iter(a, result) {
+    return a > b ? result : iter(next(a), result + term(a))
+  }
+  return iter(a, 0)
+}
+
+console.log(
+  'create_sum_iter(0, 10, identity, inc)',
+  create_sum_iter(0, 10, identity, inc)
+)
+
+// 通用的计算求积公式
+
+function product_r(a, b) {
+  function create_product_r(a, b, term, next) {
+    return a > b ? 1 : term(a) * create_product_r(next(a), b, term, next)
+  }
+  return create_product_r(a, b, identity, inc)
+}
+
+console.log('product_r(1,4,identity,inc)', product_r(1, 4, identity, inc))
+
+function product_iter(a, b, term, next) {
+  function iter(a, result) {
+    return a > b ? result : iter(next(a), term(a) * result)
+  }
+  return iter(a, 1)
+}
+console.log(
+  'product_iter(1,4,identity,iter)',
+  product_iter(1, 4, identity, inc)
+)
+
+console.log('*****************************************')
+
+// 求PI公式
+// 关键点: 左右两边同时除以2
+// http://c.biancheng.net/cpp/uploads/allimg/141102/1-1411021Q301403.gif
+//  分子
+// 1 - 2
+// 2 - 2
+// 3 - 4
+// 4 - 4
+// 5 - 6
+// 6 - 6
+// 7 - 8
+// 8 - 8
+//  分母
+// 1 - 1
+// 2 - 3
+// 3 - 3
+// 4 - 5
+// 5 - 5
+// 6 - 7
+// 7 - 7
+function approximationToPI(n) {
+  function fraction(k) {
+    return is_even(k) ? k : k + 1
+  }
+  function denominator(k) {
+    return k === 1 ? 1 : is_even(k) ? k + 1 : k
+  }
+  function term(k) {
+    return fraction(k) / denominator(k)
+  }
+  return product_iter(1, n, term, inc) * 2
+}
+
+console.log('approximationToPI(10)', approximationToPI(10000))
+
+// exercise 1.32
+// 基于sum和product的抽象 => accumulate
+
+// 递归
+function accumulate_r(combiner, null_value, a, b, term, next) {
+  return a > b
+    ? null_value
+    : combiner(
+        term(a),
+        accumulate_r(combiner, null_value, next(a), b, term, next)
+      )
+}
+function sum_r_accumulate(a, b, term, next) {
+  function plus(x, y) {
+    return x + y
+  }
+  return accumulate_r(plus, 0, a, b, term, next)
+}
+
+console.log(
+  'sum_r_accumulate(1,10, identity, inc)',
+  sum_r_accumulate(1, 10, identity, inc)
+)
+
+function product_r_accumulate(a, b, term, next) {
+  function multiple(x, y) {
+    return x * y
+  }
+  return accumulate_r(multiple, 1, next(a), b, term, next)
+}
+
+console.log(
+  'product_r_accumulate(1, 10, identity, inc)',
+  product_r_accumulate(1, 10, identity, inc)
+)
+
+// 迭代
+function accumulate_i(combiner, null_value, a, b, term, next) {
+  function iter(a, result) {
+    return a > b ? result : iter(next(a), combiner(term(a), result))
+  }
+  return iter(a, null_value)
+}
+
+function plus(x, y) {
+  return x + y
+}
+function sum_i_accumulate(a, b, term, next) {
+  return accumulate_i(plus, 0, a, b, term, next)
+}
+
+function product_i_accumulate(a, b, term, next) {
+  function multiple(x, y) {
+    return x * y
+  }
+  return accumulate_i(multiple, 1, a, b, term, next)
+}
+
+console.log(
+  'sum_i_accumulate(1,10, identity, inc)',
+  sum_i_accumulate(1, 10, identity, inc)
+)
+console.log(
+  'product_i_accumulate(1,10,identity,inc)',
+  product_i_accumulate(1, 10, identity, inc)
+)
+
+// exercise 1.33
+//  带filter的accumulate
+function filter_accumulate_r(combiner, null_value, a, b, term, next, filter) {
+  return a > b
+    ? null_value
+    : combiner(
+        filter(a) ? term(a) : null_value,
+        filter_accumulate_r(
+          combiner,
+          null_value,
+          next(a),
+          b,
+          term,
+          next,
+          filter
+        )
+      )
+}
+
+// 求[a,b]间所有素数的平方的和
+function sum_of_squares_of_prime(a, b) {
+  return filter_accumulate_r(plus, 0, a, b, square, inc, is_prime)
+}
+
+console.log('sum_of_squares_of_prime(1,7)', sum_of_squares_of_prime(1, 7)) // 1 + 4 + 9 + 25 + 49
 
 export { sum_of_squares_of_larger_two, count_change, pascal_triangle, is_prime }
