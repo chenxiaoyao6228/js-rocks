@@ -69,6 +69,7 @@ function good_enough(guess, x) {
 function sqrt(x) {
   return sqrt_iter(1, x)
 }
+
 console.log('sqrt(9)', sqrt(9))
 
 // exercise 1.6
@@ -592,6 +593,8 @@ console.log('*****************************************')
 // 5 - 5
 // 6 - 7
 // 7 - 7
+
+// eslint-disable-next-line
 function approximationToPI(n) {
   function fraction(k) {
     return is_even(k) ? k : k + 1
@@ -605,7 +608,7 @@ function approximationToPI(n) {
   return product_iter(1, n, term, inc) * 2
 }
 
-console.log('approximationToPI(10)', approximationToPI(10000))
+// console.log('approximationToPI(10)', approximationToPI(10000))
 
 // exercise 1.32
 // 基于sum和product的抽象 => accumulate
@@ -838,5 +841,171 @@ function tan_cf(x, k) {
 const math_PI = Math.PI
 const tan_cf_value = tan_cf(math_PI, 14)
 console.log('tan_cf_value', tan_cf_value)
+
+// 1.3.4 函数作为返回值
+// 平均阻尼函数, 接受一个函数f, 返回了另外一个函数
+const average_damp = f => x => average(x, f(x))
+
+function sqrt_with_average_damp(x) {
+  return fixed_point(
+    average_damp(y => x / y),
+    1.0
+  )
+}
+
+console.log('sqrt_with_average_damp(4)', sqrt_with_average_damp(4))
+
+// 使用求不动点的方法来求立方根
+function cube_root_fix_point(x) {
+  return fixed_point(
+    average_damp(y => x / square(y)),
+    1.0
+  )
+}
+
+console.log('cube_root_fix_point(8)', cube_root_fix_point(8))
+console.log('cube_root_fix_point(27)', cube_root_fix_point(27))
+
+// 多元函数的极值, 导数与方程的根
+function deriv(g) {
+  const dx = 0.0000001
+  return x => (g(x + dx) - g(x)) / dx
+}
+console.log('deriv(cube)(5)', deriv(cube)(5))
+
+function newton_transform(g) {
+  return x => x - g(x) / deriv(g)(x)
+}
+
+function newton_method(g, guess) {
+  return fixed_point(newton_transform(g), guess)
+}
+
+function sqrt_with_newton(x) {
+  return newton_method(y => square(y) - x, 1)
+}
+
+// eslint-disable-next-line
+console.log('sqrt_with_newton(4)', sqrt_with_newton(4))
+console.log('sqrt_with_newton(9)', sqrt_with_newton(9))
+
+function fixed_point_transform(g, transform, guess) {
+  return fixed_point(transform(g), guess)
+}
+
+// 通过抽象出来的fixed_point_transform来完成对原来函数的改写
+function sqrt_with_fixed_point_transform_average_damp(x) {
+  return fixed_point_transform(y => x / y, average_damp, 1.0)
+}
+console.log(
+  'sqrt_with_fixed_point_transform_average_damp(4)',
+  sqrt_with_fixed_point_transform_average_damp(4)
+)
+
+function sqrt_with_fixed_point_transform_newton_method(x) {
+  return fixed_point_transform(y => square(y) - x, newton_transform, 1.0)
+}
+
+console.log(
+  'sqrt_with_fixed_point_transform_newton_method(4)',
+  sqrt_with_fixed_point_transform_newton_method(4)
+)
+
+/*
+函数作为第一等公民: 
+* 可以用变量命名
+* 函数可以作为参数传递
+* 函数可以作为返回值
+* 可以包含在数据结构中
+*/
+
+// exercise 1.40
+// eslint-disable-next-line
+function cubic(a, b, c) {
+  return x => cube(x) + a * square(x) + b * x + c
+}
+
+// exercise 1.4.1
+function double_fn(f) {
+  return x => f(f(x))
+}
+
+console.log(double_fn(double_fn(double_fn))(inc)(5)) // 21
+
+// exercise 1.42
+function compose(fn1, fn2) {
+  return x => fn1(fn2(x))
+}
+
+console.log('compose(square, inc)(6)', compose(square, inc)(6)) //49
+
+// exercise 1.43
+function repeated(f, n) {
+  return n === 0 ? x => x : compose(f, repeated(f, n - 1))
+}
+
+console.log('repeated(square, 2)(5)', repeated(square, 2)(5))
+
+// exercise 1.44
+function smooth(f) {
+  const dx = 0.0000001
+  return x => (f(x - dx) + f(x) + f(x + dx)) / 3
+}
+function smooth_n_times(f, n) {
+  return repeated(smooth, n)(f)
+}
+// eslint-disable-next-line
+console.log('smooth_n_times(inc, 5)', smooth_n_times(inc, 5))
+
+// exercise 1.45
+function fourth_root_with_average_damp(x) {
+  return fixed_point(
+    repeated(average_damp, 2)(y => x / cube(y)),
+    1.0
+  )
+}
+
+// eslint-disable-next-line
+console.log(
+  'fourth_root_with_average_damp(16)',
+  fourth_root_with_average_damp(16)
+)
+
+const math_log2 = Math.log
+function nth_root(x, n) {
+  return fixed_point(
+    repeated(
+      average_damp,
+      math_floor(math_log2(n))
+    )(y => x / fast_exp(y, n - 1)),
+    1.0
+  )
+}
+
+function cube_by_nth_root(x) {
+  return nth_root(x, 3)
+}
+console.log('cube_by_nth_root(8)', cube_by_nth_root(8))
+
+// 1.46
+function iterative_improve(close_enough, improve) {
+  function iter(guess) {
+    if (close_enough(guess)) {
+      return guess
+    } else {
+      iter(improve(guess))
+    }
+  }
+  return iter
+}
+
+function sqrt_with_iterative_improve(x) {
+  return iterative_improve(
+    y => good_enough(y, x),
+    y => improve(y, x)
+  )(1)
+}
+
+sqrt_with_iterative_improve(49)
 
 export { sum_of_squares_of_larger_two, count_change, pascal_triangle, is_prime }
