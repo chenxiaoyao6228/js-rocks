@@ -1,4 +1,15 @@
-const abs = Math.abs
+import {
+  is_undefined,
+  display,
+  get_time,
+  abs,
+  math_floor,
+  math_random,
+  math_cos,
+  log,
+  math_PI,
+  math_log2
+} from '../lang/source'
 
 function square(a) {
   return a * a
@@ -366,9 +377,6 @@ function expmod(base, exp, m) {
 }
 console.log(expmod(4, 3, 5))
 
-const math_floor = Math.floor
-const math_random = Math.random
-
 function fermat_test(n) {
   function try_it(a) {
     return expmod(a, n, n) === a
@@ -397,9 +405,6 @@ console.log('smallest_divisor(199)', smallest_divisor(19999))
 
 // exercise 1.22
 // 没有任何赋值的过程!!!!
-const is_undefined = n => n === undefined
-const display = (v, n = 1) => console.log(('' + v).repeat(n))
-const get_time = () => Date.now()
 
 console.log('****************************************************************')
 
@@ -773,7 +778,6 @@ function fixed_point(f, first_guess) {
 
   return try_with(first_guess)
 }
-const math_cos = Math.cos
 console.log(fixed_point(math_cos, 1), 'fixed_point(math_cos, 1)')
 
 /*
@@ -796,7 +800,6 @@ console.log('golden_rate_val', golden_rate_val)
 
 // exercise 1.36
 
-const log = Math.log
 const fixed_p = fixed_point(x => log(1000) / log(x), 1.1)
 console.log('fixed_p', fixed_p)
 
@@ -838,7 +841,6 @@ function tan_cf(x, k) {
     k
   )
 }
-const math_PI = Math.PI
 const tan_cf_value = tan_cf(math_PI, 14)
 console.log('tan_cf_value', tan_cf_value)
 
@@ -971,7 +973,6 @@ console.log(
   fourth_root_with_average_damp(16)
 )
 
-const math_log2 = Math.log
 function nth_root(x, n) {
   return fixed_point(
     repeated(
