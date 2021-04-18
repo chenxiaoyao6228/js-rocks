@@ -231,4 +231,116 @@ print_interval(sub_interval(make_interval(1, 2), make_interval(3, 5)))
 
 // TODO exercise 2.9 - 2.16
 
+// 2.2 层次性数据结构与闭包性质
+// 序对pair就是一种通用的建筑砖块, 使用它可以构架起不同种类的数据结构来(如数列list和树tree)
+const stringify = JSON.stringify
+// 2.2.1
+function list(...args) {
+  return args.length === 0 ? null : pair(args[0], list(...args.slice(1)))
+}
+console.log(stringify(list(1, 2, 3, 4)))
+
+const one_through_four = list(1, 2, 3, 4)
+console.log(head(tail(one_through_four)))
+
+console.log(stringify(pair(5, one_through_four)))
+
+// list 操作
+// 根据索引查找元素
+function list_ref(items, n) {
+  return n === 0 ? head(items) : list_ref(tail(items), n - 1)
+}
+
+console.log(list_ref(one_through_four, 0))
+console.log(list_ref(one_through_four, 1))
+console.log(list_ref(one_through_four, 2))
+console.log(list_ref(one_through_four, 3))
+
+// length
+function is_null(items) {
+  return items === null
+}
+// 递归
+function length(items) {
+  return is_null(items) ? 0 : 1 + length(tail(items))
+}
+
+console.log('length(one_through_four)', length(one_through_four))
+
+// 迭代
+function length_iter(items) {
+  function iter(items, total) {
+    return is_null(items) ? total : iter(tail(items), total + 1)
+  }
+  return iter(items, 0)
+}
+
+console.log('length_iter(one_through_four)', length_iter(one_through_four))
+
+// append
+function append(list1, list2) {
+  return is_null(list1) ? list2 : pair(head(list1), append(tail(list1), list2))
+}
+
+const five_trough_eigth = list(5, 6, 7, 8)
+const one_through_eight = append(one_through_four, five_trough_eigth)
+console.log('one_through_eight)', stringify(one_through_eight))
+console.log('head(one_through_eight))', stringify(head(one_through_eight)))
+
+// last_pair 获取最后一个元素
+// function last_pair(items) {
+//   return is_null(tail(items)) ? items : last_pair(tail(items))
+// }
+function last_pair(list) {
+  return list_ref(list, length(list) - 1)
+}
+
+console.log(last_pair(one_through_eight))
+
+// exercise 2.18
+// ⭐ reverse 链表反转
+function reverse_naive(items) {
+  return is_null(items)
+    ? null
+    : append(reverse_naive(tail(items)), pair(head(items), null))
+}
+console.log(stringify(reverse_naive(one_through_four)))
+
+function reverse(items) {
+  function reverse_iter(items, result) {
+    return is_null(items)
+      ? result
+      : reverse_iter(tail(items), pair(head(items), result))
+  }
+  return reverse_iter(items, null)
+}
+
+console.log(stringify(reverse(one_through_four)))
+
+// exercise 2.19
+function cc(amount, coin_values) {
+  return amount === 0
+    ? 1
+    : amount < 0 || no_more(coin_values)
+    ? 0
+    : cc(amount, except_first_denomination(coin_values)) +
+      cc(amount - first_denomination(coin_values), coin_values)
+}
+
+const us_coins = list(100, 50, 25, 10, 5, 1)
+const uk_coins = list(100, 50, 20, 10, 5, 2, 1)
+
+function first_denomination(coin_values) {
+  return head(coin_values)
+}
+function except_first_denomination(coin_values) {
+  return tail(coin_values)
+}
+function no_more(coin_values) {
+  return is_null(coin_values)
+}
+
+console.log('cc(100, us_coins)', cc(100, us_coins))
+console.log('cc(100, us_coins)', cc(100, uk_coins))
+
 export { pair, head, tail, make_rat, numer, denom, print_rat, make_rat_better }
