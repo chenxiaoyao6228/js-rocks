@@ -343,4 +343,162 @@ function no_more(coin_values) {
 console.log('cc(100, us_coins)', cc(100, us_coins))
 console.log('cc(100, us_coins)', cc(100, uk_coins))
 
-export { pair, head, tail, make_rat, numer, denom, print_rat, make_rat_better }
+// ⭐ exercise 2.20
+function plus_curried(x) {
+  return y => x + y
+}
+console.log('plus_curried(3)(4)', plus_curried(3)(4))
+
+function brooks(f, list) {
+  return is_null(list) ? f : brooks(f(head(list)), tail(list))
+}
+console.log(
+  'brooks(plus_curried, list(3, 4))',
+  brooks(plus_curried, list(3, 4))
+)
+
+function brooks_curried(items) {
+  return brooks(head(items), tail(items))
+}
+
+console.log(
+  'brooks_curried(list(plus_curried, 3,4)',
+  brooks_curried(list(plus_curried, 3, 4))
+)
+function map(fun, items) {
+  return is_null(items) ? null : pair(fun(head(items)), map(fun, tail(items)))
+}
+const inc = x => x + 1
+console.log('map(inc, list(1,2,3,4))', stringify(map(inc, list(1, 2, 3, 4))))
+
+// exercise 2.21
+const square = x => x * x
+function square_list(items) {
+  return is_null(items)
+    ? null
+    : pair(square(head(items)), square_list(tail(items)))
+}
+
+console.log('square_list(list(1,2,3,4))', square_list(list(1, 2, 3, 4)))
+
+function square_list_with_map(items) {
+  return map(square, items)
+}
+console.log(
+  'square_list_with_map(list(1,2,3,4))',
+  square_list_with_map(list(1, 2, 3, 4))
+)
+// exercise 2.23
+function for_each(fn, items) {
+  if (is_null(items)) {
+    return null
+  } else {
+    fn(head(items))
+    for_each(fn, tail(items))
+  }
+}
+for_each(x => display(x), list(1, 2, 3, 4))
+
+// 2.22 层次性结构
+function is_pair(pair) {
+  if (is_null(pair)) {
+    return false
+  }
+  try {
+    let head = pair[0]
+    let tail = pair[1]
+    if (!head || !tail) {
+      return false
+    }
+  } catch (error) {
+    return false
+  }
+  return true
+}
+const x = pair(list(1, 2), list(3, 4))
+console.log('length(x)', length(x))
+
+const xx = list(x, x)
+console.log('stringify(xx)', stringify(xx))
+// length指的是一维的结构
+
+function count_leaves(x) {
+  return is_null(x)
+    ? 0
+    : !is_pair(x)
+    ? 1
+    : count_leaves(head(x)) + count_leaves(tail(x))
+}
+console.log(
+  'count_leaves(pair(list(1, 2), list(3, 4)))',
+  count_leaves(pair(list(1, 2), list(3, 4)))
+)
+
+// exercise 2.25 通过head和tail来选出其中的7
+// 1. list(1, 3, list(5, 7), 9)
+console.log(
+  'head(tail(head(tail(tail(list(1, 3, list(5, 7), 9))))))',
+  head(tail(head(tail(tail(list(1, 3, list(5, 7), 9))))))
+)
+
+// 2. list(list(7))
+console.log(
+  'stringify(head(head(list(list(7)))))',
+  stringify(head(head(list(list(7)))))
+)
+
+// 3. list(1, list(2, list(3, list(4, list(5, list(6, 7))))))
+
+const mm = list(1, list(2, list(3, list(4, list(5, list(6, 7))))))
+console.log(
+  head(tail(head(tail(head(tail(head(tail(head(tail(head(tail(mm))))))))))))
+)
+
+// exercise 2.26
+/* 
+  比较append, pair, list 
+  append会把两个链表连接起来, 形成一个单一的链表, 末尾只有一个null
+  pair把两个list组合起来, 可以通过head, tail取到
+  list(a1,a2...): 把所有的元素通过链条的形式连接起来, 只会处理一级的,最后一个元素为null 
+*/
+
+const x1 = list(1, 2, 3)
+const y1 = list(4, 5, 6)
+console.log('append(x1,y1)', stringify(append(x1, y1)))
+console.log('pair(x1,y1)', stringify(pair(x1, y1)))
+console.log('list(x1,y1)', stringify(list(x1, y1)))
+
+// ⭐ exercise 2.2.7 深度反转数结构
+// const x = list(list(1, 2), list(3, 4)) => list(list(4, 3), list(2, 1))
+
+function deep_reverse(items) {
+  return is_null(items)
+    ? null
+    : is_pair(items)
+    ? append(deep_reverse(tail(items)), pair(deep_reverse(head(items)), null))
+    : items
+}
+
+// ⭐ exercise 2.2.8 深度嵌套数据拍平 fringe
+function fringe(x) {
+  return is_null(x)
+    ? null
+    : is_pair(x)
+    ? append(fringe(head(x), fringe(tail(x))))
+    : list(x)
+}
+
+export {
+  pair,
+  head,
+  tail,
+  make_rat,
+  numer,
+  denom,
+  print_rat,
+  make_rat_better,
+  list,
+  is_pair,
+  deep_reverse,
+  fringe
+}
