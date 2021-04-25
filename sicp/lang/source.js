@@ -1,14 +1,19 @@
 const is_undefined = n => n === undefined
+const is_null = n => n === null
+const is_number = n => typeof n === 'number'
+const is_boolean = n => typeof n === 'boolean'
+const is_string = n => typeof n === 'string'
+const is_function = n => typeof n === 'function'
+
 const display = (v, n = 1) => console.log(('' + v).repeat(n))
+const stringify = JSON.stringify
 const get_time = () => Date.now()
 
 const abs = Math.abs
 const math_floor = Math.floor
 const math_random = Math.random
-
 const math_cos = Math.cos
 const log = Math.log
-
 const math_PI = Math.PI
 const math_log2 = Math.log
 const math_max = Math.max
@@ -39,6 +44,33 @@ function fast_exp(base, exp) {
   return fast_exp_iter(1, base, exp)
 }
 
+function accumulate(fn, init, list) {
+  return is_null(list) ? init : fn(head(list), accumulate(fn, init, tail(list)))
+}
+
+// cp2
+const pair = (x, y) => [x, y]
+const head = pair => pair[0]
+const tail = pair => pair[1]
+function is_pair(pair) {
+  if (is_null(pair)) {
+    return false
+  }
+  try {
+    let head = pair[0]
+    let tail = pair[1]
+    if (!head || !tail) {
+      return false
+    }
+  } catch (error) {
+    return false
+  }
+  return true
+}
+function list(...args) {
+  return args.length === 0 ? null : pair(args[0], list(...args.slice(1)))
+}
+
 export {
   is_undefined,
   display,
@@ -54,5 +86,17 @@ export {
   math_random,
   math_cos,
   math_min,
-  math_max
+  math_max,
+  is_boolean,
+  is_string,
+  is_number,
+  is_function,
+  is_null,
+  pair,
+  is_pair,
+  head,
+  tail,
+  list,
+  stringify,
+  accumulate
 }

@@ -468,7 +468,7 @@ console.log('append(x1,y1)', stringify(append(x1, y1)))
 console.log('pair(x1,y1)', stringify(pair(x1, y1)))
 console.log('list(x1,y1)', stringify(list(x1, y1)))
 
-// ⭐ exercise 2.2.7 深度反转数结构
+// ⭐ exercise 2.27 深度反转数结构
 // const x = list(list(1, 2), list(3, 4)) => list(list(4, 3), list(2, 1))
 
 function deep_reverse(items) {
@@ -479,7 +479,7 @@ function deep_reverse(items) {
     : items
 }
 
-// ⭐ exercise 2.2.8 深度嵌套数据拍平 fringe
+// ⭐ exercise 2.28 深度嵌套数据拍平 fringe
 function fringe(x) {
   return is_null(x)
     ? null
