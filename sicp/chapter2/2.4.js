@@ -11,7 +11,8 @@ import {
   list,
   error,
   stringify,
-  accumulate
+  accumulate,
+  pair
 } from '../lang/source'
 
 function member(item, list) {
@@ -234,4 +235,68 @@ export function deriv_new_2(exp, variable) {
 console.log(
   "deriv_new_2(list('*', 'x', 'y', list('+', 'x', 3)), 'x')-----",
   stringify(deriv_new_2(list('*', 'x', 'y', list('+', 'x', 3)), 'x'))
+)
+
+// 2.3.3 代表集合
+// 使用多种方式来代表集合， 体现数据结构的选择对结果产生的影响
+
+//方法1: 使用无需列表来代表集合
+function is_element_of_set(x, set) {
+  return is_null(set)
+    ? false
+    : x === head(set)
+    ? true
+    : is_element_of_set(x, tail(set))
+}
+
+console.log(
+  'is_element_of_set(1, list(1,2,3,4))',
+  stringify(is_element_of_set(1, list(1, 2, 3, 4)))
+)
+console.log(
+  'is_element_of_set(5, list(1,2,3,4))',
+  stringify(is_element_of_set(5, list(1, 2, 3, 4)))
+)
+
+function adjoin_set(x, set) {
+  return is_element_of_set(x, set) ? set : pair(x, set)
+}
+
+console.log('adjoin_set(1, list(2,3))', stringify(adjoin_set(1, list(2, 3))))
+
+// 取交集
+function intersection_set(set1, set2) {
+  return is_null(set1) || is_null(set2)
+    ? null
+    : is_element_of_set(head(set1), set2)
+    ? pair(head(set1), intersection_set(tail(set1), set2))
+    : intersection_set(tail(set1), set2)
+}
+
+console.log(
+  'intersection_set(list(1,3,4), list(2,3,4,5))',
+  stringify(intersection_set(list(1, 3, 4), list(2, 3, 4, 5)))
+)
+
+console.log(
+  intersection_set(
+    adjoin_set(10, adjoin_set(20, adjoin_set(30, null))),
+    adjoin_set(10, adjoin_set(15, adjoin_set(20, null)))
+  )
+)
+
+// 去并集
+function union_set(set1, set2) {
+  return is_null(set1)
+    ? set2
+    : adjoin_set(head(set1), union_set(tail(set1), set2))
+}
+
+console.log(
+  stringify(
+    union_set(
+      adjoin_set(10, adjoin_set(20, adjoin_set(30, null))),
+      adjoin_set(10, adjoin_set(15, adjoin_set(20, null)))
+    )
+  )
 )
