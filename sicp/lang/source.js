@@ -70,6 +70,9 @@ function is_pair(pair) {
 function list(...args) {
   return args.length === 0 ? null : pair(args[0], list(...args.slice(1)))
 }
+function append(list1, list2) {
+  return is_null(list1) ? list2 : pair(head(list1), append(tail(list1), list2))
+}
 
 export {
   is_undefined,
@@ -98,5 +101,6 @@ export {
   tail,
   list,
   stringify,
-  accumulate
+  accumulate,
+  append
 }

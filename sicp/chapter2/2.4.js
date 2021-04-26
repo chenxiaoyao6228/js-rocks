@@ -12,7 +12,8 @@ import {
   error,
   stringify,
   accumulate,
-  pair
+  pair,
+  append
 } from '../lang/source'
 
 function member(item, list) {
@@ -240,7 +241,7 @@ console.log(
 // 2.3.3 代表集合
 // 使用多种方式来代表集合， 体现数据结构的选择对结果产生的影响
 
-//方法1: 使用无需列表来代表集合
+//方法1: 使用无序列表来代表集合
 function is_element_of_set(x, set) {
   return is_null(set)
     ? false
@@ -299,4 +300,110 @@ console.log(
       adjoin_set(10, adjoin_set(15, adjoin_set(20, null)))
     )
   )
+)
+
+// exercise 2.60  重复的无序列表来表示集合
+function is_element_of_set_with_duplicate(x, set) {
+  return is_element_of_set(x, set)
+}
+
+function adjoin_set_with_duplicate(x, set) {
+  return is_null(x) ? set : pair(x, set)
+}
+
+console.log(
+  'adjoin_set_with_duplicate(1, list(1, 2, 3, 4))',
+  stringify(adjoin_set_with_duplicate(1, list(1, 2, 3, 4)))
+)
+
+function intersection_set_with_duplicate(set1, set2) {
+  return intersection_set(set1, set2)
+}
+
+function union_set_with_duplicate(set1, set2) {
+  return append(set1, set2)
+}
+
+console.log(
+  'union_set_with_duplicate(adjoin_set(10, adjoin_set(20, adjoin_set(30, null))),adjoin_set(10, adjoin_set(15, adjoin_set(20, null))))',
+  stringify(
+    union_set_with_duplicate(
+      adjoin_set(10, adjoin_set(20, adjoin_set(30, null))),
+      adjoin_set(10, adjoin_set(15, adjoin_set(20, null)))
+    )
+  )
+)
+
+// 2. 集合作为有序列表
+function is_element_of_set_ordered_list(x, set) {
+  return is_null(set)
+    ? false
+    : x < head(set)
+    ? false
+    : x === head(set)
+    ? true
+    : is_element_of_set_ordered_list(x, tail(set))
+}
+
+console.log(
+  'is_element_of_set_ordered_list(2, list(1,2,3, 4))',
+  stringify(is_element_of_set_ordered_list(2, list(1, 2, 3, 4)))
+)
+
+function intersection_set_with_ordered_list(set1, set2) {
+  return is_null(set1) || is_null(set2)
+    ? null
+    : head(set1) < head(set2)
+    ? pair(head(set1), intersection_set_with_ordered_list(tail(set1), set2))
+    : head(set1) === head(set2)
+    ? pair(
+        head(set1),
+        intersection_set_with_ordered_list(tail(set1), tail(set2))
+      )
+    : intersection_set_with_ordered_list(set1, tail(set2))
+}
+
+console.log(
+  'intersection_set_with_ordered_list(list(3,4,5), list(1,2,3))',
+  stringify(intersection_set_with_ordered_list(list(3, 4, 5), list(1, 2, 3)))
+)
+
+// exercise 2.61
+function adjoin_set_with_ordered_list(x, set) {
+  return is_null(set)
+    ? list(x)
+    : x === head(x)
+    ? set
+    : x < head(set)
+    ? pair(x, set)
+    : pair(head(set), adjoin_set_with_ordered_list(x, tail(set)))
+}
+
+console.log(
+  'stringify(adjoin_set_with_ordered_list(4, list(2, 3, 5)))',
+  stringify(adjoin_set_with_ordered_list(4, list(2, 3, 5)))
+)
+
+// exercise 2.6,2
+function union_set_with_ordered_list(set1, set2) {
+  if (is_null(set1)) {
+    return set2
+  } else if (is_null(set2)) {
+    return set1
+  } else {
+    let head1 = head(set1)
+    let head2 = head(set2)
+    if (head1 < head2) {
+      return pair(head(set1), union_set_with_ordered_list(tail(set1), set2))
+    } else if (head1 === head2) {
+      return pair(head1, union_set_with_ordered_list(tail(set1), tail(set2)))
+    } else {
+      return union_set_with_ordered_list(set1, tail(set2))
+    }
+  }
+}
+
+console.log(
+  'union_set_with_ordered_list(list(1, 2, 3, 4), list(2, 3, 4, 5))',
+  stringify(union_set_with_ordered_list(list(1, 2, 3, 4), list(2, 3, 4, 5)))
 )
