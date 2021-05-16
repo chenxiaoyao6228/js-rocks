@@ -13,7 +13,9 @@ import {
   stringify,
   accumulate,
   pair,
-  append
+  append,
+  math_floor,
+  length
 } from '../lang/source'
 
 function member(item, list) {
@@ -407,3 +409,96 @@ console.log(
   'union_set_with_ordered_list(list(1, 2, 3, 4), list(2, 3, 4, 5))',
   stringify(union_set_with_ordered_list(list(1, 2, 3, 4), list(2, 3, 4, 5)))
 )
+
+// 集合作为二叉树
+function entry(tree) {
+  return head(tree)
+}
+
+function left_branch(tree) {
+  return head(tail(tree))
+}
+
+function right_branch(tree) {
+  return head(tail(tail(tree)))
+}
+
+function make_tree(entry, left, right) {
+  return list(entry, left, right)
+}
+
+export function is_element_of_set_by_tree(x, set) {
+  return is_null(set)
+    ? false
+    : x === entry(set)
+    ? true
+    : x < entry(set)
+    ? is_element_of_set_by_tree(x, left_branch(set))
+    : is_element_of_set_by_tree(x, right_branch(set))
+}
+
+// [2, [3, null,null], [1,null,null]] -> 4
+// 如果小的话，加入到left_branch中, 打的话加入到right_branch
+
+export function adjoin_set_by_tree(x, set) {
+  return is_null(set)
+    ? make_tree(x, null, null)
+    : x === entry(set)
+    ? set
+    : x < entry(set)
+    ? make_tree(
+        entry(set),
+        adjoin_set_by_tree(x, left_branch(set)),
+        right_branch(set)
+      )
+    : // x > entry(set)
+      make_tree(
+        entry(set),
+        left_branch(set),
+        adjoin_set_by_tree(x, right_branch(set))
+      )
+}
+
+// exercise 2.6.3
+export function tree_to_list_1(tree) {
+  return is_null(tree)
+    ? null
+    : append(
+        tree_to_list_1(left_branch(tree)),
+        pair(entry(tree), tree_to_list_1(right_branch(tree)))
+      )
+}
+
+export function tree_to_list_2(tree) {
+  function copy_to_list(tree, result_list) {
+    return is_null(tree)
+      ? result_list
+      : copy_to_list(
+          left_branch(tree),
+          pair(entry(tree), copy_to_list(right_branch(tree), result_list))
+        )
+  }
+  return copy_to_list(tree, null)
+}
+
+// transform an orderd tree to a balanced binary tree
+export function list_to_tree(elements) {
+  return head(partial_tree(elements, length(elements)))
+}
+
+function partial_tree(elts, n) {
+  if (n === 0) {
+    return pair(null, elts)
+  } else {
+    const left_size = math_floor((n - 1) / 2)
+    const left_result = partial_tree(elts, left_size)
+    const left_tree = head(left_result)
+    const non_left_elts = tail(left_result)
+    const right_size = n - (left_size + 1)
+    const this_entry = head(non_left_elts)
+    const right_result = partial_tree(tail(non_left_elts), right_size)
+    const right_tree = head(right_result)
+    const remaining_elts = tail(right_result)
+    return pair(make_tree(this_entry, left_tree, right_tree), remaining_elts)
+  }
+}

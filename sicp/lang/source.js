@@ -74,6 +74,14 @@ function append(list1, list2) {
   return is_null(list1) ? list2 : pair(head(list1), append(tail(list1), list2))
 }
 
+function length(list) {
+  return is_null(list)
+    ? null
+    : head(list) && is_null(tail(list))
+    ? 1
+    : 1 + length(tail(list))
+}
+
 export {
   is_undefined,
   display,
@@ -102,5 +110,6 @@ export {
   list,
   stringify,
   accumulate,
-  append
+  append,
+  length
 }
