@@ -15,7 +15,7 @@
     "node": ">=6.0.0"
   },
   "scripts": {
-    "dev": "node examples/server.js",
+    "dev": "nodemon examples/server.js",
     "lint": "tslint  --project tsconfig.json -t codeFrame 'src/**/*.ts' 'test/**/*.ts'",
     "prebuild": "rimraf dist",
     "build": "tsc --module commonjs && rollup -c rollup.config.ts && typedoc --out docs --target es6 --theme minimal --mode file src",
@@ -138,5 +138,8 @@
     "webpack": "^4.39.2",
     "webpack-dev-middleware": "^3.7.0",
     "webpack-hot-middleware": "^2.25.0"
+  },
+  "dependencies": {
+    "nodemon": "^2.0.7"
   }
 }
