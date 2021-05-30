@@ -3,7 +3,8 @@ import {
   adjoin_set_by_tree,
   tree_to_list_1,
   tree_to_list_2,
-  list_to_tree
+  list_to_tree,
+  look_up
 } from './2.4'
 
 function make_set_of_tree_by_list(...args) {
@@ -40,3 +41,5 @@ describe('tree_to_list', () => {
     expect(origin).toEqual(res)
   })
 })
+
+test('look_up', () => {})

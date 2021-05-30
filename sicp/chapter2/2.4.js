@@ -502,3 +502,12 @@ function partial_tree(elts, n) {
     return pair(make_tree(this_entry, left_tree, right_tree), remaining_elts)
   }
 }
+
+// 数据库查找与集合
+export function look_up(given_key, set_of_records) {
+  return is_null(set_of_records)
+    ? false
+    : given_key === head(set_of_records)
+    ? true
+    : look_up(given_key, tail(set_of_records))
+}
