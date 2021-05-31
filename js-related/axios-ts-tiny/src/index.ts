@@ -1,4 +1,4 @@
-import { AxiosRequestConfig, AxiosResponse, AxiosPromise } from './types'
+import { AxiosRequestConfig, AxiosPromise } from './types'
 import { bulidURL } from '../src/helpers/url'
 import { transformRequest } from '../src/helpers/data'
 import xhr from './xhr'
