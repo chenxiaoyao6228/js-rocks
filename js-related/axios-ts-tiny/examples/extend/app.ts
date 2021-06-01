@@ -7,7 +7,6 @@ axios({
     msg: 'hi'
   }
 })
-
 axios.request({
   url: '/extend/post',
   method: 'post',
@@ -15,7 +14,6 @@ axios.request({
     msg: 'hello'
   }
 })
-
 axios.get('/extend/get')
 
 axios.options('/extend/options')

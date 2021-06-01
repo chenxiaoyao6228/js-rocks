@@ -1,7 +1,8 @@
-import { AxiosRequestConfig, AxiosResponse } from '../src/types'
-import { parseHeader } from '../src/helpers/headers'
-import { createError } from './helpers/error'
+import { AxiosRequestConfig, AxiosResponse } from '../types'
+import { parseHeader } from '../helpers/headers'
+import { createError } from '../helpers/error'
 
+// 负责底层XMLHTTPRequest的调用
 export default function xhr(config: AxiosRequestConfig) {
   return new Promise((resolve, reject) => {
     let { data = null, url, method = 'get', headers, responseType, timeout } = config
