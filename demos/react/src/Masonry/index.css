@@ -42,6 +42,7 @@
 
 .img {
   width: 100%;
+  min-height: 200px;
   height: auto;
   border: 1px solid grey;
   box-sizing: border-box;

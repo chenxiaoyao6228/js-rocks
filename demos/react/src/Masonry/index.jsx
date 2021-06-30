@@ -45,11 +45,11 @@ function MasonryDemo() {
 
   return (
     <>
-      <Button onClick={() => setVisible(!visible)}>click</Button>
+      <Button onClick={() => setVisible(!visible)}>showModal</Button>
       <br></br>
       <Modal
         title={`insert photos(${checkedIndexes.length})`}
-        visible={true}
+        visible={visible}
         width="600px"
         className="modal"
       >
@@ -69,8 +69,14 @@ function MasonryDemo() {
                     className="item-checkbox"
                     onChange={partial(handleChange, index)}
                   ></Checkbox>
+                  {/* <div
+                    className="img active"
+                    style={{
+                      backgroundImage: "url(" + photo.currentSrc + ")",
+                    }}
+                  ></div> */}
                   <img
-                    src={photo.currentSrc || ""}
+                    src={photo.currentSrc || "./images/placeholder.png"}
                     className="img active"
                   ></img>
                 </div>

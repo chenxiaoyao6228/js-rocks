@@ -357,7 +357,7 @@ const data = [
   },
   {
     id: 90,
-    currentSrc: "./images/0.jpg",
+    currentSrc: "./images/30.jpg",
   },
   {
     id: 91,

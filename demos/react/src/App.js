@@ -6,8 +6,10 @@ import ControlProps from "./ControlProps";
 import PropsCollection from "./PropsCollection";
 import StateReducer from "./StateReducer";
 import Masonry from "./Masonry";
+import BarrelLayout from "./BarrelLayout";
 
 const routes = [
+  ["BarrelLayout", BarrelLayout],
   ["Masonry", Masonry],
   ["RenderProps", RenderProps],
   ["CompoundComponent", CompoundComponent],

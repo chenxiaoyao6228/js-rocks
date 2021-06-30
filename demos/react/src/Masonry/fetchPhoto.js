@@ -12,7 +12,6 @@ export default function fetchPhotos() {
         dataIndex = -1;
       }
       dataIndex++;
-      console.log("dataIndex", dataIndex);
       resolve(dataList[dataIndex]);
     }, 3000);
   });
