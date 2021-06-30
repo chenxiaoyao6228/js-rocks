@@ -1,0 +1,58 @@
+.input-wrapper {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.modal {
+}
+
+.masonry-container {
+  max-height: 500px;
+  overflow-y: scroll;
+}
+
+.masonry-grid {
+  display: -webkit-box; /* Not needed if autoprefixing */
+  display: -ms-flexbox; /* Not needed if autoprefixing */
+  display: flex;
+  /* margin-left: -30px;  */
+  width: auto;
+}
+.masonry-grid_column {
+  /* padding-left: 30px; */
+  background-clip: padding-box;
+}
+
+/* Style your items */
+.masonry-grid_column > div {
+  /* change div to reference your elements you put in <Masonry> */
+  background: grey;
+  /* margin-bottom: 30px; */
+}
+
+.item-container {
+  position: relative;
+}
+
+.item-checkbox {
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.img {
+  width: 100%;
+  height: auto;
+  border: 1px solid grey;
+  box-sizing: border-box;
+}
+
+.img.active {
+  border: 1px solid red;
+}
+
+.loading-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
