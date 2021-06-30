@@ -1,6 +1,6 @@
 import { AxiosRequestConfig, AxiosPromise, AxiosResponse } from '../types'
 import { bulidURL } from '../helpers/url'
-import { processHeader } from '../helpers/headers'
+import { processHeader, flattenHeaders } from '../helpers/headers'
 import { transformRequest, transformResponse } from '../helpers/data'
 import xhr from './xhr'
 
@@ -15,6 +15,7 @@ function processConfig(config: AxiosRequestConfig): void {
   config.url = transformURL(config)
   config.headers = transformHeaders(config)
   config.data = transformRequestData(config)
+  config.headers = flattenHeaders(config.headers, config.method!)
 }
 
 function transformURL(config: AxiosRequestConfig): string {

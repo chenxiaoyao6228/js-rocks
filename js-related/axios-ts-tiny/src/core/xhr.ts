@@ -38,10 +38,7 @@ export default function xhr(config: AxiosRequestConfig) {
     }
 
     request.onreadystatechange = function handleLoad() {
-      if (request.readyState !== 4) {
-        return
-      }
-      if (request.status === 0) {
+      if (request.readyState !== 4 || request.status === 0) {
         return
       }
 
