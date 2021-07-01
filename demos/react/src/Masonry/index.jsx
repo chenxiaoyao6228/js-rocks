@@ -27,6 +27,7 @@ function MasonryDemo() {
   if (inViewPort) {
     const getPhotos = async () => {
       let newPhotos = await fetchPhotos();
+      console.log("newPhotos", newPhotos);
       setPhotos([...photos, ...newPhotos]);
     };
     getPhotos();
@@ -52,11 +53,12 @@ function MasonryDemo() {
         visible={visible}
         width="600px"
         className="modal"
+        onOk={() => setVisible(!visible)}
       >
         <div className="input-wrapper">
           <Input placeholder="Basic usage" value={searchKey} />
         </div>
-        <div class="masonry-container">
+        <div className="masonry-container">
           <Masonry
             breakpointCols={5}
             className="masonry-grid"

@@ -7,8 +7,10 @@ import PropsCollection from "./PropsCollection";
 import StateReducer from "./StateReducer";
 import Masonry from "./Masonry";
 import BarrelLayout from "./BarrelLayout";
+import VirtualList from "./VirtualList";
 
 const routes = [
+  ["VirtualList", VirtualList],
   ["BarrelLayout", BarrelLayout],
   ["Masonry", Masonry],
   ["RenderProps", RenderProps],
