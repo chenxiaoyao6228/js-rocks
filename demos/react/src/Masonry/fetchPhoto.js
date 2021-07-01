@@ -13,6 +13,6 @@ export default function fetchPhotos() {
       }
       dataIndex++;
       resolve(dataList[dataIndex]);
-    }, 3000);
+    }, 2000);
   });
 }

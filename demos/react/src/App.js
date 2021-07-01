@@ -8,10 +8,12 @@ import StateReducer from "./StateReducer";
 import Masonry from "./Masonry";
 import BarrelLayout from "./BarrelLayout";
 import VirtualList from "./VirtualList";
+import LazyLoad from "./LazyLoad";
 
 const routes = [
-  ["VirtualList", VirtualList],
   ["BarrelLayout", BarrelLayout],
+  ["LazyLoad", LazyLoad],
+  ["VirtualList", VirtualList],
   ["Masonry", Masonry],
   ["RenderProps", RenderProps],
   ["CompoundComponent", CompoundComponent],
