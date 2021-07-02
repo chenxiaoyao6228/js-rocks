@@ -11,10 +11,10 @@ import VirtualList from "./VirtualList";
 import LazyLoad from "./LazyLoad";
 
 const routes = [
+  ["Masonry", Masonry],
   ["BarrelLayout", BarrelLayout],
   ["LazyLoad", LazyLoad],
   ["VirtualList", VirtualList],
-  ["Masonry", Masonry],
   ["RenderProps", RenderProps],
   ["CompoundComponent", CompoundComponent],
   ["PropsCollection", PropsCollection],

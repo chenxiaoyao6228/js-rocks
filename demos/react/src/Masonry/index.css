@@ -37,15 +37,28 @@
   top: 0;
 }
 
+.image-bg {
+  background: #e1e1e1;
+}
+
 .img {
   width: 100%;
   height: auto;
   border: 1px solid grey;
   box-sizing: border-box;
+  opacity: 0;
+  transition: opacity 0.2s ease-in 0.25s;
 }
 
-.img.active {
-  border: 1px solid red;
+.img.checked {
+  border: 2px solid red;
+}
+
+.img.focus {
+  border: 2px solid blue;
+}
+.img.loaded {
+  opacity: 1;
 }
 
 .loading-wrapper {

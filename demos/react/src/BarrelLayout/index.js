@@ -148,6 +148,38 @@ class Loader {
   }
 }
 
+let loadImgHeights = (imgs) => {
+  return new Promise((resolve, reject) => {
+    const length = imgs.length;
+    const heights = [];
+    let count = 0;
+    const load = (index) => {
+      let img = new Image();
+      const checkIfFinished = () => {
+        count++;
+        if (count === length) {
+          resolve(heights);
+        }
+      };
+      img.onload = () => {
+        const ratio = img.height / img.width;
+        const halfHeight = ratio * halfInnerWidth;
+        // 高度按屏幕一半的比例来计算
+        heights[index] = halfHeight;
+        checkIfFinished();
+      };
+      img.onerror = () => {
+        heights[index] = 0;
+        checkIfFinished();
+      };
+      img.src = imgs[index];
+    };
+    imgs.forEach((img, index) => load(index));
+  });
+};
+
+// 短时间内发起两次相同的图片请求，浏览器是否会缓存？ => 会
+
 class Barrel {
   constructor() {
     this.mainNode = document.querySelector("#results");
@@ -163,8 +195,10 @@ class Barrel {
       this.mainNode.innerHTML = "";
       this.rowList = [];
       this.rowTotalWidth = 0;
-      this.allImgInfo = [...e.detail.hits];
 
+      // 待图片加载完成再进行布局
+      // 记录当前信息
+      this.allImgInfo = [...e.detail.hits];
       this.render(e.detail.hits);
     });
 
@@ -185,6 +219,7 @@ class Barrel {
       this.render(this.allImgInfo);
     });
   }
+  loadImage() {}
   render(data) {
     if (!data) return;
     let mainNodeWidth = parseFloat(getComputedStyle(this.mainNode).width);
