@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { partial } from "lodash";
-// import Masonry from "react-masonry-css";
-import Masonry from "./masonry.js";
+import Masonry from "react-masonry-css";
+// import Masonry from "./masonry.js";
 import { Button, Modal, Input, Checkbox, Skeleton } from "antd";
 import ReactLoading from "react-loading";
 import { useThrottleFn, useKeyPress, useSize } from "ahooks";
@@ -10,7 +10,9 @@ import "./index.css";
 
 const HALF_SCREEN = document.body.clientHeight / 2;
 const DEFAULT_SEARCH_KEYWORD = "cat";
-const COLUMN_COUNT = 5;
+const COLUMN_COUNT = 6;
+
+import { useModalSize } from "./hooks";
 
 function MasonryDemo() {
   const [searchKey, setSearchKey] = useState("");
@@ -24,15 +26,22 @@ function MasonryDemo() {
     totalPage: 10,
   });
 
+  //ref
+  const inputRef = useRef();
+  const masonryRef = useRef();
+  const modalRef = useRef(document.querySelector("#masonry-modal"));
+
+  // modal
+  const { modalWidth, modalHeight } = useModalSize();
+  useEffect(() => {
+    if (!masonryRef.current) return;
+    masonryRef.current.style.height = modalHeight + "px";
+  });
+
   const [visible, setVisible] = useState(false);
   const [checkedIndexes, setCheckedIndexes] = useState([]);
   const [focusedIndex, setFocusIndex] = useState(-1);
   const [loadedIndexes, setLoadedIndexes] = useState([]);
-
-  const inputRef = useRef();
-  const containerRef = useRef();
-  const containerSize = useSize(containerRef);
-  console.log("containerSize", containerSize);
 
   const heightOfColumn = useState(new Array(COLUMN_COUNT).fill(0));
 
@@ -67,10 +76,10 @@ function MasonryDemo() {
   useKeyPress("Enter", () => {
     console.log("document.activeElement", document.activeElement);
     console.log("inputRef.current", inputRef.current);
-    console.log("containerRef.current", containerRef.current);
+    console.log("masonryRef.current", masonryRef.current);
     if (document.activeElement === inputRef.current.input) {
       inputRef.current.input.blur();
-      containerRef.current.focus();
+      masonryRef.current.focus();
       triggerSearch();
       setTimeout(() => {
         console.log("document.activeElement", document.activeElement);
@@ -118,7 +127,7 @@ function MasonryDemo() {
   }, [visible]);
 
   const hasReachedBottom = () => {
-    let element = containerRef.current;
+    let element = masonryRef.current;
     return (
       element.scrollHeight -
         Math.abs(element.scrollTop) -
@@ -158,17 +167,17 @@ function MasonryDemo() {
         });
         if (pageObj.page === 1) {
           inputRef.current.blur();
-          containerRef.current.focus();
+          masonryRef.current.focus();
           setFocusIndex(0);
 
           loadImageSize(newPhotos).then((newPhotosWithSize) => {
             setPhotos(newPhotosWithSize);
-            console.log("newPhotosWithSize", newPhotosWithSize);
+            // console.log("newPhotosWithSize", newPhotosWithSize);
           });
         } else {
           loadImageSize(newPhotos).then((newPhotosWithSize) => {
             setPhotos([...photos, ...newPhotosWithSize]);
-            console.log("newPhotosWithSize", newPhotosWithSize);
+            // console.log("newPhotosWithSize", newPhotosWithSize);
           });
         }
       })
@@ -203,29 +212,6 @@ function MasonryDemo() {
     }
   };
 
-  const renderMasonry = () => {
-    return (
-      <>
-        <div
-          className="masonry-container"
-          onScroll={handleScroll}
-          ref={containerRef}
-        >
-          <Masonry
-            breakpointCols={COLUMN_COUNT}
-            className="masonry-grid"
-            columnClassName="masonry-grid_column"
-            dataSource={photos}
-            containerSize={containerSize}
-          ></Masonry>
-          <div className="loading-wrapper">
-            <ReactLoading color="#000000"></ReactLoading>
-          </div>
-        </div>
-      </>
-    );
-  };
-
   const renderSkeleton = () => {
     return <Skeleton />;
   };
@@ -238,16 +224,69 @@ function MasonryDemo() {
     setSearchKey(e.target.value);
   };
 
+  const renderMasonry = () => {
+    return (
+      <>
+        <div
+          className="masonry-container"
+          onScroll={handleScroll}
+          ref={masonryRef}
+        >
+          <Masonry
+            breakpointCols={COLUMN_COUNT}
+            className="masonry-grid"
+            columnClassName="masonry-grid_column"
+          >
+            {photos.map((photo, index) => {
+              return (
+                <div
+                  className="item-container"
+                  key={index}
+                  tabIndex="-1"
+                  onClick={partial(handleCheck, index)}
+                >
+                  <Checkbox
+                    checked={checkedIndexes.includes(index)}
+                    className="item-checkbox"
+                  ></Checkbox>
+                  <div
+                    className="image-bg"
+                    style={{ backgroudColor: "#141646" }}
+                  >
+                    <img
+                      src={photo.currentSrc || "./images/placeholder.png"}
+                      className={`img 
+                      ${focusedIndex === index ? "focus" : ""} 
+                      ${checkedIndexes.includes(index) ? "checked" : ""}
+                      ${loadedIndexes.includes(index) ? "loaded" : ""}
+                      `}
+                      onLoad={partial(handleImgLoad, index)}
+                    ></img>
+                  </div>
+                </div>
+              );
+            })}
+          </Masonry>
+          <div className="loading-wrapper">
+            <ReactLoading color="#000000"></ReactLoading>
+          </div>
+        </div>
+      </>
+    );
+  };
+
   return (
     <>
       <Button onClick={() => setVisible(!visible)}>showModal</Button>
       <br></br>
       <Modal
         title={`insert photos(${checkedIndexes.length})`}
-        visible={visible}
-        width="600px"
+        visible={true}
         className="modal"
+        id="masonry-modal"
         onOk={() => setVisible(!visible)}
+        width={modalWidth}
+        ref={modalRef}
       >
         <>
           <div className="input-wrapper">

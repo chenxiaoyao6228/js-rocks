@@ -3,8 +3,14 @@
   margin-bottom: 10px;
 }
 
+.modal {
+  min-width: 748px;
+  min-height: 512px;
+  max-width: 1070px;
+  max-height: 732px;
+}
+
 .masonry-container {
-  max-height: 500px;
   overflow-y: scroll;
 }
 
@@ -24,7 +30,12 @@
 .masonry-grid_column > div {
   /* change div to reference your elements you put in <Masonry> */
   background: grey;
+  margin-right: 6px;
   /* margin-bottom: 30px; */
+}
+
+.masonry-grid_column:last-child > div {
+  margin-right: 0;
 }
 
 .item-container {
