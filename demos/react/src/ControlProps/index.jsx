@@ -133,3 +133,21 @@ export { Toggle };
 eslint
   no-unused-expressions: "off",
 */
+
+function MyCapitalizedInput() {
+  const inputRef = useRef();
+  const handleSubmit = (event) => {
+    alert("A name was submitted: " + this.input.current.value);
+    event.preventDefault();
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <label>
+        Name:
+        <input type="text" ref={inputRef} />
+      </label>
+      <input type="submit" value="Submit" />
+    </form>
+  );
+}

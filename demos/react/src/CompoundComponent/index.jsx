@@ -53,3 +53,15 @@ function App() {
 }
 
 export default App;
+
+
+function MyCapitalizedInput() {
+  const [capitalizedValue, setCapitalizedValue] = React.useState("");
+
+  return (
+    <input
+      value={capitalizedValue}
+      onChange={(e) => setCapitalizedValue(e.target.value.toUpperCase())}
+    />
+  );
+}

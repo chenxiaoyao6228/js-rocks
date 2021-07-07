@@ -24,7 +24,7 @@ function MasonryDemo() {
     totalPage: 10,
   });
 
-  const [visible, setVisible] = useState(true);
+  const [visible, setVisible] = useState(false);
   const [checkedIndexes, setCheckedIndexes] = useState([]);
   const [focusedIndex, setFocusIndex] = useState(-1);
   const [loadedIndexes, setLoadedIndexes] = useState([]);
@@ -217,37 +217,7 @@ function MasonryDemo() {
             columnClassName="masonry-grid_column"
             dataSource={photos}
             containerSize={containerSize}
-          >
-            {photos.map((photo, index) => {
-              return (
-                <div
-                  className="item-container"
-                  key={index}
-                  tabIndex="-1"
-                  onClick={partial(handleCheck, index)}
-                >
-                  <Checkbox
-                    checked={checkedIndexes.includes(index)}
-                    className="item-checkbox"
-                  ></Checkbox>
-                  <div
-                    className="image-bg"
-                    style={{ backgroudColor: "#141646" }}
-                  >
-                    <img
-                      src={photo.currentSrc || "./images/placeholder.png"}
-                      className={`img 
-                      ${focusedIndex === index ? "focus" : ""} 
-                      ${checkedIndexes.includes(index) ? "checked" : ""}
-                      ${loadedIndexes.includes(index) ? "loaded" : ""}
-                      `}
-                      onLoad={partial(handleImgLoad, index)}
-                    ></img>
-                  </div>
-                </div>
-              );
-            })}
-          </Masonry>
+          ></Masonry>
           <div className="loading-wrapper">
             <ReactLoading color="#000000"></ReactLoading>
           </div>

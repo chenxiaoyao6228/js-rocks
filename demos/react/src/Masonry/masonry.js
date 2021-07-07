@@ -184,7 +184,32 @@ class Masonry extends React.Component {
     return childrenInColumns.map((items, i) => {
       return (
         <div {...columnAttributes} key={i}>
-          {items}
+          {dataSource.map((photo, index) => {
+            return (
+              <div
+                className="item-container"
+                key={index}
+                tabIndex="-1"
+                onClick={partial(handleCheck, index)}
+              >
+                <Checkbox
+                  checked={checkedIndexes.includes(index)}
+                  className="item-checkbox"
+                ></Checkbox>
+                <div className="image-bg" style={{ backgroudColor: "#141646" }}>
+                  <img
+                    src={photo.currentSrc || "./images/placeholder.png"}
+                    className={`img 
+                      ${focusedIndex === index ? "focus" : ""} 
+                      ${checkedIndexes.includes(index) ? "checked" : ""}
+                      ${loadedIndexes.includes(index) ? "loaded" : ""}
+                      `}
+                    onLoad={partial(handleImgLoad, index)}
+                  ></img>
+                </div>
+              </div>
+            );
+          })}
         </div>
       );
     });
