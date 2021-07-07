@@ -1,7 +1,7 @@
 // Control Props
 // http://localhost:3000/isolated/final/06.js
 
-import * as React from "react";
+import React, { useRef } from "react";
 import { Switch } from "../switch";
 
 const callAll =

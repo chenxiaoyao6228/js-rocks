@@ -33,18 +33,7 @@ function Demo() {
 export default Demo;
 
 //事件管理器
-class Event {
-  static on(type, handler) {
-    return document.addEventListener(type, handler);
-  }
-  static trigger(type, data) {
-    return document.dispatchEvent(
-      new CustomEvent(type, {
-        detail: data,
-      })
-    );
-  }
-}
+
 
 //Event.on('search', e=>console.log(e.detail))
 //Event.trigger('search', 'start to search')
@@ -148,35 +137,35 @@ class Loader {
   }
 }
 
-let loadImgHeights = (imgs) => {
-  return new Promise((resolve, reject) => {
-    const length = imgs.length;
-    const heights = [];
-    let count = 0;
-    const load = (index) => {
-      let img = new Image();
-      const checkIfFinished = () => {
-        count++;
-        if (count === length) {
-          resolve(heights);
-        }
-      };
-      img.onload = () => {
-        const ratio = img.height / img.width;
-        const halfHeight = ratio * halfInnerWidth;
-        // 高度按屏幕一半的比例来计算
-        heights[index] = halfHeight;
-        checkIfFinished();
-      };
-      img.onerror = () => {
-        heights[index] = 0;
-        checkIfFinished();
-      };
-      img.src = imgs[index];
-    };
-    imgs.forEach((img, index) => load(index));
-  });
-};
+// let loadImgHeights = (imgs) => {
+//   return new Promise((resolve, reject) => {
+//     const length = imgs.length;
+//     const heights = [];
+//     let count = 0;
+//     const load = (index) => {
+//       let img = new Image();
+//       const checkIfFinished = () => {
+//         count++;
+//         if (count === length) {
+//           resolve(heights);
+//         }
+//       };
+//       img.onload = () => {
+//         const ratio = img.height / img.width;
+//         const halfHeight = ratio * halfInnerWidth;
+//         // 高度按屏幕一半的比例来计算
+//         heights[index] = halfHeight;
+//         checkIfFinished();
+//       };
+//       img.onerror = () => {
+//         heights[index] = 0;
+//         checkIfFinished();
+//       };
+//       img.src = imgs[index];
+//     };
+//     imgs.forEach((img, index) => load(index));
+//   });
+// };
 
 // 短时间内发起两次相同的图片请求，浏览器是否会缓存？ => 会
 

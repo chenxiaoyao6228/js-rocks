@@ -32,7 +32,6 @@ export default function Demo({ itemHeight = 30 }) {
   const contentHeight = data.length * itemHeight + "px";
   return (
     <>
-      {JSON.stringify(scroll)}
       <div class="list-view" onScroll={handleScroll} ref={container}>
         <div class="list-view-phantom" style={{ height: contentHeight }}></div>
         <div ref={content} class="list-view-content">

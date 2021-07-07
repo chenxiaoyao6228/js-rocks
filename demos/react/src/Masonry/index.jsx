@@ -1,18 +1,17 @@
 import { useState, useEffect, useRef } from "react";
 import { partial } from "lodash";
 import Masonry from "react-masonry-css";
+import { useModalSize } from "./hooks";
 // import Masonry from "./masonry.js";
 import { Button, Modal, Input, Checkbox, Skeleton } from "antd";
 import ReactLoading from "react-loading";
-import { useThrottleFn, useKeyPress, useSize } from "ahooks";
+import { useThrottleFn, useKeyPress } from "ahooks";
 import fetchPhotos from "./fetchPhoto";
-import "./index.css";
+import "./index.less";
 
 const HALF_SCREEN = document.body.clientHeight / 2;
 const DEFAULT_SEARCH_KEYWORD = "cat";
 const COLUMN_COUNT = 6;
-
-import { useModalSize } from "./hooks";
 
 function MasonryDemo() {
   const [searchKey, setSearchKey] = useState("");
@@ -111,7 +110,7 @@ function MasonryDemo() {
           checkIfFinished();
         };
         imgEle.onerror = () => {
-          heights[index] = 0;
+          // heights[index] = 0;
           checkIfFinished();
         };
         imgEle.src = imageList[index].currentSrc;
