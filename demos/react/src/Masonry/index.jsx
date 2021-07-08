@@ -28,21 +28,15 @@ function MasonryDemo() {
   //ref
   const inputRef = useRef();
   const masonryRef = useRef();
-  const modalRef = useRef(document.querySelector("#masonry-modal"));
+  const modalRef = useRef(document.querySelector(".masonry-modal"));
 
   // modal
   const { modalWidth, modalHeight } = useModalSize();
-  useEffect(() => {
-    if (!masonryRef.current) return;
-    masonryRef.current.style.height = modalHeight + "px";
-  });
 
   const [visible, setVisible] = useState(false);
   const [checkedIndexes, setCheckedIndexes] = useState([]);
   const [focusedIndex, setFocusIndex] = useState(-1);
   const [loadedIndexes, setLoadedIndexes] = useState([]);
-
-  const heightOfColumn = useState(new Array(COLUMN_COUNT).fill(0));
 
   const triggerSearch = () => {
     setPhotos([]);
@@ -52,6 +46,14 @@ function MasonryDemo() {
       ...{ key: searchKey, page: 1 },
     });
   };
+
+  useEffect(() => {
+    console.log(
+      "document.body.clientHeight, document.body.clientWidth",
+      document.body.clientHeight,
+      document.body.clientWidth
+    );
+  });
 
   // 滚动的时候更改元素选中, 默认为第一个
   useKeyPress("ArrowUp", () => {
@@ -225,52 +227,47 @@ function MasonryDemo() {
 
   const renderMasonry = () => {
     return (
-      <>
-        <div
-          className="masonry-container"
-          onScroll={handleScroll}
-          ref={masonryRef}
+      <div
+        className="masonry-container"
+        onScroll={handleScroll}
+        ref={masonryRef}
+      >
+        <Masonry
+          breakpointCols={COLUMN_COUNT}
+          className="masonry-grid"
+          columnClassName="masonry-grid_column"
         >
-          <Masonry
-            breakpointCols={COLUMN_COUNT}
-            className="masonry-grid"
-            columnClassName="masonry-grid_column"
-          >
-            {photos.map((photo, index) => {
-              return (
-                <div
-                  className="item-container"
-                  key={index}
-                  tabIndex="-1"
-                  onClick={partial(handleCheck, index)}
-                >
-                  <Checkbox
-                    checked={checkedIndexes.includes(index)}
-                    className="item-checkbox"
-                  ></Checkbox>
-                  <div
-                    className="image-bg"
-                    style={{ backgroudColor: "#141646" }}
-                  >
-                    <img
-                      src={photo.currentSrc || "./images/placeholder.png"}
-                      className={`img 
+          {photos.map((photo, index) => {
+            return (
+              <div
+                className="item-container"
+                key={index}
+                tabIndex="-1"
+                onClick={partial(handleCheck, index)}
+              >
+                <Checkbox
+                  checked={checkedIndexes.includes(index)}
+                  className="item-checkbox"
+                ></Checkbox>
+                <div className="image-bg" style={{ backgroudColor: "#141646" }}>
+                  <img
+                    src={photo.currentSrc || "./images/placeholder.png"}
+                    className={`img 
                       ${focusedIndex === index ? "focus" : ""} 
                       ${checkedIndexes.includes(index) ? "checked" : ""}
                       ${loadedIndexes.includes(index) ? "loaded" : ""}
                       `}
-                      onLoad={partial(handleImgLoad, index)}
-                    ></img>
-                  </div>
+                    onLoad={partial(handleImgLoad, index)}
+                  ></img>
                 </div>
-              );
-            })}
-          </Masonry>
-          <div className="loading-wrapper">
-            <ReactLoading color="#000000"></ReactLoading>
-          </div>
+              </div>
+            );
+          })}
+        </Masonry>
+        <div className="loading-wrapper">
+          <ReactLoading color="#000000"></ReactLoading>
         </div>
-      </>
+      </div>
     );
   };
 
@@ -278,29 +275,36 @@ function MasonryDemo() {
     <>
       <Button onClick={() => setVisible(!visible)}>showModal</Button>
       <br></br>
-      <Modal
-        title={`insert photos(${checkedIndexes.length})`}
-        visible={true}
-        className="modal"
-        id="masonry-modal"
-        onOk={() => setVisible(!visible)}
-        width={modalWidth}
-        ref={modalRef}
-      >
-        <>
-          <div className="input-wrapper">
-            <Input
-              ref={inputRef}
-              placeholder="Basic usage"
-              value={searchKey}
-              onChange={handleInput}
-            />
-            <Button onClick={triggerSearch}>Search</Button>
-          </div>
-          {pageObj.page === 1 ? renderSkeleton() : renderMasonry()}
-          {pageObj.page === pageObj.totalPage && renderNoMore()}
-        </>
-      </Modal>
+      <div className="masonry-wrapper">
+        <Modal
+          title={`insert photos(${checkedIndexes.length})`}
+          visible={true}
+          className="masonry-modal"
+          id="masonry-modal"
+          onOk={() => setVisible(!visible)}
+          width={modalWidth}
+          ref={modalRef}
+          style={{
+            border: "1px solid gold",
+            height: `${modalHeight}`,
+          }}
+          bodyStyle={{ padding: 0 }}
+        >
+          <>
+            <div className="input-wrapper">
+              <Input
+                ref={inputRef}
+                placeholder="Basic usage"
+                value={searchKey}
+                onChange={handleInput}
+              />
+              <Button onClick={triggerSearch}>Search</Button>
+            </div>
+            {pageObj.page === 1 ? renderSkeleton() : renderMasonry()}
+            {pageObj.page === pageObj.totalPage && renderNoMore()}
+          </>
+        </Modal>
+      </div>
     </>
   );
 }
