@@ -54,7 +54,6 @@ function App() {
 
 export default App;
 
-
 function MyCapitalizedInput() {
   const [capitalizedValue, setCapitalizedValue] = React.useState("");
 
