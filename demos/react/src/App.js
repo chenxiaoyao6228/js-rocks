@@ -1,25 +1,23 @@
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import "./styles.css";
-import RenderProps from "./RenderProps";
-import CompoundComponent from "./CompoundComponent";
-import ControlProps from "./ControlProps";
-import PropsCollection from "./PropsCollection";
-import StateReducer from "./StateReducer";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import RenderProps from "./patterns/RenderProps";
+import CompoundComponent from "./patterns/CompoundComponent";
+import ControlProps from "./patterns/ControlProps";
+import PropsCollection from "./patterns/PropsCollection";
+import StateReducer from "./patterns/StateReducer";
 import Masonry from "./Masonry";
 import BarrelLayout from "./BarrelLayout";
 import VirtualList from "./VirtualList";
-import LazyLoad from "./LazyLoad";
 
 const routes = [
-  ["Masonry", Masonry],
   ["BarrelLayout", BarrelLayout],
-  ["LazyLoad", LazyLoad],
+  ["Masonry", Masonry],
   ["VirtualList", VirtualList],
-  ["RenderProps", RenderProps],
-  ["CompoundComponent", CompoundComponent],
-  ["PropsCollection", PropsCollection],
-  ["StateReducer", StateReducer],
-  ["ControlProps", ControlProps],
+  ["patterns/RenderProps", RenderProps],
+  ["patterns/CompoundComponent", CompoundComponent],
+  ["patterns/PropsCollection", PropsCollection],
+  ["patterns/StateReducer", StateReducer],
+  ["patterns/ControlProps", ControlProps],
 ];
 
 export default function App() {

@@ -1,3 +1,4 @@
+// 瀑布流布局
 import { useState, useEffect, useRef } from "react";
 import { partial } from "lodash";
 import Masonry from "react-masonry-css";
@@ -278,7 +279,7 @@ function MasonryDemo() {
       <div className="masonry-wrapper">
         <Modal
           title={`insert photos(${checkedIndexes.length})`}
-          visible={true}
+          visible={visible}
           className="masonry-modal"
           id="masonry-modal"
           onOk={() => setVisible(!visible)}

@@ -1,6 +1,3 @@
-// Control Props
-// http://localhost:3000/isolated/final/06.js
-
 import React, { useRef } from "react";
 import { Switch } from "../switch";
 
