@@ -39,6 +39,7 @@
     "@fortawesome/fontawesome-svg-core": "^1.2.26",
     "@fortawesome/free-solid-svg-icons": "^5.12.0",
     "@fortawesome/react-fontawesome": "^0.1.8",
+    "@storybook/addon-console": "^1.2.3",
     "axios": "^0.19.1",
     "babel-loader": "8.1.0",
     "classnames": "^2.2.6",
