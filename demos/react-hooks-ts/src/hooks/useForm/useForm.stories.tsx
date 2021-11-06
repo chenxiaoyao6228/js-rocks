@@ -1,6 +1,5 @@
 import React, { useCallback, useMemo } from "react";
 import { storiesOf } from "@storybook/react";
-import { action } from "@storybook/addon-actions";
 import useForm from "./";
 
 // 使用 useForm 得到表单的状态管理逻辑
