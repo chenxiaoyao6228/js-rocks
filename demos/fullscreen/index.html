@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>main document</title>
+    <style>
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            position: relative;
+        }
+
+        body {
+            background-color: rgb(32, 78, 179);
+            height: 100vh;
+            width: 100vw;
+        }
+
+
+        button {
+            padding: 10px 20px;
+        }
+
+        iframe {
+            height: 100vh;
+            width: 100vw;
+            position: absolute;
+            top: 0;
+            left: 0;
+            visibility: hidden;
+            background-color: aquamarine;
+        }
+    </style>
+</head>
+
+<body>
+    <p>this is main page </p>
+    <button>show iframe page</button>
+    <iframe src="http://127.0.0.1:5501/iframe.html"></iframe>
+    <script>
+        function toggleIframe(flag) {
+            let iframe = document.querySelector('iframe')
+            if (flag) {
+                iframe.style.visibility = 'visible'
+                document.querySelector('iframe').contentDocument.querySelector('#input').focus()
+                document.documentElement.requestFullscreen();
+
+            } else {
+                iframe.style.visibility = 'hidden'
+                iframe.blur();
+            }
+        }
+        document.querySelector('button').addEventListener('click', function (e) {
+            let iframe = document.querySelector('iframe')
+            toggleIframe(true)
+        })
+        document.addEventListener("keydown", (e) => {
+            console.log('keydown in outside', e.key);
+        })
+        window.addEventListener('message', (e) => {
+            let data = e.data
+            if (data.eventName === 'exit-display') {
+                console.log('handle exit-display--------------');
+                toggleIframe(false)
+            }
+        });
+    </script>
+</body>
+
+</html>

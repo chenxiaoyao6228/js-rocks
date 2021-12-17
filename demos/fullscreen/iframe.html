@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iframe Document</title>
+    <style>
+        input {
+            position: fixed;
+            bottom: 0;
+            right: 0;
+            width: 0;
+            height: 0;
+            z-index: -100;
+        }
+
+        .content {}
+
+        button {
+            padding: 10px 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>this is iframe page </h1>
+    <input id="input" />
+    <button class="btn">切换全屏</button>
+    <script>
+        let now = null
+        let fullscreenBtnRecentlyClicked = false
+        function handleExit() {
+            window.parent.postMessage({
+                eventName: 'exit-display',
+            }, '*');
+        }
+
+        function toggleFullScreenByClick() {
+            console.log('toggleFullScreenByClick----------',);
+            now = Date.now()
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen();
+                fullscreenBtnRecentlyClicked = true
+                setTimeout(() => {
+                    console.log('setTimeout----------');
+                    fullscreenBtnRecentlyClicked = false
+                }, 1000)
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                }
+            }
+        }
+
+        document.addEventListener('fullscreenchange', (event) => {
+            console.log('Date.now() - now', Date.now() - now);
+            if (document.fullscreenElement) {
+                console.log(`Element: ${document.fullscreenElement.id} entered full-screen mode.`);
+            } else {
+                console.log('Leaving full-screen mode.', fullscreenBtnRecentlyClicked);
+                let fullScreenTriggerByEsc = !fullscreenBtnRecentlyClicked
+                if (fullScreenTriggerByEsc) {
+                    handleExit()
+                    fullscreenBtnRecentlyClicked = false
+                }
+            }
+        });
+
+        document.querySelector('.btn').addEventListener("click", toggleFullScreenByClick)
+    </script>
+</body>
+
+</html>
