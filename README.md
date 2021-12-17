@@ -16,22 +16,22 @@
 
 ## 内容
 
-### JS 相关
+### js-related
 
 各种 JS 库的简易实现, 如 Lodash, AngularJS, React, Vue, Express ....
 
-### Code Kata
+### code-kata
 
 收集一些 kata, 利用 Javascript 和 TypeScript 实现, 涉及**TDD**, **重构**等题目
 
-### SICP JS 版本
+### cs-related
 
-30 年经典书目, 原先基于 Lisp, JS 版本包含了一个 JS 解释器的实现
+sicp: 30 年经典书目, 原先基于 Lisp, JS 版本包含了一个 JS 解释器的实现
 
-### LeetCode
+leetcode: 算法是每个程序员都避不开的话题
 
-算法是每个程序员都避不开的话题
+design patterns: 收集工作中用到的设计模式
 
-### 其他
+### demos
 
-... TODO Continue
+一些demo页
