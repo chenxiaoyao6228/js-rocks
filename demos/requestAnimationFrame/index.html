@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RequestAnimationFrame</title>
+    <style>
+        #test {
+            width: 100px;
+            height: 100px;
+            background-color: rgb(32, 32, 87);
+        }
+
+        #test2 {
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="test"></div>
+    <div id="test2"></div>
+    <script type="text/javascript">
+        const test = document.querySelector("#test");
+        let i = 0;
+        let requestId;
+        function animation() {
+            test.style.marginLeft = `${i}px`;
+            requestId = requestAnimationFrame(animation);
+            i++;
+            if (i > 200) {
+                cancelAnimationFrame(requestId);
+            }
+        }
+        animation();
+
+        const test2 = document.querySelector("#test2");
+        let j = 0;
+        let timerId;
+        function animation2() {
+            test2.style.marginLeft = `${j}px`;
+            // 执行间隔设置为 0，来模仿 requestAnimationFrame
+            timerId = setTimeout(animation2, 0);
+            j++;
+            if (j > 200) {
+                clearTimeout(timerId);
+            }
+        }
+        animation2();
+    </script>
+</body>
+
+</html>
