@@ -13,15 +13,15 @@
 // eslint-disable-next-line
 const tasks = [
   {
-    name: 'c',
-    taskTime: 60
+    name: "c",
+    taskTime: 60,
   },
   {
-    name: 'b',
-    taskTime: 30
+    name: "b",
+    taskTime: 30,
   },
   {
-    name: 'a',
-    taskTime: 10
-  }
-]
+    name: "a",
+    taskTime: 10,
+  },
+];
