@@ -22,6 +22,7 @@ type MessageOf<T> = T["message"];
 
 可以入参的时候做约束
 
+例子: 
 ```ts
 type MessageOf<T extends { message: unknown }> = T["message"];
 interface Email {
