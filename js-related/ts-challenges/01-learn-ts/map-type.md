@@ -97,9 +97,8 @@ interface Person {
 }
 
 type LazyPerson = Getters<Person>;
-
 ```
-移除`kind`属性
+移除`kind`属性, **注意操作是在左边进行的**
 ```ts
 type RemoveKindField<Type> = {
   [Property in keyof Type as Exclude<Property, "kind">]: Type[Property];
@@ -111,4 +110,13 @@ interface Circle {
 }
 
 type KindlessCircle = RemoveKindField<Circle>;
+```
+
+更多例子
+
+`Omit`
+```ts
+type MyOmit<T, U> = {
+  [P in Exclude<keyof U, T>]: T[P]
+}
 ```
