@@ -1,6 +1,7 @@
 ## typeof 操作符
 
 ### 基本使用
+typeof将js中的`值`转化为typescript中的`类型`
 
 ```ts
 let s = "hello";
