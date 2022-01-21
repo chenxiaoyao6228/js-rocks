@@ -48,3 +48,5 @@ apis.success({
   content: "hello world",
   //   duration: 3,
 });
+
+// TODO: 可以参考下axios的声明, axios.get, axios.post这些也是基于内部的request方法封装的
