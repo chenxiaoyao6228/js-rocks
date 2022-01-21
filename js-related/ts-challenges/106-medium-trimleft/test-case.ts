@@ -1,5 +1,13 @@
 import { Equal, Expect } from "@type-challenges/utils";
 
+type cases = [
+  Expect<Equal<TrimLeft<"str">, "str">>,
+  Expect<Equal<TrimLeft<" str">, "str">>,
+  Expect<Equal<TrimLeft<"     str">, "str">>,
+  Expect<Equal<TrimLeft<"     str     ">, "str     ">>,
+  Expect<Equal<TrimLeft<"   \n\t foo bar ">, "foo bar ">>
+];
+
 // 这里的' Hello World '是类型
 type trimed = TrimLeft<"  Hello World  ">; // expected to be 'Hello World  '
 
