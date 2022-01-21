@@ -1,0 +1,1 @@
+### type-intersection-vs-interface-extends
