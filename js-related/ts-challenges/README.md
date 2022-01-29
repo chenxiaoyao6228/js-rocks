@@ -10,8 +10,7 @@ fork from : https://github.com/type-challenges/
 ## more
 
 ### typescript写lisp解释器
-具体见[这里](https://zhuanlan.zhihu.com/p/427309936), 作者做了基本的概念梳理, 总体来说还是不错的
-
+具体见[这里](https://zhuanlan.zhihu.com/p/427309936), 作者做了基本的概念梳理, 总体来说还是不错的, 特别是递归的部分
 
 
 ### 用 TypeScript 类型运算实现一个中国象棋程序
