@@ -1,9 +1,3 @@
-type LastIndexOf<T extends unknown[], U> = T extends [...infer Rest, infer Last]
-  ? Last extends U
-    ? Rest["length"]
-    : LastIndexOf<Rest, U>
-  : -1;
-
 // js实现
 const len = (arr) => arr.length;
 const last = (arr) => arr[arr.length - 1];
@@ -16,3 +10,10 @@ function lastIndexOf(arr, item) {
 }
 const a = lastIndexOf([1, 2, 3, 2, 1], 2);
 console.log(a);
+
+// 翻译成 TS
+type LastIndexOf<T extends unknown[], U> = T extends [...infer Rest, infer Last]
+  ? Last extends U
+    ? Rest["length"]
+    : LastIndexOf<Rest, U>
+  : -1;

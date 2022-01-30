@@ -7,6 +7,8 @@ typescript的基本知识学习
 ## Exercises
 fork from : https://github.com/type-challenges/
 
+TODO: 需要按照数组, 对象, String的分类
+
 ## more
 
 ### typescript写lisp解释器
