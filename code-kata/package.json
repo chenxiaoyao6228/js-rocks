@@ -8,7 +8,7 @@
     "commit": "git-cz",
     "test": "jest",
     "test:watch": "jest --watch",
-    "lint": "prettier --write ./**/*.js && eslint --fix . && echo 'Lint complete.'"
+    "lint": "prettier --write ./**/*.{js, ts} && eslint --fix . && echo 'Lint complete.'"
   },
   "keywords": [
     "kata",
@@ -31,7 +31,7 @@
       }
     },
     "collectCoverageFrom": [
-      "**/*.{js,jsx}"
+      "**/*.{js,jsx,ts,tsx}"
     ]
   },
   "lint-staged": {
@@ -67,6 +67,7 @@
     "@commitlint/cli": "^8.1.0",
     "@commitlint/config-conventional": "^8.1.0",
     "@commitlint/prompt": "~8.1.0",
+    "@types/jest": "^27.4.0",
     "async": "^3.2.0",
     "babel-jest": "^24.9.0",
     "commitizen": "^4.0.3",
