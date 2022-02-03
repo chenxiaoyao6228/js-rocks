@@ -7,9 +7,9 @@
 //     : any
 //   : never;
 
-type Reverse<T extends any[]> = T extends [...infer X, infer Y]
+type _Reverse<T extends any[]> = T extends [...infer X, infer Y]
   ? [Y, ...Reverse<X>]
   : [];
 type FlipArguments<T extends (...args: any[]) => any> = (
-  ...args: Reverse<Parameters<T>>
+  ...args: _Reverse<Parameters<T>>
 ) => ReturnType<T>;
