@@ -1,5 +1,6 @@
 ## infer
 
+
 官网的例子
 
 ```ts
@@ -61,6 +62,14 @@ type t3 = UnpackArrayType<Greet>; // Greet
 UnpackArrayType根据输入参数返回新的类型, 如果传入的类型参数是一个数组类型, 如`string[]`,`number[]`等, 就返回数组内部的元素`string`, `number`等, 否则返回传入的类型自身, 因为`R`是从传入的`T`推断出来的,所以用了`infer`
 
 
+update: `infer`与局部变量声明:
+
+```ts
+type A = 'hello'; // 声明全局变量
+type B = [A] extends infer T ? (
+    T // => 在这个表达式的作用域内，T 都为 [A]
+) : never  // 声明局部变量
+```
 ## 参考
 
 https://stackoverflow.com/questions/60067100/why-is-the-infer-keyword-needed-in-typescript
