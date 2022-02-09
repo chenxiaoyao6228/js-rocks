@@ -70,6 +70,12 @@ type B = [A] extends infer T ? (
     T // => 在这个表达式的作用域内，T 都为 [A]
 ) : never  // 声明局部变量
 ```
+
+## 练习
+
+可参考这里: 
+https://www.freecodecamp.org/news/typescript-curry-ramda-types-f747e99744ab/
+
 ## 参考
 
 https://stackoverflow.com/questions/60067100/why-is-the-infer-keyword-needed-in-typescript
