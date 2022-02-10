@@ -2,7 +2,7 @@
 
 根据不同的条件返回对应的类型
 
-## 基本语法
+## 基本语法extends
 
 ```ts
 type A<T> = T extends XX ? B : C;

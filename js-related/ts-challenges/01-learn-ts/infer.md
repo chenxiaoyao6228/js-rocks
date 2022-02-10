@@ -38,7 +38,6 @@ type MyType3<T> = T extends R ? R : never; // compare T with type R
 type T2 = MyType2<{b: string}> // T2 is never
 ```
 
-
 更多例子
 
 ```ts

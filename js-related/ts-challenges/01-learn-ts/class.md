@@ -64,6 +64,8 @@ class NameChecker implements Checkable {
 
 继承父类的子类拥有父类的所有属性和方法
 
+ps: extends参见`extend`的笔记, 表示**两个集合的所属关系**, 下面的例子中, `Dog`是`Animal`的子集 
+
 ```ts
 class Animal {
   move() {
