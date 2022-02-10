@@ -73,8 +73,39 @@ type B = [A] extends infer T ? (
 
 ## 练习
 
-可参考这里: 
-https://www.freecodecamp.org/news/typescript-curry-ramda-types-f747e99744ab/
+
+### 对象
+```ts
+type ObjectInfer<O> = O extends {a: infer A} : A : never;
+const object = {a: 'hello'}
+const ObjectInferRes = ObjectInfer<typeof object>
+```
+
+### 函数
+```ts
+type FunctionInfer<F> = F extends (...args: infer A)=> infer R ? [A, R]: never
+```
+
+### 类
+```ts
+type ClassInfer<T> = T extends Promise<infer G> ? G : never
+const promise = new Promise<string>(()=>{})
+const ClassInferRes = ClassInfer<typeof promise> // string
+```
+
+### 数组
+```ts
+type ArrayInfer<T> = T extends (infer U)[] ? U : never
+const array = [0, 'data', 1, 'data']
+const ArrayInferRes = ArrayInfer<typeof Array> // string | number
+```
+
+### 元组
+```ts
+type TupleInfer<T> = T extends [infer  A, ...(infer B)[]] ? [A,B] : never
+const TupleInferRes = TupleInfer<[string, number, boolean]> // [string, number | booean]
+```
+
 
 ## 参考
 
