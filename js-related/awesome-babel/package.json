@@ -1,0 +1,20 @@
+{
+  "name": "awesome-babel",
+  "version": "1.0.0",
+  "description": "babel-training",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "debug": "node logger/index.js --inspect"
+  },
+  "keywords": [
+    "babel"
+  ],
+  "author": "chenxiaoyao6228",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/generator": "^7.17.0",
+    "@babel/parser": "^7.17.0",
+    "@babel/traverse": "^7.17.0"
+  }
+}
