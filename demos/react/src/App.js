@@ -10,7 +10,6 @@ import BarrelLayout from "./BarrelLayout";
 import VirtualList from "./VirtualList";
 
 const routes = [
-  ["BarrelLayout", BarrelLayout],
   ["Masonry", Masonry],
   ["VirtualList", VirtualList],
   ["patterns/RenderProps", RenderProps],
