@@ -30,4 +30,37 @@ describe("effect", () => {
     expect(foo).toEqual(12);
     expect(res).toEqual("foo");
   });
+
+  test("scheduler", () => {
+    // pass a second argument to effect function, fn should be called on the first time
+    // scheduler should be call on reactive obj setter
+    // should run fn again when manual run 'runner' functio
+    let dummy: any;
+    let run: any;
+    const scheduler = jest.fn(() => {
+      run = runner;
+    });
+    const obj = reactive({ foo: 1 });
+    const runner = effect(
+      () => {
+        dummy = obj.foo;
+      },
+      { scheduler }
+    );
+
+    expect(scheduler).not.toHaveBeenCalled();
+    expect(dummy).toEqual(1);
+
+    // should be called on first trigger
+    obj.foo++;
+    expect(scheduler).toHaveBeenCalledTimes(1);
+
+    // should not run yet
+    expect(dummy).toEqual(1);
+
+    // manually run
+    run();
+    // should have run
+    expect(dummy).toEqual(2);
+  });
 });
