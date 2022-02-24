@@ -5,8 +5,11 @@ const targetMap = new Map();
 
 class ReactiveEffect {
   private _fn: Function;
+  private active = true;
   deps: Set<ReactiveEffect>[] = [];
-  constructor(fn: Function, public scheduler: Function) {
+  scheduler?: Function;
+  onStop?: Function;
+  constructor(fn: Function, scheduler?: Function) {
     this._fn = fn;
     this.scheduler = scheduler;
   }
@@ -15,7 +18,11 @@ class ReactiveEffect {
     return this._fn();
   }
   stop() {
-    cleanUpEffect(this);
+    if (this.active) {
+      cleanUpEffect(this);
+      this.onStop && this.onStop();
+      this.active = false;
+    }
   }
 }
 
@@ -54,9 +61,15 @@ export function trigger(target: Record<any, any>, key: symbol | string) {
   activeEffect = null;
 }
 
-export default function effect(fn: Function, options: any = {}) {
-  const { scheduler } = options;
+type EffectOption = {
+  scheduler?: Function;
+  onStop?: Function;
+};
+
+export default function effect(fn: Function, options: EffectOption = {}) {
+  const { scheduler, onStop } = options;
   const _effect = new ReactiveEffect(fn, scheduler);
+  _effect.onStop = onStop;
   _effect.run();
   const runner: any = _effect.run.bind(_effect);
   runner.effect = _effect;
