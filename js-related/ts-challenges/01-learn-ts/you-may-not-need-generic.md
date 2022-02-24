@@ -45,3 +45,6 @@ handler(Action.add, { id: '1' });
 handler(Action.update, [{ id: '1' }]);
 handler('xx', { id: '1' });
 ```
+
+<!-- !TODO -->
+ https://stackoverflow.com/questions/50376977/generic-type-to-get-enum-keys-as-union-string-in-typescript

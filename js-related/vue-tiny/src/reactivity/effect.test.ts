@@ -16,4 +16,18 @@ describe("effect", () => {
     user.age++;
     expect(nextAge).toEqual(12);
   });
+
+  test("should return a new runner when call effect", () => {
+    let foo = 10;
+
+    const runner = effect(() => {
+      foo++;
+      return "foo";
+    });
+
+    expect(foo).toEqual(11);
+    const res = runner();
+    expect(foo).toEqual(12);
+    expect(res).toEqual("foo");
+  });
 });
