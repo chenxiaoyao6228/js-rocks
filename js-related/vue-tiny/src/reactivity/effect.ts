@@ -5,6 +5,7 @@ const targetMap = new Map();
 
 class ReactiveEffect {
   private _fn: Function;
+  deps: Set<ReactiveEffect>[] = [];
   constructor(fn: Function, public scheduler: Function) {
     this._fn = fn;
     this.scheduler = scheduler;
@@ -13,31 +14,41 @@ class ReactiveEffect {
     activeEffect = this;
     return this._fn();
   }
+  stop() {
+    cleanUpEffect(this);
+  }
+}
+
+function cleanUpEffect(effect: ReactiveEffect) {
+  effect.deps.forEach((dep) => {
+    dep.delete(effect);
+  });
 }
 
 export function track(target: Record<any, any>, key: symbol | string) {
-  // target -> key -> deps
+  // target -> key -> deps (array of runners)
   let depsMap = targetMap.get(target);
   if (!depsMap) {
     depsMap = new Map();
     targetMap.set(target, depsMap);
   }
-  let deps = depsMap.get(key);
-  if (!deps) {
-    deps = new Set();
-    depsMap.set(key, deps);
+  let dep = depsMap.get(key);
+  if (!dep) {
+    dep = new Set();
+    depsMap.set(key, dep);
   }
-  deps.add(activeEffect);
+  dep.add(activeEffect);
+  activeEffect?.deps.push(dep);
 }
 
 export function trigger(target: Record<any, any>, key: symbol | string) {
   let depsMap = targetMap.get(target);
   let deps = depsMap.get(key);
   for (const dep of deps) {
-    if (dep.scheduler) {
+    if (dep?.scheduler) {
       dep.scheduler();
     } else {
-      dep.run();
+      dep?.run();
     }
   }
   activeEffect = null;
@@ -47,5 +58,14 @@ export default function effect(fn: Function, options: any = {}) {
   const { scheduler } = options;
   const _effect = new ReactiveEffect(fn, scheduler);
   _effect.run();
-  return _effect.run.bind(_effect);
+  const runner: any = _effect.run.bind(_effect);
+  runner.effect = _effect;
+  return runner;
+}
+
+export function stop(runner: any) {
+  // find runner from our dep and remove it
+  // the problem is how to find effect since it is one of the depedency of deps
+  // this solution is to attach _effect to runner when run effect()
+  return runner.effect.stop();
 }
