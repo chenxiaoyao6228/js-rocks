@@ -1,5 +1,9 @@
 import { track, trigger } from "./effect";
 
+// 实现缓存
+const get = createGetter();
+const set = createSetter();
+
 function createGetter(isReadOnly = false) {
   return function (target, key) {
     const res = Reflect.get(target, key);
@@ -22,14 +26,12 @@ function createSetter() {
   };
 }
 
-export const mutableHandlers = {
-  get: createGetter(),
-  set: createSetter(),
-};
+export const mutableHandlers = { get, set };
 
 export const readonlyHandlers = {
-  get: createGetter(),
+  get,
   set: (target, key, val) => {
+    console.warn(`key ${key} can not be set, as ${target} is readonly`);
     return true;
   },
 };
