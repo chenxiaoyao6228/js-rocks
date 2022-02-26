@@ -1,4 +1,4 @@
-import { readonly } from "./reactive";
+import { readonly } from "../reactive";
 describe("readonly", () => {
   test("happy path", () => {
     const original = { foo: 1, bar: { baz: 2 } };
