@@ -1,4 +1,5 @@
 import { track, trigger } from "./effect";
+import { ReactiveFlags } from "./reactive";
 
 // 实现缓存
 const get = createGetter();
@@ -7,6 +8,10 @@ const set = createSetter();
 function createGetter(isReadOnly = false) {
   return function (target, key) {
     const res = Reflect.get(target, key);
+
+    if (key === ReactiveFlags.IS_REACTIVE) {
+      return !isReadOnly;
+    }
     //  收集依赖
     if (!isReadOnly) {
       track(target, key);
