@@ -4,6 +4,7 @@ import { ReactiveFlags } from "./reactive";
 // 实现缓存
 const get = createGetter();
 const set = createSetter();
+const readonlyGet = createGetter(true);
 
 function createGetter(isReadOnly = false) {
   return function (target, key) {
@@ -11,6 +12,8 @@ function createGetter(isReadOnly = false) {
 
     if (key === ReactiveFlags.IS_REACTIVE) {
       return !isReadOnly;
+    } else if (key === ReactiveFlags.IS_READONLY) {
+      return isReadOnly;
     }
     //  收集依赖
     if (!isReadOnly) {
@@ -34,7 +37,7 @@ function createSetter() {
 export const mutableHandlers = { get, set };
 
 export const readonlyHandlers = {
-  get,
+  get: readonlyGet,
   set: (target, key, val) => {
     console.warn(`key ${key} can not be set, as ${target} is readonly`);
     return true;

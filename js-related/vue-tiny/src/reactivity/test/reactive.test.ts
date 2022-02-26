@@ -1,4 +1,4 @@
-import reactive, { isReactive } from "../reactive";
+import { reactive, isReactive } from "../reactive";
 
 describe("reactive", () => {
   test("happy path", () => {

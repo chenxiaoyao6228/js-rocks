@@ -1,10 +1,12 @@
-import { readonly } from "../reactive";
+import { readonly, isReadonly } from "../reactive";
 describe("readonly", () => {
-  test("happy path", () => {
+  test.only("happy path", () => {
     const original = { foo: 1, bar: { baz: 2 } };
     const wrapped = readonly(original);
     expect(wrapped).not.toBe(original);
     expect(wrapped.foo).toEqual(1);
+    expect(isReadonly(wrapped)).toEqual(true);
+    expect(isReadonly(original)).toEqual(false);
   });
 
   test("should warn when call setter", () => {
