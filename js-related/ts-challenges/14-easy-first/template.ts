@@ -10,4 +10,4 @@
 // type First<T extends any[]> = T extends [] ? never : T[0];
 
 // eg: 4 空数组的T[0] 返回的是undefined
-type First<T extends any[]> = T[0] extends T[number] ? never : T[0];
+type _First<T extends any[]> = T[0] extends T[number] ? never : T[0];
