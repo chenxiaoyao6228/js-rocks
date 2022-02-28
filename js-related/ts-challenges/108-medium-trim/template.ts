@@ -1,4 +1,4 @@
-// type space = " " | "\t" | "|n";
+type space = " " | "\t" | "|n";
 
 // 方法一:
 
