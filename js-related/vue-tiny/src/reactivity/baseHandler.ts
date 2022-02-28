@@ -1,9 +1,6 @@
 import { track, trigger } from "./effect";
-import { reactive, ReactiveFlags } from "./reactive";
-
-function isObject(obj: Record<string, any>) {
-  return obj != null && typeof obj === "object";
-}
+import { reactive, readonly, ReactiveFlags } from "./reactive";
+import { isObject } from "../shared/utils";
 
 // 实现缓存
 const get = createGetter();
@@ -15,7 +12,7 @@ function createGetter(isReadOnly = false) {
     const res = Reflect.get(target, key);
 
     if (isObject(res)) {
-      return reactive(res);
+      return isReadOnly ? readonly(res) : reactive(res);
     }
 
     if (key === ReactiveFlags.IS_REACTIVE) {

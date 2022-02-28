@@ -6,6 +6,8 @@ describe("readonly", () => {
     expect(wrapped).not.toBe(original);
     expect(wrapped.foo).toEqual(1);
     expect(isReadonly(wrapped)).toEqual(true);
+    expect(isReadonly(wrapped.bar)).toEqual(true);
+    expect(isReadonly(original.bar)).toEqual(false);
     expect(isReadonly(original)).toEqual(false);
   });
 
