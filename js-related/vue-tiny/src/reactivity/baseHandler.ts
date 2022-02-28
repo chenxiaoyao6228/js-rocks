@@ -1,5 +1,9 @@
 import { track, trigger } from "./effect";
-import { ReactiveFlags } from "./reactive";
+import { reactive, ReactiveFlags } from "./reactive";
+
+function isObject(obj: Record<string, any>) {
+  return obj != null && typeof obj === "object";
+}
 
 // 实现缓存
 const get = createGetter();
@@ -10,6 +14,10 @@ function createGetter(isReadOnly = false) {
   return function (target, key) {
     const res = Reflect.get(target, key);
 
+    if (isObject(res)) {
+      return reactive(res);
+    }
+
     if (key === ReactiveFlags.IS_REACTIVE) {
       return !isReadOnly;
     } else if (key === ReactiveFlags.IS_READONLY) {
@@ -19,6 +27,7 @@ function createGetter(isReadOnly = false) {
     if (!isReadOnly) {
       track(target, key);
     }
+
     return res;
   };
 }
