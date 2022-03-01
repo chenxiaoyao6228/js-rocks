@@ -1,10 +1,9 @@
 import { Equal, Expect } from "@type-challenges/utils";
 
-type Fn = (a: number, b: string) => number;
+type Case1 = AppendArgument<(a: number, b: string) => number, boolean>;
+type Result1 = (a: number, b: string, x: boolean) => number;
 
-type Result = AppendArgument<Fn, boolean>;
+type Case2 = AppendArgument<() => void, undefined>;
+type Result2 = (x: undefined) => void;
 
-type cases = [
-  Expect<Equal<If<true, "a", "b">, "a">>,
-  Expect<Equal<If<false, "a", 2>, 2>>
-];
+type cases = [Expect<Equal<Case1, Result1>>, Expect<Equal<Case2, Result2>>];
