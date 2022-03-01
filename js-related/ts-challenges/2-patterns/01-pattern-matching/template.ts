@@ -1,4 +1,5 @@
 // 模式匹配做提取
+// 适用范围: 数组,字符串, 函数, 索引类型
 
 // 数组类型
 type _First<T extends unknown[]> = T extends [infer Result, ...infer Rest]
@@ -38,11 +39,11 @@ type _Replace<
 
 type _space = " " | "\n" | "\t";
 
-type _TrimLeft<S extends string> = S extends `${space}${infer R}`
+type _TrimLeft<S extends string> = S extends `${_space}${infer R}`
   ? _TrimLeft<R>
   : S;
 
-type _TrimRight<S extends string> = S extends `${infer L}${space}`
+type _TrimRight<S extends string> = S extends `${infer L}${_space}`
   ? _TrimRight<L>
   : S;
 

@@ -1,6 +1,6 @@
 // 递归复用做循环
 // 适用对象: Promise, 数组,字符串, 对象类型
-// 场景描述: 提取或构造的数组元素个数不确定、字符串长度不确定、对象层数不确定
+// 场景描述: typescript类型中无循环的概念,提取或构造的数组元素个数不确定、字符串长度不确定、对象层数不确定, 这时候要想到递归
 
 // Promise
 type _DeepPromiseValueType<P extends Promise<unknown>> = P extends Promise<
@@ -57,5 +57,7 @@ type _StringToUnion<Str extends string> =
 
 // 对象类型
 type _DeepReadonly<T> = {
-  readonly [K in keyof T]: keyof T[K] extends never ? T[K] : DeepReadonly<T[K]>;
+  readonly [K in keyof T]: keyof T[K] extends never
+    ? T[K]
+    : _DeepReadonly<T[K]>;
 };

@@ -41,7 +41,6 @@ type cases_Trim = [
   Expect<Equal<_Trim<" str">, "str">>,
   Expect<Equal<_Trim<"     str">, "str">>,
   Expect<Equal<_Trim<"     str     ">, "str">>
-  // Expect<Equal<_Trim<"   \n\t foo bar ">, "foo bar">>
 ];
 
 // 函数

@@ -23,7 +23,7 @@ type _Zip<
   Res extends unknown[] = []
 > = T extends [infer THead, ...infer TTail]
   ? U extends [infer UHead, ...infer UTail]
-    ? Zip<TTail, UTail, [...Res, [THead, UHead]]>
+    ? _Zip<TTail, UTail, [...Res, [THead, UHead]]>
     : Res
   : Res;
 

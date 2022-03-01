@@ -1,7 +1,7 @@
 /*
 联合分散可简化
 适用对象: 联合类型
-场景描述: typescript对联合类型的计算做了简化, 某些情况下, TypeScript 会把每一个元素单独传入来做类型运算,最后再合并成联合类型 ,这种语法叫做分布式条件类型。
+场景描述: 某些情况下, typescript对联合类型的计算做了简化,  TypeScript 会把每一个元素单独传入来做类型运算,最后再合并成联合类型 ,这种语法叫做分布式条件类型。
  - 当类型参数为联合类型,并且在条件类型左边直接引用该类型参数
  - 联合类型在字符串中
 */
@@ -21,10 +21,22 @@ type case_UppercaseA = UppercaseA<Union>; // ❗❗注意这里传入的是联�
 type case_UnionInStr = `~${Union}~`;
 
 // StringToUion
-type Camelcase<Str extends string> =
+type _Camelcase<Str extends string> =
   Str extends `${infer Left}_${infer Right}${infer Rest}`
-    ? `${Left}${Uppercase<Right>}${Camelcase<Rest>}`
+    ? `${Left}${Uppercase<Right>}${_Camelcase<Rest>}`
     : Str;
+
+type _CamelcaseArr<
+  Arr extends unknown[],
+  Result extends unknown[] = []
+> = Arr extends [infer Item, ...infer RestArr]
+  ? [...Result, _Camelcase<Item & string>, ..._CamelcaseArr<RestArr>]
+  : Result;
+
+type _CamelcaseUnion<Item extends string> =
+  Item extends `${infer Left}_${infer Right}${infer Rest}`
+    ? `${Left}${Uppercase<Right>}${_CamelcaseUnion<Rest>}`
+    : Item;
 
 // isUnion
 type _IsUnion<A, B = A> = A extends A
@@ -56,10 +68,10 @@ type _AllCombinations<
   OriginalS extends string = S
 > = S extends `${infer Head}${infer Tail}`
   ?
-      | `${Head}${AllCombinations<Tail>}`
+      | `${Head}${_AllCombinations<Tail>}`
       // rotation
       | (`${Tail}${Head}` extends OriginalS
           ? OriginalS
-          : AllCombinations<`${Tail}${Head}`, OriginalS>)
-      | AllCombinations<Tail>
+          : _AllCombinations<`${Tail}${Head}`, OriginalS>)
+      | _AllCombinations<Tail>
   : S;

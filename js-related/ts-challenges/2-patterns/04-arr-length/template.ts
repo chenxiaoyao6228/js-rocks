@@ -61,6 +61,6 @@ type _GreaterThan<
   ? true
   : CountArr["length"] extends Num1
   ? false
-  : GreaterThan<Num1, Num2, [...CountArr, unknown]>;
+  : _GreaterThan<Num1, Num2, [...CountArr, unknown]>;
 
 // Fibnocci

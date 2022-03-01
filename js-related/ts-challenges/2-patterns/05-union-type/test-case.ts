@@ -1,5 +1,15 @@
 import { Equal, Expect } from "@type-challenges/utils";
 
+
+type case__CamelcaseArr = _CamelcaseArr<['aa_aa']>
+type case__CamelcaseUnion =  Expect<Equal<_IsUnion<"1" | "2" | "3" | "4" | "5">, true>>,
+
+
+type TestUnion<A, B = A> = A  extends A ? { a: A, b: B} : never; 
+
+type TestUnionResult = TestUnion<'a' | 'b' | 'c'>;
+
+
 type case_IsUnion = [
   Expect<Equal<_IsUnion<"1" | "2" | "3" | "4" | "5">, true>>,
   Expect<Equal<_IsUnion<1 | 2>, true>>,
@@ -22,7 +32,7 @@ type case_BEM = [
   >
 ];
 
-type cases = [
+type cases_AllCombinations = [
   Expect<Equal<_AllCombinations<"">, "">>,
   Expect<Equal<_AllCombinations<"A">, "" | "A">>,
   Expect<Equal<_AllCombinations<"AB">, "" | "A" | "B" | "AB" | "BA">>,
@@ -118,3 +128,4 @@ type cases = [
     >
   >
 ];
+

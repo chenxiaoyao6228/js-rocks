@@ -17,8 +17,6 @@ type case_ReverseStr = _ReverseStr<"abcd">;
 
 type case_StringToUnion = _StringToUnion<"abcd">;
 
-type cases_DeepReadonly = [Expect<Equal<DeepReadonly<X>, Expected>>];
-
 type X = {
   a: () => 22;
   b: string;
@@ -52,3 +50,5 @@ type Expected = {
     };
   };
 };
+
+type cases_DeepReadonly = [Expect<Equal<_DeepReadonly<X>, Expected>>];
