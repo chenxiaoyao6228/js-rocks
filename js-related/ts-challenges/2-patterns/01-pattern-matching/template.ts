@@ -1,3 +1,5 @@
+// 模式匹配做提取
+
 // 数组类型
 type _First<T extends unknown[]> = T extends [infer Result, ...infer Rest]
   ? Result
