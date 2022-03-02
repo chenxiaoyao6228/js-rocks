@@ -44,6 +44,10 @@ export function track(target: Record<any, any>, key: symbol | string) {
     dep = new Set();
     depsMap.set(key, dep);
   }
+  trackEffect(dep);
+}
+
+export function trackEffect(dep) {
   dep.add(activeEffect);
   activeEffect?.deps.push(dep);
 }
@@ -51,6 +55,11 @@ export function track(target: Record<any, any>, key: symbol | string) {
 export function trigger(target: Record<any, any>, key: symbol | string) {
   let depsMap = targetMap.get(target);
   let deps = depsMap.get(key);
+  triggerEffect(deps);
+  activeEffect = null;
+}
+
+export const triggerEffect = (deps) => {
   for (const dep of deps) {
     if (dep?.scheduler) {
       dep.scheduler();
@@ -58,8 +67,7 @@ export function trigger(target: Record<any, any>, key: symbol | string) {
       dep?.run();
     }
   }
-  activeEffect = null;
-}
+};
 
 type EffectOption = {
   scheduler?: Function;
