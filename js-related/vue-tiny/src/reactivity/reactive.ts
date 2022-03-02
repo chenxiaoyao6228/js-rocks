@@ -18,6 +18,10 @@ export function isReactive(obj) {
   return !!obj[ReactiveFlags.IS_REACTIVE];
 }
 
+export const isProxy = (obj) => {
+  return isReactive(obj) || isReadonly(obj);
+};
+
 export function shallowReadonly(raw: Record<any, any>) {
   return createActiveObject(raw, shallowReadonlyHandlers);
 }
