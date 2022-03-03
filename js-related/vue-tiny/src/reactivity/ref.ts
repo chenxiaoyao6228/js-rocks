@@ -1,5 +1,7 @@
 import { trackEffect, triggerEffect } from "./effect";
 
+// primitive类型无法使用 proxy 进行代理, 因此要使用使用对象进行包裹
+// 这也是我们的RefImp类存在的原因
 class RefImp {
   private _value;
   public dep;

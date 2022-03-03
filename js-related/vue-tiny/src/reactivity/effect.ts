@@ -1,6 +1,7 @@
 // let b = a + 1
 // 期待b跟着a变化的而变化, 那么势必要拦截a的更新操作
 let activeEffect: ReactiveEffect | null = null;
+let shouldTrack = false;
 const targetMap = new Map();
 
 class ReactiveEffect {
@@ -14,8 +15,19 @@ class ReactiveEffect {
     this.scheduler = scheduler;
   }
   run() {
+    if (!this.active) {
+      return this._fn();
+    }
+
+    // 避免普通的访问也进行依赖收集
+    shouldTrack = true;
     activeEffect = this;
-    return this._fn();
+
+    const res = this._fn();
+
+    // 重置
+    shouldTrack = false;
+    return res;
   }
   stop() {
     if (this.active) {
@@ -31,6 +43,10 @@ function cleanUpEffect(effect: ReactiveEffect) {
     dep.delete(effect);
   });
 }
+
+export const isTracking = () => {
+  return shouldTrack && activeEffect !== undefined;
+};
 
 export function track(target: Record<any, any>, key: symbol | string) {
   // target -> key -> deps (array of runners)

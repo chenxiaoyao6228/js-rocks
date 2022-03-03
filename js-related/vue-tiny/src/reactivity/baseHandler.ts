@@ -8,6 +8,8 @@ const set = createSetter();
 const readonlyGet = createGetter(true);
 const shallowReadonlyGet = createGetter(true, true);
 
+// get的时候触发依赖收集, set的时候触发依赖
+// 注意是和effect搭配的时候才会有依赖收集的操作
 function createGetter(isReadOnly = false, shallow = false) {
   return function (target, key) {
     if (key === ReactiveFlags.IS_REACTIVE) {
