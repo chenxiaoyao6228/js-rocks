@@ -1,3 +1,4 @@
+import { hasChange } from "../shared/utils";
 import { trackEffect, triggerEffect } from "./effect";
 
 // primitive类型无法使用 proxy 进行代理, 因此要使用使用对象进行包裹
@@ -14,7 +15,7 @@ class RefImp {
     return this._value;
   }
   set value(newValue) {
-    if (this._value === newValue) return;
+    if (!hasChange(this._value, newValue)) return;
     this._value = newValue;
     triggerEffect(this.dep);
   }
