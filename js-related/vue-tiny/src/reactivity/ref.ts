@@ -14,6 +14,7 @@ class RefImp {
     return this._value;
   }
   set value(newValue) {
+    if (this._value === newValue) return;
     this._value = newValue;
     triggerEffect(this.dep);
   }

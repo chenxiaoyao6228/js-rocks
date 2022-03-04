@@ -64,6 +64,8 @@ export function track(target: Record<any, any>, key: symbol | string) {
 }
 
 export function trackEffect(dep) {
+  // 看看dep之前有没有被添加过, 避免重复被添加
+  if (dep.has(activeEffect)) return;
   dep.add(activeEffect);
   activeEffect?.deps.push(dep);
 }
@@ -94,7 +96,7 @@ export default function effect(fn: Function, options: EffectOption = {}) {
   const { scheduler, onStop } = options;
   const _effect = new ReactiveEffect(fn, scheduler);
   _effect.onStop = onStop;
-  _effect.run();
+  _effect.run(); // 先自己执行一遍
   const runner: any = _effect.run.bind(_effect);
   runner.effect = _effect;
   return runner;
