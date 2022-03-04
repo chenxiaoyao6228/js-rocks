@@ -36,6 +36,10 @@ export const ref = (value) => {
   return res;
 };
 
-export function isRef(ref: RefImp): any {
+export const isRef = (ref: RefImp): any => {
   return !!ref.__v_isRef;
-}
+};
+
+export const unRef = (ref: RefImp) => {
+  return isRef(ref) ? ref.rawValue : ref;
+};
