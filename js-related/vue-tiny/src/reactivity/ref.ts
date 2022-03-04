@@ -1,13 +1,16 @@
-import { hasChange } from "../shared/utils";
+import { hasChange, isObject } from "../shared/utils";
 import { trackEffect, triggerEffect } from "./effect";
+import { reactive } from "./reactive";
 
 // primitive类型无法使用 proxy 进行代理, 因此要使用使用对象进行包裹
 // 这也是我们的RefImp类存在的原因
 class RefImp {
   private _value;
   public dep;
+  rawValue: any;
   constructor(value) {
-    this._value = value;
+    this.rawValue = value;
+    this._value = convert(value);
     this.dep = new Set();
   }
   get value() {
@@ -15,10 +18,15 @@ class RefImp {
     return this._value;
   }
   set value(newValue) {
-    if (!hasChange(this._value, newValue)) return;
-    this._value = newValue;
+    if (!hasChange(this.rawValue, newValue)) return;
+    this.rawValue = newValue;
+    this._value = convert(newValue);
     triggerEffect(this.dep);
   }
+}
+
+function convert(value: any) {
+  return isObject(value) ? reactive(value) : value;
 }
 
 export const ref = (value) => {

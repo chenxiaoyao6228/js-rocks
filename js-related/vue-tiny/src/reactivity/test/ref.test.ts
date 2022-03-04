@@ -23,4 +23,16 @@ describe("ref", () => {
     expect(calls).toEqual(2);
     expect(dummy).toEqual(2);
   });
+  test("should make nested properties reactive", () => {
+    const a = ref({
+      count: 1,
+    });
+    let dummy;
+    effect(() => {
+      dummy = a.value.count;
+    });
+    expect(dummy).toEqual(1);
+    a.value.count = 2;
+    expect(dummy).toEqual(2);
+  });
 });
