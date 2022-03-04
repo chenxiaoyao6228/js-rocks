@@ -6,9 +6,11 @@ import { reactive } from "./reactive";
 // 这也是我们的RefImp类存在的原因
 class RefImp {
   private _value;
-  public dep;
+  dep;
   rawValue: any;
+  __v_isRef: boolean;
   constructor(value) {
+    this.__v_isRef = true;
     this.rawValue = value;
     this._value = convert(value);
     this.dep = new Set();
@@ -33,3 +35,7 @@ export const ref = (value) => {
   const res = new RefImp(value);
   return res;
 };
+
+export function isRef(ref: RefImp): any {
+  return !!ref.__v_isRef;
+}
