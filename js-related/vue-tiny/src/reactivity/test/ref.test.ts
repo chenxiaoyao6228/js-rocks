@@ -1,13 +1,13 @@
 import effect from "../effect";
 import { reactive } from "../reactive";
-import { isRef, ref, unRef } from "../ref";
+import { isRef, proxyRefs, ref, unRef } from "../ref";
 describe("ref", () => {
   test("happy path", () => {
     const a = ref(1);
     expect(a.value).toEqual(1);
   });
 
-  test("it should be reactive", () => {
+  test("test should be reactive", () => {
     const a = ref(1);
     let dummy;
     let calls = 0;
@@ -36,7 +36,7 @@ describe("ref", () => {
     a.value.count = 2;
     expect(dummy).toEqual(2);
   });
-  it("isRef", () => {
+  test("isRef", () => {
     const a = ref(1);
     const user = reactive({
       age: 1,
@@ -46,12 +46,32 @@ describe("ref", () => {
     expect(isRef(user)).toBe(false);
   });
 
-  it("unRef", () => {
+  test("unRef", () => {
     const a = ref(1);
     const user = reactive({
       age: 1,
     });
     expect(unRef(a)).toBe(1);
     expect(unRef(1)).toBe(1);
+  });
+
+  test("proxyRefs", () => {
+    const user = {
+      age: ref(10),
+      name: "york",
+    };
+
+    const proxyUser = proxyRefs(user);
+    expect(user.age.value).toEqual(10);
+    expect(proxyUser.age).toEqual(10);
+    expect(proxyUser.name).toEqual("york");
+
+    proxyUser.age = 20;
+    expect(proxyUser.age).toEqual(20);
+    expect(user.age).toEqual(20);
+
+    proxyUser.age = ref(10);
+    expect(proxyUser.age).toEqual(10);
+    expect(user.age.value).toEqual(10);
   });
 });
