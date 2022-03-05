@@ -10,8 +10,7 @@ test("should Computed lazily", () => {
   });
 
   const cValue = computed(getter);
-
   expect(getter).not.toHaveBeenCalled();
-
   expect(cValue.value).toEqual(1);
+  expect(getter).toHaveBeenCalledTimes(1);
 });
