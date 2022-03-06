@@ -15,6 +15,9 @@ describe("effect", () => {
     // update
     user.age++;
     expect(nextAge).toEqual(12);
+    // should not update nextAge
+    user.age = 11;
+    expect(nextAge).toEqual(12);
   });
 
   test("should return a new runner when call effect", () => {

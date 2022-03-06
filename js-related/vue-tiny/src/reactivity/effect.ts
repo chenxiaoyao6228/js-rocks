@@ -4,7 +4,7 @@ let activeEffect: ReactiveEffect | null = null;
 let shouldTrack = false;
 const targetMap = new Map();
 
-class ReactiveEffect {
+export class ReactiveEffect {
   private _fn: Function;
   private active = true;
   deps: Set<ReactiveEffect>[] = [];
