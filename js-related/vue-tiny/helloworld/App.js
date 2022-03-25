@@ -4,7 +4,10 @@ export const App = {
   // 必须要写 render
   render() {
     // ui
-    return h("div", "hi, " + this.msg);
+    return h("div", {}, [
+      h("span", {class: 'red'}, "span-children"),
+      h("p", {class: 'blue'}, "p-chidren"),
+    ]);
   },
 
   setup() {

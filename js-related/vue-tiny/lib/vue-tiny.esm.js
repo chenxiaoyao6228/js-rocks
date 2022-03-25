@@ -33,22 +33,53 @@ function finishComponentSetup(instance) {
 }
 
 function render(vnode, container) {
-    patch(vnode);
+    patch(vnode, container);
 }
 function patch(vnode, container) {
-    processComponent(vnode);
+    console.log('vnode', vnode);
+    if (typeof vnode.type === 'string') {
+        processElement(vnode, container);
+    }
+    else {
+        processComponent(vnode, container);
+    }
 }
 function processComponent(vnode, container) {
-    mountComponent(vnode);
+    mountComponent(vnode, container);
 }
 function mountComponent(vnode, container) {
     var instance = createComponentInstance(vnode);
     setupComponent(instance);
-    setupRenderEffect(instance);
+    setupRenderEffect(instance, container);
 }
 function setupRenderEffect(instance, container) {
     var subTree = instance.render();
-    patch(subTree);
+    patch(subTree, container);
+}
+function processElement(vnode, container) {
+    mountElement(vnode, container);
+}
+function mountElement(vnode, container) {
+    var el = document.createElement(vnode.type);
+    var children = vnode.children, props = vnode.props;
+    if (typeof children === 'string') {
+        el.textContent = vnode.children;
+    }
+    else if (Array.isArray(children)) {
+        mountChilren(vnode, container);
+    }
+    for (var key in props) {
+        if (Object.prototype.hasOwnProperty.call(props, key)) {
+            var value = props[key];
+            el.setAttribute(key, value);
+        }
+    }
+    container.append(el);
+}
+function mountChilren(vnode, container) {
+    vnode.children.forEach(function (v) {
+        patch(v, container);
+    });
 }
 
 function createVNode(type, props, children) {
@@ -64,7 +95,7 @@ function createApp(rootComponent) {
     return {
         mount: function (rootContainer) {
             var vnode = createVNode(rootComponent);
-            render(vnode);
+            render(vnode, rootContainer);
         },
     };
 }
