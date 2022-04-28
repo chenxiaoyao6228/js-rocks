@@ -1,6 +1,6 @@
 {
   "name": "@js-rocks/lodash-tiny",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Now I’m the model of a modern major general / The venerated Virginian veteran whose men are all / Lining up, to put me up on a pedestal / Writin’ letters to relatives / Embellishin’ my elegance and eloquence / But the elephant is in the room / The truth is in ya face when ya hear the British cannons go / BOOM",
   "keywords": [],
   "author": "chenxiaoyao <chenxiaoyao6228@163.com>",
@@ -8,7 +8,7 @@
   "main": "lib/lodash-tiny.js",
   "directories": {
     "lib": "lib",
-    "test": "__tests__"
+    "test": "yarn test"
   },
   "files": [
     "lib"
@@ -21,10 +21,16 @@
     "url": "git+https://github.com/chenxiaoyao6228/js-rocks.git"
   },
   "scripts": {
+    "build": "rollup -c",
     "test": "echo \"Error: run tests from root\" && exit 1"
   },
   "bugs": {
     "url": "https://github.com/chenxiaoyao6228/js-rocks/issues"
   },
-  "homepage": "https://github.com/chenxiaoyao6228/js-rocks#readme"
+  "homepage": "https://github.com/chenxiaoyao6228/js-rocks#readme",
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^22.0.0",
+    "@rollup/plugin-node-resolve": "^13.2.1",
+    "rollup": "^2.70.2"
+  }
 }

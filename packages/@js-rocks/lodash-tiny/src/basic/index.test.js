@@ -2,9 +2,9 @@
 import {
   arrayToTree,
   curriedAdd,
-  myBind,
-  myApply,
-  myCall,
+  // myBind,
+  // myApply,
+  // myCall,
   get,
   deepClone,
   stringify
@@ -85,63 +85,63 @@ test('currying', () => {
   expect(res1).toEqual(6)
   expect(res2).toEqual(15)
 })
-test('myBind', () => {
-  const module = {
-    x: 42,
-    getX: function() {
-      return this.x
-    },
-    unboundAddToX: function(y) {
-      return this.x + y
-    }
-  }
-  let unboundGetX = module.getX
-  expect(() => {
-    unboundGetX()
-  }).toThrow()
-  let boundGetX = myBind(unboundGetX, module)
-  expect(boundGetX()).toEqual(42)
+// test('myBind', () => {
+//   const module = {
+//     x: 42,
+//     getX: function() {
+//       return this.x
+//     },
+//     unboundAddToX: function(y) {
+//       return this.x + y
+//     }
+//   }
+//   let unboundGetX = module.getX
+//   expect(() => {
+//     unboundGetX()
+//   }).toThrow()
+//   let boundGetX = myBind(unboundGetX, module)
+//   expect(boundGetX()).toEqual(42)
 
-  let unboundAddToX = module.unboundAddToX
-  expect(() => {
-    unboundAddToX(2)
-  }).toThrow()
-  let boundAddToX = myBind(unboundAddToX, module)
-  expect(boundAddToX(2)).toEqual(44)
-})
+//   let unboundAddToX = module.unboundAddToX
+//   expect(() => {
+//     unboundAddToX(2)
+//   }).toThrow()
+//   let boundAddToX = myBind(unboundAddToX, module)
+//   expect(boundAddToX(2)).toEqual(44)
+// })
 
-describe('myCall', () => {
-  beforeEach(() => {
-    Function.prototype.myCall = myCall
-  })
-  afterEach(() => {
-    Function.prototype.myCall = null
-  })
-  test('myCall', () => {
-    let person = { firstName: 'York' }
-    var getFullName = function(lastName) {
-      return this.firstName + ' ' + lastName
-    }
-    expect(getFullName.myCall(person, 'Chan')).toEqual('York Chan')
-  })
-})
+// describe('myCall', () => {
+//   beforeEach(() => {
+//     Function.prototype.myCall = myCall
+//   })
+//   afterEach(() => {
+//     Function.prototype.myCall = null
+//   })
+//   test('myCall', () => {
+//     let person = { firstName: 'York' }
+//     var getFullName = function(lastName) {
+//       return this.firstName + ' ' + lastName
+//     }
+//     expect(getFullName.myCall(person, 'Chan')).toEqual('York Chan')
+//   })
+// })
 
-describe('myApply', () => {
-  beforeEach(() => {
-    Function.prototype.myApply = myApply
-  })
-  afterEach(() => {
-    Function.prototype.myApply = null
-  })
-  test('myApply', () => {
-    function greet(lastName) {
-      return 'Hello ' + this.firstName + ' ' + lastName + '!'
-    }
-    let context = { firstName: 'York' }
-    let res = greet.myApply(context, ['Chan'])
-    expect(res).toEqual('Hello York Chan!')
-  })
-})
+// describe('myApply', () => {
+//   beforeEach(() => {
+//     Function.prototype.myApply = myApply
+//   })
+//   afterEach(() => {
+//     Function.prototype.myApply = null
+//   })
+//   test('myApply', () => {
+//     function greet(lastName) {
+//       return 'Hello ' + this.firstName + ' ' + lastName + '!'
+//     }
+//     let context = { firstName: 'York' }
+//     let res = greet.myApply(context, ['Chan'])
+//     expect(res).toEqual('Hello York Chan!')
+//   })
+// })
 
 describe('lodash get method', () => {
   test('should return undefined when not found instead of throwing errors', () => {
