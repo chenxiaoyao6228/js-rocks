@@ -13,7 +13,7 @@ import {
   union,
   intersect,
   diff
-} from './index.finish'
+} from './index'
 describe('array related methods', () => {
   test('contains', () => {
     let target = [0, 1, 2]

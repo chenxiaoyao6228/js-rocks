@@ -6,7 +6,7 @@ import {
   getFirstDateInMonth,
   getLastDateInMonth,
   getPeriod
-} from './index.finish.js'
+} from './index.js'
 describe('date', () => {
   describe('getDaysInMonth', () => {
     test('date support', () => {

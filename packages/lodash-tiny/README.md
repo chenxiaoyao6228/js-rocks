@@ -1,4 +1,4 @@
-# Lodash-tiny 工具函数库
+# @js-rocks/lodash-tiny 工具函数库
 
 由于 JS 没有官方的 SDK,需要由社区提供一套作为补充,如 underscore,lodash, moment.js 等, 当我们不想因为要使用某个方法而引入完整的库的时候,我们需要自己去实现.
 

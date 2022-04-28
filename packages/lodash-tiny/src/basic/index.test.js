@@ -8,7 +8,7 @@ import {
   get,
   deepClone,
   stringify
-} from './index.finish.js'
+} from './index.js'
 
 test('array to tree', () => {
   let input = [

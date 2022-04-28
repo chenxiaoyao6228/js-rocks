@@ -12,7 +12,7 @@ import {
   contains,
   startsWith,
   endsWith
-} from './index.finish'
+} from './index'
 
 test('repeat', () => {
   expect(repeat('allen', 2)).toEqual('allenallen')
