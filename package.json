@@ -6,13 +6,16 @@
     "packages/*"
   ],
   "scripts": {
-    "#commit-command": "git add . && yarn run commit"
+    "#commit-command": "git add . && yarn run commit",
+    "build": "lerna exec build"
   },
   "devDependencies": {
     "@commitlint/cli": "^16.2.4",
     "@commitlint/config-conventional": "^16.2.4",
+    "eslint": "^8.14.0",
     "husky": "^7.0.4",
-    "lerna": "^4.0.0"
+    "lerna": "^4.0.0",
+    "prettier": "^2.6.2"
   },
   "husky": {
     "hooks": {
