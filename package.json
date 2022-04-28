@@ -13,14 +13,28 @@
     "@commitlint/cli": "^16.2.4",
     "@commitlint/config-conventional": "^16.2.4",
     "eslint": "^8.14.0",
-    "husky": "^7.0.4",
+    "husky": "3.1.0",
     "lerna": "^4.0.0",
+    "lint-staged": "^12.4.1",
     "prettier": "^2.6.2"
   },
   "husky": {
     "hooks": {
+      "pre-commit": "lint-staged",
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "lint-staged": {
+    "*.{ts,js}": [
+      "node --max_old_space_size=8192 ./node_modules/.bin/prettier -w",
+      "node --max_old_space_size=8192 ./node_modules/.bin/eslint --fix --color",
+      "git add"
+    ]
   },
   "description": "a javascript library rebuild series",
   "main": "index.js",
