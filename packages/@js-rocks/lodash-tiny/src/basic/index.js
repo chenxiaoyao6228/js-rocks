@@ -51,11 +51,11 @@ const curriedAdd = currying(add)
  * @param {*} context
  * @return {*}
  */
-function myBind(fn, context) {
-  return function() {
-    return fn.apply(context, arguments)
-  }
-}
+// function myBind(fn, context) {
+//   return function() {
+//     return fn.apply(context, arguments)
+//   }
+// }
 
 // export function myBind(fn, context) {
 //   return function(...args) {
@@ -69,16 +69,16 @@ function myBind(fn, context) {
  * @param {*} context
  * @return {*}
  */
-function myCall(context) {
-  context[this.name] = this //通过函数的name属性可以拿到函数名
-  var args = []
-  for (var i = 1, len = arguments.length; i < len; i++) {
-    args.push('arguments[' + i + ']')
-  }
-  var result = eval('context[this.name](' + args + ')')
-  delete context[this.name]
-  return result
-}
+// function myCall(context) {
+//   context[this.name] = this //通过函数的name属性可以拿到函数名
+//   var args = []
+//   for (var i = 1, len = arguments.length; i < len; i++) {
+//     args.push('arguments[' + i + ']')
+//   }
+//   var result = eval('context[this.name](' + args + ')')
+//   delete context[this.name]
+//   return result
+// }
 
 /**
  * 实现apply方法
@@ -87,16 +87,16 @@ function myCall(context) {
  * @param {*} arr
  * @return {*}
  */
-function myApply(context, arr) {
-  context[this.name] = this //通过函数的name属性可以拿到函数名
-  var args = []
-  for (var i = 0, len = arr.length; i < len; i++) {
-    args.push('arr[' + i + ']')
-  }
-  var result = eval('context[this.name](' + args + ')')
-  delete context[this.name]
-  return result
-}
+// function myApply(context, arr) {
+//   context[this.name] = this //通过函数的name属性可以拿到函数名
+//   var args = []
+//   for (var i = 0, len = arr.length; i < len; i++) {
+//     args.push('arr[' + i + ']')
+//   }
+//   var result = eval('context[this.name](' + args + ')')
+//   delete context[this.name]
+//   return result
+// }
 
 /**
  * 实现一个get方法,获取对象中的属性,若无,返回undefined
@@ -189,11 +189,11 @@ function stringify(obj) {
 }
 
 export {
+  // myBind,
+  // myApply,
+  // myCall,
   arrayToTree,
   curriedAdd,
-  myBind,
-  myApply,
-  myCall,
   get,
   deepClone,
   stringify
