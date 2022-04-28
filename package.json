@@ -1,6 +1,10 @@
 {
-  "name": "root",
+  "name": "js-rocks",
+  "version": "independent",
   "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
     "#commit-command": "git add . && yarn run commit"
   },
@@ -14,5 +18,10 @@
     "hooks": {
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
-  }
+  },
+  "description": "a javascript library rebuild series",
+  "main": "index.js",
+  "repository": "https://github.com/chenxiaoyao6228/js-rocks.git",
+  "author": "chenxiaoyao <chenxiaoyao6228@163.com>",
+  "license": "MIT"
 }
