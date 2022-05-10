@@ -1,0 +1,22 @@
+{
+  "name": "@js-rocks/promise-tiny",
+  "version": "1.0.0",
+  "description": "simple promise implementation",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chenxiaoyao6228/js-rocks.git"
+  },
+  "keywords": [
+    "promise"
+  ],
+  "author": "chenxiaoyao6228",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/chenxiaoyao6228/js-rocks/issues"
+  },
+  "homepage": "https://github.com/chenxiaoyao6228/js-rocks#readme"
+}

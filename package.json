@@ -7,7 +7,7 @@
   ],
   "scripts": {
     "#commit-command": "git add . && yarn run commit",
-    "build": "lerna exec build"
+    "build": "lerna exec -- yarn build"
   },
   "devDependencies": {
     "@commitlint/cli": "^16.2.4",

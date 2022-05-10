@@ -11,17 +11,15 @@ module.exports = {
   },
   plugins: ['@typescript-eslint', 'jest'],
   rules: {
-    '@typescript-eslint/no-unused-vars': [
-      'error',
-      {
-        varsIgnorePattern: '^_',
-      },
-    ],
+    '@typescript-eslint/no-unused-vars': 'off',
     '@typescript-eslint/no-empty-function': 'off',
     'no-empty-function': 'off',
     'no-unused-vars': 'off',
-    'no-console': 'warn',
+    'no-console': 'off',
+    '@typescript-eslint/no-explicit-any': 'off',
     'space-before-function-paren': 'warn',
+    '@typescript-eslint/ban-types': 'off',
+    '@typescript-eslint/no-this-alias': 'off',
     semi: 'warn',
     quotes: ['warn', 'single'],
     'jest/no-disabled-tests': 'warn',
