@@ -1,2 +1,0 @@
-## Intro
-simple webpack implementation
