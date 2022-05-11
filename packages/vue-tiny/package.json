@@ -7,7 +7,8 @@
   "scripts": {
     "test": "jest",
     "test:watch": "jest --watch",
-    "build": "rollup -c rollup.config.js"
+    "build": "rollup -c rollup.config.js",
+    "build:watch": "rollup --watch -c rollup.config.js"
   },
   "keywords": [
     "vue3"
