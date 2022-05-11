@@ -1,4 +1,4 @@
-import { h } from '../../lib/vue-tiny.esm.js';
+import { h } from '../lib/vue-tiny.esm.js';
 
 export const App = {
   // 必须要写 render
