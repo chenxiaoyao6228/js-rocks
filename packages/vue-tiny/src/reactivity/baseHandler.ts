@@ -1,12 +1,14 @@
 import { track, trigger } from './effect';
 import { reactive, readonly, ReactiveFlags } from './reactive';
-import { isObject } from '../shared/utils';
+// import { isObject } from '../shared/utils';
+import { isObject } from '@js-rocks/lodash-tiny';
 
 // 实现缓存
 const get = createGetter();
 const set = createSetter();
 const readonlyGet = createGetter(true);
 const shallowReadonlyGet = createGetter(true, true);
+
 
 // get的时候触发依赖收集, set的时候触发依赖
 // 注意是和effect搭配的时候才会有依赖收集的操作

@@ -7,7 +7,10 @@
   ],
   "scripts": {
     "#commit-command": "git add . && yarn run commit",
-    "build": "lerna exec -- yarn build"
+    "build": "lerna exec -- yarn build",
+    "test:vue": "lerna exec --scope @js-rocks/vue-tiny -- yarn test:watch",
+    "build:vue": "lerna exec --scope @js-rocks/vue-tiny -- yarn build:watch",
+    "build:lodash": "lerna exec --scope @js-rocks/lodash-tiny -- yarn build:watch"
   },
   "devDependencies": {
     "@commitlint/cli": "^16.2.4",
