@@ -10,6 +10,8 @@
   A Javascript library rebuild series.
 <div>
 
+[![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lerna.js.org/)
+
 ## Working on
 [ ] vue-tiny
 
