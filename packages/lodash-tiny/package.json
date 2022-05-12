@@ -40,5 +40,8 @@
     "@rollup/plugin-node-resolve": "^13.2.1",
     "rollup": "^2.70.2",
     "ts-migrate": "^0.1.28"
+  },
+  "dependencies": {
+    "typescript": "^4.6.4"
   }
 }
