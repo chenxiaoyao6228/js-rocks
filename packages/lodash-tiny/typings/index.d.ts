@@ -1,1 +1,1 @@
-export *  from './types';
+declare function isObject(obj: any): boolean;

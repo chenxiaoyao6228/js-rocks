@@ -14,7 +14,8 @@
     "tsc": "tsc",
     "build": "rollup -c  rollup.config.js",
     "build:watch": "rollup -c  rollup.config.js --watch",
-    "test": "echo \"Error: run tests from root\" && exit 1"
+    "test": "yarn test",
+    "test:watch": "yarn test --watch"
   },
   "directories": {
     "lib": "lib",
