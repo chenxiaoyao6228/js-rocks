@@ -1,6 +1,6 @@
 {
   "name": "@js-rocks/vue-tiny",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "build your own vue3",
   "main": "lib/vue-tiny.cjs.js",
   "module": "lib/vue-tiny.esm.js",
