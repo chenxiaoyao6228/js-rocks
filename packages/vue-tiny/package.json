@@ -1,6 +1,6 @@
 {
   "name": "@js-rocks/vue-tiny",
-  "version": "0.0.1",
+  "version": "0.1.0-alpha.0",
   "description": "build your own vue3",
   "main": "lib/vue-tiny.cjs.js",
   "module": "lib/vue-tiny.esm.js",
@@ -26,6 +26,6 @@
     "typescript": "^4.5.5"
   },
   "dependencies": {
-    "@js-rocks/lodash-tiny": "^0.0.1"
+    "@js-rocks/lodash-tiny": "^0.1.0-alpha.0"
   }
 }

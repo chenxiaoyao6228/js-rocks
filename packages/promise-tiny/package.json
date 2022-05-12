@@ -1,6 +1,6 @@
 {
   "name": "@js-rocks/promise-tiny",
-  "version": "0.0.1",
+  "version": "0.1.0-alpha.0",
   "description": "simple promise implementation",
   "main": "index.js",
   "scripts": {
