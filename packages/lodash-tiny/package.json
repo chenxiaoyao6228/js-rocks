@@ -9,7 +9,7 @@
   "license": "ISC",
   "main": "lib/lodash-tiny.cjs.js",
   "module": "lib/lodash-tiny.esm.js",
-  "typings": "src/typings/index.d.ts",
+  "typings": "typings/index.d.ts",
   "scripts": {
     "tsc": "tsc",
     "build": "rollup -c  rollup.config.js",
