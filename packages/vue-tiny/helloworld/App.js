@@ -1,9 +1,25 @@
 import { h } from '../lib/vue-tiny.esm.js';
 
-export const App = {
-  // 必须要写 render
+// requirement
+// should be able to get props in setup and render function
+// props should be immutable
+const Counter = {
+  setup (props) {
+    console.log('props :>> ', props);
+
+    props.count++;
+
+    console.log('props :>> ', props);
+
+    return {};
+  },
   render () {
-    // ui
+    return h('div', {}, 'counter: ' + this.count);
+  },
+};
+
+export const App = {
+  render () {
     return h('div', {}, [
       h(
         'span',
@@ -16,14 +32,14 @@ export const App = {
             console.log('mousedown-----------');
           },
         },
-        'span-children'
+        'hi, ' + this.msg
       ),
-      h('p', { class: 'blue' }, 'p-chidren'),
-      'hi, ' + this.msg,
+      h(Counter, { count: 1 }),
+      // h('p', { class: 'blue' }, 'p-chidren'),
     ]);
   },
 
-  setup () {
+  setup (props) {
     return {
       msg: 'zhangshixiu',
     };
