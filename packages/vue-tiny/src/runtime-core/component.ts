@@ -1,17 +1,19 @@
 import { ComponentInstance, SetupState, VNode } from '../typings/index';
+import { initProps } from './publicProps';
 
 export function createComponentInstance (vnode: VNode): ComponentInstance {
   const component = {
     vnode,
     type: vnode.type,
     setupState: {},
+    props: {},
   };
   return component;
 }
 
 export function setupComponent (instance: ComponentInstance) {
   // TODO
-  // initProps()
+  initProps(instance);
   // initSlots()
   setupStatefulComponent(instance);
 }
@@ -20,11 +22,11 @@ function setupStatefulComponent (instance: ComponentInstance) {
   const rawObj = {};
   instance.proxy = new Proxy(rawObj, {
     get: (target, key: string) => {
-      const { setupState } = instance;
+      const { setupState, props } = instance;
       if (key in setupState) {
         return setupState[key];
-      } else {
-        return 'world';
+      } else if (key in props) {
+        return props[key];
       }
     },
   });
@@ -35,7 +37,7 @@ function setupStatefulComponent (instance: ComponentInstance) {
 
   if (setup) {
     // in order to get `this` when calling this, we have to proxy this value
-    const setupResult = setup();
+    const setupResult = setup(instance.props);
 
     handleSetupResult(instance, setupResult);
   }
