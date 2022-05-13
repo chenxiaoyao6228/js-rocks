@@ -5,7 +5,19 @@ export const App = {
   render () {
     // ui
     return h('div', {}, [
-      h('span', { class: 'red' }, 'span-children'),
+      h(
+        'span',
+        {
+          class: 'red',
+          onClick: () => {
+            console.log('click----------');
+          },
+          onMousedown: () => {
+            console.log('mousedown-----------');
+          },
+        },
+        'span-children'
+      ),
       h('p', { class: 'blue' }, 'p-chidren'),
       'hi, ' + this.msg,
     ]);

@@ -41,6 +41,8 @@ function processElement (vnode: VNode, container: HTMLElement) {
   mountElement(vnode, container);
 }
 
+const isEvenAttr = (key: string) => /^on[A-Z]/.test(key);
+
 function mountElement (vnode: VNode, container: HTMLElement) {
   const el = document.createElement(vnode.type as HTMLNameTag);
 
@@ -52,8 +54,11 @@ function mountElement (vnode: VNode, container: HTMLElement) {
     mountChilren(vnode, container);
   }
   for (const key in props) {
-    if (Object.prototype.hasOwnProperty.call(props, key)) {
-      const value = props[key];
+    const value = props[key];
+    if (isEvenAttr(key)) {
+      const eventName = key.slice(2).toLowerCase();
+      el.addEventListener(eventName, value);
+    } else {
       el.setAttribute(key, value);
     }
   }
