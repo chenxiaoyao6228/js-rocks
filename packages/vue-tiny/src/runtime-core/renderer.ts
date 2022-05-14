@@ -1,6 +1,6 @@
 import { createComponentInstance, setupComponent } from './component';
 import { isObject } from '../shared/utils';
-import { VNode, ComponentType, HTMLNameTag, ChildrenType } from '../typings/index';
+import { VNode, ComponentType, HTMLNameTag, ChildrenType } from '../../typings/index';
 
 export function render (vnode: VNode, container: HTMLElement) {
   patch(vnode, container);

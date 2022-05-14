@@ -1,4 +1,4 @@
-import { ComponentInstance } from '../typings/index';
+import { ComponentInstance } from '../../typings/index';
 import { shallowReadonly } from '../reactivity/reactive';
 
 export function initProps (instance: ComponentInstance) {

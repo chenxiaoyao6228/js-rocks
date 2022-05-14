@@ -1,5 +1,5 @@
 import { capitalize } from '../shared/utils';
-import { ComponentInstance, SetupState, VNode } from '../typings/index';
+import { ComponentInstance, SetupState, VNode } from '../../typings/index';
 import { initProps } from './publicProps';
 
 function emit (instance: ComponentInstance, eventName: string, ...args: any) {
