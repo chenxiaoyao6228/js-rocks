@@ -4,8 +4,12 @@ export interface VNode {
   children?: ChildrenType;
 }
 
+export interface ContextType {
+  emit: () => void;
+}
+
 export interface ComponentType {
-  setup: (props: PropsType) => Record<string, any>;
+  setup: (props: PropsType, context: ContextType) => Record<string, any>;
   render: () => VNode;
 }
 export type SetupState = Record<string, any>;
@@ -19,6 +23,7 @@ export interface ComponentInstance {
   vnode: VNode;
   type: ComponentType & ElementType;
   setupState: SetupState;
+  emit?: (eventName: string) => void;
   props: PropsType;
   render?: () => VNode;
   proxy?: typeof Proxy;

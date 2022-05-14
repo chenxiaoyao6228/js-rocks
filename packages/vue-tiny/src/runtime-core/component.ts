@@ -1,5 +1,20 @@
+import { capitalize } from '../shared/utils';
 import { ComponentInstance, SetupState, VNode } from '../typings/index';
 import { initProps } from './publicProps';
+
+function emit (instance: ComponentInstance, eventName: string, ...args: any) {
+  const { props } = instance;
+
+  const toHandleKey = (eventName: string) => {
+    return eventName ? `on${capitalize(eventName)}` : '';
+  };
+
+  const handlerName = toHandleKey(eventName);
+
+  const handler = props[handlerName];
+
+  handler && handler(...args);
+}
 
 export function createComponentInstance (vnode: VNode): ComponentInstance {
   const component = {
@@ -7,7 +22,11 @@ export function createComponentInstance (vnode: VNode): ComponentInstance {
     type: vnode.type,
     setupState: {},
     props: {},
+    emit: name => {},
   };
+
+  component.emit = emit.bind(null, component);
+
   return component;
 }
 
@@ -37,7 +56,7 @@ function setupStatefulComponent (instance: ComponentInstance) {
 
   if (setup) {
     // in order to get `this` when calling this, we have to proxy this value
-    const setupResult = setup(instance.props);
+    const setupResult = setup(instance.props, { emit: instance.emit });
 
     handleSetupResult(instance, setupResult);
   }
