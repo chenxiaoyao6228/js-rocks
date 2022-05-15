@@ -1,20 +1,7 @@
-import { capitalize } from '../shared/utils';
 import { ComponentInstance, SetupState, VNode } from '../../typings/index';
 import { initProps } from './publicProps';
-
-function emit (instance: ComponentInstance, eventName: string, ...args: any) {
-  const { props } = instance;
-
-  const toHandleKey = (eventName: string) => {
-    return eventName ? `on${capitalize(eventName)}` : '';
-  };
-
-  const handlerName = toHandleKey(eventName);
-
-  const handler = props[handlerName];
-
-  handler && handler(...args);
-}
+import { publicInstanceProxyHandlers } from './componentPublicInstance';
+import { emit } from './componentEmit';
 
 export function createComponentInstance (vnode: VNode): ComponentInstance {
   const component = {
@@ -38,17 +25,12 @@ export function setupComponent (instance: ComponentInstance) {
 }
 
 function setupStatefulComponent (instance: ComponentInstance) {
-  const rawObj = {};
-  instance.proxy = new Proxy(rawObj, {
-    get: (target, key: string) => {
-      const { setupState, props } = instance;
-      if (key in setupState) {
-        return setupState[key];
-      } else if (key in props) {
-        return props[key];
-      }
+  instance.proxy = new Proxy(
+    {
+      _: instance,
     },
-  });
+    publicInstanceProxyHandlers
+  );
 
   const Component = instance.type;
 

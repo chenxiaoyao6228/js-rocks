@@ -4,8 +4,10 @@ export interface VNode {
   children?: ChildrenType;
 }
 
+type emitFn = (eventName: string) => void;
+
 export interface ContextType {
-  emit: () => void;
+  emit: emitFn;
 }
 
 export interface ComponentType {
@@ -23,7 +25,7 @@ export interface ComponentInstance {
   vnode: VNode;
   type: ComponentType & ElementType;
   setupState: SetupState;
-  emit?: (eventName: string) => void;
+  emit: emitFn;
   props: PropsType;
   render?: () => VNode;
   proxy?: typeof Proxy;
