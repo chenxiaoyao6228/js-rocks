@@ -1,7 +1,7 @@
 export interface VNode {
   type: ComponentType & ElementType;
   props?: PropsType;
-  children?: ChildrenType;
+  children: ChildrenType;
 }
 
 type emitFn = (eventName: string) => void;
@@ -27,6 +27,7 @@ export interface ComponentInstance {
   setupState: SetupState;
   emit: emitFn;
   props: PropsType;
+  slots: {};
   render?: () => VNode;
   proxy?: typeof Proxy;
 }

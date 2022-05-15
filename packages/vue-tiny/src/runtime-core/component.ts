@@ -2,6 +2,7 @@ import { ComponentInstance, SetupState, VNode } from '../../typings/index';
 import { initProps } from './publicProps';
 import { publicInstanceProxyHandlers } from './componentPublicInstance';
 import { emit } from './componentEmit';
+import { initSlots } from './componentSlots';
 
 export function createComponentInstance (vnode: VNode): ComponentInstance {
   const component = {
@@ -9,6 +10,7 @@ export function createComponentInstance (vnode: VNode): ComponentInstance {
     type: vnode.type,
     setupState: {},
     props: {},
+    slots: {},
     emit: name => {},
   };
 
@@ -18,9 +20,8 @@ export function createComponentInstance (vnode: VNode): ComponentInstance {
 }
 
 export function setupComponent (instance: ComponentInstance) {
-  // TODO
   initProps(instance);
-  // initSlots()
+  initSlots(instance, instance.vnode.children);
   setupStatefulComponent(instance);
 }
 

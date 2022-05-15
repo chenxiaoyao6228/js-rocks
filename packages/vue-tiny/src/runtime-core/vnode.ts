@@ -7,8 +7,8 @@ export function createVNode (
 ): VNode {
   const vnode = {
     type,
-    props,
-    children,
+    props: props ? props : {},
+    children: children ? children : [],
   };
 
   return vnode;

@@ -1,4 +1,9 @@
 import { hasOwn } from '../shared/utils';
+import { ComponentInstance } from '../../typings/index';
+
+const publicPropertiesMap = {
+  $slots: (i: ComponentInstance) => i.slots,
+};
 
 export const publicInstanceProxyHandlers = {
   get: ({ _: instance }, key: string) => {
@@ -7,6 +12,11 @@ export const publicInstanceProxyHandlers = {
       return setupState[key];
     } else if (hasOwn(props, key)) {
       return props[key];
+    }
+
+    const publicGetter = publicPropertiesMap[key];
+    if (publicGetter) {
+      return publicGetter(instance);
     }
   },
 };
