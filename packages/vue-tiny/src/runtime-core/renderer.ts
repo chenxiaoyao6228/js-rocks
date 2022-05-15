@@ -51,7 +51,7 @@ function mountElement (vnode: VNode, container: HTMLElement) {
   if (typeof children === 'string') {
     el.textContent = vnode.children as string;
   } else if (Array.isArray(children)) {
-    mountChilren(vnode, container);
+    mountChilren(vnode, el);
   }
   for (const key in props) {
     const value = props[key];
