@@ -27,3 +27,4 @@
 [ ] koa-tiny
 [ ] website-backend
 [ ] website-dms 
+[ ] demo-showcase editor 
