@@ -27,10 +27,11 @@ export const App = {
       </div>
     */
     const app = h('div', {}, 'app');
-    const foo = h(Foo, { class: 'blue' }, [
+    const fooWithChildren = h(Foo, { class: 'blue' }, [
       h('div', { class: 'pink' }, '123'),
       h('div', { class: 'pink' }, '456'),
     ]);
-    return h('div', { class: 'red' }, [app, foo]);
+    const foolWithOnlyChild = h(Foo, { class: 'blue' }, h('div', { class: 'pink' }, '123'));
+    return h('div', { class: 'red' }, [app, fooWithChildren, foolWithOnlyChild]);
   },
 };
