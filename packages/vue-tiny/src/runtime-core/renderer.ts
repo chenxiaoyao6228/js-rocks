@@ -1,6 +1,5 @@
 import { createComponentInstance, setupComponent } from './component';
-import { isObject } from '../shared/utils';
-import { VNode, ComponentType, HTMLNameTag, ChildrenType } from '../../typings/index';
+import { VNode, HTMLNameTag, ChildrenType, ShapeFlags } from '../../typings/index';
 
 export function render (vnode: VNode, container: HTMLElement) {
   patch(vnode, container);
@@ -8,13 +7,11 @@ export function render (vnode: VNode, container: HTMLElement) {
 
 function patch (vnode: VNode, container: HTMLElement) {
   // distinguish normal html element and component
-  if (typeof vnode.type === 'string') {
+  const { shapeFlag } = vnode;
+  if (shapeFlag & ShapeFlags.ELEMENT) {
     processElement(vnode, container);
-  } else if (isObject(vnode.type as ComponentType)) {
+  } else if (shapeFlag & ShapeFlags.STATEFUL_COMPONENT) {
     processComponent(vnode, container);
-  } else if (typeof vnode === 'string') {
-    const textNode = document.createTextNode(vnode);
-    container.appendChild(textNode);
   }
 }
 
@@ -46,9 +43,9 @@ const isEvenAttr = (key: string) => /^on[A-Z]/.test(key);
 function mountElement (vnode: VNode, container: HTMLElement) {
   const el = document.createElement(vnode.type as HTMLNameTag);
 
-  const { children, props } = vnode;
+  const { children, props, shapeFlag } = vnode;
 
-  if (typeof children === 'string') {
+  if (shapeFlag & ShapeFlags.TEXT_CHILDREN) {
     el.textContent = vnode.children as string;
   } else if (Array.isArray(children)) {
     mountChilren(vnode, el);

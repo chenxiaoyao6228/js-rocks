@@ -1,7 +1,17 @@
+export const enum ShapeFlags {
+  ELEMENT = 1, // 0001
+  STATEFUL_COMPONENT = 1 << 1, // 0010
+  TEXT_CHILDREN = 1 << 2, // 0100
+  ARRAY_CHILDREN = 1 << 3, // 1000
+  SLOT_CHILDREN = 1 << 4,
+}
+
+export type VNode_TYPE = ComponentType & ElementType;
 export interface VNode {
-  type: ComponentType & ElementType;
+  type: VNode_TYPE;
   props?: PropsType;
   children: ChildrenType;
+  shapeFlag: ShapeFlags;
 }
 
 type emitFn = (eventName: string) => void;
