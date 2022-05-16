@@ -1,8 +1,9 @@
 import { ComponentInstance, SetupState, VNode } from '../../typings/index';
-import { initProps } from './publicProps';
+import { initProps } from './componentProps';
 import { publicInstanceProxyHandlers } from './componentPublicInstance';
 import { emit } from './componentEmit';
 import { initSlots } from './componentSlots';
+import { shallowReadonly } from '../reactivity/reactive';
 
 export function createComponentInstance (vnode: VNode): ComponentInstance {
   const component = {
@@ -11,7 +12,7 @@ export function createComponentInstance (vnode: VNode): ComponentInstance {
     setupState: {},
     props: {},
     slots: {},
-    emit: name => {},
+    emit: (name: string) => {},
   };
 
   component.emit = emit.bind(null, component);
@@ -20,7 +21,7 @@ export function createComponentInstance (vnode: VNode): ComponentInstance {
 }
 
 export function setupComponent (instance: ComponentInstance) {
-  initProps(instance);
+  initProps(instance, instance.vnode.props);
   initSlots(instance, instance.vnode.children);
   setupStatefulComponent(instance);
 }
@@ -39,15 +40,13 @@ function setupStatefulComponent (instance: ComponentInstance) {
 
   if (setup) {
     // in order to get `this` when calling this, we have to proxy this value
-    const setupResult = setup(instance.props, { emit: instance.emit });
+    const setupResult = setup(shallowReadonly(instance.props), { emit: instance.emit });
 
     handleSetupResult(instance, setupResult);
   }
 }
 
 function handleSetupResult (instance: ComponentInstance, setupResult: SetupState) {
-  // function Object
-  // TODO function
   if (typeof setupResult === 'object') {
     instance.setupState = setupResult;
   }

@@ -9,7 +9,7 @@ export const enum ShapeFlags {
 export type VNode_TYPE = ComponentType & ElementType;
 export interface VNode {
   type: VNode_TYPE;
-  props?: PropsType;
+  props: PropsType;
   children: ChildrenType;
   shapeFlag: ShapeFlags;
 }

@@ -1,37 +1,40 @@
 import { h, renderSlots } from '../lib/vue-tiny.esm.js';
 
-const Foo = {
-  setup (props, { emit }) {
+export const Foo = {
+  setup () {
     return {};
   },
-  render (props) {
-    const foo = h('div', { class: 'green' }, 'foo');
+  render () {
+    const foo = h('p', {}, 'foo');
 
-    console.log('this.$slots :>> ', this.$slots);
-
-    return h('div', { class: 'red' }, [foo, renderSlots(this.$slots)]);
+    const age = 18;
+    return h('div', {}, [
+      renderSlots(this.$slots, 'header', {
+        age,
+      }),
+      foo,
+      renderSlots(this.$slots, 'footer'),
+    ]);
   },
 };
 
 export const App = {
-  setup (props, { emit }) {
-    return {};
-  },
+  name: 'App',
   render () {
-    /*
-      <div>
-        app
-        <Foo>
-          <div>123<div>
-        </Foo>
-      </div>
-    */
-    const app = h('div', {}, 'app');
-    const fooWithChildren = h(Foo, { class: 'blue' }, [
-      h('div', { class: 'pink' }, '123'),
-      h('div', { class: 'pink' }, '456'),
-    ]);
-    const foolWithOnlyChild = h(Foo, { class: 'blue' }, h('div', { class: 'pink' }, '123'));
-    return h('div', { class: 'red' }, [app, fooWithChildren, foolWithOnlyChild]);
+    const app = h('div', {}, 'App');
+    const foo = h(
+      Foo,
+      {},
+      {
+        header: ({ age }) => h('p', {}, 'header' + age),
+        footer: () => h('p', {}, 'footer'),
+      }
+    );
+
+    return h('div', {}, [app, foo]);
+  },
+
+  setup () {
+    return {};
   },
 };
