@@ -41,7 +41,7 @@ function processElement (vnode: VNode, container: HTMLElement) {
 const isEvenAttr = (key: string) => /^on[A-Z]/.test(key);
 
 function mountElement (vnode: VNode, container: HTMLElement) {
-  const el = document.createElement(vnode.type as HTMLNameTag);
+  const el = (vnode.el = document.createElement(vnode.type as HTMLNameTag));
 
   const { children, props, shapeFlag } = vnode;
 
@@ -63,7 +63,8 @@ function mountElement (vnode: VNode, container: HTMLElement) {
 }
 
 function mountChilren (vnode: VNode, container: HTMLElement) {
-  vnode.children.forEach((v: ChildrenType) => {
+  const children = vnode.children as VNode[];
+  children.forEach((v: VNode) => {
     patch(v, container);
   });
 }

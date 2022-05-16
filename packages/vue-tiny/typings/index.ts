@@ -12,6 +12,7 @@ export interface VNode {
   props: PropsType;
   children: ChildrenType;
   shapeFlag: ShapeFlags;
+  el: HTMLElement | null;
 }
 
 type emitFn = (eventName: string) => void;

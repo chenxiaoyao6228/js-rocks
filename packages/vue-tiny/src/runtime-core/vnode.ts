@@ -6,6 +6,7 @@ export function createVNode (type: VNode_TYPE, props?: PropsType, children?: Chi
     props: props ? props : {},
     children: children ? children : [],
     shapeFlag: getShapeFlag(type),
+    el: null,
   };
 
   if (typeof children === 'string') {
