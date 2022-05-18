@@ -14,9 +14,16 @@ const Provider = {
 
 const ProviderTwo = {
   name: 'ProviderTwo',
-  setup () {},
+  setup () {
+    provide('foo', 'fooTwo');
+    const foo = inject('foo');
+
+    return {
+      foo,
+    };
+  },
   render () {
-    return h('div', {}, [h('p', {}, 'ProviderTwo'), h(Consumer)]);
+    return h('div', {}, [h('p', {}, `ProviderTwo foo:${this.foo}`), h(Consumer)]);
   },
 };
 
@@ -25,15 +32,17 @@ const Consumer = {
   setup () {
     const foo = inject('foo');
     const bar = inject('bar');
+    const baz = inject('baz', 'bazDefault');
 
     return {
       foo,
       bar,
+      baz,
     };
   },
 
   render () {
-    return h('div', {}, `Consumer: - ${this.foo} - ${this.bar}`);
+    return h('div', {}, `Consumer: - ${this.foo} - ${this.bar}-${this.baz}`);
   },
 };
 
