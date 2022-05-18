@@ -6,7 +6,9 @@ export const enum ShapeFlags {
   SLOT_CHILDREN = 1 << 4,
 }
 
-export type VNode_TYPE = ComponentType & ElementType;
+type Fragment = 'fragment';
+
+export type VNode_TYPE = ComponentType | ElementType | Fragment;
 export interface VNode {
   type: VNode_TYPE;
   props: PropsType;

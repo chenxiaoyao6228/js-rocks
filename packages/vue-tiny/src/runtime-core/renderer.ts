@@ -7,11 +7,20 @@ export function render (vnode: VNode, container: HTMLElement) {
 
 function patch (vnode: VNode, container: HTMLElement) {
   // distinguish normal html element and component
-  const { shapeFlag } = vnode;
-  if (shapeFlag & ShapeFlags.ELEMENT) {
-    processElement(vnode, container);
-  } else if (shapeFlag & ShapeFlags.STATEFUL_COMPONENT) {
-    processComponent(vnode, container);
+  const { shapeFlag, type } = vnode;
+
+  switch (type) {
+    case 'fragment':
+      processFragment(vnode, container);
+      break;
+
+    default:
+      if (shapeFlag & ShapeFlags.ELEMENT) {
+        processElement(vnode, container);
+      } else if (shapeFlag & ShapeFlags.STATEFUL_COMPONENT) {
+        processComponent(vnode, container);
+      }
+      break;
   }
 }
 
@@ -67,4 +76,8 @@ function mountChilren (vnode: VNode, container: HTMLElement) {
   children.forEach((v: VNode) => {
     patch(v, container);
   });
+}
+
+function processFragment (vnode: VNode, container: HTMLElement) {
+  mountChilren(vnode, container);
 }
