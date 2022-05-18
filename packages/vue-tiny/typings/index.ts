@@ -45,4 +45,6 @@ export interface ComponentInstance {
   slots: {};
   render?: () => VNode;
   proxy?: typeof Proxy;
+  parent: ComponentInstance;
+  provides: Record<string, any>;
 }
