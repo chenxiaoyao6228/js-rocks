@@ -14,7 +14,10 @@ function setCurrentInstance (instance: ComponentInstance) {
   currentInstance = instance;
 }
 
-export function createComponentInstance (vnode: VNode): ComponentInstance {
+export function createComponentInstance (
+  vnode: VNode,
+  parent: ComponentInstance
+): ComponentInstance {
   const component = {
     vnode,
     type: vnode.type,
@@ -22,6 +25,8 @@ export function createComponentInstance (vnode: VNode): ComponentInstance {
     props: {},
     slots: {},
     emit: (name: string) => {},
+    parent: parent,
+    provides: {},
   };
 
   component.emit = emit.bind(null, component);
