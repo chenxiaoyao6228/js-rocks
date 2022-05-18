@@ -1,4 +1,4 @@
-import { h } from '../lib/vue-tiny.esm.js';
+import { h } from '../../lib/vue-tiny.esm.js';
 
 const Counter = {
   setup (props, { emit }) {
