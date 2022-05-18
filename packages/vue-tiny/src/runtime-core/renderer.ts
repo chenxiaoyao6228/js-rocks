@@ -14,6 +14,9 @@ function patch (vnode: VNode, container: HTMLElement) {
       processFragment(vnode, container);
       break;
 
+    case 'text':
+      processTextNode(vnode, container);
+      break;
     default:
       if (shapeFlag & ShapeFlags.ELEMENT) {
         processElement(vnode, container);
@@ -80,4 +83,9 @@ function mountChilren (vnode: VNode, container: HTMLElement) {
 
 function processFragment (vnode: VNode, container: HTMLElement) {
   mountChilren(vnode, container);
+}
+
+function processTextNode (vnode: VNode, container: HTMLElement) {
+  const textNode = (vnode.el = document.createTextNode(vnode.children as string));
+  container.append(textNode);
 }

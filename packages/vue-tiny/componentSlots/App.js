@@ -1,4 +1,4 @@
-import { h, renderSlots } from '../lib/vue-tiny.esm.js';
+import { h, renderSlots, createTextVNode } from '../lib/vue-tiny.esm.js';
 
 export const Foo = {
   setup () {
@@ -26,7 +26,7 @@ export const App = {
       Foo,
       {},
       {
-        header: ({ age }) => h('p', {}, 'header' + age),
+        header: ({ age }) => [h('p', {}, 'header' + age), createTextVNode('hello world')],
         footer: () => h('p', {}, 'footer'),
       }
     );
