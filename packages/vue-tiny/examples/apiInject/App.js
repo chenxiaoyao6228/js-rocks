@@ -1,23 +1,28 @@
-import { h, provide, inject, getCurrentInstance } from '../../lib/vue-tiny.esm.js';
+// 组件 provide 和 inject 功能
+import { h, provide, inject } from '../../lib/vue-tiny.esm.js';
 
 const Provider = {
   name: 'Provider',
   setup () {
-    const instance = getCurrentInstance();
-    console.log('🚀 ~ file: App.js ~ line 7 ~ setup ~ instance', instance);
     provide('foo', 'fooVal');
     provide('bar', 'barVal');
   },
   render () {
-    return h('div', {}, [h('p', {}, 'Provider'), h(Consumer)]);
+    return h('div', {}, [h('p', {}, 'Provider'), h(ProviderTwo)]);
+  },
+};
+
+const ProviderTwo = {
+  name: 'ProviderTwo',
+  setup () {},
+  render () {
+    return h('div', {}, [h('p', {}, 'ProviderTwo'), h(Consumer)]);
   },
 };
 
 const Consumer = {
   name: 'Consumer',
   setup () {
-    const instance = getCurrentInstance();
-    console.log('🚀 ~ file: App.js ~ line 7 ~ setup ~ instance', instance);
     const foo = inject('foo');
     const bar = inject('bar');
 

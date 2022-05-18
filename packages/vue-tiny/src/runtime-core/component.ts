@@ -4,6 +4,7 @@ import { publicInstanceProxyHandlers } from './componentPublicInstance';
 import { emit } from './componentEmit';
 import { initSlots } from './componentSlots';
 import { shallowReadonly } from '../reactivity/reactive';
+import { ComponentInstance } from '../../../../../packages/vue-tiny/typings/index';
 
 let currentInstance: ComponentInstance | null = null;
 export function getCurrentInstance () {
@@ -14,10 +15,12 @@ function setCurrentInstance (instance: ComponentInstance) {
   currentInstance = instance;
 }
 
+const isRootInstance = (instance: ComponentInstance) => Object.keys(instance).length === 0;
 export function createComponentInstance (
   vnode: VNode,
   parent: ComponentInstance
 ): ComponentInstance {
+  console.log('createComponentInstance', parent);
   const component = {
     vnode,
     type: vnode.type,
@@ -26,7 +29,7 @@ export function createComponentInstance (
     slots: {},
     emit: (name: string) => {},
     parent: parent,
-    provides: {},
+    provides: isRootInstance(parent) ? {} : parent.provides,
   };
 
   component.emit = emit.bind(null, component);

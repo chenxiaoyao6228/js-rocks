@@ -12,5 +12,8 @@ export function provide (key: string, value: any) {
 // lookup
 export function inject (key: string) {
   const currentInstance = getCurrentInstance() as ComponentInstance;
-  return currentInstance.parent.provides[key];
+
+  const parentProvides = currentInstance.parent.provides;
+
+  return parentProvides[key];
 }
