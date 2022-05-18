@@ -1,4 +1,4 @@
-import { h } from '../lib/vue-tiny.esm.js';
+import { h } from '../../lib/vue-tiny.esm.js';
 
 // requirement
 // should be able to get props in setup and render function

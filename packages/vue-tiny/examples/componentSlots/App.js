@@ -1,4 +1,4 @@
-import { h, renderSlots, createTextVNode } from '../lib/vue-tiny.esm.js';
+import { h, renderSlots, createTextVNode } from '../../lib/vue-tiny.esm.js';
 
 export const Foo = {
   setup () {
