@@ -5,6 +5,15 @@ import { emit } from './componentEmit';
 import { initSlots } from './componentSlots';
 import { shallowReadonly } from '../reactivity/reactive';
 
+let currentInstance: ComponentInstance | null = null;
+export function getCurrentInstance () {
+  return currentInstance;
+}
+
+function setCurrentInstance (instance: ComponentInstance) {
+  currentInstance = instance;
+}
+
 export function createComponentInstance (vnode: VNode): ComponentInstance {
   const component = {
     vnode,
@@ -39,9 +48,11 @@ function setupStatefulComponent (instance: ComponentInstance) {
   const { setup } = Component;
 
   if (setup) {
+    setCurrentInstance(instance);
     // in order to get `this` when calling this, we have to proxy this value
     const setupResult = setup(shallowReadonly(instance.props), { emit: instance.emit });
 
+    setCurrentInstance(null);
     handleSetupResult(instance, setupResult);
   }
 }
