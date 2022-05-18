@@ -11,6 +11,7 @@ export type TextNodeType = 'text';
 
 export type VNode_TYPE = ComponentType | ElementType | FragmentNodeTYpe | TextNodeType;
 export interface VNode {
+  name?: string;
   type: VNode_TYPE;
   props: PropsType;
   children: ChildrenType;
