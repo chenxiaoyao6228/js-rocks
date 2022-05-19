@@ -1,6 +1,6 @@
 import { track, trigger } from './effect';
 import { reactive, readonly, ReactiveFlags } from './reactive';
-import { isObject } from '../shared/utils';
+import { isObject } from '@js-rocks/lodash-tiny';
 
 // 实现缓存
 const get = createGetter();

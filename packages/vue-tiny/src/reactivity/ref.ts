@@ -1,4 +1,5 @@
-import { hasChange, isObject } from '../shared/utils';
+import { isObject } from '@js-rocks/lodash-tiny';
+import { hasChange } from '../shared/utils';
 import { trackEffect, triggerEffect } from './effect';
 import { reactive } from './reactive';
 

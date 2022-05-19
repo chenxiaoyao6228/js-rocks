@@ -4,7 +4,6 @@ import { publicInstanceProxyHandlers } from './componentPublicInstance';
 import { emit } from './componentEmit';
 import { initSlots } from './componentSlots';
 import { shallowReadonly } from '../reactivity/reactive';
-import { ComponentInstance } from '../../../../../packages/vue-tiny/typings/index';
 
 let currentInstance: ComponentInstance | null = null;
 export function getCurrentInstance () {

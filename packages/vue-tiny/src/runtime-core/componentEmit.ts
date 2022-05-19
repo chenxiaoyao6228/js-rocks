@@ -1,5 +1,5 @@
+import { capitalize } from '@js-rocks/lodash-tiny';
 import { ComponentInstance } from '../../typings/index';
-import { capitalize } from '../shared/utils';
 
 export function emit (instance: ComponentInstance, eventName: string, ...args: any) {
   const { props } = instance;
