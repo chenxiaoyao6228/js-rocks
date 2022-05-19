@@ -1,9 +1,9 @@
-import eventBus from '.';
+import EventBus from '.';
 
 describe('eventBus', () => {
   let bus;
   beforeEach(() => {
-    bus = new eventBus();
+    bus = new EventBus();
   });
   test('on and emit', () => {
     let taskASpy = jest.fn();
