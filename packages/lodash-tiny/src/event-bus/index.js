@@ -1,4 +1,4 @@
-class eventBus {
+class EventBus {
   constructor () {
     this.listeners = {};
     this.uuid = 0;
@@ -35,4 +35,4 @@ class eventBus {
   }
 }
 
-export default eventBus;
+export default EventBus;
