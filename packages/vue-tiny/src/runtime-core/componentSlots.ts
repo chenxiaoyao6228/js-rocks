@@ -1,3 +1,4 @@
+import { isArray } from '@js-rocks/lodash-tiny';
 import { ChildrenType, ComponentInstance, ShapeFlags } from '../../typings/index';
 
 export function initSlots (instance: ComponentInstance, children: ChildrenType) {
@@ -16,5 +17,5 @@ function normalizeObjectSlots (children: any, slots: any) {
 }
 
 function normalizeSlotValue (value) {
-  return Array.isArray(value) ? value : [value];
+  return isArray(value) ? value : [value];
 }
