@@ -4,6 +4,7 @@
   "description": "build your own vue3",
   "main": "lib/vue-tiny.cjs.js",
   "module": "lib/vue-tiny.esm.js",
+  "type": "module",
   "scripts": {
     "test": "jest",
     "test:watch": "jest --watch",
@@ -18,6 +19,8 @@
   "devDependencies": {
     "@babel/preset-env": "^7.16.11",
     "@babel/preset-typescript": "^7.16.7",
+    "@rollup/plugin-commonjs": "^22.0.0",
+    "@rollup/plugin-node-resolve": "^13.3.0",
     "@rollup/plugin-typescript": "^8.3.1",
     "@types/jest": "^27.4.0",
     "jest": "^27.5.1",
