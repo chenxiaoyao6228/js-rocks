@@ -8,10 +8,14 @@ import {
   ComponentInstance,
 } from '../../typings/index';
 
-export function createRenderer (options) {
+export function createRenderer (options: {
+  createElement: (...args: any) => void;
+  patchProps: (...args: any) => void;
+  insert: (...args: any) => void;
+}) {
   const {
     createElement: hostCreateElement,
-    patchProp: hostPatchProp,
+    patchProps: hostPatchProps,
     insert: hostInsert,
   } = options;
 
@@ -61,6 +65,7 @@ export function createRenderer (options) {
 
     patch(subTree, container, instance);
   }
+
   function processElement (vnode: VNode, container: HTMLElement, parent: ComponentInstance) {
     mountElement(vnode, container, parent);
   }
@@ -83,7 +88,7 @@ export function createRenderer (options) {
         const eventName = key.slice(2).toLowerCase();
         el.addEventListener(eventName, value);
       } else {
-        hostPatchProp(el, key, value);
+        hostPatchProps(el, key, value);
       }
     }
     hostInsert(container, el);
