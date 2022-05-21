@@ -2,11 +2,10 @@ import { ElementType } from '../../typings';
 import { createRenderer } from '../runtime-core';
 
 function createElement (type: ElementType) {
-  console.log('type', type);
   return document.createElement(type);
 }
 
-function patchProp (el: HTMLElement, key: string, val: any) {
+function patchProps (el: HTMLElement, key: string, val: any) {
   const isOn = (key: string) => /^on[A-Z]/.test(key);
   if (isOn(key)) {
     const event = key.slice(2).toLowerCase();
@@ -22,7 +21,7 @@ function insert (parent: HTMLElement, el: HTMLElement) {
 
 const renderer: any = createRenderer({
   createElement,
-  patchProp,
+  patchProps,
   insert,
 });
 
