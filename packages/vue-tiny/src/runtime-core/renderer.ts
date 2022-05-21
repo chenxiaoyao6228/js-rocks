@@ -22,36 +22,45 @@ export function createRenderer (options: {
 
   function render (vnode: VNode, container: HTMLElement) {
     // how to define this type when parent might be  instance or null
-    patch(vnode, container, {} as ComponentInstance);
+    patch(null, vnode, container, {} as ComponentInstance);
   }
 
-  function patch (vnode: VNode, container: HTMLElement, parent: ComponentInstance) {
+  function patch (n1: any, n2: VNode, container: HTMLElement, parent: ComponentInstance) {
     // distinguish normal html element and component
-    const { shapeFlag, type } = vnode;
+    const { shapeFlag, type } = n2;
 
     switch (type) {
       case 'fragment':
-        processFragment(vnode, container, parent);
+        processFragment(n1, n2, container, parent);
         break;
 
       case 'text':
-        processTextNode(vnode, container, parent);
+        processTextNode(n1, n2, container, parent);
         break;
       default:
         if (shapeFlag & ShapeFlags.ELEMENT) {
-          processElement(vnode, container, parent);
+          processElement(n1, n2, container, parent);
         } else if (shapeFlag & ShapeFlags.STATEFUL_COMPONENT) {
-          processComponent(vnode, container, parent);
+          processComponent(n1, n2, container, parent);
         }
         break;
     }
   }
 
-  function processComponent (vnode: VNode, container: HTMLElement, parent: ComponentInstance) {
-    mountComponent(vnode, container, parent);
+  function processComponent (n1, n2: VNode, container: HTMLElement, parent: ComponentInstance) {
+    if (!n1) {
+      console.log('mountComponent-------');
+      mountComponent(n2, container, parent);
+    } else {
+      console.log('patchComponent------');
+      patchComponent(n1, n2, container, parent);
+    }
   }
 
+  function patchComponent (n1: any, n2: VNode, container: HTMLElement, parent: ComponentInstance) {}
+
   function mountComponent (vnode: VNode, container: HTMLElement, parent: ComponentInstance) {
+    // only init instance once
     const instance = createComponentInstance(vnode, parent);
 
     setupComponent(instance);
@@ -62,16 +71,35 @@ export function createRenderer (options: {
   function setupRenderEffect (instance: any, container: any) {
     // trigger render after tracked value changed
     effect(() => {
-      // render function return vnode element
-      const { proxy } = instance;
-      const subTree = instance.render.call(proxy);
+      if (instance.isMounted) {
+        instance.isMounted = false;
+        const { proxy } = instance;
+        const subTree = (instance.subTree = instance.render.call(proxy));
+        patch(null, subTree, container, instance);
+      } else {
+        const { proxy } = instance;
+        const subTree = instance.render.call(proxy);
+        console.log('subTree', subTree);
+        const prevTree = instance.subTree;
+        console.log('prevTree', prevTree);
 
-      patch(subTree, container, instance);
+        patch(prevTree, subTree, container, instance);
+      }
     });
   }
 
-  function processElement (vnode: VNode, container: HTMLElement, parent: ComponentInstance) {
-    mountElement(vnode, container, parent);
+  function processElement (n1: any, n2: VNode, container: HTMLElement, parent: ComponentInstance) {
+    if (!n1) {
+      mountElement(n2, container, parent);
+    } else {
+      patchElement(n1, n2, container, parent);
+    }
+  }
+
+  function patchElement (n1: VNode, n2: VNode, container: HTMLElement, parent: ComponentInstance) {
+    console.log('patchElement');
+    console.log('n1', n1);
+    console.log('n2', n2);
   }
 
   const isEvenAttr = (key: string) => /^on[A-Z]/.test(key);
@@ -100,17 +128,17 @@ export function createRenderer (options: {
 
   function mountChilren (vnode: VNode, container: HTMLElement, parent: ComponentInstance) {
     const children = vnode.children as VNode[];
-    children.forEach((v: VNode) => {
-      patch(v, container, parent);
+    children.forEach((c: VNode) => {
+      patch(null, c, container, parent);
     });
   }
 
-  function processFragment (vnode: VNode, container: HTMLElement, parent: ComponentInstance) {
-    mountChilren(vnode, container, parent);
+  function processFragment (n1, n2: VNode, container: HTMLElement, parent: ComponentInstance) {
+    mountChilren(n2, container, parent);
   }
 
-  function processTextNode (vnode: VNode, container: HTMLElement, parent: ComponentInstance) {
-    const textNode = (vnode.el = document.createTextNode(vnode.children as string));
+  function processTextNode (n1, n2: VNode, container: HTMLElement, parent: ComponentInstance) {
+    const textNode = (n2.el = document.createTextNode(n2.children as string));
     hostInsert(container, textNode);
   }
 

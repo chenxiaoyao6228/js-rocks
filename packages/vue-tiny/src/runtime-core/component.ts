@@ -29,6 +29,8 @@ export function createComponentInstance (
     emit: (name: string) => {},
     parent: parent,
     provides: isRootInstance(parent) ? {} : parent.provides,
+    isMounted: true,
+    subTree: {},
   };
 
   component.emit = emit.bind(null, component);
