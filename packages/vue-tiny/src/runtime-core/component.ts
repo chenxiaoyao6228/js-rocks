@@ -4,6 +4,7 @@ import { publicInstanceProxyHandlers } from './componentPublicInstance';
 import { emit } from './componentEmit';
 import { initSlots } from './componentSlots';
 import { shallowReadonly } from '../reactivity/reactive';
+import { proxyRefs } from '../reactivity';
 
 let currentInstance: ComponentInstance | null = null;
 export function getCurrentInstance () {
@@ -19,7 +20,6 @@ export function createComponentInstance (
   vnode: VNode,
   parent: ComponentInstance
 ): ComponentInstance {
-  console.log('createComponentInstance', parent);
   const component = {
     vnode,
     type: vnode.type,
@@ -58,7 +58,6 @@ function setupStatefulComponent (instance: ComponentInstance) {
     setCurrentInstance(instance);
     // in order to get `this` when calling this, we have to proxy this value
     const setupResult = setup(shallowReadonly(instance.props), { emit: instance.emit });
-
     setCurrentInstance(null);
     handleSetupResult(instance, setupResult);
   }
@@ -66,7 +65,7 @@ function setupStatefulComponent (instance: ComponentInstance) {
 
 function handleSetupResult (instance: ComponentInstance, setupResult: SetupState) {
   if (typeof setupResult === 'object') {
-    instance.setupState = setupResult;
+    instance.setupState = proxyRefs(setupResult);
   }
 
   finishComponentSetup(instance);

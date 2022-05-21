@@ -7,6 +7,7 @@ import {
   ShapeFlags,
   ComponentInstance,
 } from '../../typings/index';
+import effect from '../reactivity/effect';
 
 export function createRenderer (options: {
   createElement: (...args: any) => void;
@@ -59,11 +60,14 @@ export function createRenderer (options: {
   }
 
   function setupRenderEffect (instance: any, container: any) {
-    // render function return vnode element
-    const { proxy } = instance;
-    const subTree = instance.render.call(proxy);
+    // trigger render after tracked value changed
+    effect(() => {
+      // render function return vnode element
+      const { proxy } = instance;
+      const subTree = instance.render.call(proxy);
 
-    patch(subTree, container, instance);
+      patch(subTree, container, instance);
+    });
   }
 
   function processElement (vnode: VNode, container: HTMLElement, parent: ComponentInstance) {
