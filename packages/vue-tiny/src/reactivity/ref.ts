@@ -1,6 +1,6 @@
 import { isObject } from '@js-rocks/lodash-tiny';
 import { hasChange } from '../shared/utils';
-import { trackEffect, triggerEffect } from './effect';
+import { isTracking, trackEffect, triggerEffect } from './effect';
 import { reactive } from './reactive';
 
 // primitive类型无法使用 proxy 进行代理, 因此要使用使用对象进行包裹
@@ -10,14 +10,15 @@ class RefImp {
   dep;
   rawValue: any;
   __v_isRef: boolean;
-  constructor (value) {
+  constructor (value: any) {
     this.__v_isRef = true;
     this.rawValue = value;
     this._value = convert(value);
     this.dep = new Set();
   }
   get value () {
-    trackEffect(this.dep);
+    trackRefValue(this);
+
     return this._value;
   }
   set value (newValue) {
@@ -25,6 +26,12 @@ class RefImp {
     this.rawValue = newValue;
     this._value = convert(newValue);
     triggerEffect(this.dep);
+  }
+}
+
+function trackRefValue (ref: RefImp) {
+  if (isTracking()) {
+    trackEffect(ref.dep);
   }
 }
 
