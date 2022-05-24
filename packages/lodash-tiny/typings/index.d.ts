@@ -1,5 +1,4 @@
 declare module '@js-rocks/lodash-tiny' {
-  import { EventBus } from '.';
   // types
   function isObject(param: any): boolean;
   function isPlainObject(param: any): boolean;
