@@ -9,12 +9,13 @@
   "license": "ISC",
   "main": "lib/lodash-tiny.cjs.js",
   "module": "lib/lodash-tiny.esm.js",
-  "typings": "src/typings/index.d.ts",
+  "typings": "typings/index.d.ts",
   "scripts": {
     "tsc": "tsc",
     "build": "rollup -c  rollup.config.js",
     "build:watch": "rollup -c  rollup.config.js --watch",
-    "test": "echo \"Error: run tests from root\" && exit 1"
+    "test": "yarn test",
+    "test:watch": "yarn test --watch"
   },
   "directories": {
     "lib": "lib",
@@ -39,5 +40,8 @@
     "@rollup/plugin-node-resolve": "^13.2.1",
     "rollup": "^2.70.2",
     "ts-migrate": "^0.1.28"
+  },
+  "dependencies": {
+    "typescript": "^4.6.4"
   }
 }

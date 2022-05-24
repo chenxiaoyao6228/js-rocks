@@ -1,5 +1,8 @@
 import pkg from './package.json';
 import typescript from '@rollup/plugin-typescript';
+import resolve from '@rollup/plugin-node-resolve';
+import commonjs from '@rollup/plugin-commonjs';
+
 export default {
   input: './src/index.ts',
   output: [
@@ -15,5 +18,5 @@ export default {
     },
   ],
 
-  plugins: [typescript()],
+  plugins: [resolve(), typescript(), commonjs()],
 };

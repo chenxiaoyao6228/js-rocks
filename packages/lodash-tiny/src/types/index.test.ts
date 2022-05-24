@@ -2,7 +2,7 @@ import * as type from '.';
 
 describe('is-xx', () => {
   // 遍历集合, 只有其中的一项为true
-  let TYPES = {
+  const TYPES = {
     String: '1',
     Number: 1,
     Undefined: undefined,
@@ -19,7 +19,7 @@ describe('is-xx', () => {
   for (const functionType in type) {
     if (['isObject', 'isPlainObject', 'isArrayLike'].includes(functionType)) continue; // 跳过, 不可用break和return
     test(`${functionType}`, () => {
-      for (let [key, value] of Object.entries(TYPES)) {
+      for (const [key, value] of Object.entries(TYPES)) {
         if (functionType.includes(key)) {
           expect(type[functionType](value)).toEqual(true);
         } else {
@@ -46,7 +46,7 @@ describe('isObject', () => {
 
 describe('isPlainObject', () => {
   function myClass () {}
-  let obj = Object.create(null);
+  const obj = Object.create(null);
   test.each([
     [{}, true],
     [obj, true],
@@ -62,7 +62,7 @@ describe('isPlainObject', () => {
 
 describe('isArrayLike', () => {
   function myClass () {}
-  let obj = Object.create(null);
+  const obj = Object.create(null);
   test.each([
     [[1, 2, 3], true],
     [document.body.children, true],
