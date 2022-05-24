@@ -1,3 +1,4 @@
+import { isNull, isObject, isUndefined } from '@js-rocks/lodash-tiny';
 import { ElementType } from '../../typings';
 import { createRenderer } from '../runtime-core';
 
@@ -5,13 +6,17 @@ function createElement (type: ElementType) {
   return document.createElement(type);
 }
 
-function patchProps (el: HTMLElement, key: string, val: any) {
+function patchProp (el: HTMLElement, key: string, oldVal: any, newVal: any) {
   const isOn = (key: string) => /^on[A-Z]/.test(key);
   if (isOn(key)) {
     const event = key.slice(2).toLowerCase();
-    el.addEventListener(event, val);
+    el.addEventListener(event, newVal);
   } else {
-    el.setAttribute(key, val);
+    if (isNull(newVal) || isUndefined(newVal)) {
+      el.removeAttribute(key);
+    } else {
+      el.setAttribute(key, newVal);
+    }
   }
 }
 
@@ -21,7 +26,7 @@ function insert (parent: HTMLElement, el: HTMLElement) {
 
 const renderer: any = createRenderer({
   createElement,
-  patchProps,
+  patchProp,
   insert,
 });
 

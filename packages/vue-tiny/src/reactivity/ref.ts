@@ -18,7 +18,6 @@ class RefImp {
   }
   get value () {
     trackRefValue(this);
-
     return this._value;
   }
   set value (newValue) {

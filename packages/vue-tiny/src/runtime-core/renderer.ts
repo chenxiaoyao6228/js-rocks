@@ -1,22 +1,17 @@
 import { createComponentInstance, setupComponent } from './component';
 import { createAppAPI } from './createApp';
-import {
-  VNode,
-  HTMLNameTag,
-  ChildrenType,
-  ShapeFlags,
-  ComponentInstance,
-} from '../../typings/index';
+import { VNode, HTMLNameTag, ShapeFlags, ComponentInstance } from '../../typings/index';
 import effect from '../reactivity/effect';
+import { EMPTY_OBJ } from '../shared/utils';
 
 export function createRenderer (options: {
   createElement: (...args: any) => void;
-  patchProps: (...args: any) => void;
+  patchProp: (...args: any) => void;
   insert: (...args: any) => void;
 }) {
   const {
     createElement: hostCreateElement,
-    patchProps: hostPatchProps,
+    patchProp: hostPatchProp,
     insert: hostInsert,
   } = options;
 
@@ -26,6 +21,7 @@ export function createRenderer (options: {
   }
 
   function patch (n1: any, n2: VNode, container: HTMLElement, parent: ComponentInstance) {
+    // console.log('n1, n2---', n1, n2);
     // distinguish normal html element and component
     const { shapeFlag, type } = n2;
 
@@ -47,7 +43,7 @@ export function createRenderer (options: {
     }
   }
 
-  function processComponent (n1, n2: VNode, container: HTMLElement, parent: ComponentInstance) {
+  function processComponent (n1: any, n2: VNode, container: HTMLElement, parent: ComponentInstance) {
     if (!n1) {
       console.log('mountComponent-------');
       mountComponent(n2, container, parent);
@@ -63,26 +59,32 @@ export function createRenderer (options: {
     // only init instance once
     const instance = createComponentInstance(vnode, parent);
 
+    // handle props, slots, and setup state
     setupComponent(instance);
 
-    setupRenderEffect(instance, container);
+    setupRenderEffect(instance, vnode, container);
   }
 
-  function setupRenderEffect (instance: any, container: any) {
-    // trigger render after tracked value changed
+  /*
+   * wrap function in effect so that  render function will be trigger after
+   * every tracked value changed
+   */
+  function setupRenderEffect (instance: any, initialVNode: any, container: any) {
     effect(() => {
+      // mount
       if (instance.isMounted) {
-        instance.isMounted = false;
         const { proxy } = instance;
         const subTree = (instance.subTree = instance.render.call(proxy));
         patch(null, subTree, container, instance);
+        initialVNode.el = subTree.el;
+        instance.isMounted = false;
       } else {
+        // update
+        console.log('update');
         const { proxy } = instance;
-        const subTree = instance.render.call(proxy);
-        console.log('subTree', subTree);
+        const subTree = (instance.subTree = instance.render.call(proxy));
         const prevTree = instance.subTree;
-        console.log('prevTree', prevTree);
-
+        instance.subTree = subTree;
         patch(prevTree, subTree, container, instance);
       }
     });
@@ -97,31 +99,50 @@ export function createRenderer (options: {
   }
 
   function patchElement (n1: VNode, n2: VNode, container: HTMLElement, parent: ComponentInstance) {
-    console.log('patchElement');
-    console.log('n1', n1);
-    console.log('n2', n2);
+    // patchProp
+    const oldProps = n1.props || EMPTY_OBJ;
+    const newProps = n2.props || EMPTY_OBJ;
+    // console.log('oldProps, newProps-------', oldProps, newProps);
+    const el = (n2.el = n1.el);
+    patchProp(el, oldProps, newProps);
   }
 
-  const isEvenAttr = (key: string) => /^on[A-Z]/.test(key);
+  function patchProp (el, oldProps, newProps) {
+    // console.log('oldProps, newProps', oldProps, newProps);
+    if (oldProps !== newProps) {
+      for (const key in newProps) {
+        const oldProp = oldProps[key];
+        const newProp = newProps[key];
+
+        if (oldProp !== newProp) {
+          hostPatchProp(el, key, oldProp, newProp);
+        }
+      }
+
+      if (oldProps !== EMPTY_OBJ) {
+        for (const key in oldProps) {
+          if (!(key in newProps)) {
+            hostPatchProp(el, key, oldProps[key], null);
+          }
+        }
+      }
+    }
+  }
 
   function mountElement (vnode: VNode, container: HTMLElement, parent: ComponentInstance) {
     const el = (vnode.el = hostCreateElement(vnode.type as HTMLNameTag));
 
-    const { children, props, shapeFlag } = vnode;
+    const { children, shapeFlag } = vnode;
 
     if (shapeFlag & ShapeFlags.TEXT_CHILDREN) {
       el.textContent = vnode.children as string;
     } else if (Array.isArray(children)) {
       mountChilren(vnode, el, parent);
     }
+    const { props } = vnode;
     for (const key in props) {
-      const value = props[key];
-      if (isEvenAttr(key)) {
-        const eventName = key.slice(2).toLowerCase();
-        el.addEventListener(eventName, value);
-      } else {
-        hostPatchProps(el, key, value);
-      }
+      const val = props[key];
+      hostPatchProp(el, key, null, val);
     }
     hostInsert(container, el);
   }

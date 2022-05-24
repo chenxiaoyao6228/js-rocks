@@ -11,7 +11,7 @@ export function getCurrentInstance () {
   return currentInstance;
 }
 
-function setCurrentInstance (instance: ComponentInstance) {
+function setCurrentInstance (instance: ComponentInstance | null) {
   currentInstance = instance;
 }
 
@@ -38,6 +38,7 @@ export function createComponentInstance (
   return component;
 }
 
+// handle props, slots, and setup state
 export function setupComponent (instance: ComponentInstance) {
   initProps(instance, instance.vnode.props);
   initSlots(instance, instance.vnode.children);
