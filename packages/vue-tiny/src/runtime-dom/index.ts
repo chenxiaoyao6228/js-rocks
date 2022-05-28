@@ -23,11 +23,20 @@ function patchProp (el: HTMLElement, key: string, oldVal: any, newVal: any) {
 function insert (parent: HTMLElement, el: HTMLElement) {
   parent.append(el);
 }
+function remove (parent: HTMLElement, el: HTMLElement) {
+  parent.removeChild(el);
+}
+
+function setElementText (parent: HTMLElement, text: string) {
+  parent.textContent = text;
+}
 
 const renderer: any = createRenderer({
   createElement,
   patchProp,
   insert,
+  remove,
+  setElementText,
 });
 
 export function createApp (...args: any) {
