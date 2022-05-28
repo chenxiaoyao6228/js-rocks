@@ -5,6 +5,9 @@ import { createRenderer } from '../runtime-core';
 function createElement (type: ElementType) {
   return document.createElement(type);
 }
+function createText (content: string) {
+  return document.createTextNode(content);
+}
 
 function patchProp (el: HTMLElement, key: string, oldVal: any, newVal: any) {
   const isOn = (key: string) => /^on[A-Z]/.test(key);
@@ -33,6 +36,7 @@ function setElementText (parent: HTMLElement, text: string) {
 
 const renderer: any = createRenderer({
   createElement,
+  createText,
   patchProp,
   insert,
   remove,
