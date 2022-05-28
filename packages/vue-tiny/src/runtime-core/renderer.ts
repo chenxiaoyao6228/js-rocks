@@ -191,11 +191,15 @@ export function createRenderer (options: {
     // if oldchildren is array and new children is text, remove array children dom and set text element using host methods
     const oldFlag = n1.shapeFlag;
     const newFlag = n2.shapeFlag;
-    if (oldFlag && ShapeFlags.ARRAY_CHILDREN) {
-      if (newFlag && ShapeFlags.TEXT_CHILDREN) {
-        unmountChildren(parent, n1.children);
-
-        hostSetElementText(parent, n2.children);
+    const c1 = n1.children;
+    const c2 = n2.children;
+    // pay attention not to use &&
+    if (newFlag & ShapeFlags.TEXT_CHILDREN) {
+      if (oldFlag & ShapeFlags.ARRAY_CHILDREN) {
+        unmountChildren(parent, c1);
+      }
+      if (c1 !== c2) {
+        hostSetElementText(parent, c2);
       }
     }
   }
