@@ -13,7 +13,8 @@ import effect from '../reactivity/effect';
 import { EMPTY_OBJ } from '../shared/utils';
 
 export function createRenderer (options: {
-  createElement: (...args: any) => HTMLElement;
+  createElement: (...args: any) => any;
+  createText: (content: string) => any;
   patchProp: (...args: any) => void;
   insert: (...args: any) => void;
   remove: (...args: any) => void;
@@ -21,6 +22,7 @@ export function createRenderer (options: {
 }) {
   const {
     createElement: hostCreateElement,
+    createText: hostCreateText,
     patchProp: hostPatchProp,
     insert: hostInsert,
     remove: hostRemove,
@@ -28,7 +30,6 @@ export function createRenderer (options: {
   } = options;
 
   function render (vnode: VNode, container: HTMLElement) {
-    // how to define this type when parent might be  instance or null
     patch(null, vnode, container, {} as ComponentInstance);
   }
 
@@ -48,7 +49,7 @@ export function createRenderer (options: {
         break;
 
       case 'text':
-        processTextNode(n1, n2, container, parent, anchor);
+        processText(n1, n2, container, parent, anchor);
         break;
       default:
         if (shapeFlag & ShapeFlags.ELEMENT) {
@@ -200,7 +201,7 @@ export function createRenderer (options: {
     if (shapeFlag & ShapeFlags.TEXT_CHILDREN) {
       el.textContent = children as TextChildren;
     } else if (shapeFlag & ShapeFlags.ARRAY_CHILDREN) {
-      mountChildren(children, el, parent, anchor);
+      mountChildren(children as ArrayChildrenType, el, parent, anchor);
     }
     const { props } = vnode;
     for (const key in props) {
@@ -228,18 +229,19 @@ export function createRenderer (options: {
     parent: ComponentInstance,
     anchor?: HTMLElement
   ) {
-    mountChildren(n2, container, parent, anchor);
+    const children = n2.children as ArrayChildrenType;
+    mountChildren(children, container, parent, anchor);
   }
 
-  function processTextNode (
+  function processText (
     n1: VNode,
     n2: VNode,
     container: HTMLElement,
     parent: ComponentInstance,
     anchor?: HTMLElement
   ) {
-    // TODO: replace custom textElement creator
-    const textNode = (n2.el = document.createTextNode(n2.children as string));
+    const { children } = n2;
+    const textNode = (n2.el = hostCreateText(children as TextChildren));
     hostInsert(container, textNode, anchor);
   }
 
