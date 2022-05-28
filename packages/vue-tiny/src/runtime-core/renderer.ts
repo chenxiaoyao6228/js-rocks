@@ -329,6 +329,48 @@ export function createRenderer (options: {
         hostRemove(container, c1[i].el);
         i++;
       }
+    } else {
+      // middle comparision
+      const s1 = i;
+      const s2 = i;
+
+      const toBePatched = e2 - s2 + 1;
+      let patched = 0;
+      const keyToNewIndexMap = new Map();
+
+      for (let i = s2; i <= e2; i++) {
+        const nextChild = c2[i];
+        keyToNewIndexMap.set(nextChild.key, i);
+      }
+
+      for (let i = s1; i <= e1; i++) {
+        const prevChild = c1[i];
+
+        if (patched >= toBePatched) {
+          hostRemove(container, prevChild.el);
+          continue;
+        }
+
+        let newIndex;
+        if (prevChild.key != null) {
+          newIndex = keyToNewIndexMap.get(prevChild.key);
+        } else {
+          for (let j = s2; j < e2; j++) {
+            if (isSameType(prevChild, c2[j])) {
+              newIndex = j;
+
+              break;
+            }
+          }
+        }
+
+        if (newIndex === undefined) {
+          hostRemove(container, prevChild.el);
+        } else {
+          patch(prevChild, c2[newIndex], container, parentComponent);
+          patched++;
+        }
+      }
     }
 
     function isSameType (n1: VNode, n2: VNode) {
