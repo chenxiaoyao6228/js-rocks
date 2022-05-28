@@ -16,7 +16,8 @@ export interface VNode {
   props: PropsType;
   children: ChildrenType;
   shapeFlag: ShapeFlags;
-  el: HTMLElement | null;
+  el?: HTMLElement;
+  key?: string;
 }
 
 type emitFn = (eventName: string) => void;
@@ -34,7 +35,9 @@ export type HTMLNameTag = keyof HTMLElementDeprecatedTagNameMap;
 export type ElementType = HTMLNameTag; // div, span, el
 
 export type PropsType = Record<string, any>; // style class
-export type ChildrenType = VNode[] | string;
+export type ArrayChildrenType = VNode[];
+export type TextChildren = string;
+export type ChildrenType = ArrayChildrenType | TextChildren;
 
 export interface ComponentInstance {
   vnode: VNode;
