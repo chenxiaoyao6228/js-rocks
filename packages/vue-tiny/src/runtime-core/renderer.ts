@@ -73,6 +73,7 @@ export function createRenderer (options: {
     effect(() => {
       // mount
       if (instance.isMounted) {
+        console.log('init');
         const { proxy } = instance;
         const subTree = (instance.subTree = instance.render.call(proxy));
         patch(null, subTree, container, instance);
@@ -82,7 +83,7 @@ export function createRenderer (options: {
         // update
         console.log('update');
         const { proxy } = instance;
-        const subTree = (instance.subTree = instance.render.call(proxy));
+        const subTree = instance.render.call(proxy);
         const prevTree = instance.subTree;
         instance.subTree = subTree;
         patch(prevTree, subTree, container, instance);
