@@ -37,7 +37,7 @@ export function createRenderer (options: {
     n1: any,
     n2: VNode,
     container: HTMLElement,
-    parent: ComponentInstance,
+    parentComponent: ComponentInstance,
     anchor?: HTMLElement
   ) {
     // distinguish normal html element and component
@@ -45,17 +45,17 @@ export function createRenderer (options: {
 
     switch (type) {
       case 'fragment':
-        processFragment(n1, n2, container, parent, anchor);
+        processFragment(n1, n2, container, parentComponent, anchor);
         break;
 
       case 'text':
-        processText(n1, n2, container, parent, anchor);
+        processText(n1, n2, container, parentComponent, anchor);
         break;
       default:
         if (shapeFlag & ShapeFlags.ELEMENT) {
-          processElement(n1, n2, container, parent, anchor);
+          processElement(n1, n2, container, parentComponent, anchor);
         } else if (shapeFlag & ShapeFlags.STATEFUL_COMPONENT) {
-          processComponent(n1, n2, container, parent, anchor);
+          processComponent(n1, n2, container, parentComponent, anchor);
         }
         break;
     }
@@ -65,15 +65,15 @@ export function createRenderer (options: {
     n1: any,
     n2: VNode,
     container: HTMLElement,
-    parent: ComponentInstance,
+    parentComponent: ComponentInstance,
     anchor?: HTMLElement
   ) {
     if (!n1) {
       console.log('mountComponent-------');
-      mountComponent(n2, container, parent, anchor);
+      mountComponent(n2, container, parentComponent, anchor);
     } else {
       console.log('patchComponent------');
-      patchComponent(n1, n2, container, parent, anchor);
+      patchComponent(n1, n2, container, parentComponent, anchor);
     }
   }
 
@@ -81,18 +81,18 @@ export function createRenderer (options: {
     n1: any,
     n2: VNode,
     container: HTMLElement,
-    parent: ComponentInstance,
+    parentComponent: ComponentInstance,
     anchor?: HTMLElement
   ) {}
 
   function mountComponent (
     vnode: VNode,
     container: HTMLElement,
-    parent: ComponentInstance,
+    parentComponent: ComponentInstance,
     anchor?: HTMLElement
   ) {
     // only init instance once
-    const instance = createComponentInstance(vnode, parent);
+    const instance = createComponentInstance(vnode, parentComponent);
 
     // handle props, slots, and setup state
     setupComponent(instance);
@@ -135,13 +135,13 @@ export function createRenderer (options: {
     n1: any,
     n2: VNode,
     container: HTMLElement,
-    parent: ComponentInstance,
+    parentComponent: ComponentInstance,
     anchor?: HTMLElement
   ) {
     if (!n1) {
-      mountElement(n2, container, parent, anchor);
+      mountElement(n2, container, parentComponent, anchor);
     } else {
-      patchElement(n1, n2, container, parent, anchor);
+      patchElement(n1, n2, container, parentComponent, anchor);
     }
   }
 
@@ -149,7 +149,7 @@ export function createRenderer (options: {
     n1: VNode,
     n2: VNode,
     container: HTMLElement,
-    parent: ComponentInstance,
+    parentComponent: ComponentInstance,
     anchor?: HTMLElement
   ) {
     // patchProp
@@ -158,7 +158,7 @@ export function createRenderer (options: {
     // console.log('oldProps, newProps-------', oldProps, newProps);
     const el = (n2.el = n1.el) as HTMLElement;
 
-    patchChilren(n1, n2, el, parent, anchor);
+    patchChilren(n1, n2, el, parentComponent, anchor);
 
     patchProp(el, oldProps, newProps);
   }
@@ -188,7 +188,7 @@ export function createRenderer (options: {
   function mountElement (
     vnode: VNode,
     container: HTMLElement,
-    parent: ComponentInstance,
+    parentComponent: ComponentInstance,
     anchor?: HTMLElement
   ) {
     const el = hostCreateElement(vnode.type as HTMLNameTag);
@@ -201,7 +201,7 @@ export function createRenderer (options: {
     if (shapeFlag & ShapeFlags.TEXT_CHILDREN) {
       el.textContent = children as TextChildren;
     } else if (shapeFlag & ShapeFlags.ARRAY_CHILDREN) {
-      mountChildren(children as ArrayChildrenType, el, parent, anchor);
+      mountChildren(children as ArrayChildrenType, el, parentComponent, anchor);
     }
     const { props } = vnode;
     for (const key in props) {
@@ -214,11 +214,11 @@ export function createRenderer (options: {
   function mountChildren (
     children: ArrayChildrenType,
     container: HTMLElement,
-    parent: ComponentInstance,
+    parentComponent: ComponentInstance,
     anchor?: HTMLElement
   ) {
     children.forEach((c: VNode) => {
-      patch(null, c, container, parent, anchor);
+      patch(null, c, container, parentComponent, anchor);
     });
   }
 
@@ -226,18 +226,18 @@ export function createRenderer (options: {
     n1: VNode,
     n2: VNode,
     container: HTMLElement,
-    parent: ComponentInstance,
+    parentComponent: ComponentInstance,
     anchor?: HTMLElement
   ) {
     const children = n2.children as ArrayChildrenType;
-    mountChildren(children, container, parent, anchor);
+    mountChildren(children, container, parentComponent, anchor);
   }
 
   function processText (
     n1: VNode,
     n2: VNode,
     container: HTMLElement,
-    parent: ComponentInstance,
+    parentComponent: ComponentInstance,
     anchor?: HTMLElement
   ) {
     const { children } = n2;
@@ -249,7 +249,7 @@ export function createRenderer (options: {
     n1: VNode,
     n2: VNode,
     container: any,
-    parent: ComponentInstance,
+    parentComponent: ComponentInstance,
     anchor?: HTMLElement
   ) {
     const oldFlag = n1.shapeFlag;
@@ -269,10 +269,10 @@ export function createRenderer (options: {
       // text -> text
       if (oldFlag & ShapeFlags.TEXT_CHILDREN) {
         hostSetElementText(container, '');
-        mountChildren(c2, container, parent, anchor);
+        mountChildren(c2, container, parentComponent, anchor);
       } else {
         // array -> array
-        patchKeyChildren(c1, c2, container, parent, anchor);
+        patchKeyChildren(c1, c2, container, parentComponent, anchor);
       }
     }
   }
@@ -281,7 +281,7 @@ export function createRenderer (options: {
     c1: ArrayChildrenType,
     c2: ArrayChildrenType,
     container: HTMLElement,
-    parent: ComponentInstance,
+    parentComponent: ComponentInstance,
     parentAnchor?: HTMLElement
   ) {
     let i = 0;
@@ -294,7 +294,7 @@ export function createRenderer (options: {
       const n1 = c1[i];
       const n2 = c2[i];
       if (isSameType(n1, n2)) {
-        patch(n1, n2, container, parent, parentAnchor);
+        patch(n1, n2, container, parentComponent, parentAnchor);
       } else {
         break;
       }
@@ -306,7 +306,7 @@ export function createRenderer (options: {
       const n1 = c1[e1];
       const n2 = c2[e2];
       if (isSameType(n1, n2)) {
-        patch(n1, n2, container, parent, parentAnchor);
+        patch(n1, n2, container, parentComponent, parentAnchor);
       } else {
         break;
       }
@@ -320,9 +320,14 @@ export function createRenderer (options: {
         const nextPos = e2 + 1;
         const anchor = nextPos < l2 ? c2[nextPos].el : undefined;
         while (i <= e2) {
-          patch(null, c2[i], container, parent, anchor);
+          patch(null, c2[i], container, parentComponent, anchor);
           i++;
         }
+      }
+    } else if (i > e2) {
+      while (i <= e1) {
+        hostRemove(container, c1[i].el);
+        i++;
       }
     }
 
@@ -331,9 +336,9 @@ export function createRenderer (options: {
     }
   }
 
-  function unmountChildren (parent: any, children: any) {
+  function unmountChildren (container: HTMLElement, children: any) {
     children.forEach((child: any) => {
-      hostRemove(parent, child.el);
+      hostRemove(container, child.el);
     });
   }
   return {
