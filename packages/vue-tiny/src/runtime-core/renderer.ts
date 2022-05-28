@@ -1,6 +1,12 @@
 import { createComponentInstance, setupComponent } from './component';
 import { createAppAPI } from './createApp';
-import { VNode, HTMLNameTag, ShapeFlags, ComponentInstance } from '../../typings/index';
+import {
+  VNode,
+  HTMLNameTag,
+  ShapeFlags,
+  ComponentInstance,
+  ChildrenType,
+} from '../../typings/index';
 import effect from '../reactivity/effect';
 import { EMPTY_OBJ } from '../shared/utils';
 
@@ -8,11 +14,15 @@ export function createRenderer (options: {
   createElement: (...args: any) => void;
   patchProp: (...args: any) => void;
   insert: (...args: any) => void;
+  remove: (...args: any) => void;
+  setElementText: (...args: any) => void;
 }) {
   const {
     createElement: hostCreateElement,
     patchProp: hostPatchProp,
     insert: hostInsert,
+    remove: hostRemove,
+    setElementText: hostSetElementText,
   } = options;
 
   function render (vnode: VNode, container: HTMLElement) {
@@ -105,6 +115,9 @@ export function createRenderer (options: {
     const newProps = n2.props || EMPTY_OBJ;
     // console.log('oldProps, newProps-------', oldProps, newProps);
     const el = (n2.el = n1.el);
+
+    patchChilren(n1, n2, el);
+
     patchProp(el, oldProps, newProps);
   }
 
@@ -155,16 +168,45 @@ export function createRenderer (options: {
     });
   }
 
-  function processFragment (n1, n2: VNode, container: HTMLElement, parent: ComponentInstance) {
+  function processFragment (
+    n1: VNode,
+    n2: VNode,
+    container: HTMLElement,
+    parent: ComponentInstance
+  ) {
     mountChilren(n2, container, parent);
   }
 
-  function processTextNode (n1, n2: VNode, container: HTMLElement, parent: ComponentInstance) {
+  function processTextNode (
+    n1: VNode,
+    n2: VNode,
+    container: HTMLElement,
+    parent: ComponentInstance
+  ) {
     const textNode = (n2.el = document.createTextNode(n2.children as string));
     hostInsert(container, textNode);
   }
 
+  function patchChilren (n1: VNode, n2: VNode, parent: any) {
+    // if oldchildren is array and new children is text, remove array children dom and set text element using host methods
+    const oldFlag = n1.shapeFlag;
+    const newFlag = n2.shapeFlag;
+    if (oldFlag && ShapeFlags.ARRAY_CHILDREN) {
+      if (newFlag && ShapeFlags.TEXT_CHILDREN) {
+        unmountChildren(parent, n1.children);
+
+        hostSetElementText(parent, n2.children);
+      }
+    }
+  }
+
+  function unmountChildren (parent: any, children: any) {
+    children.forEach((child: any) => {
+      hostRemove(parent, child.el);
+    });
+  }
   return {
     createApp: createAppAPI(render),
   };
+  // all function should be wrapped inside
 }
