@@ -11,6 +11,7 @@ import {
 } from '../../typings/index';
 import effect from '../reactivity/effect';
 import { EMPTY_OBJ } from '../shared/utils';
+import { shouldComponentUpdate } from './helpers/componentUpdate';
 
 export function createRenderer (options: {
   createElement: (...args: any) => any;
@@ -84,10 +85,15 @@ export function createRenderer (options: {
    *  should update props before calling runner to update component
    */
   function patchComponent (n1: VNode, n2: VNode) {
-    const instance = (n2.component = n1.component);
-    if (instance) {
-      instance.next = n2;
-      instance.update();
+    if (shouldComponentUpdate(n1, n2)) {
+      const instance = (n2.component = n1.component);
+      if (instance) {
+        instance.next = n2;
+        instance.update();
+      }
+    } else {
+      n2.el = n1.el;
+      n2.component = n1.component;
     }
   }
 
