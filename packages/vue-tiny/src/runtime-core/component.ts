@@ -16,6 +16,7 @@ function setCurrentInstance (instance: ComponentInstance | null) {
 }
 
 const isRootInstance = (instance: ComponentInstance) => Object.keys(instance).length === 0;
+
 export function createComponentInstance (
   vnode: VNode,
   parent: ComponentInstance
@@ -33,7 +34,7 @@ export function createComponentInstance (
     subTree: {},
   };
 
-  component.emit = emit.bind(null, component);
+  component.emit = (emit as any).bind(null, component);
 
   return component;
 }
