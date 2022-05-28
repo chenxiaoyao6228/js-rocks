@@ -116,7 +116,7 @@ export function createRenderer (options: {
     // console.log('oldProps, newProps-------', oldProps, newProps);
     const el = (n2.el = n1.el);
 
-    patchChilren(n1, n2, el);
+    patchChilren(n1, n2, el, parent);
 
     patchProp(el, oldProps, newProps);
   }
@@ -186,25 +186,66 @@ export function createRenderer (options: {
     hostInsert(container, textNode);
   }
 
-  function patchChilren (n1: VNode, n2: VNode, parent: any) {
-    // if oldchildren is array and new children is text, remove array children dom and set text element using host methods
+  function patchChilren (n1: VNode, n2: VNode, container: any, parent: ComponentInstance) {
     const oldFlag = n1.shapeFlag;
     const newFlag = n2.shapeFlag;
     const c1 = n1.children;
     const c2 = n2.children;
     // pay attention not to use &&
     if (newFlag & ShapeFlags.TEXT_CHILDREN) {
+      // text -> array
       if (oldFlag & ShapeFlags.ARRAY_CHILDREN) {
-        unmountChildren(parent, c1);
+        unmountChildren(container, c1);
       }
       if (c1 !== c2) {
-        hostSetElementText(parent, c2);
+        hostSetElementText(container, c2);
       }
     } else {
+      // text -> text
       if (oldFlag & ShapeFlags.TEXT_CHILDREN) {
-        hostSetElementText(parent, '');
-        mountChildren(c2, parent, parent);
+        hostSetElementText(container, '');
+        mountChildren(c2, container, parent);
+      } else {
+        // array -> array
+        patchKeyChildren(c1, c2, container, parent);
       }
+    }
+  }
+
+  function patchKeyChildren (c1, c2, container, parent) {
+    let i = 0;
+    let e1 = c1.length - 1;
+    let e2 = c2.length - 1;
+
+    // left-side comparision
+    while (i <= e1 && i <= e2) {
+      const n1 = c1[i];
+      const n2 = c2[i];
+      if (isSameType(n1, n2)) {
+        patch(n1, n2, container, parent);
+      } else {
+        break;
+      }
+      i++;
+    }
+    console.log('i', i);
+
+    // right-side comparision
+    while (i <= e1 && i <= e2) {
+      const n1 = c1[e1];
+      const n2 = c2[e2];
+      if (isSameType(n1, n2)) {
+        patch(n1, n2, container, parent);
+      } else {
+        break;
+      }
+      e1--;
+      e2--;
+    }
+    console.log('e1, e2', e1, e2);
+
+    function isSameType (n1, n2) {
+      return n1.type === n2.type && n1.key === n2.key;
     }
   }
 
