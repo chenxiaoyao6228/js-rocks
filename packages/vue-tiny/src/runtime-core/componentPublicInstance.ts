@@ -4,6 +4,7 @@ import { ComponentInstance } from '../../typings/index';
 const publicPropertiesMap = {
   $el: (i: ComponentInstance) => i.vnode.el,
   $slots: (i: ComponentInstance) => i.slots,
+  $props: (i: ComponentInstance) => i.vnode.props,
 };
 
 export const publicInstanceProxyHandlers = {

@@ -69,39 +69,48 @@ export function createRenderer (options: {
     anchor?: HTMLElement
   ) {
     if (!n1) {
-      console.log('mountComponent-------');
+      console.log('mountComponent');
       mountComponent(n2, container, parentComponent, anchor);
     } else {
-      console.log('patchComponent------');
-      patchComponent(n1, n2, container, parentComponent, anchor);
+      console.log('patchComponent');
+      patchComponent(n1, n2);
     }
   }
 
-  function patchComponent (
-    n1: any,
-    n2: VNode,
-    container: HTMLElement,
-    parentComponent: ComponentInstance,
-    anchor?: HTMLElement
-  ) {}
+  /*
+   * key points:
+   * component update only when props change, implement a shouldComponentUpdate method
+   * effect function return a runner which can be used to update current component
+   *  should update props before calling runner to update component
+   */
+  function patchComponent (n1: VNode, n2: VNode) {
+    const instance = (n2.component = n1.component);
+    if (instance) {
+      instance.next = n2;
+      instance.update();
+    }
+  }
 
   function mountComponent (
-    vnode: VNode,
+    initialVNode: VNode,
     container: HTMLElement,
     parentComponent: ComponentInstance,
     anchor?: HTMLElement
   ) {
     // only init instance once
-    const instance = createComponentInstance(vnode, parentComponent);
+    const instance = (initialVNode.component = createComponentInstance(
+      initialVNode,
+      parentComponent
+    ));
 
     // handle props, slots, and setup state
     setupComponent(instance);
 
-    setupRenderEffect(instance, vnode, container, anchor);
+    setupRenderEffect(instance, initialVNode, container, anchor);
   }
 
   /*
-   * wrap function in effect so that  render function will be trigger after
+   * wrap function in effect so that render function will be trigger after
    * every tracked value changed
    */
   function setupRenderEffect (
@@ -110,10 +119,10 @@ export function createRenderer (options: {
     container: any,
     anchor?: HTMLElement
   ) {
-    effect(() => {
+    instance.update = effect(() => {
       // mount
       if (instance.isMounted) {
-        console.log('init');
+        console.log('init instance');
         const { proxy } = instance;
         const subTree = (instance.subTree = instance.render.call(proxy));
         patch(null, subTree, container, instance, anchor);
@@ -121,7 +130,15 @@ export function createRenderer (options: {
         instance.isMounted = false;
       } else {
         // update
-        console.log('update');
+        console.log('update instance');
+
+        //
+        const { next, vnode } = instance;
+        if (next) {
+          next.el = vnode.el;
+          updateComponentPreRender(instance, next);
+        }
+
         const { proxy } = instance;
         const subTree = instance.render.call(proxy);
         const prevTree = instance.subTree;
@@ -129,6 +146,12 @@ export function createRenderer (options: {
         patch(prevTree, subTree, container, instance, anchor);
       }
     });
+  }
+
+  function updateComponentPreRender (instance: ComponentInstance, nextVNode: VNode) {
+    instance.vnode = nextVNode;
+    instance.next = null;
+    instance.props = nextVNode.props;
   }
 
   function processElement (
