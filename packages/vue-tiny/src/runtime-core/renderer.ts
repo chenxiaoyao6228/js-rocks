@@ -149,9 +149,9 @@ export function createRenderer (options: {
     const { children, shapeFlag } = vnode;
 
     if (shapeFlag & ShapeFlags.TEXT_CHILDREN) {
-      el.textContent = vnode.children as string;
-    } else if (Array.isArray(children)) {
-      mountChilren(vnode, el, parent);
+      el.textContent = children;
+    } else if (shapeFlag & ShapeFlags.ARRAY_CHILDREN) {
+      mountChildren(children, el, parent);
     }
     const { props } = vnode;
     for (const key in props) {
@@ -161,8 +161,7 @@ export function createRenderer (options: {
     hostInsert(container, el);
   }
 
-  function mountChilren (vnode: VNode, container: HTMLElement, parent: ComponentInstance) {
-    const children = vnode.children as VNode[];
+  function mountChildren (children: VNode[], container: HTMLElement, parent: ComponentInstance) {
     children.forEach((c: VNode) => {
       patch(null, c, container, parent);
     });
@@ -174,7 +173,7 @@ export function createRenderer (options: {
     container: HTMLElement,
     parent: ComponentInstance
   ) {
-    mountChilren(n2, container, parent);
+    mountChildren(n2, container, parent);
   }
 
   function processTextNode (
@@ -200,6 +199,11 @@ export function createRenderer (options: {
       }
       if (c1 !== c2) {
         hostSetElementText(parent, c2);
+      }
+    } else {
+      if (oldFlag & ShapeFlags.TEXT_CHILDREN) {
+        hostSetElementText(parent, '');
+        mountChildren(c2, parent, parent);
       }
     }
   }
