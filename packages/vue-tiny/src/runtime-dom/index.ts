@@ -20,8 +20,8 @@ function patchProp (el: HTMLElement, key: string, oldVal: any, newVal: any) {
   }
 }
 
-function insert (parent: HTMLElement, el: HTMLElement) {
-  parent.append(el);
+function insert (parent: HTMLElement, child: HTMLElement, anchor: any) {
+  parent.insertBefore(child, anchor || null);
 }
 function remove (parent: HTMLElement, el: HTMLElement) {
   parent.removeChild(el);
