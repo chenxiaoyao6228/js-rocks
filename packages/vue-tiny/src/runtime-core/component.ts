@@ -11,11 +11,12 @@ export function getCurrentInstance () {
   return currentInstance;
 }
 
-function setCurrentInstance (instance: ComponentInstance) {
+function setCurrentInstance (instance: ComponentInstance | null) {
   currentInstance = instance;
 }
 
 const isRootInstance = (instance: ComponentInstance) => Object.keys(instance).length === 0;
+
 export function createComponentInstance (
   vnode: VNode,
   parent: ComponentInstance
@@ -24,6 +25,7 @@ export function createComponentInstance (
     vnode,
     type: vnode.type,
     setupState: {},
+    next: null,
     props: {},
     slots: {},
     emit: (name: string) => {},
@@ -33,11 +35,12 @@ export function createComponentInstance (
     subTree: {},
   };
 
-  component.emit = emit.bind(null, component);
+  component.emit = (emit as any).bind(null, component);
 
   return component;
 }
 
+// handle props, slots, and setup state
 export function setupComponent (instance: ComponentInstance) {
   initProps(instance, instance.vnode.props);
   initSlots(instance, instance.vnode.children);

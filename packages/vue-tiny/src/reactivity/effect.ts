@@ -2,7 +2,7 @@
 // 期待b跟着a变化的而变化, 那么势必要拦截a的更新操作
 let activeEffect: ReactiveEffect | null = null;
 let shouldTrack = false;
-const targetMap = new Map();
+const targetMap = (window._targetMap = new Map());
 
 export class ReactiveEffect {
   private _fn: Function;
@@ -10,6 +10,7 @@ export class ReactiveEffect {
   deps: Set<ReactiveEffect>[] = [];
   scheduler?: Function;
   onStop?: Function;
+  // fn: vue patch function
   constructor (fn: Function, scheduler?: Function) {
     this._fn = fn;
     this.scheduler = scheduler;
@@ -48,6 +49,10 @@ export const isTracking = () => {
   return shouldTrack && activeEffect !== undefined;
 };
 
+/*
+ *  track value when getter is trigger
+ *  eg: in render function we need to get the value before render it to the dom
+ */
 export function track (target: Record<any, any>, key: symbol | string) {
   // target -> key -> deps (array of runners)
   let depsMap = targetMap.get(target);
@@ -71,6 +76,7 @@ export function trackEffect (dep) {
 }
 
 export function trigger (target: Record<any, any>, key: symbol | string) {
+  // when is targetMap set?
   const depsMap = targetMap.get(target);
   const deps = depsMap.get(key);
   triggerEffect(deps);

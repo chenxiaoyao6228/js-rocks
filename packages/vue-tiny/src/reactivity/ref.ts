@@ -18,7 +18,6 @@ class RefImp {
   }
   get value () {
     trackRefValue(this);
-
     return this._value;
   }
   set value (newValue) {
@@ -49,7 +48,7 @@ export const isRef = (ref: any): boolean => {
 };
 
 export const unRef = (ref: any) => {
-  return isRef(ref) ? ref.rawValue : ref;
+  return isRef(ref) ? ref.value : ref;
 };
 
 export const proxyRefs = (objectWithRefs: any) => {
@@ -62,11 +61,10 @@ export const proxyRefs = (objectWithRefs: any) => {
     },
     set: (target, key, value) => {
       if (isRef(target[key] && !isRef(value))) {
-        target[key].value = value;
+        return (target[key].value = value);
       } else {
         return Reflect.set(target, key, value);
       }
-      return true;
     },
   });
 };

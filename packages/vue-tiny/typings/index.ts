@@ -10,14 +10,6 @@ export type FragmentNodeTYpe = 'fragment';
 export type TextNodeType = 'text';
 
 export type VNode_TYPE = ComponentType | ElementType | FragmentNodeTYpe | TextNodeType;
-export interface VNode {
-  name?: string;
-  type: VNode_TYPE;
-  props: PropsType;
-  children: ChildrenType;
-  shapeFlag: ShapeFlags;
-  el: HTMLElement | null;
-}
 
 type emitFn = (eventName: string) => void;
 
@@ -34,16 +26,32 @@ export type HTMLNameTag = keyof HTMLElementDeprecatedTagNameMap;
 export type ElementType = HTMLNameTag; // div, span, el
 
 export type PropsType = Record<string, any>; // style class
-export type ChildrenType = VNode[] | string;
+export type ArrayChildrenType = VNode[];
+export type TextChildren = string;
+export type ChildrenType = ArrayChildrenType | TextChildren;
+
+export interface VNode {
+  name?: string;
+  type: VNode_TYPE;
+  props: PropsType;
+  children: ChildrenType;
+  next: ComponentInstance;
+  component: ComponentInstance | null;
+  shapeFlag: ShapeFlags;
+  el?: HTMLElement;
+  key?: string;
+}
 
 export interface ComponentInstance {
   vnode: VNode;
   type: ComponentType & ElementType;
+  next: VNode | null;
   setupState: SetupState;
   emit: emitFn;
   props: PropsType;
   slots: {};
   render?: () => VNode;
+  update: () => void;
   proxy?: typeof Proxy;
   parent: ComponentInstance;
   provides: Record<string, any>;
