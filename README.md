@@ -14,17 +14,17 @@
 
 <div align="left"><div>
 
-## Doing
+## Doing && Ideas
 
 - [x] [promise-tiny](./packages/promise-tiny/README.md): a simple promise implementation
 
 - [x] [lodash-tiny](./packages/lodash-tiny/README.md): a utility function library
 
-* [ ] [vue-tiny](./packages/vue-tiny/README.md): a simple vue implementation
+- [x] [react-tiny](./packages/react-tiny/README.md): a simple react implementation
 
-* [ ] [jsx-parser-tiny](): a simple jsx parser for vue-tiny, build with babel
+- [ ] [vue-tiny-tiny](./packages/vue-tiny/README.md): a simple vue implementation
 
-- [ ] [code-editor-tiny](): a simple code editor, build with js-parser-tiny and vue-tiny
+- [ ] [jsx-parser-tiny](): a simple jsx parser for vue-tiny, build with babel
 
 - [ ] [axios-tiny](): a simple http request library
 
@@ -32,10 +32,20 @@
 
 - [ ] [vuex-tiny](): a simple state management system
 
-- [ ] [utility-types](): a typescript utility types
+- [ ] [vue-ui-tiny](): a simple ui component library, build on vue-tiny
 
-- [ ] [website-frontend](): a simple blog, build on vue-tiny
+- [ ] [js-parser-tiny](): a simple js parser, build a Javascript parser with Javasciprt
 
-- [ ] [code-highlight-plugin](): a code hight light plugin
+- [ ] [markdown-editor-tiny](): a simple web-based markdown editor
+
+- [ ] [babel-tiny](): a simple babel implementation
+
+- [ ] [code-editor-tiny](): a simple code editor, build with js-parser-tiny and vue-tiny
+
+* [ ] [utility-types](): a typescript utility types
+
+* [ ] [website-frontend](): a simple blog, build on vue-tiny
+
+* [ ] [code-highlight-plugin](): a code hight light plugin
 
 ... more
