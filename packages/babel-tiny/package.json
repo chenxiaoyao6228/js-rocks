@@ -1,0 +1,38 @@
+{
+  "name": "@js-rocks/babel-tiny",
+  "version": "0.1.1-alpha.0",
+  "description": "a simple babel ",
+  "keywords": [
+    "babel",
+    "ast"
+  ],
+  "author": "chenxiaoyao <chenxiaoyao6228@163.com>",
+  "homepage": "https://github.com/chenxiaoyao6228/js-rocks#readme",
+  "license": "MIT",
+  "main": "lib/babel-tiny.js",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chenxiaoyao6228/js-rocks.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "bugs": {
+    "url": "https://github.com/chenxiaoyao6228/js-rocks/issues"
+  },
+  "dependencies": {
+    "acorn": "^8.3.0",
+    "chokidar": "^3.5.2",
+    "commander": "^8.1.0",
+    "cosmiconfig": "^7.0.1",
+    "glob": "^7.1.7",
+    "source-map": "^0.7.3"
+  }
+}
