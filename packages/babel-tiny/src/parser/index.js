@@ -1,3 +1,4 @@
+// https://github.com/acornjs/acorn/tree/master/acorn
 const acorn = require('acorn');
 
 const syntaxPlugin = {
@@ -8,7 +9,7 @@ const defaultOptions = {
   plugins: [],
 };
 
-function parse(code, options) {
+function parse (code, options) {
   const resolvedOptions = Object.assign({}, defaultOptions, options);
 
   const newParser = resolvedOptions.plugins.reduce((Parser, pluginName) => {
@@ -16,9 +17,7 @@ function parse(code, options) {
     return plugin ? Parser.extend(plugin) : Parser;
   }, acorn.Parser);
 
-  return new newParser(code, {
-    locations: true,
-  });
+  return newParser.parse(code);
 }
 
 module.exports = {
