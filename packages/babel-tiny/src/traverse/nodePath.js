@@ -1,3 +1,4 @@
+const { validationFns } = require('../types');
 class NodePath {
   constructor (node, parentNode, parentPath, key, listKey) {
     this.node = node;
@@ -5,6 +6,12 @@ class NodePath {
     this.parentPath = parentPath;
     this.key = key;
     this.listKey = listKey;
+
+    Object.keys(validationFns).forEach(key => {
+      if (key.startsWith('is')) {
+        this[key] = validationFns[key].bind(this, node);
+      }
+    });
   }
   replaceWith (node) {
     if (this.listKey) {
@@ -33,12 +40,14 @@ class NodePath {
   }
   // findParentPath does not include the current node
   findParent (callback) {
-    console.log('this.parentPath.node.type', this.parentPath.node.type);
     let parent = this.parentPath;
     while (parent && !callback(parent)) {
       parent = this.parentPath;
     }
     return parent;
+  }
+  skip () {
+    this.node.__shouldSkip = true;
   }
 }
 

@@ -20,6 +20,11 @@ function traverse (currentNode, userDefinedVisitors, parent, parentPath, key, li
   // traver current node
   visitorFns.enter && visitorFns.enter(currentPath);
 
+  if (currentNode.__shouldSkip) {
+    delete this.node__shouldSkip;
+    return;
+  }
+
   // traverse all children
   // TODO complete all node definitions
   const definitionOfNode = astDefinationsMap.get(currentNode.type);
