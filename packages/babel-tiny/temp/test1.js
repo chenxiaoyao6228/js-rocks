@@ -1,4 +1,5 @@
-const { parse } = require('../index');
+// test parse
+const { parse } = require('../src/parser/index');
 
 const code = `
     const a = 1
