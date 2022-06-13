@@ -39,6 +39,14 @@ astDefinationsMap.set('CallExpression', {
   visitableKeys: ['callee', 'arguments'],
 });
 
+const validationFns = {};
+for (let name of astDefinationsMap.keys()) {
+  validationFns['is' + name] = function (node) {
+    return node.type === name;
+  };
+}
+
 module.exports = {
   astDefinationsMap,
+  validationFns,
 };
