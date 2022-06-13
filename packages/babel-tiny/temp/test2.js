@@ -1,5 +1,5 @@
-const { parse } = require('../../parser');
-const traverse = require('../index');
+const { parse } = require('../src/parser');
+const traverse = require('../src/traverse');
 
 const code = `
     const a = 1;

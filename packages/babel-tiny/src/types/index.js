@@ -4,37 +4,41 @@
 const astDefinationsMap = new Map();
 
 astDefinationsMap.set('Program', {
-  visitor: ['body'],
+  visitableKeys: ['body'],
   isBlock: true,
 });
 astDefinationsMap.set('VariableDeclaration', {
-  visitor: ['declarations'],
+  visitableKeys: ['declarations'],
 });
 astDefinationsMap.set('VariableDeclarator', {
-  visitor: ['id', 'init'],
+  visitableKeys: ['id', 'init'],
 });
+
 astDefinationsMap.set('Identifier', {});
-astDefinationsMap.set('NumericLiteral', {});
+astDefinationsMap.set('Literal', {});
+astDefinationsMap.set('NumericLiteral', {
+  visitableKeys: [],
+});
 astDefinationsMap.set('FunctionDeclaration', {
-  visitor: ['id', 'params', 'body'],
+  visitableKeys: ['id', 'params', 'body'],
   isBlock: true,
 });
 astDefinationsMap.set('BlockStatement', {
-  visitor: ['body'],
+  visitableKeys: ['body'],
 });
 astDefinationsMap.set('ReturnStatement', {
-  visitor: ['argument'],
+  visitableKeys: ['argument'],
 });
 astDefinationsMap.set('BinaryExpression', {
-  visitor: ['left', 'right'],
+  visitableKeys: ['left', 'right'],
 });
 astDefinationsMap.set('ExpressionStatement', {
-  visitor: ['expression'],
+  visitableKeys: ['expression'],
 });
 astDefinationsMap.set('CallExpression', {
-  visitor: ['callee', 'arguments'],
+  visitableKeys: ['callee', 'arguments'],
 });
 
 module.exports = {
-  visitorKeys: astDefinationsMap,
+  astDefinationsMap,
 };
