@@ -3,7 +3,8 @@ const { astDefinationsMap } = require('../types');
 const NodePath = require('./nodePath');
 
 // traverse the whole tree with dfs algorithm
-function traverse (currentNode, userDefinedVisitors, parent, parentPath) {
+// key and listKey is used to path node manipulation api
+function traverse (currentNode, userDefinedVisitors, parent, parentPath, key, listKey) {
   // can be a pure function or an object with enter, exit
   let visitorFns = userDefinedVisitors[currentNode.type] || {};
 
@@ -14,7 +15,7 @@ function traverse (currentNode, userDefinedVisitors, parent, parentPath) {
     };
   }
 
-  const currentPath = new NodePath(currentNode, parent, parentPath);
+  const currentPath = new NodePath(currentNode, parent, parentPath, key, listKey);
 
   // traver current node
   visitorFns.enter && visitorFns.enter(currentPath);
@@ -24,15 +25,15 @@ function traverse (currentNode, userDefinedVisitors, parent, parentPath) {
   const definitionOfNode = astDefinationsMap.get(currentNode.type);
   if (definitionOfNode && definitionOfNode.visitableKeys) {
     // eg: the Program node has a body which contains a list of nodes that can be traverse
-    // eg: VariableDeclarator => ['id', 'init]
+    // eg: VariableDeclarator => ['id', 'init']
     definitionOfNode.visitableKeys.forEach(key => {
       const visitableProps = currentNode[key];
       if (Array.isArray(visitableProps)) {
-        visitableProps.forEach(childNode => {
-          traverse(childNode, userDefinedVisitors, currentNode, currentPath);
+        visitableProps.forEach((childNode, index) => {
+          traverse(childNode, userDefinedVisitors, currentNode, currentPath, key, index);
         });
       } else {
-        traverse(visitableProps, userDefinedVisitors, currentNode, currentPath);
+        traverse(visitableProps, userDefinedVisitors, currentNode, currentPath, key);
       }
     });
   }

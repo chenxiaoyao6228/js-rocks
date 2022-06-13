@@ -15,11 +15,10 @@ const ast = parse(code);
 
 traverse(ast, {
   Program (path) {
-    console.log('Program----------');
+    // console.log('Program----------');
   },
   Identifier: {
     exit (path) {
-      console.log('path.node.type', path.node.type);
       path.node.name = 'b';
       let currentPath = path;
       while (currentPath) {
@@ -27,14 +26,31 @@ traverse(ast, {
       }
     },
   },
+  // test findParent
   FunctionDeclaration (path) {
-    console.log('FunctionDeclaration----------');
+    // console.log('FunctionDeclaration----------');
+    if (
+      path.findParent(parent => {
+        console.log('findParent node upwards--', parent.node.type);
+        return parent.node.type === 'Program';
+      })
+    ) {
+      console.log('found program node-------', path.node.type);
+    }
   },
   // acorn does not defined NumericLiteral
   Literal (path) {
-    console.log('NumericLiteral----------');
+    if (
+      path.find(parent => {
+        console.log('finding node upwards--', parent.node.type);
+        return parent.node.type === 'Program';
+      })
+    ) {
+      console.log('found program node-------', path.node.type);
+    }
+    // console.log('NumericLiteral----------');
     // path.replaceWith({ type: 'Identifier', name: 'bbbbbbb' });
   },
 });
 
-console.log(JSON.stringify(ast, null, 2));
+// console.log(JSON.stringify(ast, null, 2));
