@@ -17,7 +17,7 @@ function parse (code, options) {
     return plugin ? Parser.extend(plugin) : Parser;
   }, acorn.Parser);
 
-  return newParser.parse(code);
+  return newParser.parse(code, resolvedOptions);
 }
 
 module.exports = {
