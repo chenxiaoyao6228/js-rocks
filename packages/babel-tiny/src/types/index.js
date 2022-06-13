@@ -7,6 +7,14 @@ astDefinationsMap.set('Program', {
   visitableKeys: ['body'],
   isBlock: true,
 });
+astDefinationsMap.set('ImportDeclaration', {
+  visitableKeys: ['source', 'specifiers'],
+});
+
+astDefinationsMap.set('ImportSpecifier', {
+  visitableKeys: ['imported', 'local'],
+});
+
 astDefinationsMap.set('VariableDeclaration', {
   visitableKeys: ['declarations'],
 });
@@ -16,6 +24,7 @@ astDefinationsMap.set('VariableDeclarator', {
 
 astDefinationsMap.set('Identifier', {});
 astDefinationsMap.set('Literal', {});
+astDefinationsMap.set('StringLiteral', {});
 astDefinationsMap.set('NumericLiteral', {
   visitableKeys: [],
 });
