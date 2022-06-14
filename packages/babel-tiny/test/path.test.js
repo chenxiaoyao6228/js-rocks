@@ -10,7 +10,7 @@ describe('NodePath', () => {
         return a + b
     }`;
     const ast = parse(code, {
-      cmaVersion: '2020',
+      cmaVersion: '2020'
     });
 
     traverse(ast, {
@@ -23,7 +23,7 @@ describe('NodePath', () => {
         if (path.isFunctionDeclaration(path.node)) {
           isFunctionDeclarationFn();
         }
-      },
+      }
     });
     expect(isProgramFn).toHaveBeenCalled();
     expect(isFunctionDeclarationFn).toHaveBeenCalled();
@@ -41,11 +41,11 @@ describe('NodePath', () => {
       Program: {
         enter (path) {
           path.skip();
-        },
+        }
       },
       FunctionDeclaration (path) {
         fn();
-      },
+      }
     });
     expect(fn).not.toHaveBeenCalled();
   });
@@ -57,7 +57,7 @@ describe('NodePath', () => {
         return a + b
     }`;
     const ast = parse(code, {
-      sourceType: 'module',
+      sourceType: 'module'
     });
 
     traverse(ast, {
@@ -66,11 +66,58 @@ describe('NodePath', () => {
           path.traverse({
             ImportDeclaration () {
               fn();
-            },
+            }
           });
-        },
-      },
+        }
+      }
     });
     expect(fn).toHaveBeenCalled();
+  });
+  test('path.findParent', () => {
+    const code = `
+    function add(a,b){
+        return a + b
+    }`;
+
+    const ast = parse(code);
+    let fn = jest.fn();
+    let count = 0;
+    traverse(ast, {
+      FunctionDeclaration (path) {
+        if (
+          path.findParent(parent => {
+            count++;
+            return parent.node.type === 'Program';
+          })
+        ) {
+          fn();
+        }
+      }
+    });
+    expect(fn).toHaveBeenCalled();
+    expect(count).toEqual(1);
+  });
+  test('path.find', () => {
+    const code = `
+    function add(a,b){
+        return a + b
+    }`;
+    let fn = jest.fn();
+    let count = 0;
+    const ast = parse(code);
+    traverse(ast, {
+      FunctionDeclaration (path) {
+        if (
+          path.find(parent => {
+            count++;
+            return parent.node.type === 'Program';
+          })
+        ) {
+          fn();
+        }
+      }
+    });
+    expect(fn).toHaveBeenCalled();
+    expect(count).toEqual(2);
   });
 });
