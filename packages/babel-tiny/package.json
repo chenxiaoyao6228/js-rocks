@@ -1,0 +1,45 @@
+{
+  "name": "@js-rocks/babel-tiny",
+  "version": "0.1.1-alpha.0",
+  "description": "a simple babel ",
+  "keywords": [
+    "babel",
+    "ast"
+  ],
+  "scripts": {
+    "test": "jest --watch",
+    "test:watch": "jest --watch",
+    "## run this command in the terminal and go to vscode debugger or press F5": "",
+    "test:debug": "node --inspect-brk node_modules/.bin/jest --runInBand"
+  },
+  "author": "chenxiaoyao <chenxiaoyao6228@163.com>",
+  "homepage": "https://github.com/chenxiaoyao6228/js-rocks#readme",
+  "license": "MIT",
+  "main": "lib/babel-tiny.js",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chenxiaoyao6228/js-rocks.git"
+  },
+  "bugs": {
+    "url": "https://github.com/chenxiaoyao6228/js-rocks/issues"
+  },
+  "dependencies": {
+    "acorn": "^8.3.0",
+    "chokidar": "^3.5.2",
+    "commander": "^8.1.0",
+    "cosmiconfig": "^7.0.1",
+    "glob": "^7.1.7",
+    "jest": "^28.1.1",
+    "source-map": "^0.7.3"
+  },
+  "devDependencies": {
+    "jest": "^27.5.1"
+  }
+}
