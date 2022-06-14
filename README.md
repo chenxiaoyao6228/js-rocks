@@ -14,6 +14,10 @@
 
 <div align="left"><div>
 
+## Why this repo
+
+Modern front-end development is getting much easier thanks to the thriving ecology of Javascript, there are so many frameworks and libraries that ease our pain of building web applications, but sometimes frameworks can be troublesome, they make your code harder to reason about. A true craftsman knows their tools well, and build one when tools in hand do not meet their needs. Framework code are just code, the only way to learn it is to build a mvp version.
+
 ## Doing && Ideas
 
 - [x] [promise-tiny](./packages/promise-tiny/README.md): a simple promise implementation
@@ -22,28 +26,26 @@
 
 - [x] [react-tiny](./packages/react-tiny/README.md): a simple react implementation
 
-- [ ] [vue-tiny-tiny](./packages/vue-tiny/README.md): a simple vue implementation
+- [x] [vue-tiny-tiny](./packages/vue-tiny/README.md): a simple vue implementation
 
 - [ ] [babel-tiny](): a simple babel implementation
 
-- [ ] [jsx-parser-tiny](): a simple jsx parser for vue-tiny, build with babel
+- [ ] [jsx-parser-tiny](): a simple jsx parser, build with babel
+
+- [ ] [react-router-tiny](): a simple single page router
+
+- [ ] [redux-tiny](): a simple state management system
 
 - [ ] [axios-tiny](): a simple http request library
 
-- [ ] [vue-router-tiny](): a simple single page router
-
-- [ ] [vuex-tiny](): a simple state management system
-
-- [ ] [vue-ui-tiny](): a simple ui component library, build on vue-tiny
-
 - [ ] [js-parser-tiny](): a simple js parser, build a Javascript parser with Javasciprt
-
-- [ ] [markdown-editor-tiny](): a simple web-based markdown editor
-
-- [ ] [code-editor-tiny](): a simple code editor, build with js-parser-tiny and vue-tiny
 
 - [ ] [utility-types](): a typescript utility types
 
 - [ ] [code-highlight-plugin](): a code hight light plugin
+
+- [ ] [markdown-editor-tiny](): a simple web-based markdown editor
+
+- [ ] [code-editor-tiny](): a simple code editor
 
 ... more
