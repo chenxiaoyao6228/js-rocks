@@ -7,7 +7,10 @@
     "ast"
   ],
   "scripts": {
-    "test": "jest --watch"
+    "test": "jest --watch",
+    "test:watch": "jest --watch",
+    "## run this command in the terminal and go to vscode debugger or press F5": "",
+    "test:debug": "node --inspect-brk node_modules/.bin/jest --runInBand"
   },
   "author": "chenxiaoyao <chenxiaoyao6228@163.com>",
   "homepage": "https://github.com/chenxiaoyao6228/js-rocks#readme",
