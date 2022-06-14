@@ -1,4 +1,4 @@
-# `@js-rocks/vue-tiny` 
+# `@js-rocks/babel-tiny` 
 
 > TODO: description
 
