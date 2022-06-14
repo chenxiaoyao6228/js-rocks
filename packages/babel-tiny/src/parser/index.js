@@ -7,6 +7,7 @@ const syntaxPlugin = {
 
 const defaultOptions = {
   plugins: [],
+  ecmaVersion: 2020, // acorn default
 };
 
 function parse (code, options) {
