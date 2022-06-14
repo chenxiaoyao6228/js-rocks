@@ -1,17 +1,34 @@
 // @babel/traverse
 const { astDefinationsMap } = require('../types');
-const NodePath = require('./nodePath');
+const NodePath = require('./NodePath');
+
+function log (currentNode) {
+  if (currentNode.type) {
+    console.log('currentNode.type', currentNode.type);
+  }
+  if (currentNode.name) {
+    console.log('currentNode.name', currentNode.name);
+  }
+  if (currentNode.value) {
+    console.log('currentNode.value', currentNode.value);
+  }
+}
 
 // traverse the whole tree with dfs algorithm
 // key and listKey is used to path node manipulation api
 function traverse (currentNode, userDefinedVisitors, parent, parentPath, key, listKey) {
+  if (!currentNode) return;
+
+  // FIXME
+  // log(currentNode);
+
   // can be a pure function or an object with enter, exit
   let visitorFns = userDefinedVisitors[currentNode.type] || {};
 
   // enter currentNode
   if (typeof visitorFns === 'function') {
     visitorFns = {
-      enter: visitorFns,
+      enter: visitorFns
     };
   }
 

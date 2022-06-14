@@ -1,4 +1,5 @@
 const { astDefinationsMap, validationFns } = require('../types');
+const Scope = require('./Scope');
 class NodePath {
   constructor (node, parentNode, parentPath, key, listKey) {
     this.node = node;
@@ -13,6 +14,18 @@ class NodePath {
       }
     });
   }
+  get scope () {
+    // for performance reason,  only create scope when user request
+    if (this.__scope) {
+      return this.__scope;
+    }
+    const isBlock = this.isBlock();
+    const parentScope = this.parentPath && this.parentPath.scope;
+    return (this.__scope = isBlock ? new Scope(parentScope, this) : parentScope);
+  }
+  isBlock () {
+    return astDefinationsMap.get(this.node.type).isBlock;
+  }
   replaceWith (node) {
     if (this.listKey) {
       this.parentNode.splice(this.listKey, 1, this.node);
@@ -20,11 +33,11 @@ class NodePath {
       this.parentNode[this.key] = node;
     }
   }
-  remove (node) {
-    if (this.listKey) {
-      this.parentNode.splice(this.listKey, 1);
+  remove () {
+    if (this.listKey != undefined) {
+      this.parentNode[this.key].splice(this.listKey, 1);
     } else {
-      this.parentNode[this.key] = node;
+      this.parentNode[this.key] = null;
     }
   }
   find (callback) {
@@ -42,7 +55,7 @@ class NodePath {
   findParent (callback) {
     let parent = this.parentPath;
     while (parent && !callback(parent)) {
-      parent = this.parentPath;
+      parent = parent.parentPath;
     }
     return parent;
   }
@@ -58,6 +71,9 @@ class NodePath {
       // eg: VariableDeclarator => ['id', 'init']
       definitionOfNode.visitableKeys.forEach(key => {
         const visitableProps = this.node[key];
+
+        if (visitableProps === undefined) return;
+
         if (Array.isArray(visitableProps)) {
           visitableProps.forEach(childNode => {
             traverse(childNode, userDefinedVisitors, this.node, this);
