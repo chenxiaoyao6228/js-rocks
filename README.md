@@ -7,7 +7,7 @@
 <h1 align="center">JS Rocks</h1>
 
 <div align="center">
-  A Javascript library rebuild series, build a website from the ground up.
+  A Javascript library rebuild series.
 <div>
 
 
@@ -26,6 +26,8 @@
 - [x] [react-tiny](./packages/react-tiny/README.md): a simple react implementation
 
 - [ ] [vue-tiny-tiny](./packages/vue-tiny/README.md): a simple vue implementation
+  
+- [ ] [babel-tiny](): a simple babel implementation
 
 - [ ] [jsx-parser-tiny](): a simple jsx parser for vue-tiny, build with babel
 
@@ -41,14 +43,9 @@
 
 - [ ] [markdown-editor-tiny](): a simple web-based markdown editor
 
-- [ ] [babel-tiny](): a simple babel implementation
-
 - [ ] [code-editor-tiny](): a simple code editor, build with js-parser-tiny and vue-tiny
 
-
 - [ ] [utility-types](): a typescript utility types
-
-- [ ] [website-frontend](): a simple blog, build on vue-tiny
 
 - [ ] [code-highlight-plugin](): a code hight light plugin
   
