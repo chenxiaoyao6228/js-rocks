@@ -6,6 +6,9 @@
     "babel",
     "ast"
   ],
+  "scripts": {
+    "test": "jest --watch"
+  },
   "author": "chenxiaoyao <chenxiaoyao6228@163.com>",
   "homepage": "https://github.com/chenxiaoyao6228/js-rocks#readme",
   "license": "MIT",
@@ -21,9 +24,6 @@
     "type": "git",
     "url": "git+https://github.com/chenxiaoyao6228/js-rocks.git"
   },
-  "scripts": {
-    "test": "echo \"Error: run tests from root\" && exit 1"
-  },
   "bugs": {
     "url": "https://github.com/chenxiaoyao6228/js-rocks/issues"
   },
@@ -33,6 +33,10 @@
     "commander": "^8.1.0",
     "cosmiconfig": "^7.0.1",
     "glob": "^7.1.7",
+    "jest": "^28.1.1",
     "source-map": "^0.7.3"
+  },
+  "devDependencies": {
+    "jest": "^27.5.1"
   }
 }

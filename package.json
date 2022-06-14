@@ -8,6 +8,7 @@
   "scripts": {
     "#commit-command": "git add . && yarn run commit",
     "build": "lerna exec -- yarn build",
+    "test:babel": "lerna exec --scope @js-rocks/babel-tiny -- yarn test:watch",
     "test:vue": "lerna exec --scope @js-rocks/vue-tiny -- yarn test:watch",
     "build:vue": "lerna exec --scope @js-rocks/vue-tiny -- yarn build:watch",
     "build:lodash": "lerna exec --scope @js-rocks/lodash-tiny -- yarn build:watch",
