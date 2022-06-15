@@ -16,19 +16,31 @@
 
 ## Why this repo
 
-Modern front-end development is getting much easier thanks to the thriving ecology of Javascript, there are so many frameworks and libraries that ease our pain of building web applications, but sometimes frameworks can be troublesome, they make your code harder to reason about. A true craftsman knows their tools well, and build one when tools in hand do not meet their needs. Framework code are just code, the only way to learn it is to build a mvp version.
+Modern front-end development is getting much easier thanks to the thriving ecology of Javascript, there are so many frameworks and libraries that ease our pain of building web applications, but sometimes frameworks can be troublesome, they make your code harder to reason about. A true craftsman knows their tools well, and build one when tools in hand do not meet their needs. Framework code are just code, one effective way to learn it is to build a mvp version.
 
-## Doing && Ideas
+## 📦 Packages
 
-- [x] [promise-tiny](./packages/promise-tiny/README.md): a simple promise implementation
+### [🗡️ lodash-tiny](./packages/lodash-tiny/README.md)
 
-- [x] [lodash-tiny](./packages/lodash-tiny/README.md): a utility function library
+a utility function library, including date, string, array, eventbus and other commonly used tools.
 
-- [x] [react-tiny](./packages/react-tiny/README.md): a simple react implementation
+### [🧭 promise-tiny](./packages/promise-tiny/README.md)
 
-- [x] [vue-tiny-tiny](./packages/vue-tiny/README.md): a simple vue implementation
+a simple promise implementation, based on the browser event loop, use setTimeout(\_,0) under the hook
 
-- [ ] [babel-tiny](): a simple babel implementation
+### [🚀 vue-tiny-tiny](./packages/vue-tiny/README.md)
+
+a simple vue3 implementation, including reactivity-system, vdom-diff-patch, scheduler and more
+
+### [🗼 babel-tiny](./packages/babel-tiny/README.md)
+
+a simple babel implementation that can be used to parse javascript grammar, include parser, traverser, core, cli
+
+### [ ⚛️ react-tiny](./packages/react-tiny/README.md)
+
+a simple react implementation
+
+## 💡Ideas
 
 - [ ] [jsx-parser-tiny](): a simple jsx parser, build with babel
 
@@ -38,8 +50,6 @@ Modern front-end development is getting much easier thanks to the thriving ecolo
 
 - [ ] [axios-tiny](): a simple http request library
 
-- [ ] [js-parser-tiny](): a simple js parser, build a Javascript parser with Javasciprt
-
 - [ ] [utility-types](): a typescript utility types
 
 - [ ] [code-highlight-plugin](): a code hight light plugin
@@ -48,4 +58,10 @@ Modern front-end development is getting much easier thanks to the thriving ecolo
 
 - [ ] [code-editor-tiny](): a simple code editor
 
+- [ ] [js-parser-tiny](): a simple js parser, build a Javascript parser with Javasciprt
+
 ... more
+
+## Licence
+
+MIT
