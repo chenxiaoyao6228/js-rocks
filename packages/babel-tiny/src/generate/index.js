@@ -24,6 +24,18 @@ class Printer {
       this.nextLine();
     });
   }
+  CallExpression (node) {
+    this.text += node.callee.name;
+    this.text += '(';
+    node.arguments.forEach((param, index) => {
+      this[param.type](param);
+      if (index !== node.arguments.length - 1) {
+        this.text += ',';
+        this.space();
+      }
+    });
+    this.text += ')';
+  }
 
   ExpressionStatement (node) {
     console.log('node in ExpressionStatement', node);
