@@ -77,4 +77,13 @@ describe('generate', () => {
     console.log('newCode', newCode);
     expect(newCode.trim()).toEqual(code.trim());
   });
+  // statement
+  test('can generate for statement', () => {
+    const code = 'for(var i = 0; i < 10; i++){\n}';
+    console.log('code', code);
+    const ast = parse(code);
+    const newCode = generate(ast);
+    console.log('newCode', newCode);
+    expect(newCode.trim()).toEqual(code.trim());
+  });
 });

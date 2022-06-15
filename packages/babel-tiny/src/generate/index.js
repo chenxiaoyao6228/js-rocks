@@ -117,6 +117,29 @@ class Printer {
     this.endLine();
   }
   EmptyStatement (node) {}
+  ForStatement (node) {
+    this.text += 'for(';
+    this[node.init.type](node.init);
+    // this.text += ';';
+    this.space();
+    this[node.test.type](node.test);
+    this.text += ';';
+    this.space();
+    this[node.update.type](node.update);
+    this.text += '){';
+    this.nextLine();
+    this.text += '}';
+  }
+  UpdateExpression (node) {
+    console.log('UpdateExpression', node);
+    if (node.prefix === true) {
+      this.text += node.operator;
+      this[node.argument.type](node.argument);
+    } else {
+      this[node.argument.type](node.argument);
+      this.text += node.operator;
+    }
+  }
 }
 
 function generate (node) {
