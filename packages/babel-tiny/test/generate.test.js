@@ -33,4 +33,14 @@ describe('generate', () => {
     const newCode = generate(ast);
     expect(newCode.trim()).toEqual(code.trim());
   });
+  test('can generate function expression', () => {
+    const code = `
+      function add(a, b){\nreturn a + b;\n};
+    `;
+    console.log('code', code);
+    const ast = parse(code);
+    const newCode = generate(ast);
+    console.log('newCode', newCode);
+    expect(newCode.trim()).toEqual(code.trim());
+  });
 });
