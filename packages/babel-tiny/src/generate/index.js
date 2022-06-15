@@ -18,7 +18,7 @@ class Printer {
     this.text += ';';
   }
   Program (node) {
-    console.log('node in program', node);
+    // console.log('node in program', node);
     node.body.forEach(n => {
       this[n.type](n);
       this.nextLine();
@@ -38,7 +38,7 @@ class Printer {
   }
 
   ExpressionStatement (node) {
-    console.log('node in ExpressionStatement', node);
+    // console.log('node in ExpressionStatement', node);
     this[node.expression.type](node.expression);
   }
   VariableDeclaration (node) {
@@ -51,7 +51,7 @@ class Printer {
       if (index !== 0) {
         this.text += ',';
       }
-      console.log('declaratorNode', declaratorNode);
+      // console.log('declaratorNode', declaratorNode);
       this[declaratorNode.id.type](declaratorNode.id);
       this.space();
       this.text += '=';
@@ -61,17 +61,17 @@ class Printer {
     this.endLine();
   }
   VariableDeclarator (node) {
-    console.log('node in VariableDeclarator', node);
+    // console.log('node in VariableDeclarator', node);
   }
   Literal (node) {
-    console.log('node in Literal', node);
+    // console.log('node in Literal', node);
     this.text += node.raw;
   }
   Identifier (node) {
     this.text += node.name;
   }
   BinaryExpression (node) {
-    console.log('node in BinaryExpression', node);
+    // console.log('node in BinaryExpression', node);
     this[node.left.type](node.left);
     this.space();
     this.text += node.operator;
@@ -102,7 +102,7 @@ class Printer {
     this.text += '};';
   }
   FunctionExpression (node) {
-    console.log('node in  FunctionExpression', node);
+    // console.log('node in  FunctionExpression', node);
   }
   BlockStatement (node) {
     node.body.forEach(n => {
@@ -131,7 +131,7 @@ class Printer {
     this.text += '}';
   }
   UpdateExpression (node) {
-    console.log('UpdateExpression', node);
+    // console.log('UpdateExpression', node);
     if (node.prefix === true) {
       this.text += node.operator;
       this[node.argument.type](node.argument);
@@ -140,6 +140,7 @@ class Printer {
       this.text += node.operator;
     }
   }
+  // FIXME: more statement: forof forin, while, switch, trycatch, debugger, throw, continue ...
 }
 
 function generate (node) {
