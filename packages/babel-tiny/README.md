@@ -1,14 +1,9 @@
 # `@js-rocks/babel-tiny` 
 
-> TODO: description
+## Intro
 
-## Usage
+a tiny babel implementation
 
-```
-const babelTiny = require('babel-tiny');
-
-// TODO: DEMONSTRATE API
-```
 
 ## Thanks
-Great thanks to [QuarkGluonPlasma](https://github.com/QuarkGluonPlasma)
+The repo was a fork from  [QuarkGluonPlasma](https://github.com/QuarkGluonPlasma), rebuild it step by step build with TDD, and extend some functionality add some implementation comments
