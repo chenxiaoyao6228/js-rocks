@@ -58,7 +58,7 @@ class Printer {
       this.space();
       this[declaratorNode.init.type](declaratorNode.init);
     });
-    this.text += ';';
+    this.endLine();
   }
   VariableDeclarator (node) {
     console.log('node in VariableDeclarator', node);
@@ -114,7 +114,7 @@ class Printer {
     this.text += 'return';
     this.space();
     this[node.argument.type](node.argument);
-    this.text += ';';
+    this.endLine();
   }
   EmptyStatement (node) {}
 }

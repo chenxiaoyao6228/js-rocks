@@ -53,4 +53,28 @@ describe('generate', () => {
     console.log('newCode', newCode);
     expect(newCode.trim()).toEqual(code.trim());
   });
+  test('can generate Boolean literal', () => {
+    const code = 'const a = true;';
+    console.log('code', code);
+    const ast = parse(code);
+    const newCode = generate(ast);
+    console.log('newCode', newCode);
+    expect(newCode.trim()).toEqual(code.trim());
+  });
+  test('can generate Null literal', () => {
+    const code = 'const a = null;';
+    console.log('code', code);
+    const ast = parse(code);
+    const newCode = generate(ast);
+    console.log('newCode', newCode);
+    expect(newCode.trim()).toEqual(code.trim());
+  });
+  test('can generate Regex literal', () => {
+    const code = 'const a = /^[a-z]+/;';
+    console.log('code', code);
+    const ast = parse(code);
+    const newCode = generate(ast);
+    console.log('newCode', newCode);
+    expect(newCode.trim()).toEqual(code.trim());
+  });
 });
