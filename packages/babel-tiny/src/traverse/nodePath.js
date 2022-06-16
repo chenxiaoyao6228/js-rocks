@@ -27,8 +27,8 @@ class NodePath {
     return astDefinationsMap.get(this.node.type).isBlock;
   }
   replaceWith (node) {
-    if (this.listKey) {
-      this.parentNode.splice(this.listKey, 1, this.node);
+    if (this.listKey >= 0) {
+      this.parentNode[this.key].splice(this.listKey, 1, this.node);
     } else {
       this.parentNode[this.key] = node;
     }

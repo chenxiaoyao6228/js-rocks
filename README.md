@@ -42,8 +42,6 @@ a simple react implementation
 
 ## 💡Ideas
 
-- [ ] [jsx-parser-tiny](): a simple jsx parser, build with babel
-
 - [ ] [react-router-tiny](): a simple single page router
 
 - [ ] [redux-tiny](): a simple state management system
@@ -57,6 +55,8 @@ a simple react implementation
 - [ ] [markdown-editor-tiny](): a simple web-based markdown editor
 
 - [ ] [code-editor-tiny](): a simple code editor
+
+- [ ] [jsx-parser-tiny](): a simple jsx parser, build with babel
 
 - [ ] [js-parser-tiny](): a simple js parser, build a Javascript parser with Javasciprt
 
