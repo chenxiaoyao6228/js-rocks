@@ -42,12 +42,6 @@ a simple react implementation
 
 ## 💡Ideas
 
-- [ ] [react-router-tiny](): a simple single page router
-
-- [ ] [redux-tiny](): a simple state management system
-
-- [ ] [axios-tiny](): a simple http request library
-
 - [ ] [utility-types](): a typescript utility types
 
 - [ ] [code-highlight-plugin](): a code hight light plugin
@@ -56,7 +50,11 @@ a simple react implementation
 
 - [ ] [code-editor-tiny](): a simple code editor
 
-- [ ] [jsx-parser-tiny](): a simple jsx parser, build with babel
+- [ ] [react-router-tiny](): a simple single page router
+
+- [ ] [redux-tiny](): a simple state management system
+
+- [ ] [axios-tiny](): a simple http request library
 
 - [ ] [js-parser-tiny](): a simple js parser, build a Javascript parser with Javasciprt
 
