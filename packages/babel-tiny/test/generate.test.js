@@ -69,4 +69,10 @@ describe('generate', () => {
     const { code: newCode } = generate(ast);
     expect(newCode.trim()).toEqual(code.trim());
   });
+  test('can generate while statement', () => {
+    const code = 'while ';
+    const ast = parse(code);
+    const { code: newCode } = generate(ast);
+    expect(newCode.trim()).toEqual(code.trim());
+  });
 });
