@@ -44,19 +44,38 @@ a simple react implementation
 
 - [ ] [utility-types](): a typescript utility types
 
+- [ ] [ioc-tiny](): a simple IOC framework, like inversify.js
+
+- [ ] [scheduler-tiny](): a simple schedular
+
+- [ ] [file-transfer](): common file transfer module for browser and node
+
+- [ ] [koa-mvc-tiny](): MVC framework based on koa
+
+- [ ] [webpack-tiny](): webpack-like web bundler
+
+- [ ] [webpack-dev-server-tiny](): webpack like web bundler
+
+- [ ] [vite-tiny](): vite-like web bundler
+
 - [ ] [code-highlight-plugin](): a code hight light plugin
 
 - [ ] [markdown-editor-tiny](): a simple web-based markdown editor
 
 - [ ] [code-editor-tiny](): a simple code editor
 
-- [ ] [react-router-tiny](): a simple single page router
+<<<<<<< HEAD
+
+- [ ] # [react-router-tiny](): a simple single page router
+- [ ] [react-router-tiny](): a simple single-page router
+
+  > > > > > > > a4d6403 (docs: update)
 
 - [ ] [redux-tiny](): a simple state management system
 
-- [ ] [axios-tiny](): a simple http request library
+- [ ] [http-tiny](): a simple HTTP request library
 
-- [ ] [js-parser-tiny](): a simple js parser, build a Javascript parser with Javasciprt
+- [ ] [js-parser-tiny](): a simple js parser, build a Javascript parser with Javascript
 
 ... more
 
