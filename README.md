@@ -41,11 +41,22 @@ a simple babel implementation that can be used to parse javascript grammar, incl
 a simple react implementation
 
 ## 💡Ideas
+
+- [ ] [utility-types](): a typescript utility types
+
+- [ ] [ioc-tiny](): a simple IOC framework, like inversify.js
+
+- [ ] [scheduler-tiny](): a simple schedular
+
 - [ ] [file-transfer](): common file transfer module for browser and node 
 
-- [ ] [utility-types](): a typescript utility types
+- [ ] [koa-mvc-tiny](): MVC framework based on koa
 
-- [ ] [utility-types](): a typescript utility types
+- [ ] [webpack-tiny](): webpack-like  web bundler
+
+- [ ] [webpack-dev-server-tiny](): webpack like  web bundler
+
+- [ ] [vite-tiny](): vite-like web bundler
 
 - [ ] [code-highlight-plugin](): a code hight light plugin
 
@@ -53,12 +64,13 @@ a simple react implementation
 
 - [ ] [code-editor-tiny](): a simple code editor
 
-- [ ] [react-router-tiny](): a simple single page router
+- [ ] [react-router-tiny](): a simple single-page router
+
 - [ ] [redux-tiny](): a simple state management system
 
-- [ ] [axios-tiny](): a simple http request library
+- [ ] [http-tiny](): a simple HTTP request library
 
-- [ ] [js-parser-tiny](): a simple js parser, build a Javascript parser with Javasciprt
+- [ ] [js-parser-tiny](): a simple js parser, build a Javascript parser with Javascript
 
 ... more
 
