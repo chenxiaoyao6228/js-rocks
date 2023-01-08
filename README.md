@@ -42,7 +42,7 @@ a simple babel implementation that can be used to parse javascript grammar, incl
 
 ## 💡Ideas
 
-- [ ] [babel-plugin-transform-vue-jsx](): a simple vue jsx parser
+- [ ] [vite-tiny](): vite-like web bundler
 
 - [ ] [webpack-tiny](): webpack-like web bundler
 
