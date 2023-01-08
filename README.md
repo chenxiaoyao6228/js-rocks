@@ -40,14 +40,13 @@ a simple vue3 implementation, including reactivity-system, vdom-diff-patch, sche
 
 a simple babel implementation that can be used to parse javascript grammar, include parser, traverser, core, cli
 
+## 💡Ideas && TODO
 
-## 💡Ideas
+- [ ] [babel-plugin-transform-vue-jsx](): a simple vue runtime jsx parser
 
-- [ ] [babel-plugin-transform-vue-jsx](): a simple vue jsx parser
+- [ ] [vite-tiny](): vite-like web bundler
 
-- [ ] [webpack-tiny](): webpack-like  web bundler
-
-- [ ] [webpack-dev-server-tiny](): webpack like  web bundler
+- [ ] [vue-use-tiny](): VUE tiny composition hooks library
 
 - [ ] [code-highlight-plugin](): a code hight light plugin
 
@@ -59,7 +58,7 @@ a simple babel implementation that can be used to parse javascript grammar, incl
 
 - [ ] [redux-tiny](): a simple state management system
 
-- [ ] [http-tiny](): a simple HTTP request library
+- [ ] [http-tiny](): a simple HTTP request library, based on fetch
 
 - [ ] [utility-types](): a typescript utility types
 
@@ -71,8 +70,9 @@ a simple babel implementation that can be used to parse javascript grammar, incl
 
 - [ ] [koa-mvc-tiny](): MVC framework based on koa
 
-- [ ] [vite-tiny](): vite-like web bundler
+- [ ] [webpack-tiny](): webpack-like  web bundler
 
+- [ ] [webpack-dev-server-tiny](): webpack like  web bundler
 
 ... more
 
