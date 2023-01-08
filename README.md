@@ -28,6 +28,10 @@ a utility function library, including date, string, array, eventbus and other co
 
 a simple promise implementation, based on the browser event loop, use setTimeout(\_,0) under the hook
 
+### [ ⚛️ react-tiny](./packages/react-tiny/README.md)
+
+a simple react implementation
+
 ### [🚀 vue-tiny-tiny](./packages/vue-tiny/README.md)
 
 a simple vue3 implementation, including reactivity-system, vdom-diff-patch, scheduler and more
@@ -36,27 +40,14 @@ a simple vue3 implementation, including reactivity-system, vdom-diff-patch, sche
 
 a simple babel implementation that can be used to parse javascript grammar, include parser, traverser, core, cli
 
-### [ ⚛️ react-tiny](./packages/react-tiny/README.md)
-
-a simple react implementation
 
 ## 💡Ideas
 
-- [ ] [utility-types](): a typescript utility types
-
-- [ ] [ioc-tiny](): a simple IOC framework, like inversify.js
-
-- [ ] [scheduler-tiny](): a simple schedular
-
-- [ ] [file-transfer](): common file transfer module for browser and node 
-
-- [ ] [koa-mvc-tiny](): MVC framework based on koa
+- [ ] [babel-plugin-transform-vue-jsx](): a simple vue jsx parser
 
 - [ ] [webpack-tiny](): webpack-like  web bundler
 
 - [ ] [webpack-dev-server-tiny](): webpack like  web bundler
-
-- [ ] [vite-tiny](): vite-like web bundler
 
 - [ ] [code-highlight-plugin](): a code hight light plugin
 
@@ -70,7 +61,18 @@ a simple react implementation
 
 - [ ] [http-tiny](): a simple HTTP request library
 
-- [ ] [js-parser-tiny](): a simple js parser, build a Javascript parser with Javascript
+- [ ] [utility-types](): a typescript utility types
+
+- [ ] [ioc-tiny](): a simple IOC framework, like inversify.js
+
+- [ ] [scheduler-tiny](): a simple schedular
+
+- [ ] [file-transfer](): common file transfer module for browser and node 
+
+- [ ] [koa-mvc-tiny](): MVC framework based on koa
+
+- [ ] [vite-tiny](): vite-like web bundler
+
 
 ... more
 
