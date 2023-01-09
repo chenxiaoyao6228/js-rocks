@@ -74,6 +74,13 @@ a simple babel implementation that can be used to parse javascript grammar, incl
 
 ... more
 
+
+## Publish
+cd to package root folder and run
+
+```sh
+npm publish --access=public
+```
 ## Licence
 
 MIT

@@ -1,0 +1,28 @@
+{
+  "name": "babel-plugin-vue-jsx-tiny",
+  "version": "0.0.0",
+  "description": "jsx parser",
+  "main": "lib/babel-plugin-vue-jsx-tiny.cjs.js",
+  "module": "lib/babel-plugin-vue-jsx-tiny.esm.js",
+  "directories": {
+    "example": "examples",
+    "test": "test"
+  },
+  "scripts": {
+    "build": "rollup -c rollup.config.js",
+    "build:watch": "rollup --watch -c rollup.config.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "jsx",
+    "parser"
+  ],
+  "author": "chenxiaoyao6228",
+  "license": "MIT",
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^22.0.0",
+    "@rollup/plugin-node-resolve": "^13.3.0",
+    "@rollup/plugin-typescript": "^8.3.1",
+    "rollup": "^2.70.1"
+  }
+}
