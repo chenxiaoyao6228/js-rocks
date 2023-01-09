@@ -2,6 +2,16 @@
 
 由于 JS 没有官方的 SDK,需要由社区提供一套作为补充,如 underscore,lodash, moment.js 等, 当我们不想因为要使用某个方法而引入完整的库的时候,我们需要自己去实现.
 
+### 安装使用
+安装
+```sh
+yarn add @js-rocks/lodash-tiny
+```
+使用
+```
+import { isObject } from '@js-rocks/lodash-tiny';
+```
+
 ### 字符串扩展
 
 - [x] startWith, endWith, contains(includes), padStart, padEnd(fillZero)
