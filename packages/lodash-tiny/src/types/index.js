@@ -97,6 +97,24 @@ function isWindow (obj) {
   return isObject(obj) && obj === obj.window;
 }
 
+function isBlob (object) {
+  return object.toString() === '[object Blob]';
+}
+function isFile (object) {
+  return object.toString() === '[object File]';
+}
+function isFormData (object) {
+  return object.toString() === '[object FormData]';
+}
+
+function isJsonLike (data) {
+  if (data.match(/^\{(?!\{)/)) {
+    return data.match(/\}$/);
+  } else if (data.match(/^\[/)) {
+    return data.match(/\]$/);
+  }
+}
+
 export {
   isNaN,
   isUndefined,
@@ -114,4 +132,8 @@ export {
   isPlainObject,
   isArrayLike,
   isWindow,
+  isBlob,
+  isFile,
+  isFormData,
+  isJsonLike
 };
