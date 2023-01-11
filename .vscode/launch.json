@@ -5,6 +5,15 @@
             "request": "attach",
             "name": "jest-debug",
             "port": 9229
+        },
+        {
+            "name": "Debug currentFile",
+            "program": "${file}",
+            "request": "launch",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "type": "node"
         }
     ]
 }
