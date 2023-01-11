@@ -165,6 +165,16 @@ function endsWith (target, search, len) {
   return String.prototype.substring.call(target, len - search.length, len) === search;
 }
 
+/**
+ * check white space
+ *
+ * @param {*} char
+ * @return {*}
+ */
+function isWhiteSpace (char) {
+  return [' ', '\n', '\t', '\r', 'v', '\u00A0'].indexOf(char) !== -1;
+}
+
 export {
   repeat,
   padStart,
@@ -179,4 +189,5 @@ export {
   contains,
   startsWith,
   endsWith,
+  isWhiteSpace
 };
