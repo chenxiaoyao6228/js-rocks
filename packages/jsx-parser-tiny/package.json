@@ -1,0 +1,36 @@
+{
+  "name": "@js-rocks/jsx-parser-tiny",
+  "version": "0.0.0",
+  "description": "a runtime jsx parser",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs",
+    "test": "test"
+  },
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch"
+  },
+  "keywords": [
+    "html",
+    "parser"
+  ],
+  "author": "chenxiaoyao6228",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/preset-env": "^7.16.11",
+    "@babel/preset-typescript": "^7.16.7",
+    "@rollup/plugin-commonjs": "^22.0.0",
+    "@rollup/plugin-node-resolve": "^13.3.0",
+    "@rollup/plugin-typescript": "^8.3.1",
+    "@types/jest": "^27.4.0",
+    "jest": "^27.5.1",
+    "rollup": "^2.70.1",
+    "tslib": "^2.3.1",
+    "typescript": "^4.5.5"
+  },
+  "dependencies": {
+    "@js-rocks/lodash-tiny": "^0.1.0",
+    "jest": "^29.3.1"
+  }
+}
