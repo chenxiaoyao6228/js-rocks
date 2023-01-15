@@ -2,9 +2,9 @@ type Dictionary<T> = Record<string, T>;
 
 interface AST {
   type: string;
-  props: Dictionary<any>;
-  children: AST[];
-  unarySlash?: boolean;
+  children?: AST[];
+  props?: Dictionary<any>;
+  nodeValue?: string;
 }
 
 class Stack {
@@ -41,9 +41,15 @@ class JSXParser {
       }
       if (textEnd > 0) {
         // handle text
+        this.advance(textEnd);
       }
       if (textEnd < 0) {
         // pure text
+        this.addNode({
+          type: '#text',
+          nodeValue: this.text
+        });
+        this.text = '';
       }
     }
     return this.ret[0];
@@ -65,6 +71,8 @@ class JSXParser {
     const ncname = '[a-zA-Z_][\\w\\-\\.]*';
     const qnameCapture = `((?:${ncname}\\:)?${ncname})`;
     const startTagOpen = new RegExp(`^<${qnameCapture}`);
+    const startTagClose = /^\s*(\/?)>/;
+    const attrReg = /^\s*([^\s"'<>/=]+)(?:\s*(=)\s*(?:"([^"]*)"+|'([^']*)'+|([^\s"'=<>`]+)))?/;
     const matchRes = this.text.match(startTagOpen);
     if (matchRes) {
       const tagName = matchRes[1];
@@ -77,7 +85,10 @@ class JSXParser {
       this.stack.push(node); // add children first and then push to stack
       this.advance(matchRes[0].length);
       // parse attributes
-      this.readAttrs(node);
+      let end, attr;
+      while (!(end = this.text.match(startTagClose)) && (attr = this.text.match(attrReg))) {
+        this.readAttrs(node);
+      }
       // parse startCloseTag
       this.readStartTagClose(node);
     }
@@ -90,12 +101,13 @@ class JSXParser {
     }
   }
   readAttrs (node: AST) {
-    // const attrReg = /^\s*([^\s"'<>/=]+)(?:\s*(=)\s*(?:"([^"]*)"+|'([^']*)'+|([^\s"'=<>`]+)))?/;
-    // console.log('this.text', this.text);
-    // const matchRes = this.text.match(attrReg);
-    // if (matchRes) {
-    //   this.text = this.text.replace(matchRes[0], '');
-    // }
+    const attrReg = /^\s*([^\s"'<>/=]+)(?:\s*(?:=)\s*(?:"([^"]*)"+|'([^']*)'+|([^\s"'=<>`]+)))?/;
+    const matchRes = this.text.match(attrReg);
+    if (matchRes) {
+      const [_, attrName, attrVal] = matchRes;
+      node.props[attrName] = attrVal;
+      this.advance(matchRes[0].length);
+    }
   }
   readStartTagClose (node: AST) {
     const startTagClose = /^\s*(\/?)>/;
