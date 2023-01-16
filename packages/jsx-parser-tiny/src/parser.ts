@@ -36,7 +36,8 @@ class JSXParser {
       console.log('this.text in while---', this.text);
       const textEnd = this.text.indexOf('<');
       if (textEnd === 0) {
-        // could be startTag, endTag, commentTag
+        // could be startTag(<div>), endTag(</>), commentTag(<!-- x -->>)
+        this.readCommentTag();
         this.readStartTag();
       }
       if (textEnd > 0) {
@@ -53,6 +54,22 @@ class JSXParser {
       }
     }
     return this.ret[0];
+  }
+  readCommentTag () {
+    const comment = /^<!--/;
+    if (this.text.match(comment)) {
+      const commentEnd = this.text.indexOf('-->');
+      console.log('end', commentEnd);
+      if (commentEnd >= 0) {
+        this.addNode({
+          type: '#comment',
+          nodeValue: this.text.substring(4, commentEnd)
+        });
+      }
+      if (commentEnd < 0) {
+        throw new Error('comment tag is not closed');
+      }
+    }
   }
   addNode (node: AST) {
     const peek = this.stack.peek();
