@@ -17,10 +17,14 @@ describe('parse', () => {
         props: {},
         children: []
       });
+      expect(parse('<!--comment content-->')).toEqual({
+        type: '#comment',
+        nodeValue: 'comment content'
+      });
     });
   });
   describe('attr', () => {
-    test('parse <div id="id1" name="name1"></div>', () => {
+    test('test', () => {
       expect(parse('<div id="id1" name="name1"></div>')).toEqual({
         type: 'div',
         props: {
