@@ -50,7 +50,7 @@ describe('attr', () => {
   });
 });
 
-describe.skip('jsx', () => {
+describe('jsx', () => {
   test('<div >{111}</div>', () => {
     expect(parse('<div >{111}</div>')).toEqual({
       type: 'div',
