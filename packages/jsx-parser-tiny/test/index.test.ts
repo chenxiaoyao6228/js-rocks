@@ -8,6 +8,13 @@ describe('basic', () => {
       children: []
     });
   });
+  test('<div />', () => {
+    expect(parse('<div></div>')).toEqual({
+      type: 'div',
+      props: {},
+      children: []
+    });
+  });
 
   test('hello', () => {
     expect(parse('hello')).toEqual({
