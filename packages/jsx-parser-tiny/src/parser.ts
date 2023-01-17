@@ -119,7 +119,9 @@ class JSXParser {
       // parse startCloseTag
       const endTagMatch = this.text.match(startTagCloseRegx);
       if (endTagMatch) {
-        // node.unarySlash = endTagMatch[1] === '/';
+        if (endTagMatch[1] === '/') {
+          this.stack.pop();
+        }
         this.advanceBy(endTagMatch[0].length);
       }
       return startTagMatch;
