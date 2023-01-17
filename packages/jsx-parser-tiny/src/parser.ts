@@ -23,6 +23,14 @@ class Stack {
   }
 }
 
+const tagName = '[a-zA-Z_][\\w\\-\\.]*';
+const tagNameCapture = `((?:${tagName}\\:)?${tagName})`;
+const startTagOpenRegx = new RegExp(`^<${tagNameCapture}`);
+const startTagCloseRegx = /^\s*(\/?)>/;
+const endTagRegx = new RegExp(`^<\\/${tagNameCapture}[^>]*>`);
+const attrRegx = /^\s*([^\s"'<>/=]+)(?:\s*(=)\s*(?:"([^"]*)"+|'([^']*)'+|([^\s"'=<>`]+)))?/;
+const commentRegx = /^<!--([^<>]*)-->/;
+
 class JSXParser {
   text: string;
   stack: Stack;
@@ -36,15 +44,25 @@ class JSXParser {
       console.log('this.text in while---', this.text);
       const textEnd = this.text.indexOf('<');
       if (textEnd === 0) {
-        // could be startTag(<div>), endTag(</>), commentTag(<!-- x -->>)
-        this.readCommentTag();
-        this.readStartTag();
-      }
-      if (textEnd > 0) {
-        // handle text
-        this.advance(textEnd);
-      }
-      if (textEnd < 0) {
+        //  commentTag(<!-- x -->)
+        if (this.parseCommentTag()) {
+          continue;
+        }
+        // endTag(</>),
+        if (this.parseEndTag()) {
+          continue;
+        }
+        // startTag(<div id="id1" class="class1">)
+        if (this.parseStartTag()) {
+          continue;
+        }
+      } else if (textEnd > 0) {
+        this.addNode({
+          type: '#text',
+          nodeValue: this.text.slice(0, textEnd)
+        });
+        this.advanceBy(textEnd);
+      } else if (textEnd < 0) {
         // pure text
         this.addNode({
           type: '#text',
@@ -55,20 +73,56 @@ class JSXParser {
     }
     return this.ret[0];
   }
-  readCommentTag () {
-    const comment = /^<!--/;
-    if (this.text.match(comment)) {
-      const commentEnd = this.text.indexOf('-->');
-      console.log('end', commentEnd);
-      if (commentEnd >= 0) {
-        this.addNode({
-          type: '#comment',
-          nodeValue: this.text.substring(4, commentEnd)
-        });
+  parseEndTag () {
+    const endTagMatch = this.text.match(endTagRegx);
+    if (endTagMatch) {
+      this.advanceBy(endTagMatch[0].length);
+      this.stack.pop();
+      return endTagMatch;
+    }
+  }
+  parseCommentTag () {
+    const commentTagMatch = this.text.match(commentRegx);
+    if (commentTagMatch) {
+      this.addNode({
+        type: '#comment',
+        nodeValue: commentTagMatch[1]
+      });
+      this.advanceBy(commentTagMatch[0].length);
+      return commentTagMatch;
+    }
+  }
+  parseStartTag () {
+    // parse: startTag(nodeName, attrs, startTagEnd(selfClose)) and endTag
+    const startTagMatch = this.text.match(startTagOpenRegx);
+    if (startTagMatch) {
+      const tagName = startTagMatch[1];
+      const node = {
+        type: tagName,
+        props: {},
+        children: []
+      };
+      this.addNode(node); // add children to parent
+      this.stack.push(node); // add children first and then push to stack
+      this.advanceBy(startTagMatch[0].length);
+      // parse attributes
+      let end, attr;
+      while (!(end = this.text.match(startTagCloseRegx)) && (attr = this.text.match(attrRegx))) {
+        const attrMatch = this.text.match(attrRegx);
+        if (attrMatch) {
+          const attrName = attrMatch[1];
+          const attrVal = attrMatch[3];
+          node.props[attrName] = attrVal;
+          this.advanceBy(attrMatch[0].length);
+        }
       }
-      if (commentEnd < 0) {
-        throw new Error('comment tag is not closed');
+      // parse startCloseTag
+      const endTagMatch = this.text.match(startTagCloseRegx);
+      if (endTagMatch) {
+        // node.unarySlash = endTagMatch[1] === '/';
+        this.advanceBy(endTagMatch[0].length);
       }
+      return startTagMatch;
     }
   }
   addNode (node: AST) {
@@ -79,60 +133,8 @@ class JSXParser {
       this.ret.push(node);
     }
   }
-  advance (length: number) {
+  advanceBy (length: number) {
     this.text = this.text.slice(length);
-  }
-  readStartTag () {
-    // parse: startTag(nodeName, attrs, startTagEnd(selfClose)) and endTag
-    // handle startTag
-    const ncname = '[a-zA-Z_][\\w\\-\\.]*';
-    const qnameCapture = `((?:${ncname}\\:)?${ncname})`;
-    const startTagOpen = new RegExp(`^<${qnameCapture}`);
-    const startTagClose = /^\s*(\/?)>/;
-    const attrReg = /^\s*([^\s"'<>/=]+)(?:\s*(=)\s*(?:"([^"]*)"+|'([^']*)'+|([^\s"'=<>`]+)))?/;
-    const matchRes = this.text.match(startTagOpen);
-    if (matchRes) {
-      const tagName = matchRes[1];
-      const node = {
-        type: tagName,
-        props: {},
-        children: []
-      };
-      this.addNode(node); // add children to parent
-      this.stack.push(node); // add children first and then push to stack
-      this.advance(matchRes[0].length);
-      // parse attributes
-      let end, attr;
-      while (!(end = this.text.match(startTagClose)) && (attr = this.text.match(attrReg))) {
-        this.readAttrs(node);
-      }
-      // parse startCloseTag
-      this.readStartTagClose(node);
-    }
-    // handle endTag
-    const endTag = new RegExp(`^<\\/${qnameCapture}[^>]*>`);
-    const endTagMatch = '</div>'.match(endTag);
-    if (endTagMatch) {
-      this.advance(endTagMatch[0].length);
-      this.stack.pop();
-    }
-  }
-  readAttrs (node: AST) {
-    const attrReg = /^\s*([^\s"'<>/=]+)(?:\s*(?:=)\s*(?:"([^"]*)"+|'([^']*)'+|([^\s"'=<>`]+)))?/;
-    const matchRes = this.text.match(attrReg);
-    if (matchRes) {
-      const [_, attrName, attrVal] = matchRes;
-      node.props[attrName] = attrVal;
-      this.advance(matchRes[0].length);
-    }
-  }
-  readStartTagClose (node: AST) {
-    const startTagClose = /^\s*(\/?)>/;
-    const matchRes = this.text.match(startTagClose);
-    if (matchRes) {
-      // node.unarySlash = matchRes[1] === '/';
-      this.advance(matchRes[0].length);
-    }
   }
 }
 
