@@ -75,11 +75,29 @@ class JSXParser {
           rest = this.text.slice(textEnd);
         }
         text = this.text.substring(0, textEnd);
-        this.addNode({
-          type: '#text',
-          nodeValue: text
-        });
-        this.text = this.text.substring(textEnd);
+        if (text.indexOf('{') === -1) {
+          this.addNode({
+            type: '#text',
+            nodeValue: text
+          });
+        } else {
+          // jsxExpression '<div>xx{111}yy{222}zz</div>'
+          const parts = text.split(/(\w+|{\w+})/).filter(s => s !== '');
+          parts.forEach(m => {
+            if (m.startsWith('{')) {
+              this.addNode({
+                type: '#jsx',
+                nodeValue: m.slice(1, -1)
+              });
+            } else {
+              this.addNode({
+                type: '#text',
+                nodeValue: m
+              });
+            }
+          });
+        }
+        this.advanceBy(textEnd);
         continue;
       }
       if (textEnd < 0) {
