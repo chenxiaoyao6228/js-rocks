@@ -26,10 +26,10 @@ class Stack {
 const tagName = '[a-zA-Z_][\\w\\-\\.]*';
 const tagNameCapture = `((?:${tagName}\\:)?${tagName})`;
 const startTagOpenRegx = new RegExp(`^<${tagNameCapture}`);
+const attrRegx = /^\s*([^\s"'<>/=]+)(?:\s*(=)\s*(?:"([^"]*)"+|'([^']*)'+|([^\s"'=<>`]+)))?/;
 const startTagCloseRegx = /^\s*(\/?)>/;
 const endTagRegx = new RegExp(`^<\\/${tagNameCapture}[^>]*>`);
-const attrRegx = /^\s*([^\s"'<>/=]+)(?:\s*(=)\s*(?:"([^"]*)"+|'([^']*)'+|([^\s"'=<>`]+)))?/;
-const commentRegx = /^<!--([^<>]*)-->/;
+const commentTagRegx = /^<!--([^<>]*)-->/;
 
 class JSXParser {
   text: string;
@@ -42,7 +42,7 @@ class JSXParser {
   parse () {
     while (this.text) {
       console.log('this.text in while---', this.text);
-      const textEnd = this.text.indexOf('<');
+      let textEnd = this.text.indexOf('<');
       if (textEnd === 0) {
         //  commentTag(<!-- x -->)
         if (this.parseCommentTag()) {
@@ -56,13 +56,33 @@ class JSXParser {
         if (this.parseStartTag()) {
           continue;
         }
-      } else if (textEnd > 0) {
+        // <<1<</div>
+      }
+      let text, rest, next;
+      if (textEnd > 0) {
+        rest = this.text.slice(textEnd);
+        // if not match any tag, that means < is as part of the text
+        while (
+          !endTagRegx.test(rest) &&
+          !startTagOpenRegx.test(rest) &&
+          !commentTagRegx.test(rest)
+        ) {
+          next = rest.indexOf('<', 1);
+          if (next < 0) {
+            break;
+          }
+          textEnd += next;
+          rest = this.text.slice(textEnd);
+        }
+        text = this.text.substring(0, textEnd);
         this.addNode({
           type: '#text',
-          nodeValue: this.text.slice(0, textEnd)
+          nodeValue: text
         });
-        this.advanceBy(textEnd);
-      } else if (textEnd < 0) {
+        this.text = this.text.substring(textEnd);
+        continue;
+      }
+      if (textEnd < 0) {
         // pure text
         this.addNode({
           type: '#text',
@@ -73,6 +93,7 @@ class JSXParser {
     }
     return this.ret[0];
   }
+
   parseEndTag () {
     const endTagMatch = this.text.match(endTagRegx);
     if (endTagMatch) {
@@ -82,11 +103,11 @@ class JSXParser {
     }
   }
   parseCommentTag () {
-    const commentTagMatch = this.text.match(commentRegx);
+    const commentTagMatch = this.text.match(commentTagRegx);
     if (commentTagMatch) {
       this.addNode({
         type: '#comment',
-        nodeValue: commentTagMatch[1]
+        nodeValue: commentTagMatch[1].trim()
       });
       this.advanceBy(commentTagMatch[0].length);
       return commentTagMatch;
