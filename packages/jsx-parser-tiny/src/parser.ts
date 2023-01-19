@@ -39,9 +39,8 @@ class JSXParser {
     this.text = text;
     this.stack = new Stack();
   }
-  parse () {
+  parse (): AST {
     while (this.text) {
-      console.log('this.text in while---', this.text);
       let textEnd = this.text.indexOf('<');
       if (textEnd === 0) {
         //  commentTag(<!-- x -->)
@@ -82,20 +81,33 @@ class JSXParser {
           });
         } else {
           // jsxExpression '<div>xx{111}yy{222}zz</div>'
-          const parts = text.split(/{|}/g).filter(s => s.trim());
-          parts.forEach(m => {
-            if (m.startsWith('{')) {
-              this.addNode({
-                type: '#jsx',
-                nodeValue: m.slice(1, -1)
-              });
-            } else {
+          const tagRE = /\{((?:.|\n)+?)\}/g;
+          if (!tagRE.test(text)) {
+            return;
+          }
+          let lastIndex = (tagRE.lastIndex = 0);
+          let match, index;
+          while ((match = tagRE.exec(text))) {
+            index = match.index;
+            // add text that before {
+            if (index > lastIndex) {
               this.addNode({
                 type: '#text',
-                nodeValue: m
+                nodeValue: text.slice(lastIndex, index)
               });
             }
-          });
+            this.addNode({
+              type: '#jsx',
+              nodeValue: match[1].trim()
+            });
+            lastIndex = index + match[0].length;
+          }
+          if (lastIndex < text.length) {
+            this.addNode({
+              type: '#text',
+              nodeValue: text.slice(lastIndex)
+            });
+          }
         }
         this.advanceBy(textEnd);
         continue;
@@ -111,7 +123,6 @@ class JSXParser {
     }
     return this.ret[0];
   }
-
   parseEndTag () {
     const endTagMatch = this.text.match(endTagRegx);
     if (endTagMatch) {
