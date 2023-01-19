@@ -17,12 +17,15 @@ class JSXEvaluator {
     this.config = { ...DefaultConfig, ...config };
   }
   eval (ast: AST) {
-    return this.genTag(ast);
+    let res = 'return ';
+     res += this.genTag(ast);
+     return res;
   }
   genTag (node: AST): string{
     const props = this.genPros(node.props || {});
     const children = this.genChildren(node.children || []);
-    const res = `return ${this.config.pragma}('${node.type}', ${props}, ${children})`;
+
+    const res = `${this.config.pragma}('${node.type}', ${props}, '${JSON.stringify(children)}')`;
     return res;
   }
   genPros (props:Dictionary<any>) {
@@ -38,18 +41,21 @@ class JSXEvaluator {
     return val;
   }
   genChildren (children: AST[]) {
-    if(!children.length) return '';
+    if(!children.length) return [];
+    const _children = [];
     for (let i = 0; i < children.length; i++) {
       const node = children[i];
      if(node.type === '#text'){
-      return node.nodeValue;
+      _children.push(node.nodeValue);
      }
-     if(node.type === '#jsx'){
-      //
-     }
-     return this.genTag(node);
+     else if(node.type === '#jsx'){
+      _children.push(node.nodeValue);
+     }else {
+      _children.push(this.genTag(node));
     }
+    return _children;
   }
+}
 }
 
 
@@ -62,9 +68,7 @@ export function createJSXParser ({createElement}: {
     throw new Error('createElement required');
   }
 
-  const _global = global ? global : window;
-
-  _global._jsx = {
+  window._jsx = {
     createElement
   };
 
@@ -74,7 +78,7 @@ export function createJSXParser ({createElement}: {
     const ast = parse(str);
     const code = evaluator.eval(ast);
     const fn =  Function(code);
-    const result = fn();
+    const result = fn.call({count: 1});
     return result;
   };
 }
