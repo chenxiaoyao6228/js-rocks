@@ -1,6 +1,6 @@
-type Dictionary<T> = Record<string, T>;
+export type Dictionary<T> = Record<string, T>;
 
-interface AST {
+export interface AST {
   type: string;
   children?: AST[];
   props?: Dictionary<any>;
@@ -61,7 +61,7 @@ class JSXParser {
       let text, rest, next;
       if (textEnd > 0) {
         rest = this.text.slice(textEnd);
-        // if not match any tag, that means < is as part of the text
+        // if not match any tag, that means '<' is as part of the raw text
         while (
           !endTagRegx.test(rest) &&
           !startTagOpenRegx.test(rest) &&
@@ -82,7 +82,7 @@ class JSXParser {
           });
         } else {
           // jsxExpression '<div>xx{111}yy{222}zz</div>'
-          const parts = text.split(/(\w+|{\w+})/).filter(s => s !== '');
+          const parts = text.split(/{|}/g).filter(s => s.trim());
           parts.forEach(m => {
             if (m.startsWith('{')) {
               this.addNode({

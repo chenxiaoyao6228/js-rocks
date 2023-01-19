@@ -3,14 +3,18 @@
   "version": "0.0.0",
   "description": "a runtime jsx parser",
   "author": "chenxiaoyao6228",
-  "main": "index.js",
+  "main": "lib/jsx-parser-tiny.cjs.js",
+  "module": "lib/jsx-parser-tiny.esm.js",
+  "types": "typings/index.ts",
   "directories": {
     "doc": "docs",
     "test": "test"
   },
   "scripts": {
     "test": "jest",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "build": "rollup -c rollup.config.js",
+    "build:watch": "rollup --watch -c rollup.config.js"
   },
   "keywords": [
     "jsx parser"
