@@ -1,6 +1,6 @@
 <p align="center">
   <a href="#">
-    <img width="200" src="./assets/js-rock.png"></img>
+    <img width="200" src="https://cdn.jsdelivr.net/gh/chenxiaoyao6228/cloudimg@main/2023/js-rock.png"></img>
   </a>
 </p>
 
@@ -42,17 +42,9 @@ a simple babel implementation that can be used to parse javascript grammar, incl
 
 ## 💡Ideas && TODO
 
-- [ ] [babel-plugin-transform-vue-jsx](): a simple vue runtime jsx parser
+- [ ] [babel-plugin-transform-vue-jsx](): a simple jsx parser
 
-- [ ] [vite-tiny](): vite-like web bundler
-
-- [ ] [vue-use-tiny](): VUE tiny composition hooks library
-
-- [ ] [code-highlight-plugin](): a code hight light plugin
-
-- [ ] [markdown-editor-tiny](): a simple web-based markdown editor
-
-- [ ] [code-editor-tiny](): a simple code editor
+- [ ] [webpack-tiny](): webpack-like web bundler
 
 - [ ] [react-router-tiny](): a simple single-page router
 
@@ -60,31 +52,22 @@ a simple babel implementation that can be used to parse javascript grammar, incl
 
 - [ ] [http-tiny](): a simple HTTP request library, based on fetch
 
-- [ ] [utility-types](): a typescript utility types
+- [ ] [vue-use-tiny](): VUE tiny composition hooks library
 
-- [ ] [ioc-tiny](): a simple IOC framework, like inversify.js
+- [ ] [code-highlight-plugin](): a code hight light plugin
 
-- [ ] [scheduler-tiny](): a simple schedular
-
-- [ ] [file-transfer](): common file transfer module for browser and node 
-
-- [ ] [koa-mvc-tiny](): MVC framework based on koa
-
-- [ ] [webpack-tiny](): webpack-like  web bundler
-
-- [ ] [webpack-dev-server-tiny](): webpack like  web bundler
-
-- [ ] [db-tiny](): a mongoDB-like document database 
+- [ ] [markdown-editor-tiny](): a simple web-based markdown editor
 
 ... more
 
-
 ## Publish
+
 cd to package root folder and run
 
 ```sh
 npm publish --access=public
 ```
+
 ## Licence
 
 MIT
