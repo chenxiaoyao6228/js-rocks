@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>throttle and debounce</title>
+    <style>
+        body {
+            height: 100000px;
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        // 第一个说了算, 超过interval触发, 类比第一个上车的顾客
+        function throttle(fn, interval) {
+            let context = this
+            let last = +new Date()
+            return function(){
+                let now = +new Date()
+                if(now - last > interval){
+                    fn.apply(context, arguments)
+                    last = now
+                }
+            }
+        }
+        let throttleHandler = throttle(function(){
+            console.log('throttle')
+        }, 1000)
+
+        
+        // window.onscroll = throttleHandler
+        
+        // 最后一个说了算, 如果有新的将新的设为最后一次
+        function debounce(fn, delay) {
+            let context = this
+            let args = arguments
+            let timerId 
+            return function(){
+                if(timerId){
+                    clearTimeout(timerId)
+                }
+                timerId = setTimeout(()=>{
+                    fn.apply(context, args)
+                },delay)
+            }
+        }
+
+        let debounceHandler = debounce(function(){
+            console.log('debounce')
+        }, 100)
+
+        // window.onscroll = debounceHandler
+
+        // delay时间内进行debounce, 超过了就必须触发
+        function debounceWithThrottle(fn ,delay){
+            let last = 0
+            let timerId 
+            return function(){
+                let now = +new Date()
+                if(now - last < delay){
+                    clearTimeout(timerId)
+                    timerId = setTimeout(()=>{
+                        fn.apply(this,arguments)
+                    },delay)
+                }else {
+                    fn.apply(this,arguments)
+                    last = now
+                }
+            }
+        }
+
+        let debounceWithThrottleHandler = debounceWithThrottle(function(){
+            console.log('debounceWithThrottle')
+        }, 2000)
+
+        window.onscroll = debounceWithThrottleHandler
+        
+    </script>
+</body>
+</html>
