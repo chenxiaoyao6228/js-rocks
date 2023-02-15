@@ -1,13 +1,14 @@
-# Promise A+ TDD 实现
+# Promise A+ TDD implementation
 
-## 资料
+## Resources
 
-- 规范地址: <https://promisesaplus.com/>
-- 完整测试地址: <https://github.com/promises-aplus/promises-tests>
+- specification
+  : <https://promisesaplus.com/>
+- test cases: <https://github.com/promises-aplus/promises-tests>
 
-## 细节以及难点
+## Implementation details
 
-### producer与consumer
+### Producer && consumer
 
 - producer: resolve, reject
 - consumer: then, catch, finally
@@ -16,13 +17,13 @@
 - race
 - Promise.resolve, promise.reject
 
-### 宏任务与任务
+### Macro/Micro task
 
-浏览器内置的 Promise 使用的是 micro-task, 我们只能使用 macro-ask 模拟, 这里使用的是 setTimeout
+The built-in Promise in the browser uses `micro-task`, we can only use `macro-ask` simulation, here we use setTimeout
 
-### resolve延迟绑定
+### resolve delayed binding
 
-resolve必须在下一个事件循环周期中执行, 否则then中的`onFulfilled`和`onRejected`函数还未绑定, 下面的代码中如果不加setTimeout会报错
+Resolve must be executed in the next event cycle, otherwise the `onFulfilled` and `onRejected` functions in then have not been bound, and if the following code does not add setTimeout, an error will be reported
 
 ```js
 // app
@@ -32,7 +33,6 @@ let promise = new MPromise(resolve => {
 promise.then(promiseSpy)
 
 
-// promise内部
 resolve(value) {
   // setTimeout(() => {
     this.state = 1
@@ -42,32 +42,35 @@ resolve(value) {
 }
 ```
 
-### 绑定 this
+### The binding of `this`
 
-resolve 和 reject 会在 executor 作用域中执行，需要将`this`绑定到当前的实例
+Resolve and reject will be executed in the executor scope, and `this` needs to be bound to the current instance
 
-### Promise 链条
+### Promise chain
 
-每个promise的then行成了单个promise链条的起点
+The then line of each promise becomes the starting point of a single promise chain
 
 ```js
 let promise = new MPromise(resolve => {
-  resolve(42)
-})
-promise.then(firstSpy) // 链条1的起点
-promise.then(secondSpy) // 链条2的起点
+  resolve(42);
+});
+promise.then(firstSpy); // start point of chain1
+promise.then(secondSpy); // start point of chain2
 ```
 
 ```js
-promise.then(firstSpy).then('..').then('..') // 链条的不断延伸
+promise
+  .then(firstSpy)
+  .then('..')
+  .then('..'); // the continuous extension of the chain
 ```
 
-then 中要返回另一个 promise, 形成 promise 链条, 同时当前promise队列要保存下一个promise的指针
+Then returns another promise to form a promise chain, and at the same time, the current promise queue needs to save the pointer of the next promise
 
 ```js
 then(onFulfilled = () => {}, onRejected) {
   let promise = new MPromise(() => {})
-  // 保存下一个promise
+  // save the pointer of the next promise
   this.pending.push([promise, onFulfilled, onRejected])
   if (this.state === 1) {
     this.scheduleQueue(this.value)
@@ -76,21 +79,21 @@ then(onFulfilled = () => {}, onRejected) {
 }
 ```
 
-这样在当前promise resolve的时候调用下一个promise的resolve, 形成`链式反应`
+In this way, the resolve of the next promise is called when the current promise resolves, forming a `chain reaction`
 
 ```js
- while (this.pending.length) {
-  let [promise, onFulfilled, onRejected] = this.pending.shift()
+while (this.pending.length) {
+  let [promise, onFulfilled, onRejected] = this.pending.shift();
   // 触发链条上的下一个promise
-  promise.resolve(this.value)
+  promise.resolve(this.value);
 }
 ```
 
-### ⭐ promise返回promise
+### Promise returns promise
 
-关键的点在于这个promise插入链条中的何处
+The key point is where in the chain this promise is inserted
 
-一开始的想法是在scheduleQueue函数里面处理
+The original thought was to process it in the scheduleQueue function
 
 ```js
 if (isFunction(onFulfilled)) {
@@ -110,13 +113,13 @@ if (isFunction(returnResult instanceof MPromise)) {
 }
 ```
 
-最后发现只能在resolve里面处理
+Finally found that it can only be processed in the resolve function.
 
-当value被返回的时候, 该value(promise)的resolve会在未来的某个时刻调用
+When the value is returned, the resolve of the value(promise) will be called at some point in the future.
 
-而此时我们的当前的promise已经被挂起
+At this point, our current promise has been suspended.
 
-当value的resolve被调用的时候,会把值传给promise的resolve, 此时promise继续
+When the resolve of value is called, the value will be passed to the resolve of promise, and the promise continues.
 
 ```js
 resolve(value) {
