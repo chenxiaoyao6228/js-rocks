@@ -7,56 +7,62 @@
 <h1 align="center">JS Rocks</h1>
 
 <div align="center">
-  A Javascript library rebuild series.
+  A Javascript library rebuilding series.
 <div>
 
-[![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lerna.js.org/)
+[![Lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lerna.js.org/)
 
 <div align="left"><div>
 
 ## Why this repo
 
-Modern front-end development is getting much easier thanks to the thriving ecology of Javascript, there are so many frameworks and libraries that ease our pain of building web applications, but sometimes frameworks can be troublesome, they make your code harder to reason about. A true craftsman knows their tools well, and build one when tools in hand do not meet their needs. Framework code are just code, one effective way to learn it is to build a mvp version.
+Modern front-end development is getting much easier thanks to the thriving ecology of Javascript, there are so many frameworks and libraries that ease the pain of building web applications, but sometimes frameworks can be troublesome, they make your code harder to reason about. Craftsman knows their tools well and builds one when the tools in hand do not meet their needs. Framework codes are just code, one effective way to learn them is to build an MVP version.
 
 ## 📦 Packages
 
 ### [🗡️ lodash-tiny](./packages/lodash-tiny/README.md)
 
-a utility function library, including date, string, array, eventbus and other commonly used tools.
+A utility function library, including date, string, array, event bus and other commonly used tools.
 
-### [🧭 promise-tiny](./packages/promise-tiny/README.md)
+### [💥 ts-toolbelt-tiny](./packages/ts-toolbelt-tiny/README.md)
 
-a simple promise implementation, based on the browser event loop, use setTimeout(\_,0) under the hook
-
-### [ ⚛️ react-tiny](./packages/react-tiny/README.md)
-
-a simple react implementation
-
-### [🚀 vue-tiny-tiny](./packages/vue-tiny/README.md)
-
-a simple vue3 implementation, including reactivity-system, vdom-diff-patch, scheduler and more
+Collection of utility types, complementing TypeScript built-in mapped types and aliases.
 
 ### [🗼 babel-tiny](./packages/babel-tiny/README.md)
 
-a simple babel implementation that can be used to parse javascript grammar, include parser, traverser, core, cli
+A simple babel implementation that can be used to parse javascript grammar, including parser, traverser, core and CLI.
+
+### [🧭 promise-tiny](./packages/promise-tiny/README.md)
+
+A simple promise implementation, based on the browser event loop, use setTimeout(\_,0) under the hook.
+
+### [🚀 vue-tiny-tiny](./packages/vue-tiny/README.md)
+
+A simple vue3 implementation, including reactivity-system, diff algorithm, scheduler and more.
+
+### [ ⚛️ react-tiny](./packages/react-tiny/README.md)
+
+A simple react implementation
+
+### [ 🦄 jsx-parse-tiny](./packages/jsx-parser-tiny/README.md)
+
+A simple runtime JSX parser
 
 ## 💡Ideas
 
-- [ ] [utility-types](): a typescript utility types
-
-- [ ] [vite-tiny](): vite-like web bundler
-
-- [ ] [babel-plugin-transform-jsx](): a simple jsx parser
-
-- [ ] [react-router-tiny](): a simple single-page router
-
-- [ ] [redux-tiny](): a simple state management system
-
 - [ ] [http-tiny](): a simple HTTP request library, based on fetch
 
-- [ ] [code-highlight-plugin](): a code hight light plugin
+* [ ] [react-router-tiny](): a simple single-page router
 
-- [ ] [markdown-editor-tiny](): a simple web-based markdown editor
+* [ ] [redux-tiny](): a simple state management system
+
+* [ ] [webpack-tiny](): webpack-like web bundler
+
+* [ ] [markdown-editor-tiny](): a simple web-based markdown editor
+
+* [ ] [code-highlight-plugin](): a code hight light plugin
+
+* [ ] [code-sandbox-tiny](): a code hight light plugin
 
 ... more
 

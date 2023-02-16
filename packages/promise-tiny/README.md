@@ -2,8 +2,7 @@
 
 ## Resources
 
-- specification
-  : <https://promisesaplus.com/>
+- specification : <https://promisesaplus.com/>
 - test cases: <https://github.com/promises-aplus/promises-tests>
 
 ## Implementation details

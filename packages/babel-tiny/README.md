@@ -1,6 +1,6 @@
 # `@js-rocks/babel-tiny`
 
-a tiny babel implementation
+A simple babel implementation that can be used to parse javascript grammar, include parser, traverser, core and cli.
 
 ## Install
 
@@ -9,6 +9,7 @@ yarn add @js-rocks/babel-tiny
 ```
 
 ## Usage
+
 define custom plugin and then use
 
 ```js
@@ -29,8 +30,8 @@ function plugin1(api, options) {
         if (path.findParent(p => p.isCallExpression())) {
           path.replaceWith(api.template.expression(options.replaceName));
         }
-      },
-    },
+      }
+    }
   };
 }
 
@@ -39,10 +40,10 @@ const { code, map } = transformSync(source, {
     [
       plugin1,
       {
-        replaceName: 'minus',
-      },
-    ],
-  ],
+        replaceName: 'minus'
+      }
+    ]
+  ]
 });
 
 expect(code.indexOf('minus(c, d)') > -1).toEqual(true);

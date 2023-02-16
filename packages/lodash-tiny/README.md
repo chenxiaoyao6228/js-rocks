@@ -1,16 +1,16 @@
 # @js-rocks/lodash-tiny
 
-Javascript doesn't ship with a fully functional official SDK, so need to use third-party tools like `lodash.js`, `moment.js` and etc. For learning purposes, we will implement those functions by ourselves.
+Javascript doesn't ship with a fully functional official SDK, so we have to use third-party tools like `lodashJS`, `momentJS` for daily development. For learning purposes, we will implement those functions by ourselves.
 
 ## Quick start
 
-install
+Installation
 
 ```sh
 yarn add @js-rocks/lodash-tiny
 ```
 
-usage
+Usage
 
 ```
 import * as _ from '@js-rocks/lodash-tiny';

@@ -1,3 +1,8 @@
 {
-    "jest.autoRun": "off"
+    "jest.autoRun": "off",
+    "grammarly.files.include": [
+        "**/*.md",
+        "**/*.txt",
+        // "**/*.js"
+    ]
 }

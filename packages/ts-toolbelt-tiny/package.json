@@ -1,0 +1,25 @@
+{
+  "name": "@js-rocks/ts-toolbelt-tiny",
+  "version": "0.0.0",
+  "description": "typescript-challenges",
+  "types": "src/index.d.ts",
+  "main": "index.js",
+  "scripts": {
+    "generate": "node scripts/generate.js",
+    "build": "tsc",
+    "build:w": "tsc -w"
+  },
+  "keywords": [
+    "typescript"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@type-challenges/utils": "^0.1.1"
+  },
+  "devDependencies": {
+    "@types/node": "^17.0.10",
+    "glob": "^8.1.0",
+    "typescript": "3.7.2"
+  }
+}
