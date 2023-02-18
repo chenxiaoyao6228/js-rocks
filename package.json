@@ -1,53 +1,60 @@
 {
-  "name": "js-rocks",
-  "version": "independent",
   "private": true,
-  "workspaces": [
-    "packages/*"
-  ],
+  "name": "js-rocks",
+  "description": "a javascript library rebuild series",
+  "repository": "https://github.com/chenxiaoyao6228/js-rocks.git",
+  "author": "chenxiaoyao <chenxiaoyao6228@163.com>",
+  "version": "independent",
   "scripts": {
-    "#commit-command": "git add . && yarn run commit",
-    "build": "lerna exec -- yarn build",
-    "test:babel": "lerna exec --scope @js-rocks/babel-tiny -- yarn test:watch",
-    "test:vue": "lerna exec --scope @js-rocks/vue-tiny -- yarn test:watch",
-    "build:vue": "lerna exec --scope @js-rocks/vue-tiny -- yarn build:watch",
-    "build:lodash": "lerna exec --scope @js-rocks/lodash-tiny -- yarn build:watch",
-    "test:lodash": "lerna exec --scope @js-rocks/lodash-tiny -- yarn test:watch"
+    "prepare": "husky install",
+    "preinstall": "npx only-allow pnpm",
+    "build:lodash": "pnpm build --filter @js-rocks/lodash-tiny",
+    "test": "jest",
+    "test:watch": "jest --watch"
+  },
+  "lint-staged": {
+    "*.{ts,js}": [
+      "eslint --fix",
+      "git add"
+    ]
   },
   "devDependencies": {
-    "@commitlint/cli": "^16.2.4",
+    "@babel/core": "^7.6.0",
+    "@babel/plugin-proposal-class-properties": "^7.5.5",
+    "@babel/plugin-proposal-decorators": "^7.6.0",
+    "@babel/plugin-transform-modules-commonjs": "^7.6.0",
+    "@babel/plugin-transform-runtime": "^7.6.0",
+    "@babel/preset-env": "^7.16.11",
+    "@babel/preset-typescript": "^7.16.7",
+    "@commitlint/cli": "^16.3.0",
     "@commitlint/config-conventional": "^16.2.4",
-    "@typescript-eslint/eslint-plugin": "^5.21.0",
-    "@typescript-eslint/parser": "^5.21.0",
-    "eslint": "^8.14.0",
-    "eslint-plugin-jest": "^26.1.5",
-    "husky": "3.1.0",
-    "lerna": "^4.0.0",
-    "lint-staged": "^12.4.1",
-    "prettier": "^2.6.2",
-    "typescript": "^4.6.4"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged",
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
-    }
+    "@parcel/logger": "^2.0.0-alpha.2",
+    "@rollup/plugin-commonjs": "^22.0.2",
+    "@rollup/plugin-node-resolve": "^15.0.1",
+    "@rollup/plugin-typescript": "^8.5.0",
+    "@types/jest": "^27.4.0",
+    "@typescript-eslint/eslint-plugin": "^5.52.0",
+    "@typescript-eslint/parser": "^5.52.0",
+    "babel-jest": "^24.9.0",
+    "babel-types": "^6.26.0",
+    "eslint": "^8.34.0",
+    "eslint-plugin-jest": "^26.9.0",
+    "husky": "^8.0.0",
+    "jest": "^29.4.3",
+    "jest-environment-jsdom": "^29.4.3",
+    "lint-staged": "^12.5.0",
+    "prettier": "^2.8.4",
+    "rollup": "^2.14.0",
+    "typescript": "^4.9.5"
   },
   "commitlint": {
     "extends": [
       "@commitlint/config-conventional"
     ]
   },
-  "lint-staged": {
-    "*.{ts,js}": [
-      "node --max_old_space_size=8192 ./node_modules/.bin/prettier -w",
-      "node --max_old_space_size=8192 ./node_modules/.bin/eslint --fix --color",
-      "git add"
-    ]
-  },
-  "description": "a javascript library rebuild series",
-  "main": "index.js",
-  "repository": "https://github.com/chenxiaoyao6228/js-rocks.git",
-  "author": "chenxiaoyao <chenxiaoyao6228@163.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "link-workspace-packages": false,
+  "dependencies": {
+    "ts-jest": "^29.0.5"
+  }
 }

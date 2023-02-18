@@ -56,3 +56,9 @@ export interface ComponentInstance {
   parent: ComponentInstance;
   provides: Record<string, any>;
 }
+
+declare global {
+    interface Window {
+        _targetMap:  Map<string, any>;
+    }
+}

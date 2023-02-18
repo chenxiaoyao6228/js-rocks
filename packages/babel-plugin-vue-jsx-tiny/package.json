@@ -10,8 +10,7 @@
   },
   "scripts": {
     "build": "rollup -c rollup.config.js",
-    "build:watch": "rollup --watch -c rollup.config.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build:watch": "rollup --watch -c rollup.config.js"
   },
   "keywords": [
     "jsx",
@@ -20,10 +19,6 @@
   "author": "chenxiaoyao6228",
   "license": "MIT",
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^22.0.0",
-    "@rollup/plugin-node-resolve": "^13.3.0",
-    "@rollup/plugin-typescript": "^8.3.1",
-    "acorn": "^8.8.1",
-    "rollup": "^2.70.1"
+    "acorn": "^8.8.1"
   }
 }

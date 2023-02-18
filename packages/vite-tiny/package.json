@@ -2,17 +2,18 @@
   "name": "@js-rocks/vite-tiny",
   "version": "0.0.0",
   "description": "web bundler",
-  "main": "index.js",
-  "scripts": {
-    "dev": "nodemon src/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "keywords": [
     "vite"
   ],
-  "author": "chenxiaoyao6228",
   "license": "MIT",
+  "author": "chenxiaoyao6228",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon src/index.js",
+    "test": "jest"
+  },
   "dependencies": {
+    "@js-rocks/lodash-tiny": "workspace:*",
     "@vue/compiler-dom": "^3.2.45",
     "@vue/compiler-sfc": "^3.2.45",
     "koa": "^2.14.1",

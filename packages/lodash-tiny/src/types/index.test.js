@@ -1,5 +1,5 @@
-import * as type from '.';
 
+import * as type from './';
 describe('is-xx', () => {
   // 遍历集合, 只有其中的一项为true
   const TYPES = {
@@ -11,7 +11,7 @@ describe('is-xx', () => {
     Symbol: Symbol(1),
     Function: function () {},
     Date: new Date(),
-    RegExp: new RegExp(),
+    RegExp: new RegExp(/a/),
     Error: new Error('error'),
     Array: [],
     Window: window,

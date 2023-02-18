@@ -2,30 +2,45 @@
   "name": "@js-rocks/react-tiny",
   "version": "0.1.0-alpha.0",
   "description": "react",
-  "main": "index.js",
-  "scripts": {
-    "lint-staged": "linted-staged",
-    "commit": "git-cz",
-    "test": "jest",
-    "test:watch": "jest --watch",
-    "lint": "eslint --fix . && echo 'Lint complete.'",
-    "dev": "yarn parcel index.html",
-    "build": "yarn parcel build index.html"
-  },
   "keywords": [
     "react"
   ],
-  "author": "ChenXiaoyao <chenxiaoyao6228@163.com> (http://www.chenxiaoyao.cn/)",
   "license": "MIT",
+  "author": "ChenXiaoyao <chenxiaoyao6228@163.com> (http://www.chenxiaoyao.cn/)",
+  "main": "index.js",
+  "scripts": {
+    "build": "yarn parcel build index.html",
+    "commit": "git-cz",
+    "dev": "yarn parcel index.html",
+    "lint": "eslint --fix . && echo 'Lint complete.'",
+    "lint-staged": "linted-staged",
+    "test": "jest",
+    "test:watch": "jest --watch"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "commitmsg": "commitlint -E GIT_PARAMS"
+    }
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "lint-staged": {
+    "*.js": [
+      "git add"
+    ]
+  },
   "prettier": {
     "semi": false,
     "singleQuote": true
   },
   "jest": {
-    "testEnvironment": "jsdom",
-    "testRegex": "/test/.*\\.(test|spec)\\.(js)$",
-    "moduleFileExtensions": [
-      "js"
+    "collectCoverageFrom": [
+      "src/*.js",
+      "src/**/*.js"
     ],
     "coveragePathIgnorePatterns": [
       "/node_modules/",
@@ -39,55 +54,20 @@
         "statements": 95
       }
     },
-    "collectCoverageFrom": [
-      "src/*.js",
-      "src/**/*.js"
-    ]
+    "moduleFileExtensions": [
+      "js"
+    ],
+    "testEnvironment": "jsdom",
+    "testRegex": "/test/.*\\.(test|spec)\\.(js)$"
   },
-  "lint-staged": {
-    "*.js": [
-      "git add"
-    ]
+  "devDependencies": {
+    "node-libs-browser": "^2.2.1",
+    "parcel-bundler": "^1.12.4"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged",
-      "commitmsg": "commitlint -E GIT_PARAMS"
-    }
+  "dependencies": {
+    "@js-rocks/lodash-tiny": "workspace:*"
   },
   "commitizen": {
     "path": "./node_modules/cz-conventional-changelog"
-  },
-  "commitlint": {
-    "extends": [
-      "@commitlint/config-conventional"
-    ]
-  },
-  "devDependencies": {
-    "@babel/core": "^7.6.0",
-    "@babel/plugin-proposal-class-properties": "^7.5.5",
-    "@babel/plugin-proposal-decorators": "^7.6.0",
-    "@babel/plugin-transform-modules-commonjs": "^7.6.0",
-    "@babel/plugin-transform-runtime": "^7.6.0",
-    "@babel/preset-env": "^7.6.0",
-    "@commitlint/cli": "^8.1.0",
-    "@commitlint/config-conventional": "^8.1.0",
-    "@commitlint/prompt": "~8.1.0",
-    "@parcel/logger": "^2.0.0-alpha.2",
-    "babel-jest": "^24.9.0",
-    "babel-types": "^6.26.0",
-    "commitizen": "^4.0.3",
-    "cz-conventional-changelog": "~3.0.2",
-    "eslint": "^6.4.0",
-    "eslint-config-prettier": "^6.3.0",
-    "eslint-plugin-babel": "^5.3.0",
-    "eslint-plugin-prettier": "^3.1.0",
-    "husky": "^3.0.5",
-    "jest": "^24.9.0",
-    "jest-config": "^24.9.0",
-    "lint-staged": "^9.2.5",
-    "node-libs-browser": "^2.2.1",
-    "parcel-bundler": "^1.12.4",
-    "prettier": "^1.18.2"
   }
 }
