@@ -3,8 +3,4 @@ type GreaterThan<
   T extends number,
   U extends number,
   TL extends unknown[] = []
-> = T extends TL["length"]
-  ? false
-  : U extends TL["length"]
-  ? true
-  : GreaterThan<T, U, [...TL, 0]>;
+> = T extends TL['length'] ? false : U extends TL['length'] ? true : GreaterThan<T, U, [...TL, 0]>;

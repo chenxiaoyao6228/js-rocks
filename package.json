@@ -2,49 +2,54 @@
   "private": true,
   "name": "js-rocks",
   "description": "a javascript library rebuild series",
-  "repository": "https://github.com/chenxiaoyao6228/js-rocks.git",
-  "author": "chenxiaoyao <chenxiaoyao6228@163.com>",
-  "version": "independent",
   "scripts": {
-    "prepare": "husky install",
+    "eslint-check": "turbo run eslint-check",
+    "prettier-check": "turbo run prettier-check",
+    "prettier-write": "turbo run prettier-write",
+    "typecheck": "turbo run typecheck",
     "preinstall": "npx only-allow pnpm",
-    "build:lodash": "pnpm build --filter @js-rocks/lodash-tiny",
-    "test": "jest",
-    "test:watch": "jest --watch"
+    "prepare": "husky install",
+    "build:vue": "pnpm --filter @js-rocks/{lodash-tiny|vue-tiny} build",
+    "test": "turbo run test",
+    "build": "turbo run build"
   },
   "lint-staged": {
     "*.{ts,js}": [
-      "eslint --fix",
-      "git add"
+      "eslint-check",
+      "prettier-write"
     ]
   },
   "devDependencies": {
-    "@babel/core": "^7.6.0",
-    "@babel/plugin-proposal-class-properties": "^7.5.5",
-    "@babel/plugin-proposal-decorators": "^7.6.0",
-    "@babel/plugin-transform-modules-commonjs": "^7.6.0",
-    "@babel/plugin-transform-runtime": "^7.6.0",
-    "@babel/preset-env": "^7.16.11",
-    "@babel/preset-typescript": "^7.16.7",
+    "@babel/core": "^7.20.12",
+    "@babel/plugin-proposal-class-properties": "^7.18.6",
+    "@babel/plugin-proposal-decorators": "^7.20.13",
+    "@babel/plugin-transform-modules-commonjs": "^7.20.11",
+    "@babel/plugin-transform-runtime": "^7.19.6",
+    "@babel/preset-env": "^7.20.2",
+    "@babel/preset-typescript": "^7.18.6",
     "@commitlint/cli": "^16.3.0",
     "@commitlint/config-conventional": "^16.2.4",
-    "@parcel/logger": "^2.0.0-alpha.2",
     "@rollup/plugin-commonjs": "^22.0.2",
     "@rollup/plugin-node-resolve": "^15.0.1",
     "@rollup/plugin-typescript": "^8.5.0",
-    "@types/jest": "^27.4.0",
+    "@types/jest": "^27.5.2",
     "@typescript-eslint/eslint-plugin": "^5.52.0",
     "@typescript-eslint/parser": "^5.52.0",
-    "babel-jest": "^24.9.0",
+    "babel-jest": "^29.4.3",
     "babel-types": "^6.26.0",
     "eslint": "^8.34.0",
+    "eslint-config-prettier": "^8.6.0",
+    "eslint-plugin-babel": "^5.3.1",
     "eslint-plugin-jest": "^26.9.0",
-    "husky": "^8.0.0",
+    "husky": "^8.0.3",
     "jest": "^29.4.3",
     "jest-environment-jsdom": "^29.4.3",
     "lint-staged": "^12.5.0",
     "prettier": "^2.8.4",
-    "rollup": "^2.14.0",
+    "prettier-eslint": "^15.0.1",
+    "rollup": "^2.79.1",
+    "ts-jest": "^29.0.5",
+    "turbo": "^1.8.1",
     "typescript": "^4.9.5"
   },
   "commitlint": {
@@ -53,8 +58,11 @@
     ]
   },
   "license": "MIT",
+  "repository": "https://github.com/chenxiaoyao6228/js-rocks.git",
+  "author": "chenxiaoyao <chenxiaoyao6228@163.com>",
+  "version": "independent",
   "link-workspace-packages": false,
   "dependencies": {
-    "ts-jest": "^29.0.5"
+    "eslint-plugin-prettier": "^4.2.1"
   }
 }

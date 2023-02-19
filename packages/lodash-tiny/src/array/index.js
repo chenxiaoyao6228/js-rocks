@@ -1,11 +1,11 @@
 import { isFunction } from '../types/index';
 
-function removeAt (target, index) {
+function removeAt(target, index) {
   // !!将一个对象转化为布尔值
   return !!target.splice(index, 1).length;
 }
 
-function remove (target, item) {
+function remove(target, item) {
   let index = target.indexOf(item);
   if (~index) {
     return removeAt(target, index);
@@ -13,7 +13,7 @@ function remove (target, item) {
   return false;
 }
 
-function flattenDeep (arr = [], res = []) {
+function flattenDeep(arr = [], res = []) {
   arr.forEach(item => {
     if (Array.isArray(item)) {
       res = res.concat(flattenDeep(item, []));
@@ -24,7 +24,7 @@ function flattenDeep (arr = [], res = []) {
   return res;
 }
 // 数组去重
-function unique (target) {
+function unique(target) {
   // 法1: 数组->集合->数组
   // return Array.from(new Set(target))
 
@@ -41,13 +41,13 @@ function unique (target) {
 }
 
 // 去除数组中的undefined和null, 不影响原来的数组
-function compact (target) {
+function compact(target) {
   return target.filter(function (item) {
     return item != null;
   });
 }
 
-function pluck (target, key) {
+function pluck(target, key) {
   let result = [];
   target.forEach(function (item) {
     if (Object.hasOwnProperty.call(item, key)) {
@@ -57,7 +57,7 @@ function pluck (target, key) {
   return result;
 }
 
-function minOrMax (target, predicate, comparator) {
+function minOrMax(target, predicate, comparator) {
   let result = target[0];
   let defaultPredicate = function (item) {
     return item;
@@ -72,19 +72,19 @@ function minOrMax (target, predicate, comparator) {
   return result;
 }
 
-function max (target, predicate) {
+function max(target, predicate) {
   return minOrMax(target, predicate, function (a, b) {
     return a > b;
   });
 }
 
-function min (target, predicate) {
+function min(target, predicate) {
   return minOrMax(target, predicate, function (a, b) {
     return a < b;
   });
 }
 
-function groupBy (target, val) {
+function groupBy(target, val) {
   let result = {};
 
   let iterator = isFunction(val)
@@ -101,19 +101,19 @@ function groupBy (target, val) {
 }
 
 // 取并集
-function union (target, array) {
+function union(target, array) {
   return unique(target.concat(array));
 }
 
 // 取交集
-function intersect (target, array) {
+function intersect(target, array) {
   return target.filter(function (n) {
     return ~array.indexOf(n);
   });
 }
 
 // 取补集
-function diff (target, array) {
+function diff(target, array) {
   let result = target.slice();
   for (let i = 0; i < result.length; i++) {
     for (let j = 0; j < array.length; j++) {
@@ -128,8 +128,8 @@ function diff (target, array) {
 }
 
 // ⭐ 根据指定的条件进行排序, 常用于对象数组
-function sortBy (target, key) {
-  function by (key) {
+function sortBy(target, key) {
+  function by(key) {
     return function (a, b) {
       return a[key] > b[key] ? 1 : b[key] > a[key] ? -1 : 0;
     };

@@ -4,7 +4,7 @@
 import { getCurrentInstance } from './component';
 import { ComponentInstance } from '../../typings/index';
 // set
-export function provide (key: string, value: any) {
+export function provide(key: string, value: any) {
   const currentInstance = getCurrentInstance() as ComponentInstance;
   if (currentInstance) {
     let { provides } = currentInstance;
@@ -21,7 +21,7 @@ export function provide (key: string, value: any) {
 }
 
 // lookup
-export function inject (key: string, defaultValue: any) {
+export function inject(key: string, defaultValue: any) {
   const currentInstance = getCurrentInstance() as ComponentInstance;
   if (currentInstance) {
     const parentProvides = currentInstance.parent.provides;

@@ -9,5 +9,5 @@ interface Todo {
 type TodoPreview = _Omit<Todo, 'description' | 'title'>;
 
 const todo_omit: TodoPreview = {
-  completed: false
+  completed: false,
 };

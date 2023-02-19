@@ -1,9 +1,6 @@
-type Split<
-  S extends string,
-  SEP extends string
-> = S extends `${infer F}${SEP}${infer R}`
+type Split<S extends string, SEP extends string> = S extends `${infer F}${SEP}${infer R}`
   ? [F, ...Split<R, SEP>]
-  : SEP extends ""
+  : SEP extends ''
   ? []
   : string extends S
   ? S[]

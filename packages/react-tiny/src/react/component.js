@@ -1,17 +1,17 @@
-import { renderComponent } from '../react-dom/diff'
+import { renderComponent } from '../react-dom/diff';
 
 class Component {
   constructor(props = {}) {
-    this.isReactComponent = true
+    this.isReactComponent = true;
 
-    this.state = {}
-    this.props = props
+    this.state = {};
+    this.props = props;
   }
 
   setState(stateChange) {
-    Object.assign(this.state, stateChange)
-    renderComponent(this)
+    Object.assign(this.state, stateChange);
+    renderComponent(this);
   }
 }
 
-export default Component
+export default Component;

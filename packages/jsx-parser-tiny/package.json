@@ -15,6 +15,10 @@
     "test": "test"
   },
   "scripts": {
+    "prettier-check": "prettier --parser=typescript \"src/**/*.{js,ts}\" --check",
+    "prettier-write": "prettier --parser=typescript \"src/**/*.{js,ts}\" --write",
+    "eslint-check": "eslint \"src/**/*.{js,ts}\"",
+    "typecheck": "tsc",
     "build": "rollup -c rollup.config.js",
     "build:watch": "rollup --watch -c rollup.config.js",
     "test": "jest",

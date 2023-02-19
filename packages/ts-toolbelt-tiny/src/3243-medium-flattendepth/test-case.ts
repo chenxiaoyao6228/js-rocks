@@ -1,4 +1,4 @@
-import { Equal, Expect, ExpectFalse, NotEqual } from "@type-challenges/utils";
+import { Equal, Expect, ExpectFalse, NotEqual } from '@type-challenges/utils';
 
 // TODO: 递归问题 https://github.com/microsoft/TypeScript/issues/30188
 

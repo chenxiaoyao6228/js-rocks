@@ -7,6 +7,6 @@ type Fibonacci<
   C extends 0[] = [0, 0, 0] // index
 > = T extends 1 | 2
   ? 1
-  : C["length"] extends T
-  ? [...N1, ...N2]["length"]
+  : C['length'] extends T
+  ? [...N1, ...N2]['length']
   : Fibonacci<T, N2, [...N1, ...N2], [...C, 0]>;

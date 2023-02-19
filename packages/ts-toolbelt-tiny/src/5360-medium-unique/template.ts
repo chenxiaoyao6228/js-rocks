@@ -19,7 +19,7 @@ function unique(arr, res = []) {
 
 const uniqueRes = unique([1, 1, 2, 2, 3, 3]);
 
-console.log("uniqueRes-------", uniqueRes);
+console.log('uniqueRes-------', uniqueRes);
 
 // 整理后的版本
 function unique2(arr, res = []) {
@@ -32,4 +32,4 @@ function unique2(arr, res = []) {
 
 const uniqueRes2 = unique2([1, 1, 2, 2, 3, 3]);
 
-console.log("uniqueRes2-------", uniqueRes2);
+console.log('uniqueRes2-------', uniqueRes2);

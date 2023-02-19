@@ -1,6 +1,6 @@
 // 利用数组的长度进行计算, 保存进制1,2,4
-type Zero = "0";
-type One = "1";
+type Zero = '0';
+type One = '1';
 
 type BinaryToDecimal<
   S extends string,
@@ -10,4 +10,4 @@ type BinaryToDecimal<
   ? BinaryToDecimal<H, [...Scale, ...Scale], [...Res]>
   : S extends `${infer H}${One}`
   ? BinaryToDecimal<H, [...Scale, ...Scale], [...Scale, ...Res]>
-  : Res["length"];
+  : Res['length'];

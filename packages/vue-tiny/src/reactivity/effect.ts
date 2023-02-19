@@ -11,11 +11,11 @@ export class ReactiveEffect {
   scheduler?: Function;
   onStop?: Function;
   // fn: vue patch function
-  constructor (fn: Function, scheduler?: Function) {
+  constructor(fn: Function, scheduler?: Function) {
     this._fn = fn;
     this.scheduler = scheduler;
   }
-  run () {
+  run() {
     if (!this.active) {
       return this._fn();
     }
@@ -30,7 +30,7 @@ export class ReactiveEffect {
     shouldTrack = false;
     return res;
   }
-  stop () {
+  stop() {
     if (this.active) {
       cleanUpEffect(this);
       this.onStop && this.onStop();
@@ -39,7 +39,7 @@ export class ReactiveEffect {
   }
 }
 
-function cleanUpEffect (effect: ReactiveEffect) {
+function cleanUpEffect(effect: ReactiveEffect) {
   effect.deps.forEach(dep => {
     dep.delete(effect);
   });
@@ -53,7 +53,7 @@ export const isTracking = () => {
  *  track value when getter is trigger
  *  eg: in render function we need to get the value before render it to the dom
  */
-export function track (target: Record<any, any>, key: symbol | string) {
+export function track(target: Record<any, any>, key: symbol | string) {
   // target -> key -> deps (array of runners)
   let depsMap = targetMap.get(target);
   if (!depsMap) {
@@ -68,14 +68,14 @@ export function track (target: Record<any, any>, key: symbol | string) {
   trackEffect(dep);
 }
 
-export function trackEffect (dep) {
+export function trackEffect(dep) {
   // 看看dep之前有没有被添加过, 避免重复被添加
   if (dep.has(activeEffect)) return;
   dep.add(activeEffect);
   activeEffect?.deps.push(dep);
 }
 
-export function trigger (target: Record<any, any>, key: symbol | string) {
+export function trigger(target: Record<any, any>, key: symbol | string) {
   // when is targetMap set?
   const depsMap = targetMap.get(target);
   const deps = depsMap.get(key);
@@ -98,7 +98,7 @@ type EffectOption = {
   onStop?: Function;
 };
 
-export default function effect (fn: Function, options: EffectOption = {}) {
+export default function effect(fn: Function, options: EffectOption = {}) {
   const { scheduler, onStop } = options;
   const _effect = new ReactiveEffect(fn, scheduler);
   _effect.onStop = onStop;
@@ -108,7 +108,7 @@ export default function effect (fn: Function, options: EffectOption = {}) {
   return runner;
 }
 
-export function stop (runner: any) {
+export function stop(runner: any) {
   // find runner from our dep and remove it
   // the problem is how to find effect since it is one of the depedency of deps
   // this solution is to attach _effect to runner when run effect()

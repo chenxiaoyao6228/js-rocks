@@ -1,12 +1,12 @@
 function createElement(tag, attrs, ...children) {
-  attrs = attrs || {}
+  attrs = attrs || {};
 
   return {
     tag,
     attrs,
     children,
-    key: attrs.key || null
-  }
+    key: attrs.key || null,
+  };
 }
 
-export default createElement
+export default createElement;

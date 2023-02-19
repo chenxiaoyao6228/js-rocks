@@ -1,5 +1,5 @@
 class MPromise {
-  constructor (resolver) {
+  constructor(resolver) {
     if (!isFunction(resolver)) {
       throw new Error('resolver must be a function');
     }
@@ -8,17 +8,17 @@ class MPromise {
     this.pending = [];
     resolver(this.resolve.bind(this), this.reject.bind(this));
   }
-  static resolve (value) {
+  static resolve(value) {
     return new MPromise(resolve => {
       resolve(value);
     });
   }
-  static reject (reason) {
+  static reject(reason) {
     return new MPromise((resolve, reject) => {
       reject(reason);
     });
   }
-  static race (promises) {
+  static race(promises) {
     return new MPromise(resolve => {
       promises.forEach(promise => {
         promise.then(res => {
@@ -27,7 +27,7 @@ class MPromise {
       });
     });
   }
-  static all (promises) {
+  static all(promises) {
     let result = [];
     return new MPromise(resolve => {
       let count = 0;
@@ -43,7 +43,7 @@ class MPromise {
       });
     });
   }
-  resolve (value) {
+  resolve(value) {
     if (this.state) {
       return;
     }
@@ -55,7 +55,7 @@ class MPromise {
       this.scheduleQueue();
     }
   }
-  reject (reason) {
+  reject(reason) {
     if (this.state) {
       return;
     }
@@ -63,7 +63,7 @@ class MPromise {
     this.value = reason;
     this.scheduleQueue();
   }
-  scheduleQueue () {
+  scheduleQueue() {
     setTimeout(() => {
       while (this.pending.length) {
         let [promise, onFulfilled, onRejected] = this.pending.shift();
@@ -85,7 +85,7 @@ class MPromise {
     });
   }
 
-  then (onFulfilled, onRejected) {
+  then(onFulfilled, onRejected) {
     let promise = new MPromise(() => {});
     this.pending.push([promise, onFulfilled, onRejected]);
     if (this.state === 1) {
@@ -93,15 +93,15 @@ class MPromise {
     }
     return promise;
   }
-  catch (onRejected) {
+  catch(onRejected) {
     this.then(null, onRejected);
   }
-  finally (onFinally) {
+  finally(onFinally) {
     this.then(onFinally, onFinally);
   }
 }
 
-function isFunction (fn) {
+function isFunction(fn) {
   return Object.prototype.toString.call(fn) === '[object Function]';
 }
 export default MPromise;

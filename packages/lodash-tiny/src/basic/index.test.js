@@ -195,7 +195,7 @@ test('deepClone', () => {
 
 // thanks https://gist.github.com/andrew8088/6f53af9579266d5c62c8
 describe('stringify', function () {
-  function check (o) {
+  function check(o) {
     return function () {
       expect(stringify(o)).toEqual(JSON.stringify(o));
     };

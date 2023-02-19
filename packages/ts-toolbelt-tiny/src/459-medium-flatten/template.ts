@@ -1,7 +1,7 @@
 // https://github.com/chenxiaoyao6228/type-challenges-solutions/blob/main/zh/medium-flatten.md
 export type _Flatten<A> = A extends []
   ? []
-  : A extends [infer T, ...(infer K)]
+  : A extends [infer T, ...infer K]
   ? [..._Flatten<T>, ..._Flatten<K>]
   : [A];
 

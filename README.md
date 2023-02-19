@@ -52,15 +52,17 @@ A simple runtime JSX parser
 
 * [ ] [react-router-tiny](): a simple single-page router
 
-* [ ] [redux-tiny](): a simple state management system
-
 * [ ] [webpack-tiny](): webpack-like web bundler
 
-* [ ] [markdown-editor-tiny](): a simple web-based markdown editor
+* [ ] [vuepress-tiny](): a static site generator
+
+- [ ] [markdown-editor-tiny](): a simple web-based markdown editor
+
+- [ ] [redux-tiny](): a simple state management system
 
 * [ ] [code-highlight-plugin](): a code hight light plugin
 
-* [ ] [code-sandbox-tiny](): a code hight light plugin
+* [ ] [code-sandbox-tiny](): a simple online codesandbox
 
 ... more
 

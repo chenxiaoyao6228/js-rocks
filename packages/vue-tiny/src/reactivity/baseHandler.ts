@@ -10,7 +10,7 @@ const shallowReadonlyGet = createGetter(true, true);
 
 // get的时候触发依赖收集, set的时候触发依赖
 // 注意是和effect搭配的时候才会有依赖收集的操作
-function createGetter (isReadOnly = false, shallow = false) {
+function createGetter(isReadOnly = false, shallow = false) {
   return function (target, key) {
     if (key === ReactiveFlags.IS_REACTIVE) {
       return !isReadOnly;
@@ -37,7 +37,7 @@ function createGetter (isReadOnly = false, shallow = false) {
 }
 
 // 保持代码的一致性, 也抽离setter
-function createSetter () {
+function createSetter() {
   return function (target, key, val) {
     // 更新被追踪的元素的值
     const res = Reflect.set(target, key, val);

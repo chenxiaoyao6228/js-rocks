@@ -9,16 +9,16 @@ export interface AST {
 
 class Stack {
   private _stack: any[];
-  constructor (initialValue?: any[]) {
+  constructor(initialValue?: any[]) {
     this._stack = initialValue || [];
   }
-  peek () {
+  peek() {
     return this._stack[this._stack.length - 1];
   }
-  push (item: any) {
+  push(item: any) {
     this._stack.push(item);
   }
-  pop () {
+  pop() {
     this._stack.pop();
   }
 }
@@ -35,11 +35,11 @@ class JSXParser {
   text: string;
   stack: Stack;
   ret: AST[] = [];
-  constructor (text: string) {
+  constructor(text: string) {
     this.text = text;
     this.stack = new Stack();
   }
-  parse (): AST {
+  parse(): AST {
     while (this.text) {
       let textEnd = this.text.indexOf('<');
       if (textEnd === 0) {
@@ -77,7 +77,7 @@ class JSXParser {
         if (text.indexOf('{') === -1) {
           this.addNode({
             type: '#text',
-            nodeValue: text
+            nodeValue: text,
           });
         } else {
           // jsxExpression '<div>xx{111}yy{222}zz</div>'
@@ -93,19 +93,19 @@ class JSXParser {
             if (index > lastIndex) {
               this.addNode({
                 type: '#text',
-                nodeValue: text.slice(lastIndex, index)
+                nodeValue: text.slice(lastIndex, index),
               });
             }
             this.addNode({
               type: '#jsx',
-              nodeValue: match[1].trim()
+              nodeValue: match[1].trim(),
             });
             lastIndex = index + match[0].length;
           }
           if (lastIndex < text.length) {
             this.addNode({
               type: '#text',
-              nodeValue: text.slice(lastIndex)
+              nodeValue: text.slice(lastIndex),
             });
           }
         }
@@ -116,14 +116,14 @@ class JSXParser {
         // pure text
         this.addNode({
           type: '#text',
-          nodeValue: this.text
+          nodeValue: this.text,
         });
         this.text = '';
       }
     }
     return this.ret[0];
   }
-  parseEndTag () {
+  parseEndTag() {
     const endTagMatch = this.text.match(endTagRegx);
     if (endTagMatch) {
       this.advanceBy(endTagMatch[0].length);
@@ -131,18 +131,18 @@ class JSXParser {
       return endTagMatch;
     }
   }
-  parseCommentTag () {
+  parseCommentTag() {
     const commentTagMatch = this.text.match(commentTagRegx);
     if (commentTagMatch) {
       this.addNode({
         type: '#comment',
-        nodeValue: commentTagMatch[1].trim()
+        nodeValue: commentTagMatch[1].trim(),
       });
       this.advanceBy(commentTagMatch[0].length);
       return commentTagMatch;
     }
   }
-  parseStartTag () {
+  parseStartTag() {
     // parse: startTag(nodeName, attrs, startTagEnd(selfClose)) and endTag
     const startTagMatch = this.text.match(startTagOpenRegx);
     if (startTagMatch) {
@@ -150,7 +150,7 @@ class JSXParser {
       const node = {
         type: tagName,
         props: {},
-        children: []
+        children: [],
       };
       this.addNode(node); // add children to parent
       this.stack.push(node); // add children first and then push to stack
@@ -177,7 +177,7 @@ class JSXParser {
       return startTagMatch;
     }
   }
-  addNode (node: AST) {
+  addNode(node: AST) {
     const peek = this.stack.peek();
     if (peek && peek.children) {
       peek.children.push(node);
@@ -185,12 +185,12 @@ class JSXParser {
       this.ret.push(node);
     }
   }
-  advanceBy (length: number) {
+  advanceBy(length: number) {
     this.text = this.text.slice(length);
   }
 }
 
-function parse (text: string) {
+function parse(text: string) {
   return new JSXParser(text).parse();
 }
 

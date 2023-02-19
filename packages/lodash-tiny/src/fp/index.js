@@ -5,7 +5,7 @@
  * @param {*} fns
  * @return {*}
  */
-function pipe (...fns) {
+function pipe(...fns) {
   return arg => {
     return fns.reduce((acc, fn) => fn(acc), arg);
   };
@@ -17,7 +17,7 @@ function pipe (...fns) {
  * @param {*} fn
  * @return {*}
  */
-function partial (fn) {
+function partial(fn) {
   let partialArgs = arguments.length > 1 ? [].slice.call(arguments, 1) : [];
   return function () {
     let args = partialArgs.concat([].slice.call(arguments));
@@ -31,7 +31,7 @@ function partial (fn) {
  * @param {*} fn
  * @return {*}
  */
-function partialRight (fn) {
+function partialRight(fn) {
   let partialArgs = arguments.length > 1 ? [].slice.call(arguments, 1) : [];
   return function () {
     let args = [].slice.call(arguments).concat(partialArgs);

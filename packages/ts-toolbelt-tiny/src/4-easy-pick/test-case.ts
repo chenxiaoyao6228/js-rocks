@@ -5,7 +5,7 @@ import { _Pick } from './template';
 type cases = [
   Expect<Equal<Expected1, _Pick<Todo, 'title'>>>,
   Expect<Equal<Expected2, _Pick<Todo, 'title' | 'completed'>>>,
-  // @ts-expect-error
+  // @ts-expect-error skip
   _Pick<Todo, 'title' | 'completed' | 'invalid'>
 ];
 

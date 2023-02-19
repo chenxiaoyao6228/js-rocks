@@ -1,4 +1,3 @@
-
 import * as type from './';
 describe('is-xx', () => {
   // 遍历集合, 只有其中的一项为true
@@ -17,7 +16,7 @@ describe('is-xx', () => {
     Window: window,
   };
   for (const functionType in type) {
-    if (['isObject', 'isPlainObject', 'isArrayLike'].includes(functionType)) continue; // 跳过, 不可用break和return
+    if (['isObject', 'isPlainObject', 'isArrayLike', 'isJsonLike'].includes(functionType)) continue; // 跳过, 不可用break和return
     test(`${functionType}`, () => {
       for (const [key, value] of Object.entries(TYPES)) {
         if (functionType.includes(key)) {
@@ -31,7 +30,7 @@ describe('is-xx', () => {
 });
 
 describe('isObject', () => {
-  function myClass () {}
+  function myClass() {}
   test.each([
     [{}, true],
     [[1, 2, 3], true],
@@ -45,7 +44,7 @@ describe('isObject', () => {
 });
 
 describe('isPlainObject', () => {
-  function myClass () {}
+  function myClass() {}
   const obj = Object.create(null);
   test.each([
     [{}, true],
@@ -61,7 +60,7 @@ describe('isPlainObject', () => {
 });
 
 describe('isArrayLike', () => {
-  function myClass () {}
+  function myClass() {}
   const obj = Object.create(null);
   test.each([
     [[1, 2, 3], true],

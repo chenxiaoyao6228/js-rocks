@@ -1,6 +1,6 @@
 const parser = require('../parser');
 
-function template (code) {
+function template(code) {
   return parser.parse(code, {
     plugins: ['literal'],
   });

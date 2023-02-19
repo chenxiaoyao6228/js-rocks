@@ -11,15 +11,19 @@
   "module": "lib/vue-tiny.esm.js",
   "types": "typings/index.ts",
   "scripts": {
+    "prettier-check": "prettier --parser=typescript \"src/**/*.{js,ts}\" --check",
+    "prettier-write": "prettier --parser=typescript \"src/**/*.{js,ts}\" --write",
+    "eslint-check": "eslint \"src/**/*.{js,ts}\"",
+    "typecheck": "tsc",
     "build": "rollup -c rollup.config.js",
     "build:watch": "rollup --watch -c rollup.config.js",
-    "test": "jest",
-    "test:watch": "jest --watch"
+    "test": "jest --selectProjects=vue-tiny --c ../../jest.config.js",
+    "test:watch": "jest --selectProjects=vue-tiny --c ../../jest.config.js --watch"
   },
   "dependencies": {
     "@js-rocks/lodash-tiny": "workspace:*"
   },
   "devDependencies": {
-    "tslib": "^2.3.1"
+    "tslib": "^2.5.0"
   }
 }

@@ -1,9 +1,8 @@
 //  递归终止条件: T 或者 U为空的时候
-type Zip<
-  T extends unknown[],
-  U extends unknown[],
-  Res extends unknown[] = []
-> = T extends [infer THead, ...infer TTail]
+type Zip<T extends unknown[], U extends unknown[], Res extends unknown[] = []> = T extends [
+  infer THead,
+  ...infer TTail
+]
   ? U extends [infer UHead, ...infer UTail]
     ? Zip<TTail, UTail, [...Res, [THead, UHead]]>
     : Res
@@ -19,4 +18,4 @@ type Zip<
 //   : Zip<A, B, [...L, [A[L["length"]], B[L["length"]]]]>;
 
 type tuple1 = [1, 2];
-type tuple2 = ["hello", "world"];
+type tuple2 = ['hello', 'world'];

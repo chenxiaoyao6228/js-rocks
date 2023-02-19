@@ -3,7 +3,7 @@ const traverse = require('../traverse');
 const generate = require('../generate');
 const template = require('../template');
 
-function transformSync (code, options) {
+function transformSync(code, options) {
   const { plugins, parserOpts, fileName } = options;
   const ast = parser.parse(code, parserOpts);
 

@@ -10,8 +10,11 @@
   "main": "index.js",
   "types": "src/index.d.ts",
   "scripts": {
-    "build": "tsc",
-    "build:w": "tsc -w",
+    "prettier-check": "prettier --parser=typescript \"src/**/*.{js,ts}\" --check",
+    "prettier-write": "prettier --parser=typescript \"src/**/*.{js,ts}\" --write",
+    "eslint-check": "eslint \"src/**/*.{js,ts}\" --fix",
+    "typecheck": "tsc",
+    "build": "echo 'a'",
     "generate": "node scripts/generate.js"
   },
   "dependencies": {},

@@ -29,11 +29,8 @@ console.log(indexOf_Res2 === 2);
 //     : IndexOf<Tail, I, "这里卡住了😂"> // 如何表示数字? => 聪明的网友使用了数组, 用[0, 0 ,0]表示我们的 P, 之后取P['length']即可
 //   : -1;
 
-type IndexOf<A extends unknown[], I, P extends any[] = []> = A extends [
-  infer Head,
-  ...infer Tail
-]
+type IndexOf<A extends unknown[], I, P extends any[] = []> = A extends [infer Head, ...infer Tail]
   ? I extends Head
-    ? P["length"]
+    ? P['length']
     : IndexOf<Tail, I, [...P, 0]> // 如何表示数字? => 聪明的网友使用了数组, 用[0, 0 ,0]表示我们的 P, 之后取P['length']即可
   : -1;

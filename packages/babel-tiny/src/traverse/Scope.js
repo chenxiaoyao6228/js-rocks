@@ -1,5 +1,5 @@
 class Binding {
-  constructor (id, path, scope, kind) {
+  constructor(id, path, scope, kind) {
     this.id = id;
     this.path = path;
     this.referenced = false;
@@ -7,7 +7,7 @@ class Binding {
   }
 }
 class Scope {
-  constructor (parentScope, path) {
+  constructor(parentScope, path) {
     this.parent = parentScope;
     this.bindings = {};
     this.path = path;
@@ -23,7 +23,7 @@ class Scope {
         // function statement create it's own scope, so we need to skip child traverse
         childPath.skip();
         this.registerBinding(childPath.node.id.name, childPath);
-      }
+      },
     });
 
     path.traverse({
@@ -36,19 +36,19 @@ class Scope {
             binding.referencePaths.push(childPath);
           }
         }
-      }
+      },
     });
   }
 
-  registerBinding (id, path) {
+  registerBinding(id, path) {
     this.bindings[id] = new Binding(id, path);
   }
 
-  getOwnBinding (id) {
+  getOwnBinding(id) {
     return this.bindings[id];
   }
 
-  getBinding (id) {
+  getBinding(id) {
     let res = this.getOwnBinding(id);
     if (res === undefined && this.parent) {
       res = this.parent.getOwnBinding(id);
@@ -56,7 +56,7 @@ class Scope {
     return res;
   }
 
-  hasBinding (id) {
+  hasBinding(id) {
     return !!this.getBinding(id);
   }
 }

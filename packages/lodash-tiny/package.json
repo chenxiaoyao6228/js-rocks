@@ -1,6 +1,6 @@
 {
   "name": "@js-rocks/lodash-tiny",
-  "version": "0.1.1-alpha",
+  "version": "0.0.1-alpha",
   "description": "lodash-like utils library",
   "type": "module",
   "main": "lib/lodash-tiny.cjs.js",
@@ -27,10 +27,14 @@
     "lib"
   ],
   "scripts": {
+    "prettier-check": "prettier --parser=typescript \"src/**/*.{js,ts}\" --check",
+    "prettier-write": "prettier --parser=typescript \"src/**/*.{js,ts}\" --write",
+    "eslint-check": "eslint \"src/**/*.{js,ts}\"",
+    "typecheck": "tsc",
     "build": "rollup -c  rollup.config.js",
     "build:watch": "rollup -c  rollup.config.js --watch",
-    "test": "jest",
-    "test:watch": "jest --watch",
+    "test": "jest --selectProjects=lodash-tiny --config ../../jest.config.js",
+    "test:watch": "jest --selectProjects=lodash-tiny --c ../../jest.config.js --watch",
     "tsc": "tsc"
   },
   "licence": "MIT",

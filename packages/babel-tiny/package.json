@@ -6,6 +6,18 @@
     "babel",
     "ast"
   ],
+  "scripts": {
+    "prettier-check": "prettier --parser=typescript \"src/**/*.{js,ts}\" --check",
+    "prettier-write": "prettier --parser=typescript \"src/**/*.{js,ts}\" --write",
+    "eslint-check": "eslint \"src/**/*.{js,ts}\"",
+    "typecheck": "tsc",
+    "## run this command in the terminal and go to vscode debugger or press F5": "",
+    "build": "rollup -c rollup.config.js",
+    "build:watch": "rollup --watch -c rollup.config.js",
+    "test:debug": "node --inspect-brk node_modules/.bin/jest --runInBand",
+    "test": "jest --selectProjects=babel-tiny --c ../../jest.config.js",
+    "test:watch": "jest --selectProjects=babel-tiny --c ../../jest.config.js --watch"
+  },
   "homepage": "https://github.com/chenxiaoyao6228/js-rocks#readme",
   "bugs": {
     "url": "https://github.com/chenxiaoyao6228/js-rocks/issues"
@@ -25,13 +37,6 @@
   "files": [
     "lib"
   ],
-  "scripts": {
-    "## run this command in the terminal and go to vscode debugger or press F5": "",
-    "build": "rollup -c rollup.config.js",
-    "build:watch": "rollup --watch -c rollup.config.js",
-    "test:debug": "node --inspect-brk node_modules/.bin/jest --runInBand",
-    "test:watch": "jest --watch"
-  },
   "dependencies": {
     "@js-rocks/lodash-tiny": "workspace:*",
     "acorn": "^8.3.0",

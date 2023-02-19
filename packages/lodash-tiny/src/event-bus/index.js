@@ -1,16 +1,16 @@
 class EventBus {
-  constructor () {
+  constructor() {
     this.listeners = {};
     this.uuid = 0;
   }
-  on (name, callback) {
+  on(name, callback) {
     // 这里也可以使用二维数组的形式[[],[]], 取消事件的时候将该项的索引设置为null
     // 可以避免在遍历是删除元素带来的问题
     this.listeners[name] = this.listeners[name] || {};
     this.listeners[name][this.uuid] = callback;
     this.uuid++;
   }
-  emit (name) {
+  emit(name) {
     this.listeners[name] &&
       Object.keys(this.listeners[name]).forEach(key => {
         let callback = this.listeners[name][key];
@@ -20,12 +20,12 @@ class EventBus {
         }
       });
   }
-  once (name, callback) {
+  once(name, callback) {
     let callbackWrapper = () => callback();
     callbackWrapper.ONCE = true;
     this.on(name, callbackWrapper);
   }
-  off (name, listener) {
+  off(name, listener) {
     Object.keys(this.listeners[name]).forEach(key => {
       let callback = this.listeners[name][key];
       if (callback === listener) {

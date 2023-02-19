@@ -1,4 +1,4 @@
-import { Equal, Expect, ExpectFalse, NotEqual } from "@type-challenges/utils";
+import { Equal, Expect, ExpectFalse, NotEqual } from '@type-challenges/utils';
 
 interface Todo1 {
   title: string;

@@ -1,9 +1,9 @@
 {
     "compilerOptions": {
         "strict": true,
+        "allowJs": true,
         "noUnusedLocals": false,
         "noUnusedParameters": false,
-        "allowJs": false,
         "noImplicitReturns": true,
         "noFallthroughCasesInSwitch": true,
         "pretty": true,
@@ -16,6 +16,7 @@
         "module": "esnext",
         "moduleResolution": "node",
         "target": "esnext",
-        "skipLibCheck": true
+        "skipLibCheck": true,
+        "noImplicitAny": false
     }
 }
