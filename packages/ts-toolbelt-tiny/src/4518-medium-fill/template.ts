@@ -37,7 +37,7 @@ type Fill<
   T extends unknown[],
   N,
   Start extends number = 0,
-  End extends number = T["length"],
+  End extends number = T['length'],
   Res extends any[] = []
 > = T extends [infer H, ...infer R]
   ? [...Res, 0][Start] extends undefined // ???这是什么鬼

@@ -1,4 +1,4 @@
-import { Equal, Expect, ExpectFalse, NotEqual } from "@type-challenges/utils";
+import { Equal, Expect, ExpectFalse, NotEqual } from '@type-challenges/utils';
 
 interface Model {
   name: string;
@@ -6,10 +6,7 @@ interface Model {
   locations: string[] | null;
 }
 
-type ModelEntries =
-  | ["name", string]
-  | ["age", number]
-  | ["locations", string[] | null];
+type ModelEntries = ['name', string] | ['age', number] | ['locations', string[] | null];
 
 type test = ObjectFromEntries<ModelEntries>;
 

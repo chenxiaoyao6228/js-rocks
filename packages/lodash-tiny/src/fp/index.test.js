@@ -1,5 +1,5 @@
 import { isFunction } from '../types';
-import { pipe, partial, partialRight } from './index.finish';
+import { pipe, partial, partialRight } from './index';
 
 describe('fp', () => {
   describe('pipe', () => {
@@ -32,7 +32,7 @@ describe('fp', () => {
     // TODO auto currying
   });
   describe('partial', () => {
-    function greet (greeting, name) {
+    function greet(greeting, name) {
       return greeting + ' ' + name;
     }
     test('partial', () => {

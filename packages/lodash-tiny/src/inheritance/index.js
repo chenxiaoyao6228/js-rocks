@@ -4,7 +4,7 @@
  * p.name; //"allen"
  * @param {*} Constructor
  */
-function myNew (Constructor) {
+function myNew(Constructor) {
   return (...args) => {
     let instance = { __proto__: Constructor.prototype };
     Constructor.apply(instance, args);
@@ -15,19 +15,19 @@ function myNew (Constructor) {
 // 定义类, new的时候调用construct
 // extend方法实现继承, 继承要调用super方法,要通过instanceOf检测
 // 静态方法实现
-function Class (classDefinition) {
+function Class(classDefinition) {
   if (!classDefinition) throw 'should provide class definition';
 
   // 返回目标类的构造函数
-  function getClassBase () {
-    return function Base () {
+  function getClassBase() {
+    return function Base() {
       this.construct.apply(this, arguments);
     };
   }
   var Base = getClassBase();
 
   // 为目标类添加原型成员
-  function createClassDefinition (classDefinition) {
+  function createClassDefinition(classDefinition) {
     var parent = this.prototype['parent'] || (this.prototype['parent'] = {});
     for (var prop in classDefinition) {
       if (prop === 'statics') {
@@ -56,7 +56,7 @@ function Class (classDefinition) {
   return Base;
 }
 
-function instanceOf (L, R) {
+function instanceOf(L, R) {
   //L 表示左表达式，R 表示右表达式
   var O = R.prototype; // 取 R 的显示原型
   L = L.__proto__; // 取 L 的隐式原型

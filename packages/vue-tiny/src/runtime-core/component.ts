@@ -7,17 +7,17 @@ import { shallowReadonly } from '../reactivity/reactive';
 import { proxyRefs } from '../reactivity';
 
 let currentInstance: ComponentInstance | null = null;
-export function getCurrentInstance () {
+export function getCurrentInstance() {
   return currentInstance;
 }
 
-function setCurrentInstance (instance: ComponentInstance | null) {
+function setCurrentInstance(instance: ComponentInstance | null) {
   currentInstance = instance;
 }
 
 const isRootInstance = (instance: ComponentInstance) => Object.keys(instance).length === 0;
 
-export function createComponentInstance (
+export function createComponentInstance(
   vnode: VNode,
   parent: ComponentInstance
 ): ComponentInstance {
@@ -41,13 +41,13 @@ export function createComponentInstance (
 }
 
 // handle props, slots, and setup state
-export function setupComponent (instance: ComponentInstance) {
+export function setupComponent(instance: ComponentInstance) {
   initProps(instance, instance.vnode.props);
   initSlots(instance, instance.vnode.children);
   setupStatefulComponent(instance);
 }
 
-function setupStatefulComponent (instance: ComponentInstance) {
+function setupStatefulComponent(instance: ComponentInstance) {
   instance.proxy = new Proxy(
     {
       _: instance,
@@ -68,7 +68,7 @@ function setupStatefulComponent (instance: ComponentInstance) {
   }
 }
 
-function handleSetupResult (instance: ComponentInstance, setupResult: SetupState) {
+function handleSetupResult(instance: ComponentInstance, setupResult: SetupState) {
   if (typeof setupResult === 'object') {
     instance.setupState = proxyRefs(setupResult);
   }
@@ -76,7 +76,7 @@ function handleSetupResult (instance: ComponentInstance, setupResult: SetupState
   finishComponentSetup(instance);
 }
 
-function finishComponentSetup (instance: ComponentInstance) {
+function finishComponentSetup(instance: ComponentInstance) {
   const Component = instance.type;
   instance.render = Component.render;
 }

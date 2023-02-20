@@ -7,50 +7,50 @@
  */
 
 // 基础判断
-function isNaN (obj) {
+function isNaN(obj) {
   return obj !== obj;
 }
-function isUndefined (obj) {
+function isUndefined(obj) {
   return obj === void 0;
 }
 
-function isNull (obj) {
+function isNull(obj) {
   return obj === null;
 }
 
-function isString (obj) {
+function isString(obj) {
   return typeof obj === 'string';
 }
 
-function isNumber (obj) {
+function isNumber(obj) {
   return typeof obj === 'number' && !isNaN(obj); // typeof NaN === 'number'
 }
 
-function isBoolean (obj) {
+function isBoolean(obj) {
   return typeof obj === 'boolean';
 }
 
-function isSymbol (obj) {
+function isSymbol(obj) {
   return typeof obj === 'symbol';
 }
 
 // 复合数据, 可以用Object.prototype.toString处理
-function isFunction (obj) {
+function isFunction(obj) {
   return Object.prototype.toString.call(obj) === '[object Function]';
 }
-function isDate (obj) {
+function isDate(obj) {
   return Object.prototype.toString.call(obj) === '[object Date]';
 }
-function isRegExp (obj) {
+function isRegExp(obj) {
   return Object.prototype.toString.call(obj) === '[object RegExp]';
 }
-function isError (obj) {
+function isError(obj) {
   return Object.prototype.toString.call(obj) === '[object Error]';
 }
 
 /*----------------*/
 // https://stackoverflow.com/questions/8511281/check-if-a-value-is-an-object-in-javascript
-function isObject (obj) {
+function isObject(obj) {
   return obj === Object(obj); // 排除null
 }
 
@@ -65,7 +65,7 @@ function isObject (obj) {
  *
  * @param {*} obj
  */
-function isPlainObject (obj) {
+function isPlainObject(obj) {
   if (obj === null) return false;
   if (!(typeof obj === 'object')) {
     return false;
@@ -74,7 +74,7 @@ function isPlainObject (obj) {
   return Object.getPrototypeOf(obj) === Object.prototype;
 }
 
-function isArray (obj) {
+function isArray(obj) {
   return isObject(obj) && typeof obj.sort === 'function'; //Douglas Crockford
 }
 
@@ -86,28 +86,29 @@ function isArray (obj) {
  * @param {*} obj
  * @return {*}
  */
-function isArrayLike (obj) {
+function isArrayLike(obj) {
   if (isWindow(obj) || isFunction(obj)) {
     return false;
   }
   return isObject(obj) && obj.length >= 0;
 }
 
-function isWindow (obj) {
-  return isObject(obj) && obj === obj.window;
+function isWindow(object) {
+  return isObject(object) && isObject(object) && object === object.window;
 }
 
-function isBlob (object) {
-  return object.toString() === '[object Blob]';
+function isBlob(object) {
+  return isObject(object) && object.toString() === '[object Blob]';
 }
-function isFile (object) {
-  return object.toString() === '[object File]';
+function isFile(object) {
+  return isObject(object) && object.toString() === '[object File]';
 }
-function isFormData (object) {
-  return object.toString() === '[object FormData]';
+function isFormData(object) {
+  return isObject(object) && object.toString() === '[object FormData]';
 }
 
-function isJsonLike (data) {
+function isJsonLike(data) {
+  if (!isString(data)) return false;
   if (data.match(/^\{(?!\{)/)) {
     return data.match(/\}$/);
   } else if (data.match(/^\[/)) {
@@ -135,5 +136,5 @@ export {
   isBlob,
   isFile,
   isFormData,
-  isJsonLike
+  isJsonLike,
 };

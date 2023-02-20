@@ -1,7 +1,7 @@
-import { myNew, Class, instanceOf } from './index.finish';
+import { myNew, Class, instanceOf } from './index';
 
 test('myNew', () => {
-  function Person (name) {
+  function Person(name) {
     this.name = name;
   }
   let child = myNew(Person)('york');
@@ -11,7 +11,7 @@ test('myNew', () => {
 });
 
 test('instanceOf', () => {
-  function Person () {}
+  function Person() {}
   let person = new Person();
   expect(person instanceof Person).toEqual(true);
   expect(instanceOf(person, Person)).toEqual(true);
@@ -28,7 +28,7 @@ describe('Class', () => {
       statics: {
         TYPE: 'Animal',
       },
-      shout () {
+      shout() {
         return this.name;
       },
     });
@@ -64,7 +64,7 @@ describe('Class', () => {
       let { Dog } = createDog();
       expect(typeof Dog).toEqual('function');
       let Husky = Dog.extend({
-        construct (name, age, fur) {
+        construct(name, age, fur) {
           this.fur = fur;
         },
       });

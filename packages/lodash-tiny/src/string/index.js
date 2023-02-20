@@ -9,7 +9,7 @@
  * @param {*} n
  * @return {*}
  */
-function repeat (target, n) {
+function repeat(target, n) {
   var s = target,
     total = '';
   while (n > 0) {
@@ -31,7 +31,7 @@ function repeat (target, n) {
  * @param {*} filling
  * @return {*}
  */
-function padStart (target, n, filling) {
+function padStart(target, n, filling) {
   if (target.length >= n) return target;
   var res;
   filling = filling || ' ';
@@ -41,7 +41,7 @@ function padStart (target, n, filling) {
   return res;
 }
 
-function padEnd (target, n, filling) {
+function padEnd(target, n, filling) {
   if (target.length >= n) return target;
   var res;
   filling = filling || ' ';
@@ -57,13 +57,13 @@ function padEnd (target, n, filling) {
  * @param {*} target
  * @return {*}
  */
-function trimStart (target) {
+function trimStart(target) {
   return target.replace(/^\s+/, '');
 }
-function trimEnd (target) {
+function trimEnd(target) {
   return target.replace(/\s+$/, '');
 }
-function trim (target) {
+function trim(target) {
   return target.replace(/\s+(\w+)\s*/, '$1');
 }
 
@@ -73,7 +73,7 @@ function trim (target) {
  * @param {*} target
  * @return {*}
  */
-function underscored (target) {
+function underscored(target) {
   return target
     .replace(/([a-z])([A-Z])/g, '$1_$2')
     .replace(/-/g, '_')
@@ -86,7 +86,7 @@ function underscored (target) {
  * @param {*} target
  * @return {*}
  */
-function dasherize (target) {
+function dasherize(target) {
   return target
     .replace(/([a-z])([A-Z])/g, '$1_$2')
     .replace(/_/g, '-')
@@ -99,7 +99,7 @@ function dasherize (target) {
  * @param {*} target
  * @return {*}
  */
-function capitalize (target) {
+function capitalize(target) {
   return target.charAt(0).toUpperCase() + target.slice(1).toLowerCase();
 }
 
@@ -109,7 +109,7 @@ function capitalize (target) {
  * @param {*} target
  * @return {*}
  */
-function camelize (target) {
+function camelize(target) {
   if (target.indexOf('_') < 0 && target.indexOf('_') < 0) {
     return target;
   }
@@ -126,7 +126,7 @@ function camelize (target) {
  * @param {*} start: 搜索的起始
  * @return {*}
  */
-function contains (target, search, start) {
+function contains(target, search, start) {
   if (typeof start !== 'number') {
     start = 0;
   }
@@ -145,7 +145,7 @@ function contains (target, search, start) {
  * @param {*} start
  * @return {*}
  */
-function startsWith (target, search, start) {
+function startsWith(target, search, start) {
   var pos = start > 0 ? start : 0;
   return String.prototype.substring.call(target, pos, pos + search.length) === search;
 }
@@ -158,7 +158,7 @@ function startsWith (target, search, start) {
  * @param {*} start
  * @return {*}
  */
-function endsWith (target, search, len) {
+function endsWith(target, search, len) {
   if (len === undefined || len > target.length) {
     len = target.length;
   }
@@ -171,7 +171,7 @@ function endsWith (target, search, len) {
  * @param {*} char
  * @return {*}
  */
-function isWhiteSpace (char) {
+function isWhiteSpace(char) {
   return [' ', '\n', '\t', '\r', 'v', '\u00A0'].indexOf(char) !== -1;
 }
 
@@ -189,5 +189,5 @@ export {
   contains,
   startsWith,
   endsWith,
-  isWhiteSpace
+  isWhiteSpace,
 };

@@ -2,7 +2,7 @@
 // type Length<T> = T extends any[] ? T["length"] : never;
 
 // eg: 1
-type Length<T extends readonly any[]> = T["length"];
+type Length<T extends readonly any[]> = T['length'];
 
 // eg2:
 

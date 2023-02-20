@@ -2,14 +2,14 @@ import { isNull, isObject, isUndefined } from '@js-rocks/lodash-tiny';
 import { ElementType } from '../../typings';
 import { createRenderer } from '../runtime-core';
 
-function createElement (type: ElementType) {
+function createElement(type: ElementType) {
   return document.createElement(type);
 }
-function createText (content: string) {
+function createText(content: string) {
   return document.createTextNode(content);
 }
 
-function patchProp (el: HTMLElement, key: string, oldVal: any, newVal: any) {
+function patchProp(el: HTMLElement, key: string, oldVal: any, newVal: any) {
   const isOn = (key: string) => /^on[A-Z]/.test(key);
   if (isOn(key)) {
     const event = key.slice(2).toLowerCase();
@@ -23,14 +23,14 @@ function patchProp (el: HTMLElement, key: string, oldVal: any, newVal: any) {
   }
 }
 
-function insert (parent: HTMLElement, child: HTMLElement, anchor: any) {
+function insert(parent: HTMLElement, child: HTMLElement, anchor: any) {
   parent.insertBefore(child, anchor || null);
 }
-function remove (parent: HTMLElement, child: HTMLElement) {
+function remove(parent: HTMLElement, child: HTMLElement) {
   parent.removeChild(child);
 }
 
-function setElementText (parent: HTMLElement, text: string) {
+function setElementText(parent: HTMLElement, text: string) {
   parent.textContent = text;
 }
 
@@ -43,7 +43,7 @@ const renderer: any = createRenderer({
   setElementText,
 });
 
-export function createApp (...args: any) {
+export function createApp(...args: any) {
   return renderer.createApp(...args);
 }
 

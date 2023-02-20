@@ -3,7 +3,8 @@
     "compilerOptions": {
         "outDir": "./lib",
         "allowJs": true,
-        "target": "es5"
+        "target": "es5",
+        "composite": true
     },
     "include": [
         "./src/**/*",

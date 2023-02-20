@@ -10,7 +10,7 @@ const defaultOptions = {
   ecmaVersion: 2020, // acorn default
 };
 
-function parse (code, options) {
+function parse(code, options) {
   const resolvedOptions = Object.assign({}, defaultOptions, options);
 
   const newParser = resolvedOptions.plugins.reduce((Parser, pluginName) => {

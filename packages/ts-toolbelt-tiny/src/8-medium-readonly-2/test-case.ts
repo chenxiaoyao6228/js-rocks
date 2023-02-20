@@ -9,7 +9,7 @@ interface Todo {
 const todo: _Readonly<Todo, 'title' | 'description'> = {
   title: 'Hey',
   description: 'foobar',
-  completed: false
+  completed: false,
 };
 
 todo.title = 'Hello'; // Error: cannot reassign a readonly property

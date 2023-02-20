@@ -10,17 +10,17 @@ class RefImp {
   dep;
   rawValue: any;
   __v_isRef: boolean;
-  constructor (value: any) {
+  constructor(value: any) {
     this.__v_isRef = true;
     this.rawValue = value;
     this._value = convert(value);
     this.dep = new Set();
   }
-  get value () {
+  get value() {
     trackRefValue(this);
     return this._value;
   }
-  set value (newValue) {
+  set value(newValue) {
     if (!hasChange(this.rawValue, newValue)) return;
     this.rawValue = newValue;
     this._value = convert(newValue);
@@ -28,13 +28,13 @@ class RefImp {
   }
 }
 
-function trackRefValue (ref: RefImp) {
+function trackRefValue(ref: RefImp) {
   if (isTracking()) {
     trackEffect(ref.dep);
   }
 }
 
-function convert (value: any) {
+function convert(value: any) {
   return isObject(value) ? reactive(value) : value;
 }
 

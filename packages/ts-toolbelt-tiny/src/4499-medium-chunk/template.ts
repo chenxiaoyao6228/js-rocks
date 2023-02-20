@@ -7,7 +7,7 @@ type Chunk<
   Cur extends any[] = [],
   Res extends any[] = []
 > = T extends [infer Head, ...infer R]
-  ? Cur["length"] extends N
+  ? Cur['length'] extends N
     ? Chunk<R, N, [Head], [...Res, Cur]>
     : Chunk<R, N, [...Cur, Head], Res>
   : Cur extends []

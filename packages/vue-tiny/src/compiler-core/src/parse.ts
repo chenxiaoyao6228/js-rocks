@@ -5,12 +5,12 @@ const enum TagType {
   End,
 }
 
-export function baseParse (content: string) {
+export function baseParse(content: string) {
   const context = createParserContext(content);
   return createRoot(parseChildren(context));
 }
 
-function parseChildren (context: any) {
+function parseChildren(context: any) {
   const nodes: any = [];
 
   let node;
@@ -32,7 +32,7 @@ function parseChildren (context: any) {
   return nodes;
 }
 
-function parseText (context: any) {
+function parseText(context: any) {
   const content = parseTextData(context, context.source.length);
   return {
     type: NodeTypes.TEXT,
@@ -40,13 +40,13 @@ function parseText (context: any) {
   };
 }
 
-function parseTextData (context: any, length: number) {
+function parseTextData(context: any, length: number) {
   const content = context.source.slice(0, length);
   advanceBy(context, length);
   return content;
 }
 
-function parseElement (context: any) {
+function parseElement(context: any) {
   const element = parseTag(context, TagType.Start);
 
   parseTag(context, TagType.End);
@@ -55,7 +55,7 @@ function parseElement (context: any) {
 }
 
 // <div></div>
-function parseTag (context: any, type: TagType) {
+function parseTag(context: any, type: TagType) {
   const match: any = /^<\/?([a-z]*)/i.exec(context.source);
   const tag = match[1];
   advanceBy(context, match[0].length);
@@ -70,7 +70,7 @@ function parseTag (context: any, type: TagType) {
 }
 
 // {{message}}
-function parseInterpolation (context: any) {
+function parseInterpolation(context: any) {
   const openDelimiter = '{{';
   const closeDelimiter = '}}';
 
@@ -94,17 +94,17 @@ function parseInterpolation (context: any) {
   };
 }
 
-function advanceBy (context: any, length: number) {
+function advanceBy(context: any, length: number) {
   context.source = context.source.slice(length);
 }
 
-function createRoot (children) {
+function createRoot(children) {
   return {
     children,
   };
 }
 
-function createParserContext (content: string): any {
+function createParserContext(content: string): any {
   return {
     source: content,
   };

@@ -1,7 +1,7 @@
 const { SourceMapGenerator } = require('source-map');
 // Acorn Parser will remove  white spaces during parsing
 class Printer {
-  constructor (source, fileName) {
+  constructor(source, fileName) {
     this.text = '';
     this.sourceMapGenerator = new SourceMapGenerator({
       file: fileName + '.map.json',
@@ -11,7 +11,7 @@ class Printer {
     this.printLine = 1;
     this.printColumn = 0;
   }
-  addMapping (node) {
+  addMapping(node) {
     if (node.loc) {
       this.sourceMapGenerator.addMapping({
         generated: {
@@ -23,24 +23,24 @@ class Printer {
       });
     }
   }
-  print (node) {
+  print(node) {
     this.node = node;
     this[this.node.type](this.node);
     return this.text;
   }
-  space () {
+  space() {
     this.text += ' ';
     this.printColumn++;
   }
-  nextLine () {
+  nextLine() {
     this.text += '\n';
     this.printLine++;
     this.printColumn = 0;
   }
-  endLine () {
+  endLine() {
     this.text += ';';
   }
-  Program (node) {
+  Program(node) {
     this.addMapping(node);
     // console.log('node in program', node);
     node.body.forEach(n => {
@@ -49,7 +49,7 @@ class Printer {
       this.nextLine();
     });
   }
-  CallExpression (node) {
+  CallExpression(node) {
     this.addMapping(node);
     this.text += node.callee.name;
     this.text += '(';
@@ -63,12 +63,12 @@ class Printer {
     this.text += ')';
   }
 
-  ExpressionStatement (node) {
+  ExpressionStatement(node) {
     this.addMapping(node);
     // console.log('node in ExpressionStatement', node);
     this[node.expression.type](node.expression);
   }
-  VariableDeclaration (node) {
+  VariableDeclaration(node) {
     this.addMapping(node);
     // VariableDeclaration might contains multiple declarations
     // eg: const a=1, b=2;
@@ -90,20 +90,20 @@ class Printer {
     });
     this.endLine();
   }
-  VariableDeclarator (node) {
+  VariableDeclarator(node) {
     this.addMapping(node);
     // console.log('node in VariableDeclarator', node);
   }
-  Literal (node) {
+  Literal(node) {
     this.addMapping(node);
     // console.log('node in Literal', node);
     this.text += node.raw;
   }
-  Identifier (node) {
+  Identifier(node) {
     this.addMapping(node);
     this.text += node.name;
   }
-  BinaryExpression (node) {
+  BinaryExpression(node) {
     this.addMapping(node);
     // console.log('node in BinaryExpression', node);
     this[node.left.type](node.left);
@@ -112,7 +112,7 @@ class Printer {
     this.space();
     this[node.right.type](node.right);
   }
-  FunctionDeclaration (node) {
+  FunctionDeclaration(node) {
     this.addMapping(node);
     this.text += 'function';
     this.space();
@@ -137,25 +137,25 @@ class Printer {
     this.nextLine();
     this.text += '};';
   }
-  FunctionExpression (node) {
+  FunctionExpression(node) {
     this.addMapping(node);
     // console.log('node in  FunctionExpression', node);
   }
-  BlockStatement (node) {
+  BlockStatement(node) {
     this.addMapping(node);
     node.body.forEach(n => {
       this[n.type](n);
     });
   }
-  ReturnStatement (node) {
+  ReturnStatement(node) {
     this.addMapping(node);
     this.text += 'return';
     this.space();
     this[node.argument.type](node.argument);
     this.endLine();
   }
-  EmptyStatement (node) {}
-  ForStatement (node) {
+  EmptyStatement(node) {}
+  ForStatement(node) {
     this.addMapping(node);
     this.text += 'for(';
     this[node.init.type](node.init);
@@ -169,7 +169,7 @@ class Printer {
     this.nextLine();
     this.text += '}';
   }
-  UpdateExpression (node) {
+  UpdateExpression(node) {
     this.addMapping(node);
     // console.log('UpdateExpression', node);
     if (node.prefix === true) {
@@ -184,11 +184,11 @@ class Printer {
 }
 
 class Generator extends Printer {
-  constructor (source, fileName) {
+  constructor(source, fileName) {
     super(source, fileName);
   }
 
-  generate (node) {
+  generate(node) {
     this[node.type](node);
     return {
       code: this.text,
@@ -197,7 +197,7 @@ class Generator extends Printer {
   }
 }
 
-function generate (node, source, fileName) {
+function generate(node, source, fileName) {
   return new Generator(source, fileName).generate(node);
 }
 

@@ -1,4 +1,4 @@
-import { Equal, Expect } from "@type-challenges/utils";
+import { Equal, Expect } from '@type-challenges/utils';
 
 type cases = [
   Expect<Equal<LastIndexOf<[0, 0, 0], 2>, -1>>,

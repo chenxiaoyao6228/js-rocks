@@ -1,7 +1,7 @@
 const { astDefinationsMap, validationFns } = require('../types');
 const Scope = require('./Scope');
 class NodePath {
-  constructor (node, parentNode, parentPath, key, listKey) {
+  constructor(node, parentNode, parentPath, key, listKey) {
     this.node = node;
     this.parentNode = parentNode;
     this.parentPath = parentPath;
@@ -14,7 +14,7 @@ class NodePath {
       }
     });
   }
-  get scope () {
+  get scope() {
     // for performance reason,  only create scope when user request
     if (this.__scope) {
       return this.__scope;
@@ -23,24 +23,24 @@ class NodePath {
     const parentScope = this.parentPath && this.parentPath.scope;
     return (this.__scope = isBlock ? new Scope(parentScope, this) : parentScope);
   }
-  isBlock () {
+  isBlock() {
     return astDefinationsMap.get(this.node.type).isBlock;
   }
-  replaceWith (node) {
+  replaceWith(node) {
     if (this.listKey >= 0) {
       this.parentNode[this.key].splice(this.listKey, 1, this.node);
     } else {
       this.parentNode[this.key] = node;
     }
   }
-  remove () {
+  remove() {
     if (this.listKey != undefined) {
       this.parentNode[this.key].splice(this.listKey, 1);
     } else {
       this.parentNode[this.key] = null;
     }
   }
-  find (callback) {
+  find(callback) {
     let parent = this;
     while (parent && !callback(parent)) {
       if (parent.parentPath) {
@@ -52,18 +52,18 @@ class NodePath {
     return parent;
   }
   // findParentPath does not include the current node
-  findParent (callback) {
+  findParent(callback) {
     let parent = this.parentPath;
     while (parent && !callback(parent)) {
       parent = parent.parentPath;
     }
     return parent;
   }
-  skip () {
+  skip() {
     this.node.__shouldSkip = true;
   }
   // attention:  skip  current node and only traverse its children,
-  traverse (userDefinedVisitors) {
+  traverse(userDefinedVisitors) {
     const traverse = require('./index');
     const definitionOfNode = astDefinationsMap.get(this.node.type);
     if (definitionOfNode && definitionOfNode.visitableKeys) {

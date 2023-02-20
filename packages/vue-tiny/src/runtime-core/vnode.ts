@@ -1,6 +1,6 @@
 import { ChildrenType, PropsType, ShapeFlags, VNode, VNode_TYPE } from '../../typings/index';
 
-export function createVNode (type: VNode_TYPE, props?: PropsType, children?: ChildrenType): VNode {
+export function createVNode(type: VNode_TYPE, props?: PropsType, children?: ChildrenType): VNode {
   const vnode = {
     type,
     props: props ? props : {},
@@ -25,6 +25,6 @@ export function createVNode (type: VNode_TYPE, props?: PropsType, children?: Chi
   return vnode;
 }
 
-function getShapeFlag (type: unknown) {
+function getShapeFlag(type: unknown) {
   return typeof type === 'string' ? ShapeFlags.ELEMENT : ShapeFlags.STATEFUL_COMPONENT;
 }

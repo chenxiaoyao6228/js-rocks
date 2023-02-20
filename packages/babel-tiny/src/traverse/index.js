@@ -2,7 +2,7 @@
 const { astDefinationsMap } = require('../types');
 const NodePath = require('./NodePath');
 
-function log (currentNode) {
+function log(currentNode) {
   if (currentNode.type) {
     console.log('currentNode.type', currentNode.type);
   }
@@ -16,7 +16,7 @@ function log (currentNode) {
 
 // traverse the whole tree with dfs algorithm
 // key and listKey is used to path node manipulation api
-function traverse (currentNode, userDefinedVisitors, parent, parentPath, key, listKey) {
+function traverse(currentNode, userDefinedVisitors, parent, parentPath, key, listKey) {
   if (!currentNode) return;
 
   // FIXME
@@ -28,7 +28,7 @@ function traverse (currentNode, userDefinedVisitors, parent, parentPath, key, li
   // enter currentNode
   if (typeof visitorFns === 'function') {
     visitorFns = {
-      enter: visitorFns
+      enter: visitorFns,
     };
   }
 

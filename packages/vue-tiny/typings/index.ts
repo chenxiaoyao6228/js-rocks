@@ -51,8 +51,14 @@ export interface ComponentInstance {
   props: PropsType;
   slots: {};
   render?: () => VNode;
-  update: () => void;
+  update?: () => void;
   proxy?: typeof Proxy;
   parent: ComponentInstance;
   provides: Record<string, any>;
+}
+
+declare global {
+  interface Window {
+    _targetMap: Map<string, any>;
+  }
 }

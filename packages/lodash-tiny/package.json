@@ -2,21 +2,23 @@
   "name": "@js-rocks/lodash-tiny",
   "version": "0.1.0",
   "description": "lodash-like utils library",
+  "type": "module",
+  "main": "lib/lodash-tiny.cjs.js",
+  "module": "lib/lodash-tiny.esm.js",
   "keywords": [
     "lodash"
   ],
-  "author": "chenxiaoyao <chenxiaoyao6228@163.com>",
-  "license": "ISC",
-  "main": "lib/lodash-tiny.cjs.js",
-  "module": "lib/lodash-tiny.esm.js",
-  "typings": "typings/index.d.ts",
-  "scripts": {
-    "tsc": "tsc",
-    "build": "rollup -c  rollup.config.js",
-    "build:watch": "rollup -c  rollup.config.js --watch",
-    "test": "yarn test",
-    "test:watch": "yarn test --watch"
+  "homepage": "https://github.com/chenxiaoyao6228/js-rocks#readme",
+  "bugs": {
+    "url": "https://github.com/chenxiaoyao6228/js-rocks/issues"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chenxiaoyao6228/js-rocks.git"
+  },
+  "license": "MIT",
+  "author": "chenxiaoyao <chenxiaoyao6228@163.com>",
+  "typings": "typings/index.d.ts",
   "directories": {
     "lib": "lib",
     "test": "yarn test"
@@ -24,24 +26,20 @@
   "files": [
     "lib"
   ],
+  "scripts": {
+    "prettier-write": "prettier --parser=typescript \"src/**/*.{js,ts}\" --write",
+    "eslint-fix": "eslint \"src/**/*.{js,ts}\" --fix",
+    "typecheck": "tsc",
+    "build": "rollup -c  rollup.config.js",
+    "build:watch": "rollup -c  rollup.config.js --watch",
+    "test": "jest --selectProjects=lodash-tiny --config ../../jest.config.js",
+    "test:watch": "jest --selectProjects=lodash-tiny --c ../../jest.config.js --watch",
+    "tsc": "tsc"
+  },
+  "licence": "MIT",
+  "dependencies": {},
+  "devDependencies": {},
   "publishConfig": {
     "access": "public"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/chenxiaoyao6228/js-rocks.git"
-  },
-  "bugs": {
-    "url": "https://github.com/chenxiaoyao6228/js-rocks/issues"
-  },
-  "homepage": "https://github.com/chenxiaoyao6228/js-rocks#readme",
-  "devDependencies": {
-    "@rollup/plugin-commonjs": "^22.0.0",
-    "@rollup/plugin-node-resolve": "^13.2.1",
-    "rollup": "^2.70.2",
-    "ts-migrate": "^0.1.28"
-  },
-  "dependencies": {
-    "typescript": "^4.6.4"
   }
 }

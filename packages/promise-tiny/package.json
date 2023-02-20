@@ -1,22 +1,30 @@
 {
   "name": "@js-rocks/promise-tiny",
-  "version": "0.1.0-alpha.0",
+  "version": "0.1.0",
   "description": "simple promise implementation",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "main": "lib/promise-tiny.cjs.js",
+  "module": "lib/promise-tiny.esm.js",
+  "keywords": [
+    "promise"
+  ],
+  "homepage": "https://github.com/chenxiaoyao6228/js-rocks#readme",
+  "bugs": {
+    "url": "https://github.com/chenxiaoyao6228/js-rocks/issues"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/chenxiaoyao6228/js-rocks.git"
   },
-  "keywords": [
-    "promise"
-  ],
-  "author": "chenxiaoyao6228",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/chenxiaoyao6228/js-rocks/issues"
+  "author": "chenxiaoyao6228",
+  "scripts": {
+    "prettier-write": "prettier --parser=typescript \"src/**/*.{js,ts}\" --write",
+    "eslint-fix": "eslint \"src/**/*.{js,ts}\" --fix",
+    "typecheck": "tsc",
+    "test": "jest --selectProjects=promise-tiny --c ../../jest.config.js",
+    "test:watch": "jest --selectProjects=promise-tiny --c ../../jest.config.js --watch",
+    "build": "rollup -c rollup.config.js"
   },
-  "homepage": "https://github.com/chenxiaoyao6228/js-rocks#readme"
+  "dependencies": {},
+  "devDependencies": {}
 }

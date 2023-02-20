@@ -5,7 +5,7 @@ class ComputedRefImp {
   private _value: any;
   private _dirty: boolean;
   private _effect: ReactiveEffect;
-  constructor (getter: Function) {
+  constructor(getter: Function) {
     this._getter = getter;
     this._dirty = true;
     this._effect = new ReactiveEffect(getter, () => {
@@ -15,7 +15,7 @@ class ComputedRefImp {
     });
   }
 
-  get value () {
+  get value() {
     // set firty flag the effect value changes => Effect
     if (this._dirty) {
       this._value = this._effect.run();

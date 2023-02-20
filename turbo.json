@@ -1,0 +1,16 @@
+{
+  "baseBranch": "origin/master",
+  "pipeline": {
+    "build": {
+      "dependsOn": ["^build"]
+    },
+    "test": {
+      "dependsOn": ["^build"]
+    },
+    "prettier-write": {},
+    "typecheck": {
+      "dependsOn": ["^typecheck"]
+    },
+    "eslint-fix": {}
+  }
+}

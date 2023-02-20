@@ -6,7 +6,7 @@ function without(arr1: any[], arr2: any | any[], res = []) {
     ? without(arr1, [arr2[0]], res).cancat(without(arr1, arr2.slice(1), res))
     : res;
 }
-console.log("without([1,2],1)", without([1, 2], 1));
+console.log('without([1,2],1)', without([1, 2], 1));
 
 // TODO
 // type toUnion<T> = T extends any[] ? T[number] : T;

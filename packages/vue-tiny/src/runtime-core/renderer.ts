@@ -14,7 +14,7 @@ import { EMPTY_OBJ } from '../shared/utils';
 import { shouldComponentUpdate } from './helpers/componentUpdate';
 import { queueJobs } from './scheduler';
 
-export function createRenderer (options: {
+export function createRenderer(options: {
   createElement: (...args: any) => any;
   createText: (content: string) => any;
   patchProp: (...args: any) => void;
@@ -31,11 +31,11 @@ export function createRenderer (options: {
     setElementText: hostSetElementText,
   } = options;
 
-  function render (vnode: VNode, container: HTMLElement) {
+  function render(vnode: VNode, container: HTMLElement) {
     patch(null, vnode, container, {} as ComponentInstance);
   }
 
-  function patch (
+  function patch(
     n1: any,
     n2: VNode,
     container: HTMLElement,
@@ -63,7 +63,7 @@ export function createRenderer (options: {
     }
   }
 
-  function processComponent (
+  function processComponent(
     n1: any,
     n2: VNode,
     container: HTMLElement,
@@ -85,7 +85,7 @@ export function createRenderer (options: {
    * effect function return a runner which can be used to update current component
    *  should update props before calling runner to update component
    */
-  function patchComponent (n1: VNode, n2: VNode) {
+  function patchComponent(n1: VNode, n2: VNode) {
     if (shouldComponentUpdate(n1, n2)) {
       const instance = (n2.component = n1.component);
       if (instance) {
@@ -98,7 +98,7 @@ export function createRenderer (options: {
     }
   }
 
-  function mountComponent (
+  function mountComponent(
     initialVNode: VNode,
     container: HTMLElement,
     parentComponent: ComponentInstance,
@@ -120,7 +120,7 @@ export function createRenderer (options: {
    * wrap function in effect so that render function will be trigger after
    * every tracked value changed
    */
-  function setupRenderEffect (
+  function setupRenderEffect(
     instance: any,
     initialVNode: any,
     container: any,
@@ -155,20 +155,20 @@ export function createRenderer (options: {
         }
       },
       {
-        scheduler () {
+        scheduler() {
           queueJobs(instance.update);
         },
       }
     );
   }
 
-  function updateComponentPreRender (instance: ComponentInstance, nextVNode: VNode) {
+  function updateComponentPreRender(instance: ComponentInstance, nextVNode: VNode) {
     instance.vnode = nextVNode;
     instance.next = null;
     instance.props = nextVNode.props;
   }
 
-  function processElement (
+  function processElement(
     n1: any,
     n2: VNode,
     container: HTMLElement,
@@ -182,7 +182,7 @@ export function createRenderer (options: {
     }
   }
 
-  function patchElement (
+  function patchElement(
     n1: VNode,
     n2: VNode,
     container: HTMLElement,
@@ -200,7 +200,7 @@ export function createRenderer (options: {
     patchProp(el, oldProps, newProps);
   }
 
-  function patchProp (el: HTMLElement, oldProps: PropsType, newProps: PropsType) {
+  function patchProp(el: HTMLElement, oldProps: PropsType, newProps: PropsType) {
     // console.log('oldProps, newProps', oldProps, newProps);
     if (oldProps !== newProps) {
       for (const key in newProps) {
@@ -222,7 +222,7 @@ export function createRenderer (options: {
     }
   }
 
-  function mountElement (
+  function mountElement(
     vnode: VNode,
     container: HTMLElement,
     parentComponent: ComponentInstance,
@@ -248,7 +248,7 @@ export function createRenderer (options: {
     hostInsert(container, el, anchor);
   }
 
-  function mountChildren (
+  function mountChildren(
     children: ArrayChildrenType,
     container: HTMLElement,
     parentComponent: ComponentInstance,
@@ -259,7 +259,7 @@ export function createRenderer (options: {
     });
   }
 
-  function processFragment (
+  function processFragment(
     n1: VNode,
     n2: VNode,
     container: HTMLElement,
@@ -270,7 +270,7 @@ export function createRenderer (options: {
     mountChildren(children, container, parentComponent, anchor);
   }
 
-  function processText (
+  function processText(
     n1: VNode,
     n2: VNode,
     container: HTMLElement,
@@ -282,7 +282,7 @@ export function createRenderer (options: {
     hostInsert(container, textNode, anchor);
   }
 
-  function patchChilren (
+  function patchChilren(
     n1: VNode,
     n2: VNode,
     container: any,
@@ -314,7 +314,7 @@ export function createRenderer (options: {
     }
   }
 
-  function patchKeyChildren (
+  function patchKeyChildren(
     c1: ArrayChildrenType,
     c2: ArrayChildrenType,
     container: HTMLElement,
@@ -410,12 +410,12 @@ export function createRenderer (options: {
       }
     }
 
-    function isSameType (n1: VNode, n2: VNode) {
+    function isSameType(n1: VNode, n2: VNode) {
       return n1.type === n2.type && n1.key === n2.key;
     }
   }
 
-  function unmountChildren (container: HTMLElement, children: any) {
+  function unmountChildren(container: HTMLElement, children: any) {
     children.forEach((child: any) => {
       hostRemove(container, child.el);
     });

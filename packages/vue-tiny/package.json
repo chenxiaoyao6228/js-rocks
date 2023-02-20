@@ -1,34 +1,28 @@
 {
   "name": "@js-rocks/vue-tiny",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "build your own vue3",
+  "keywords": [
+    "vue3"
+  ],
+  "license": "MIT",
+  "author": "chenxiaoyao6228",
   "main": "lib/vue-tiny.cjs.js",
   "module": "lib/vue-tiny.esm.js",
   "types": "typings/index.ts",
   "scripts": {
-    "test": "jest",
-    "test:watch": "jest --watch",
+    "prettier-write": "prettier --parser=typescript \"src/**/*.{js,ts}\" --write",
+    "eslint-fix": "eslint \"src/**/*.{js,ts}\" --fix",
+    "typecheck": "tsc",
     "build": "rollup -c rollup.config.js",
-    "build:watch": "rollup --watch -c rollup.config.js"
-  },
-  "keywords": [
-    "vue3"
-  ],
-  "author": "chenxiaoyao6228",
-  "license": "MIT",
-  "devDependencies": {
-    "@babel/preset-env": "^7.16.11",
-    "@babel/preset-typescript": "^7.16.7",
-    "@rollup/plugin-commonjs": "^22.0.0",
-    "@rollup/plugin-node-resolve": "^13.3.0",
-    "@rollup/plugin-typescript": "^8.3.1",
-    "@types/jest": "^27.4.0",
-    "jest": "^27.5.1",
-    "rollup": "^2.70.1",
-    "tslib": "^2.3.1",
-    "typescript": "^4.5.5"
+    "build:watch": "rollup --watch -c rollup.config.js",
+    "test": "jest --selectProjects=vue-tiny --c ../../jest.config.js",
+    "test:watch": "jest --selectProjects=vue-tiny --c ../../jest.config.js --watch"
   },
   "dependencies": {
-    "@js-rocks/lodash-tiny": "^0.1.1-alpha.0"
+    "@js-rocks/lodash-tiny": "workspace:*"
+  },
+  "devDependencies": {
+    "tslib": "^2.5.0"
   }
 }

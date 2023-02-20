@@ -6,11 +6,11 @@ export const enum ReactiveFlags {
   IS_READONLY = '__v_isReadonly',
 }
 
-export function reactive (raw: Record<any, any>) {
+export function reactive(raw: Record<any, any>) {
   return createActiveObject(raw, mutableHandlers);
 }
 
-export function isReactive (obj) {
+export function isReactive(obj) {
   // 需要触发proxy的getter
   return !!obj[ReactiveFlags.IS_REACTIVE];
 }
@@ -20,19 +20,19 @@ export const isProxy = obj => {
 };
 
 // props are immutable and can be wrap with this api
-export function shallowReadonly (raw: Record<any, any>) {
+export function shallowReadonly(raw: Record<any, any>) {
   return createActiveObject(raw, shallowReadonlyHandlers);
 }
 
-export function readonly (raw: Record<any, any>) {
+export function readonly(raw: Record<any, any>) {
   return createActiveObject(raw, readonlyHandlers);
 }
 
-export function isReadonly (obj) {
+export function isReadonly(obj) {
   return !!obj[ReactiveFlags.IS_READONLY];
 }
 
-function createActiveObject (raw: any, baseHandler: any) {
+function createActiveObject(raw: any, baseHandler: any) {
   if (!isObject(raw)) {
     console.warn(`${raw} must be an object`);
     return raw;

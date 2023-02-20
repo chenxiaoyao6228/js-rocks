@@ -1,24 +1,34 @@
 {
   "name": "@js-rocks/babel-tiny",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "a simple babel",
-  "main": "lib/babel-tiny.cjs.js",
-  "module": "lib/babel-tiny.esm.js",
   "keywords": [
     "babel",
     "ast"
   ],
   "scripts": {
-    "test": "jest --watch",
-    "test:watch": "jest --watch",
+    "prettier-write": "prettier --parser=typescript \"src/**/*.{js,ts}\" --write",
+    "eslint-fix": "eslint \"src/**/*.{js,ts}\" --fix",
+    "typecheck": "tsc",
     "## run this command in the terminal and go to vscode debugger or press F5": "",
-    "test:debug": "node --inspect-brk node_modules/.bin/jest --runInBand",
     "build": "rollup -c rollup.config.js",
-    "build:watch": "rollup --watch -c rollup.config.js"
+    "build:watch": "rollup --watch -c rollup.config.js",
+    "test:debug": "node --inspect-brk node_modules/.bin/jest --runInBand",
+    "test": "jest --selectProjects=babel-tiny --c ../../jest.config.js",
+    "test:watch": "jest --selectProjects=babel-tiny --c ../../jest.config.js --watch"
   },
-  "author": "chenxiaoyao <chenxiaoyao6228@163.com>",
   "homepage": "https://github.com/chenxiaoyao6228/js-rocks#readme",
+  "bugs": {
+    "url": "https://github.com/chenxiaoyao6228/js-rocks/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chenxiaoyao6228/js-rocks.git"
+  },
   "license": "MIT",
+  "author": "chenxiaoyao <chenxiaoyao6228@163.com>",
+  "main": "lib/babel-tiny.cjs.js",
+  "module": "lib/babel-tiny.esm.js",
   "directories": {
     "lib": "lib",
     "test": "__tests__"
@@ -26,31 +36,14 @@
   "files": [
     "lib"
   ],
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/chenxiaoyao6228/js-rocks.git"
-  },
-  "bugs": {
-    "url": "https://github.com/chenxiaoyao6228/js-rocks/issues"
-  },
   "dependencies": {
+    "@js-rocks/lodash-tiny": "workspace:*",
     "acorn": "^8.3.0",
     "chokidar": "^3.5.2",
     "commander": "^8.1.0",
     "cosmiconfig": "^7.0.1",
     "glob": "^7.1.7",
-    "jest": "^28.1.1",
-    "source-map": "^0.7.3",
-    "sourcemap": "^0.1.0",
-    "@babel/preset-typescript": "^7.16.7"
+    "source-map": "^0.7.4"
   },
-  "devDependencies": {
-    "jest": "^27.5.1",
-    "source-map": "^0.7.4",
-    "@babel/preset-typescript": "^7.16.7",
-    "@rollup/plugin-commonjs": "^22.0.0",
-    "@rollup/plugin-node-resolve": "^13.3.0",
-    "@rollup/plugin-typescript": "^8.3.1",
-    "rollup": "^2.70.1"
-  }
+  "devDependencies": {}
 }

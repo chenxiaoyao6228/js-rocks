@@ -1,6 +1,6 @@
 // js实现
-const len = (arr) => arr.length;
-const last = (arr) => arr[arr.length - 1];
+const len = arr => arr.length;
+const last = arr => arr[arr.length - 1];
 function lastIndexOf(arr, item) {
   return arr.length > 0
     ? last(arr) === item
@@ -14,6 +14,6 @@ console.log(a);
 // 翻译成 TS
 type LastIndexOf<T extends unknown[], U> = T extends [...infer Rest, infer Last]
   ? Last extends U
-    ? Rest["length"]
+    ? Rest['length']
     : LastIndexOf<Rest, U>
   : -1;

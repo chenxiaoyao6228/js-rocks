@@ -5,7 +5,7 @@ import { isArray, isObject } from '../types';
  * @param {*} input
  * @return {*}
  */
-function arrayToTree (input) {
+function arrayToTree(input) {
   let obj;
   for (let item of input) {
     if (!item.parentId) obj = item;
@@ -22,12 +22,12 @@ function arrayToTree (input) {
  * @param {*} args
  * @return {*}
  */
-function add (...args) {
+function add(...args) {
   //求和
   return args.reduce((a, b) => a + b);
 }
-function currying (fn, args = []) {
-  return function temp (...innerArgs) {
+function currying(fn, args = []) {
+  return function temp(...innerArgs) {
     if (innerArgs.length > 0) {
       // 收集后面传入的参数
       args = [...args, ...innerArgs];
@@ -104,7 +104,7 @@ const curriedAdd = currying(add);
  * @param {*} object: 要查询的对象
  * @param {*} path: 查询路径
  */
-function get (object, path, defaultValue) {
+function get(object, path, defaultValue) {
   let pathArr;
   if (typeof path === 'string') {
     path = path.replace(/\[(\d+)\]/g, '.$1');
@@ -126,7 +126,7 @@ function get (object, path, defaultValue) {
 
 // 最简单的方法: JSON.stringify
 // 常规: 递归
-function deepClone (obj) {
+function deepClone(obj) {
   if (!isObject(obj) && !isArray(obj)) return;
   let result = isArray(obj) ? [] : {};
 
@@ -152,7 +152,7 @@ function deepClone (obj) {
   return result;
 }
 
-function stringify (obj) {
+function stringify(obj) {
   if (typeof obj !== 'object' || obj === null || obj instanceof Array) {
     return value(obj);
   }
@@ -168,7 +168,7 @@ function stringify (obj) {
       }) +
     '}'
   );
-  function value (val) {
+  function value(val) {
     switch (typeof val) {
       case 'string':
         return '"' + val.replace(/\\/g, '\\\\').replace('"', '\\"') + '"';
