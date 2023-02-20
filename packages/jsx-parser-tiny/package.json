@@ -1,6 +1,6 @@
 {
   "name": "@js-rocks/jsx-parser-tiny",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "a runtime jsx parser",
   "keywords": [
     "jsx parser"

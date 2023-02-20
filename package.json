@@ -5,6 +5,7 @@
   "scripts": {
     "changeset": "changeset",
     "bumpVersion": "changeset version",
+    "publish": "pnpm publish",
     "commit": "npx git-cz",
     "format": "pnpm prettier-write && pnpm eslint-fix",
     "eslint-fix": "turbo run eslint-fix",
