@@ -2,22 +2,15 @@
   "baseBranch": "origin/master",
   "pipeline": {
     "build": {
-      "dependsOn": [
-        "^build"
-      ]
+      "dependsOn": ["^build"]
     },
     "test": {
-      "dependsOn": [
-        "^build"
-      ]
+      "dependsOn": ["^build"]
     },
-    "prettier-check": {},
     "prettier-write": {},
     "typecheck": {
-      "dependsOn": [
-        "^typecheck"
-      ]
+      "dependsOn": ["^typecheck"]
     },
-    "eslint-check": {}
+    "eslint-fix": {}
   }
 }

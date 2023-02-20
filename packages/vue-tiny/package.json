@@ -11,9 +11,8 @@
   "module": "lib/vue-tiny.esm.js",
   "types": "typings/index.ts",
   "scripts": {
-    "prettier-check": "prettier --parser=typescript \"src/**/*.{js,ts}\" --check",
     "prettier-write": "prettier --parser=typescript \"src/**/*.{js,ts}\" --write",
-    "eslint-check": "eslint \"src/**/*.{js,ts}\"",
+    "eslint-fix": "eslint \"src/**/*.{js,ts}\" --fix",
     "typecheck": "tsc",
     "build": "rollup -c rollup.config.js",
     "build:watch": "rollup --watch -c rollup.config.js",

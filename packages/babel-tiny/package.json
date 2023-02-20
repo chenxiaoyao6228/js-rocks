@@ -7,9 +7,8 @@
     "ast"
   ],
   "scripts": {
-    "prettier-check": "prettier --parser=typescript \"src/**/*.{js,ts}\" --check",
     "prettier-write": "prettier --parser=typescript \"src/**/*.{js,ts}\" --write",
-    "eslint-check": "eslint \"src/**/*.{js,ts}\"",
+    "eslint-fix": "eslint \"src/**/*.{js,ts}\" --fix",
     "typecheck": "tsc",
     "## run this command in the terminal and go to vscode debugger or press F5": "",
     "build": "rollup -c rollup.config.js",

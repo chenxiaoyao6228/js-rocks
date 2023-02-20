@@ -1,57 +1,45 @@
 {
-    "jest.autoRun": "off",
-    "grammarly.files.include": [
-        "**/*.md",
-        "**/*.txt",
-        // "**/*.js"
-    ],
+  "jest.autoRun": "off",
+  "grammarly.files.include": [
+    "**/*.md",
+    "**/*.txt"
+    // "**/*.js"
+  ],
   "typescript.tsdk": "node_modules/typescript/lib", // tell vscode to use local installed typescript
-  "eslint.workingDirectories": ["./client", "./server"], // https://github.com/microsoft/vscode-eslint/issues/1397
-    "[javascript]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
-    "[typescript]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
-    "[javascriptreact]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
-    "[typescriptreact]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
-    "[jsonc]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
-    "[json]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
-    "[scss]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
-    "[less]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
-    "editor.codeActionsOnSave": {
-        "source.fixAll": true,
-        "source.fixAll.eslint": true,
-        "source.fixAll.stylelint": true
-    },
-    // ================ Stylelint ===================
-    // ===========================================
-    "stylelint.enable": true,
-    "stylelint.packageManager": "yarn",
-    "stylelint.validate": [
-        "css",
-        "postcss",
-        "less",
-        "scss",
-        "sass"
-    ],
-    // ===========================================
-    "eslint.validate": [
-        "javascript",
-        "typescript",
-        "reacttypescript",
-        "reactjavascript"
-    ]
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[scss]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[less]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "editor.codeActionsOnSave": {
+    "source.fixAll": true,
+    "source.fixAll.eslint": true,
+    "source.fixAll.stylelint": true
+  },
+  // ================ Stylelint ===================
+  // ===========================================
+  "stylelint.enable": true,
+  "stylelint.packageManager": "yarn",
+  "stylelint.validate": ["css", "postcss", "less", "scss", "sass"],
+  // ===========================================
+  "eslint.validate": ["javascript", "typescript", "reacttypescript", "reactjavascript"]
 }

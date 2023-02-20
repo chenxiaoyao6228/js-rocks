@@ -17,9 +17,8 @@
   "author": "chenxiaoyao6228",
   "main": "index.js",
   "scripts": {
-    "prettier-check": "prettier --parser=typescript \"src/**/*.{js,ts}\" --check",
     "prettier-write": "prettier --parser=typescript \"src/**/*.{js,ts}\" --write",
-    "eslint-check": "eslint \"src/**/*.{js,ts}\"",
+    "eslint-fix": "eslint \"src/**/*.{js,ts}\" --fix",
     "typecheck": "tsc",
     "test": "jest --selectProjects=promise-tiny --c ../../jest.config.js",
     "test:watch": "jest --selectProjects=promise-tiny --c ../../jest.config.js --watch"

@@ -4,12 +4,13 @@ module.exports = {
     commonjs: true,
   },
   extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended'],
+  plugins: ['prettier', '@typescript-eslint', 'jest'],
   parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaVersion: 8,
   },
-  plugins: ['@typescript-eslint', 'jest'],
   rules: {
+    'prettier/prettier': 'error',
     '@typescript-eslint/no-unused-vars': 'off',
     '@typescript-eslint/no-empty-function': 'off',
     'no-empty-function': 'off',
@@ -36,4 +37,12 @@ module.exports = {
       },
     },
   ],
+  globals: {
+    process: true,
+    describe: true,
+    test: true,
+    __dirname: true,
+    expect: true,
+    jest: true,
+  },
 };

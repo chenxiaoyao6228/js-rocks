@@ -27,9 +27,8 @@
     "lib"
   ],
   "scripts": {
-    "prettier-check": "prettier --parser=typescript \"src/**/*.{js,ts}\" --check",
     "prettier-write": "prettier --parser=typescript \"src/**/*.{js,ts}\" --write",
-    "eslint-check": "eslint \"src/**/*.{js,ts}\"",
+    "eslint-fix": "eslint \"src/**/*.{js,ts}\" --fix",
     "typecheck": "tsc",
     "build": "rollup -c  rollup.config.js",
     "build:watch": "rollup -c  rollup.config.js --watch",

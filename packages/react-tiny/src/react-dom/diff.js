@@ -14,7 +14,6 @@ export function diff(dom, vnode, container) {
   if (container && ret.parentNode !== container) {
     container.appendChild(ret);
   }
-
   return ret;
 }
 
@@ -83,7 +82,6 @@ function diffChildren(dom, vchildren) {
       const child = domChildren[i];
       const key = child.key;
       if (key) {
-        keyedLen++;
         keyed[key] = child;
       } else {
         children.push(child);
