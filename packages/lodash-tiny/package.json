@@ -1,6 +1,6 @@
 {
   "name": "@js-rocks/lodash-tiny",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "lodash-like utils library",
   "type": "module",
   "main": "lib/lodash-tiny.cjs.js",
