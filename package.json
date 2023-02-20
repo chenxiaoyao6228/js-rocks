@@ -14,6 +14,9 @@
     "prepare": "husky install",
     "build:react": "pnpm --filter @js-rocks/react-tiny build",
     "build:promise": "pnpm --filter @js-rocks/promise-tiny build",
+    "build:lodash": "pnpm --filter @js-rocks/lodash-tiny build",
+    "build:babel": "pnpm --filter @js-rocks/babel-tiny build",
+    "build:vue": "pnpm --filter @js-rocks/vue-tiny build",
     "test": "turbo run test",
     "build": "turbo run build",
     "removeCache": "find . -name '.turbo' -type d -prune -exec rm -rf '{}' +"
