@@ -1,7 +1,9 @@
 {
   "name": "@js-rocks/promise-tiny",
-  "version": "0.0.1-alpha",
+  "version": "0.1.0",
   "description": "simple promise implementation",
+  "main": "lib/promise-tiny.cjs.js",
+  "module": "lib/promise-tiny.esm.js",
   "keywords": [
     "promise"
   ],
@@ -15,13 +17,13 @@
   },
   "license": "MIT",
   "author": "chenxiaoyao6228",
-  "main": "index.js",
   "scripts": {
     "prettier-write": "prettier --parser=typescript \"src/**/*.{js,ts}\" --write",
     "eslint-fix": "eslint \"src/**/*.{js,ts}\" --fix",
     "typecheck": "tsc",
     "test": "jest --selectProjects=promise-tiny --c ../../jest.config.js",
-    "test:watch": "jest --selectProjects=promise-tiny --c ../../jest.config.js --watch"
+    "test:watch": "jest --selectProjects=promise-tiny --c ../../jest.config.js --watch",
+    "build": "rollup -c rollup.config.js"
   },
   "dependencies": {},
   "devDependencies": {}

@@ -1,14 +1,19 @@
+import pkg from './package.json';
 import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 
-export default [
-  {
-    input: './src/index.js',
-    output: {
-      dir: 'dist',
-      format: 'esm',
-      entryFileNames: '[name].esm.js',
+export default {
+  input: './src/index.js',
+  output: [
+    {
+      format: 'cjs',
+      file: pkg.main,
     },
-    plugins: [resolve(), commonjs()],
-  },
-];
+    {
+      format: 'es',
+      file: pkg.module,
+    },
+  ],
+
+  plugins: [resolve(), commonjs()],
+};
