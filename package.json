@@ -3,6 +3,8 @@
   "name": "js-rocks",
   "description": "a javascript library rebuild series",
   "scripts": {
+    "changeset": "changeset",
+    "bumpVersion": "changeset version",
     "commit": "npx git-cz",
     "format": "pnpm prettier-write && pnpm eslint-fix",
     "eslint-fix": "turbo run eslint-fix",
@@ -29,6 +31,7 @@
     "@babel/plugin-transform-runtime": "^7.19.6",
     "@babel/preset-env": "^7.20.2",
     "@babel/preset-typescript": "^7.18.6",
+    "@changesets/cli": "^2.26.0",
     "@commitlint/cli": "^16.3.0",
     "@commitlint/config-conventional": "^16.2.4",
     "@rollup/plugin-commonjs": "^22.0.2",
