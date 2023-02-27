@@ -36,4 +36,27 @@ describe('Parse', () => {
       });
     });
   });
+
+  test('<div>hi,{{message}}</div>', () => {
+    const ast = baseParse('<div>hi,{{message}}</div>');
+    console.log('ast', ast);
+
+    expect(ast.children[0]).toStrictEqual({
+      type: NodeTypes.ELEMENT,
+      tag: 'div',
+      children: [
+        {
+          type: NodeTypes.TEXT,
+          content: 'hi,',
+        },
+        {
+          type: NodeTypes.INTERPOLATION,
+          content: {
+            type: NodeTypes.SIMPLE_EXPRESSION,
+            content: 'message',
+          },
+        },
+      ],
+    });
+  });
 });

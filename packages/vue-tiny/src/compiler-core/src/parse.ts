@@ -15,25 +15,48 @@ function parseChildren(context: any) {
 
   let node;
   const s = context.source;
-  if (s.startsWith('{{')) {
-    node = parseInterpolation(context);
-  } else if (s[0] === '<') {
-    if (/[a-z]/i.test(s[1])) {
-      node = parseElement(context);
+  while (!isEnd(context)) {
+    if (s.startsWith('{{')) {
+      node = parseInterpolation(context);
+    } else if (s[0] === '<') {
+      if (/[a-z]/i.test(s[1])) {
+        node = parseElement(context);
+      }
     }
-  }
 
-  if (!node) {
-    node = parseText(context);
+    if (!node) {
+      console.log('1111', 1111);
+      node = parseText(context);
+    }
+    nodes.push(node);
   }
-
-  nodes.push(node);
 
   return nodes;
 }
 
+function parseElement(context: any) {
+  const element: any = parseTag(context, TagType.Start);
+
+  const children = parseChildren(context);
+
+  element.children = children;
+
+  parseTag(context, TagType.End);
+
+  return element;
+}
+
+// hi,{{message}}
 function parseText(context: any) {
-  const content = parseTextData(context, context.source.length);
+  let endIndex = context.source.length;
+  const endToken = '{{';
+  const index = context.source.indexOf(endToken);
+  if (index !== -1) {
+    endIndex = index;
+  }
+
+  const content = parseTextData(context, endIndex);
+  advanceBy(context, content.length);
   return {
     type: NodeTypes.TEXT,
     content,
@@ -43,21 +66,15 @@ function parseText(context: any) {
 function parseTextData(context: any, length: number) {
   const content = context.source.slice(0, length);
   advanceBy(context, length);
+  console.log('context.source1111', context.source);
   return content;
 }
 
-function parseElement(context: any) {
-  const element = parseTag(context, TagType.Start);
-
-  parseTag(context, TagType.End);
-
-  return element;
-}
-
-// <div></div>
+// tag element and attribute
 function parseTag(context: any, type: TagType) {
   const match: any = /^<\/?([a-z]*)/i.exec(context.source);
   const tag = match[1];
+
   advanceBy(context, match[0].length);
   advanceBy(context, 1);
 
@@ -108,4 +125,11 @@ function createParserContext(content: string): any {
   return {
     source: content,
   };
+}
+function isEnd(context) {
+  console.log('context inEnd', context);
+  if (!context.source.length) {
+    return true;
+  }
+  return false;
 }

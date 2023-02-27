@@ -18,6 +18,7 @@
     "build:lodash": "pnpm --filter @js-rocks/lodash-tiny build",
     "build:babel": "pnpm --filter @js-rocks/babel-tiny build",
     "build:vue": "pnpm --filter @js-rocks/vue-tiny build",
+    "test:vue": "pnpm --filter @js-rocks/vue-tiny test:watch",
     "test": "turbo run test",
     "build": "turbo run build",
     "removeCache": "find . -name '.turbo' -type d -prune -exec rm -rf '{}' +"
