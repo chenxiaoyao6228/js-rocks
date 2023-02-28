@@ -40,7 +40,7 @@ describe('effect', () => {
     // should run fn again when manual run 'runner' functio
     let dummy: any;
     let run: any;
-    const scheduler = jest.fn(() => {
+    const scheduler = vi.fn(() => {
       run = runner;
     });
     const obj = reactive({ foo: 1 });
@@ -85,7 +85,7 @@ describe('effect', () => {
 
   test('onStop', () => {
     const obj = reactive({ prop: 1 });
-    const onStop = jest.fn();
+    const onStop = vi.fn();
     let dummy;
     const runner = effect(
       () => {

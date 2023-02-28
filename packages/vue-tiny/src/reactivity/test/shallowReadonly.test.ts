@@ -9,7 +9,7 @@ describe('shallowReadonly', () => {
   });
 
   test('should warn when call setter', () => {
-    console.warn = jest.fn();
+    console.warn = vi.fn();
 
     const use = shallowReadonly({
       age: 10,
