@@ -16,14 +16,13 @@ function parseChildren(context: any, ancestors) {
   const nodes: any = [];
 
   let node;
-  const s = context.source;
-  // 💥: the key pointer is to understand this diagram
+  // 💥: the key point is to understand this diagram
   while (!isEnd(context, ancestors)) {
-    console.log('context.source', context.source);
-    if (s.startsWith('{{')) {
+    // console.log('context.source', context.source);
+    if (context.source.startsWith('{{')) {
       node = parseInterpolation(context);
-    } else if (s[0] === '<') {
-      if (/[a-z]/i.test(s[1])) {
+    } else if (context.source[0] === '<') {
+      if (/[a-z]/i.test(context.source[1])) {
         node = parseElement(context, ancestors);
       }
     }
@@ -47,19 +46,24 @@ function parseElement(context: any, ancestors) {
 
   ancestors.pop();
 
-  parseTag(context, TagType.End);
-
+  if (startsWithEndTagOpen(context.source, element.tag)) {
+    parseTag(context, TagType.End);
+  } else {
+    throw new Error(`Missing endTag: ${element.tag}`);
+  }
   return element;
 }
 
 // hi,{{message}}
 function parseText(context: any) {
   let endIndex = context.source.length;
-  const endToken = '{{';
-  const index = context.source.indexOf(endToken);
-  if (index !== -1) {
-    endIndex = index;
-  }
+  const endTokens = ['{{', '</'];
+  endTokens.forEach(endToken => {
+    const index = context.source.indexOf(endToken);
+    if (index !== -1 && endIndex > index) {
+      endIndex = index;
+    }
+  });
 
   const content = parseTextData(context, endIndex);
   advanceBy(context, content.length);
@@ -71,7 +75,6 @@ function parseText(context: any) {
 
 function parseTextData(context: any, length: number) {
   const content = context.source.slice(0, length);
-  advanceBy(context, length);
   return content;
 }
 
@@ -137,10 +140,20 @@ function isEnd(context, ancestors) {
   if (!context.source.length) {
     return true;
   }
-  const parent = ancestors[ancestors.length - 1];
-  if (parent && context.source.startsWith(`</${parent.tag}`)) {
-    return true;
+  const s = context.source;
+  if (s.startsWith('</')) {
+    for (let i = ancestors.length - 1; i >= 0; i--) {
+      const tag = ancestors[i].tag;
+      if (startsWithEndTagOpen(s, tag)) {
+        return true;
+      }
+    }
   }
-
   return false;
+}
+
+function startsWithEndTagOpen(source, tag) {
+  return (
+    source.startsWith('</') && source.slice(2, 2 + tag.length).toLowerCase() === tag.toLowerCase()
+  );
 }
