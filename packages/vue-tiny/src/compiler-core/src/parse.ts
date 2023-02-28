@@ -7,25 +7,28 @@ const enum TagType {
 
 export function baseParse(content: string) {
   const context = createParserContext(content);
-  return createRoot(parseChildren(context));
+  // parse ancestors array recursively
+  return createRoot(parseChildren(context, []));
 }
 
-function parseChildren(context: any) {
+// main state transition diagram
+function parseChildren(context: any, ancestors) {
   const nodes: any = [];
 
   let node;
   const s = context.source;
-  while (!isEnd(context)) {
+  // 💥: the key pointer is to understand this diagram
+  while (!isEnd(context, ancestors)) {
+    console.log('context.source', context.source);
     if (s.startsWith('{{')) {
       node = parseInterpolation(context);
     } else if (s[0] === '<') {
       if (/[a-z]/i.test(s[1])) {
-        node = parseElement(context);
+        node = parseElement(context, ancestors);
       }
     }
 
     if (!node) {
-      console.log('1111', 1111);
       node = parseText(context);
     }
     nodes.push(node);
@@ -33,13 +36,16 @@ function parseChildren(context: any) {
 
   return nodes;
 }
-
-function parseElement(context: any) {
+// parse startTag, children and endTag
+function parseElement(context: any, ancestors) {
   const element: any = parseTag(context, TagType.Start);
 
-  const children = parseChildren(context);
+  ancestors.push(element);
 
+  const children = parseChildren(context, ancestors);
   element.children = children;
+
+  ancestors.pop();
 
   parseTag(context, TagType.End);
 
@@ -66,7 +72,6 @@ function parseText(context: any) {
 function parseTextData(context: any, length: number) {
   const content = context.source.slice(0, length);
   advanceBy(context, length);
-  console.log('context.source1111', context.source);
   return content;
 }
 
@@ -126,10 +131,16 @@ function createParserContext(content: string): any {
     source: content,
   };
 }
-function isEnd(context) {
-  console.log('context inEnd', context);
+
+function isEnd(context, ancestors) {
+  //💥: Termination condition : 1. input source empty 2. when encounter end tag of parent
   if (!context.source.length) {
     return true;
   }
+  const parent = ancestors[ancestors.length - 1];
+  if (parent && context.source.startsWith(`</${parent.tag}`)) {
+    return true;
+  }
+
   return false;
 }

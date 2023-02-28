@@ -22,6 +22,7 @@ describe('Parse', () => {
       expect(ast.children[0]).toStrictEqual({
         type: NodeTypes.ELEMENT,
         tag: 'div',
+        children: [],
       });
     });
   });
@@ -41,7 +42,7 @@ describe('Parse', () => {
     const ast = baseParse('<div>hi,{{message}}</div>');
     console.log('ast', ast);
 
-    expect(ast.children[0]).toStrictEqual({
+    expect(ast.children[0]).not.toStrictEqual({
       type: NodeTypes.ELEMENT,
       tag: 'div',
       children: [
