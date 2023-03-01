@@ -1,17 +1,31 @@
-export function transform(ast, options) {
-  traverseNode(ast, options);
+export function transform(root, options = {}) {
+  const context = createTransformContext(root, options);
+  traverseNode(root, context);
+  createRootCodegen(root);
 }
-function traverseNode(ast: any, options) {
-  const { nodeTransforms } = options;
+
+function traverseNode(root: any, context: any = {}) {
+  const { nodeTransforms } = context;
   nodeTransforms.forEach(nodeTransform => {
-    nodeTransform(ast);
+    nodeTransform(root);
   });
 
-  const children = ast.children;
+  const children = root.children;
   if (children && children.length) {
     for (let i = 0; i < children.length; i++) {
       const node = children[i];
-      traverseNode(node, options);
+      traverseNode(node, context);
     }
   }
+}
+
+function createTransformContext(root, options) {
+  return {
+    root,
+    nodeTransforms: options.nodeTransforms || [],
+  };
+}
+
+function createRootCodegen(root: any) {
+  root.codegenNode = root.children[0];
 }
