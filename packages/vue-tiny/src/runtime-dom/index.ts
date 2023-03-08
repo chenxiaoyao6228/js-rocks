@@ -1,6 +1,7 @@
-import { isNull, isObject, isUndefined } from '@js-rocks/lodash-tiny';
+import { isNull, isUndefined } from '@js-rocks/lodash-tiny';
 import { ElementType } from '../../typings';
 import { createRenderer } from '../runtime-core';
+export * from '../runtime-core';
 
 function createElement(type: ElementType) {
   return document.createElement(type);
@@ -46,5 +47,3 @@ const renderer: any = createRenderer({
 export function createApp(...args: any) {
   return renderer.createApp(...args);
 }
-
-export * from '../runtime-core';

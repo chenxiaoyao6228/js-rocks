@@ -14,8 +14,9 @@
     "prettier-write": "prettier --parser=typescript \"src/**/*.{js,ts}\" --write",
     "eslint-fix": "eslint \"src/**/*.{js,ts}\" --fix",
     "typecheck": "tsc",
-    "build": "rollup -c rollup.config.js",
+    "build": "rollup -c rollup.config.js ",
     "build:watch": "rollup --watch -c rollup.config.js",
+    "vitest": "vitest --config ./vitest.config.ts",
     "test": "jest --selectProjects=vue-tiny --c ../../jest.config.js",
     "test:watch": "jest --selectProjects=vue-tiny --c ../../jest.config.js --watch"
   },
@@ -23,6 +24,7 @@
     "@js-rocks/lodash-tiny": "workspace:*"
   },
   "devDependencies": {
-    "tslib": "^2.5.0"
+    "tslib": "^2.5.0",
+    "vitest": "^0.29.1"
   }
 }

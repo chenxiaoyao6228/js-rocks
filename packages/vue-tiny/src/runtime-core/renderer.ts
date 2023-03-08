@@ -132,7 +132,8 @@ export function createRenderer(options: {
         if (instance.isMounted) {
           console.log('init instance');
           const { proxy } = instance;
-          const subTree = (instance.subTree = instance.render.call(proxy));
+          // dynamic pass proxy context by method.call(obj)
+          const subTree = (instance.subTree = instance.render.call(proxy, proxy));
           patch(null, subTree, container, instance, anchor);
           initialVNode.el = subTree.el;
           instance.isMounted = false;
@@ -140,7 +141,6 @@ export function createRenderer(options: {
           // update
           console.log('update instance');
 
-          //
           const { next, vnode } = instance;
           if (next) {
             next.el = vnode.el;
@@ -148,7 +148,7 @@ export function createRenderer(options: {
           }
 
           const { proxy } = instance;
-          const subTree = instance.render.call(proxy);
+          const subTree = instance.render.call(proxy, proxy);
           const prevTree = instance.subTree;
           instance.subTree = subTree;
           patch(prevTree, subTree, container, instance, anchor);

@@ -1,6 +1,6 @@
 import { ChildrenType, PropsType, ShapeFlags, VNode, VNode_TYPE } from '../../typings/index';
 
-export function createVNode(type: VNode_TYPE, props?: PropsType, children?: ChildrenType): VNode {
+export function createVNode(type: VNode_TYPE, props?: PropsType, children?: ChildrenType): any {
   const vnode = {
     type,
     props: props ? props : {},
@@ -21,7 +21,6 @@ export function createVNode(type: VNode_TYPE, props?: PropsType, children?: Chil
       vnode.shapeFlag |= ShapeFlags.SLOT_CHILDREN;
     }
   }
-
   return vnode;
 }
 

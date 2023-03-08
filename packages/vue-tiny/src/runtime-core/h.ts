@@ -14,3 +14,5 @@ export function h(type: ComponentType & ElementType, props?: PropsType, children
 export function createTextVNode(text: string) {
   return createVNode('text', {}, text);
 }
+
+export const createElementVNode = h;

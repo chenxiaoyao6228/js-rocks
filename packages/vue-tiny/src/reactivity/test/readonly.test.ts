@@ -13,7 +13,7 @@ describe('readonly', () => {
   });
 
   test('should warn when call setter', () => {
-    console.warn = jest.fn();
+    console.warn = vi.fn();
 
     const use = readonly({
       age: 10,

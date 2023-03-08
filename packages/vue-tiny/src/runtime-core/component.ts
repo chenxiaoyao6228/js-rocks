@@ -76,7 +76,20 @@ function handleSetupResult(instance: ComponentInstance, setupResult: SetupState)
   finishComponentSetup(instance);
 }
 
-function finishComponentSetup(instance: ComponentInstance) {
+function finishComponentSetup(instance: any) {
   const Component = instance.type;
+
+  if (compiler && !Component.render) {
+    if (Component.template) {
+      Component.render = compiler(Component.template);
+    }
+  }
+
   instance.render = Component.render;
+}
+
+let compiler;
+
+export function registerRuntimeCompiler(_compiler) {
+  compiler = _compiler;
 }

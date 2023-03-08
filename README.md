@@ -64,15 +64,9 @@ A simple runtime JSX parser
 
 * [ ] [code-sandbox-tiny](): a simple online codesandbox
 
+* [ ] [resume-creator](): a simple resume creator
+
 ... more
-
-## Publish
-
-cd to package root folder and run
-
-```sh
-npm publish --access=public
-```
 
 ## Licence
 
