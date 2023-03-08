@@ -1,5 +1,11 @@
 # @js-rocks/vue-tiny
 
+## 0.2.0
+
+### Minor Changes
+
+- feat: complete runtime compiler
+
 ## 0.1.0
 
 ### Minor Changes
