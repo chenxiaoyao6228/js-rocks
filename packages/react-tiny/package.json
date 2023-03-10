@@ -15,7 +15,7 @@
     "eslint-fix": "eslint \"src/**/*.{js,ts}\" --fix",
     "typecheck": "tsc",
     "build:watch": "rollup --watch -c rollup.config.js",
-    "vite": "vitest",
+    "vitest": "vitest",
     "test": "jest --selectProjects=react-tiny --c ../../jest.config.js",
     "test:watch": "jest --selectProjects=react-tiny --c ../../jest.config.js --watch"
   },
