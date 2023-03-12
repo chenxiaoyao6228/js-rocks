@@ -46,28 +46,6 @@ A simple react implementation
 
 A simple runtime JSX parser
 
-## 💡Ideas
-
-- [ ] [http-tiny](): a simple HTTP request library, based on fetch
-
-* [ ] [react-router-tiny](): a simple single-page router
-
-* [ ] [webpack-tiny](): webpack-like web bundler
-
-* [ ] [vuepress-tiny](): a static site generator
-
-- [ ] [markdown-editor-tiny](): a simple web-based markdown editor
-
-- [ ] [redux-tiny](): a simple state management system
-
-* [ ] [code-highlight-plugin](): a code hight light plugin
-
-* [ ] [code-sandbox-tiny](): a simple online codesandbox
-
-* [ ] [resume-creator](): a simple resume creator
-
-... more
-
 ## Licence
 
 MIT
