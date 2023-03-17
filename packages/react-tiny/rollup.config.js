@@ -4,7 +4,7 @@ import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 
 export default {
-  input: './src/index.js',
+  input: './src/index.ts',
   output: [
     {
       format: 'cjs',
@@ -16,5 +16,13 @@ export default {
     },
   ],
 
-  plugins: [resolve(), commonjs()],
+  plugins: [
+    typescript({
+      tsconfig: 'tsconfig.json',
+      removeComments: true,
+      // useTsconfigDeclarationDir: true,
+    }),
+    resolve(),
+    commonjs(),
+  ],
 };

@@ -14,6 +14,7 @@
     "preinstall": "npx only-allow pnpm",
     "prepare": "husky install",
     "build:react": "pnpm --filter @js-rocks/react-tiny build",
+    "build:react:watch": "pnpm --filter @js-rocks/react-tiny build:watch",
     "build:promise": "pnpm --filter @js-rocks/promise-tiny build",
     "build:lodash": "pnpm --filter @js-rocks/lodash-tiny build",
     "build:babel": "pnpm --filter @js-rocks/babel-tiny build",

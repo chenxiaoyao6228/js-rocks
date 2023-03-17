@@ -7,7 +7,7 @@ This article will answer the following questions:
 - jsx testing ?
 - jsx-dev-runtime and how to use it ?
 - jsx to fiber ?
-- children vs vue slot
+- jsx comparision with Vue
 
 ## What is jsx
 
@@ -43,6 +43,8 @@ in your tsconfig.json, for more, [see the docs here](https://www.typescriptlang.
 
 change your file extension to `.tsx`
 
+Unit test:
+
 ```tsx
 import { h } from '../src/index';
 
@@ -55,3 +57,7 @@ test('h', () => {
   });
 });
 ```
+
+## jsx-dev-runtime
+
+since Reactv17.0, we don't need to write `import React from 'react` anymore, [see](https://reactjs.org/blog/2020/09/22/introducing-the-new-jsx-transform.html), and [here](https://www.npmjs.com/package/vite-plugin-babel)

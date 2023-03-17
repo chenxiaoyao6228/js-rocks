@@ -41,6 +41,7 @@ render(<App />, document.body);
 - [ ] (Error boundary)
 - [ ] (Custom renderer support?)
 - [ ] (Hydrate)
+- [ ] (HMR support?)
 
 ## Inspired by
 

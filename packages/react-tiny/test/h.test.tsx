@@ -1,9 +1,11 @@
-import { h } from '../src/index'
+import { h } from '../src/index';
 
-test('h', () => {
-  expect(<div />).toEqual({
-    type: 'div',
-    props: {},
-    children: [],
+describe('h', () => {
+  test('element', () => {
+    expect(<div />).toEqual({
+      type: 'div',
+      props: {},
+      children: [],
+    });
   });
 });
