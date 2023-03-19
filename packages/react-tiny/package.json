@@ -8,20 +8,12 @@
   ],
   "main": "dist/react-tiny.cjs.js",
   "module": "dist/react-tiny.esm.js",
-  "exports": {
-    ".": {
-      "import": "./dist/react-tiny.esm.js"
-    },
-    "./jsx-runtime": {
-      "import": "./jsx-dev-runtime.js"
-    }
-  },
   "scripts": {
     "prettier-write": "prettier --parser=typescript \"src/**/*.{js,ts}\" --write",
     "eslint-fix": "eslint \"src/**/*.{js,ts}\" --fix",
     "typecheck": "tsc",
-    "build": "rollup  -c rollup.config.js",
-    "build:watch": "rollup --watch -c rollup.config.js",
+    "build": "rimraf dist && rollup  -c rollup.config.js",
+    "build:watch": "rimraf dist && rollup --watch -c rollup.config.js",
     "vitest": "vitest"
   },
   "devDependencies": {
@@ -30,11 +22,9 @@
     "@babel/preset-react": "^7.10.1",
     "babel-loader": "^8.0.6",
     "core-js": "^3.6.4",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1"
+    "vitest": "^0.29.1"
   },
   "dependencies": {
-    "@js-rocks/lodash-tiny": "workspace:*",
-    "vitest": "^0.29.1"
+    "@js-rocks/lodash-tiny": "workspace:*"
   }
 }

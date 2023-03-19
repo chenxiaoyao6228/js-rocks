@@ -76,5 +76,8 @@
   "repository": "https://github.com/chenxiaoyao6228/js-rocks.git",
   "author": "chenxiaoyao <chenxiaoyao6228@163.com>",
   "version": "independent",
-  "link-workspace-packages": false
+  "link-workspace-packages": false,
+  "dependencies": {
+    "rimraf": "^4.4.0"
+  }
 }

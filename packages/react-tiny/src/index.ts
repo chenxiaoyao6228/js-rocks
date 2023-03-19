@@ -1,2 +1,1 @@
-export { h } from './h';
-export { render } from './reconciler';
+export { jsx as h } from './react';

@@ -1,5 +1,6 @@
 node_modules
 .DS_Store
 packages/**/lib/**
+packages/**/dist/**
 packages/**/.rollup.cache/**
 packages/**/.turbo/**
