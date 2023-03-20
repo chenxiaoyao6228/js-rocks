@@ -12,3 +12,5 @@ export interface ReactElementType {
   // custom key for debug
   __mark: string;
 }
+
+export type Action<State> = State | ((preState: State) => State);
