@@ -1,15 +1,34 @@
+import { HostRoot } from './workTag';
 import { beginWork } from './beginWork';
 import { completeWork } from './completeWork';
-import { FiberNode } from './fiber';
+import { createWorkInProgress, FiberNode, FiberRootNode } from './fiber';
 
 let workingProgress: FiberNode | null = null;
 const current: FiberNode | null = null;
 
-function perpareFreshStack(fiber: FiberNode) {
-  workingProgress = fiber;
+function perpareFreshStack(root: FiberRootNode) {
+  workingProgress = createWorkInProgress(root.current, {});
 }
 
-function renderRoot(root: FiberNode) {
+// link workLoop and updateQueue
+export function scheduleUpdateOnFiber(fiber: FiberNode) {
+  const fiberRoot = markUpdateFromFiberToRoot(fiber);
+  renderRoot(fiberRoot);
+}
+
+function markUpdateFromFiberToRoot(fiber: FiberNode): FiberRootNode | null {
+  let node = fiber;
+  while (node.return) {
+    node = node.return;
+  }
+  if (node.tag === HostRoot) {
+    // hostRootFiber.stateNode ---> fiberRootNode
+    return node.stateNode;
+  }
+  return null;
+}
+
+function renderRoot(root: FiberRootNode) {
   // initialization
   perpareFreshStack(root);
   // start workLoop
@@ -34,7 +53,7 @@ function workLoop() {
 function performUnitOfWork(fiber: FiberNode) {
   const next = beginWork(fiber);
   // update props
-  fiber.memerizedProps = fiber.pendingProps;
+  fiber.memoizedProps = fiber.pendingProps;
 
   if (next === null) {
     // have reached the leaf node and should go back
