@@ -1,9 +1,9 @@
 import { createUpdateQueue, createUpdate, enqueueUpdate, UpdateQueue } from './updateQueue';
-import { ReactElementType } from './../../../dist/shared/ReactTypes.d';
 import { HostRoot } from './workTag';
 import { FiberNode, FiberRootNode } from './fiber';
 import { Container } from '../../react-dom/src/hostConfig';
 import { scheduleUpdateOnFiber } from './workLoop';
+import { ReactElementType } from '../../shared/ReactTypes';
 
 //🔺ReactDOM.createRoot(document.querySelector('#root')).render(<App/>)
 

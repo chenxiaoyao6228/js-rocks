@@ -1,5 +1,4 @@
-import { ReactElementType } from './../../../dist/shared/ReactTypes.d';
-import { Key, Props } from '../../shared/ReactTypes';
+import { Key, Props, ReactElementType } from '../../shared/ReactTypes';
 import { Flags, NoFlags } from './fiberFlag';
 // TODO: use typescript alias to import hostConfig from other packages
 import { Container } from '../../react-dom/src/hostConfig';
@@ -29,7 +28,6 @@ export class FiberNode {
   memoizedProps: Props | null;
   alternative: FiberNode | null;
   updateQueue: unknown;
-  alternative: FiberNode | null;
 
   flags: Flags;
   subtreeFlags: Flags;
