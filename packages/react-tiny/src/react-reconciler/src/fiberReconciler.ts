@@ -19,7 +19,11 @@ export function createContainer(container: Container) {
   const fiberRoot = new FiberRootNode(container, hostRootFiber);
   hostRootFiber.updateQueue = createUpdateQueue();
 
-  return fiberRoot;
+  return {
+    render(element: ReactElementType) {
+      updateContainer(element, fiberRoot);
+    },
+  };
 }
 
 // ReactDOM.render, setState

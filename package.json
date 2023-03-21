@@ -78,6 +78,7 @@
   "version": "independent",
   "link-workspace-packages": false,
   "dependencies": {
+    "@rollup/plugin-replace": "^5.0.2",
     "rimraf": "^4.4.0"
   }
 }

@@ -1,8 +1,18 @@
 // need to execute build command bebore import
 // import { h } from '@js-rocks/react-tiny';
 
-import { h } from '../../src/index';
+import { h, createRoot } from '../../src/index';
 
-const elements = <div>hello world</div>;
+function App() {
+  return (
+    <div>
+      <Child />
+    </div>
+  );
+}
 
-console.log(elements);
+function Child() {
+  return <span>Tester</span>;
+}
+debugger;
+createRoot(document.getElementById('root') as HTMLElement).render(<App />);

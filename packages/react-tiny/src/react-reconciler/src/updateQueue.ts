@@ -10,6 +10,7 @@ export interface UpdateQueue<State> {
   };
 }
 
+// 🔺 action might also be a react component that consumes state
 export const createUpdate = <State>(action: Action<State>): Update<State> => {
   return { action };
 };

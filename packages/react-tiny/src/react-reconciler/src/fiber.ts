@@ -1,8 +1,9 @@
+import { ReactElementType } from './../../../dist/shared/ReactTypes.d';
 import { Key, Props } from '../../shared/ReactTypes';
 import { Flags, NoFlags } from './fiberFlag';
 // TODO: use typescript alias to import hostConfig from other packages
 import { Container } from '../../react-dom/src/hostConfig';
-import { WorkTag } from './workTag';
+import { HostComponent, WorkTag, FunctionComponent, HostText } from './workTag';
 
 export class FiberNode {
   tag: WorkTag;
@@ -26,12 +27,13 @@ export class FiberNode {
   // props that before working unit
   pendingProps: Props | null;
   memoizedProps: Props | null;
-  alternate: FiberNode | null;
+  alternative: FiberNode | null;
   updateQueue: unknown;
+  alternative: FiberNode | null;
 
-  flag: Flags;
+  flags: Flags;
   subtreeFlags: Flags;
-  memoizedState: unknown;
+  memoizedState: any;
 
   constructor(tag: WorkTag, pendingProps: Props, key: Key) {
     // instance
@@ -46,6 +48,8 @@ export class FiberNode {
     this.sibling = null;
     this.child = null;
     this.index = 0;
+
+    this.alternative = null;
 
     // work unit
     this.pendingProps = pendingProps;
@@ -63,22 +67,24 @@ export class FiberRootNode {
     this.container = container;
     this.current = hostRootFiber;
     this.finishedWork = null;
+    hostRootFiber.stateNode = this;
   }
 }
 
+// create wip from the current and reused some old properties
 export const createWorkInProgress = (current: FiberNode, pendingProps: Props): FiberNode => {
-  let wip = current.alternate;
+  let wip = current.alternative;
   if (wip === null) {
     // mount
     wip = new FiberNode(current.tag, pendingProps, current.key);
     wip.stateNode = current.stateNode;
 
-    wip.alternate = current;
-    current.alternate = wip;
+    wip.alternative = current;
+    current.alternative = wip;
   } else {
     // update
     wip.pendingProps = pendingProps;
-    wip.flag = NoFlags;
+    wip.flags = NoFlags;
     wip.subtreeFlags = NoFlags;
   }
   wip.type = current.type;
@@ -88,4 +94,19 @@ export const createWorkInProgress = (current: FiberNode, pendingProps: Props): F
   wip.memoizedState = current.memoizedState;
 
   return wip;
+};
+
+// JSX type: Element, FunctionComponent, Fragment, Text, ...
+export const createFiberFromElement = (element: ReactElementType) => {
+  const { type, props, key } = element;
+  let fiberType: WorkTag = FunctionComponent;
+
+  if (typeof type === 'string') {
+    fiberType = HostText;
+  } else if (typeof type !== 'function' && __DEV__) {
+    console.warn('createFiberFromElement: unknown type: ' + type);
+  }
+  const fiber = new FiberNode(fiberType, props, key);
+  fiber.type = type;
+  return fiber;
 };
