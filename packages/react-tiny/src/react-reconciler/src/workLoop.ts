@@ -42,6 +42,12 @@ function renderRoot(root: FiberRootNode) {
     }
     // eslint-disable-next-line no-constant-condition
   } while (true);
+
+  const finishedWork = root.current.alternate;
+  root.finishedWork = finishedWork;
+
+  // execute commit based on all child flags
+  commitRoot(root);
 }
 
 function workLoop() {
@@ -63,16 +69,28 @@ function performUnitOfWork(fiber: FiberNode) {
   }
 }
 
+// find unit
 function compileUnitOfWork(fiber: FiberNode) {
   let node: FiberNode | null = fiber;
+  console.log('node', node);
   do {
+    // handle node
     completeWork(node);
+
+    // handle sibling
+    // 🤔: when to generate the sibling node
     const sibling = node.sibling;
     if (sibling !== null) {
       workingProgress = sibling;
       return;
     }
+    // handleParent
     node = node.return;
     workingProgress = node;
   } while (node !== null);
+}
+function commitRoot(root: FiberRootNode) {
+  if (__DEV__) {
+    console.log('start the commit process');
+  }
 }

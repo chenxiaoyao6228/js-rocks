@@ -28,17 +28,14 @@ export const enqueueUpdate = <Action>(updateQueue: UpdateQueue<Action>, update: 
 export const processUpdateQueue = <State>(
   baseState: State,
   pendingUpdate: Update<State> | null
-): { memorizedState: State } => {
-  const result = {
-    memorizedState: baseState,
-  };
+): State => {
   if (pendingUpdate !== null) {
     const action = pendingUpdate.action;
     if (action instanceof Function) {
-      result.memorizedState = action(baseState);
+      baseState = action(baseState);
     } else {
-      result.memorizedState = baseState;
+      baseState = action;
     }
   }
-  return result;
+  return baseState;
 };

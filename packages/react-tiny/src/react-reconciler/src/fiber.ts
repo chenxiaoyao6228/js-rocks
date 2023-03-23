@@ -26,12 +26,12 @@ export class FiberNode {
   // props that before working unit
   pendingProps: Props | null;
   memoizedProps: Props | null;
-  alternative: FiberNode | null;
+  alternate: FiberNode | null;
   updateQueue: unknown;
 
   flags: Flags;
   subtreeFlags: Flags;
-  memoizedState: any;
+  memorizedState: any;
 
   constructor(tag: WorkTag, pendingProps: Props, key: Key) {
     // instance
@@ -47,7 +47,7 @@ export class FiberNode {
     this.child = null;
     this.index = 0;
 
-    this.alternative = null;
+    this.alternate = null;
 
     // work unit
     this.pendingProps = pendingProps;
@@ -71,14 +71,14 @@ export class FiberRootNode {
 
 // create wip from the current and reused some old properties
 export const createWorkInProgress = (current: FiberNode, pendingProps: Props): FiberNode => {
-  let wip = current.alternative;
+  let wip = current.alternate;
   if (wip === null) {
     // mount
     wip = new FiberNode(current.tag, pendingProps, current.key);
     wip.stateNode = current.stateNode;
 
-    wip.alternative = current;
-    current.alternative = wip;
+    wip.alternate = current;
+    current.alternate = wip;
   } else {
     // update
     wip.pendingProps = pendingProps;
@@ -89,7 +89,7 @@ export const createWorkInProgress = (current: FiberNode, pendingProps: Props): F
   wip.updateQueue = current.updateQueue;
   wip.child = current.child;
   wip.memoizedProps = current.memoizedProps;
-  wip.memoizedState = current.memoizedState;
+  wip.memorizedState = current.memorizedState;
 
   return wip;
 };
@@ -101,9 +101,8 @@ export const createFiberFromElement = (element: ReactElementType) => {
 
   if (typeof type === 'string') {
     fiberType = HostText;
-  } else if (typeof type !== 'function' && __DEV__) {
-    console.warn('createFiberFromElement: unknown type: ' + type);
   }
+
   const fiber = new FiberNode(fiberType, props, key);
   fiber.type = type;
   return fiber;

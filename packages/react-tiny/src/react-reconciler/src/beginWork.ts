@@ -22,7 +22,7 @@ export function beginWork(wip: FiberNode): FiberNode {
       // eg: <div/>
       return updateHostComponent(wip);
     case HostText:
-      break;
+      return null;
 
     default:
       if (__DEV__) {
@@ -30,19 +30,19 @@ export function beginWork(wip: FiberNode): FiberNode {
       }
       break;
   }
+  return null;
 }
 function updateHostRoot(wip: FiberNode) {
-  const baseState = wip.memoizedState;
+  const baseState = wip.memorizedState;
   // action might be a react component that consumes a state
   const updateQueue = wip.updateQueue as UpdateQueue<Element>;
   const pending = updateQueue.shared.pending;
   // when updateQueue recieve a react component, it will just return it as memorizedState
-  const { memorizedState } = processUpdateQueue(baseState, pending);
   updateQueue.shared.pending = null;
   // update state
-  wip.memoizedState = memorizedState;
+  wip.memorizedState = processUpdateQueue(baseState, pending);
 
-  const nextChildren = wip.memoizedState;
+  const nextChildren = wip.memorizedState;
   reconcileChildren(wip, nextChildren);
   return wip.child;
 }
@@ -63,7 +63,7 @@ function updateHostComponent(wip: FiberNode) {
 
 // 🤔: how to determine whether is the first time to render
 function reconcileChildren(wip: FiberNode, children?: ReactElementType) {
-  const current = wip.alternative;
+  const current = wip.alternate;
   if (current === null) {
     wip.child = mountChildFibers(wip, null, children);
   } else {

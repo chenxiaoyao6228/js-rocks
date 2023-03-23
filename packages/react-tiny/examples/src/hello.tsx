@@ -14,5 +14,5 @@ function App() {
 function Child() {
   return <span>Tester</span>;
 }
-debugger;
+debugger
 createRoot(document.getElementById('root') as HTMLElement).render(<App />);

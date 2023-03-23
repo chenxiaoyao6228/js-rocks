@@ -33,7 +33,7 @@ function ChildReconciler(shouldTrackEffects: boolean) {
 
   // use bit operation to mark side effect
   function placeSingleChild(fiber: FiberNode) {
-    if (shouldTrackEffects && fiber.alternative !== null) {
+    if (shouldTrackEffects && fiber.alternate !== null) {
       fiber.flags = fiber.flags | Placement;
     }
     return fiber;
