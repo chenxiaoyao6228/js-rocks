@@ -1,4 +1,5 @@
 import react from '@vitejs/plugin-react';
+import replace from '@rollup/plugin-replace';
 
 export default {
   port: '8000',
@@ -13,6 +14,10 @@ export default {
     react({
       jsxImportSource: '@js-rocks/react-tiny',
       jsxRuntime: 'classic',
+    }),
+    replace({
+      __DEV__: true,
+      preventAssignment: true,
     }),
   ],
 };

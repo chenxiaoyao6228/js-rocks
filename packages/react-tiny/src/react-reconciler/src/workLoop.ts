@@ -1,7 +1,9 @@
+import { MutationMask, NoFlags } from './fiberFlag';
 import { HostRoot } from './workTag';
 import { beginWork } from './beginWork';
 import { completeWork } from './completeWork';
 import { createWorkInProgress, FiberNode, FiberRootNode } from './fiber';
+import { commitMutationEffect } from './commitWork';
 
 let workingProgress: FiberNode | null = null;
 const current: FiberNode | null = null;
@@ -89,8 +91,30 @@ function compileUnitOfWork(fiber: FiberNode) {
     workingProgress = node;
   } while (node !== null);
 }
+
 function commitRoot(root: FiberRootNode) {
+  const finishedWork = root.finishedWork;
+
+  if (finishedWork == null) {
+    return;
+  }
+
   if (__DEV__) {
     console.log('start the commit process');
+  }
+
+  root.finishedWork = null;
+
+  // check subTree effects and execute
+  const subTreeHasEffect = (finishedWork.subtreeFlags & MutationMask) !== NoFlags;
+  const rootHasEffect = (finishedWork.flags & MutationMask) !== NoFlags;
+  if (subTreeHasEffect || rootHasEffect) {
+    // before mutation
+    // mutation
+    root.current = finishedWork;
+    commitMutationEffect(finishedWork);
+    // layout
+  } else {
+    root.current = finishedWork;
   }
 }
