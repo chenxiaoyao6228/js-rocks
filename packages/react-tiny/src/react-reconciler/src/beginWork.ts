@@ -56,9 +56,9 @@ function updateFunctionComponent(wip: FiberNode) {
 
 function updateHostComponent(wip: FiberNode) {
   const nextProps = wip.pendingProps;
-  const nextChildren = nextProps.Children;
+  const nextChildren = nextProps.children;
   reconcileChildren(wip, nextChildren);
-  return wip;
+  return wip.child;
 }
 
 // 🤔: how to determine whether is the first time to render

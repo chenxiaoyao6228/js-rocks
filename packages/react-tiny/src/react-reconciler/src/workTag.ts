@@ -5,10 +5,10 @@ export type WorkTag =
   | typeof HostText;
 
 // Note: React may run in different host environments
-export const FunctionComponent = 0;
+export const FunctionComponent = 'FunctionComponent';
 // rootNode, eg: '#root'
-export const HostRoot = 3;
+export const HostRoot = 'HostRoot';
 // <div>
-export const HostComponent = 5;
+export const HostComponent = 'HostComponent';
 // textNode
-export const HostText = 6;
+export const HostText = 'HostText';

@@ -48,6 +48,8 @@ export class FiberNode {
     this.index = 0;
 
     this.alternate = null;
+    this.flags = NoFlags;
+    this.subtreeFlags = NoFlags;
 
     // work unit
     this.pendingProps = pendingProps;
@@ -100,7 +102,8 @@ export const createFiberFromElement = (element: ReactElementType) => {
   let fiberType: WorkTag = FunctionComponent;
 
   if (typeof type === 'string') {
-    fiberType = HostText;
+    // fiberType = HostText;
+    fiberType = HostComponent;
   }
 
   const fiber = new FiberNode(fiberType, props, key);

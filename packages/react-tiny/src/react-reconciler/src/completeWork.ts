@@ -23,8 +23,7 @@ export function completeWork(wip: FiberNode) {
   switch (wip.tag) {
     case HostRoot:
       bubbleProperties(wip);
-
-      break;
+      return null;
     case HostComponent:
       if (current !== null && wip.stateNode !== null) {
         // update
@@ -38,20 +37,20 @@ export function completeWork(wip: FiberNode) {
         wip.stateNode = instance;
       }
       bubbleProperties(wip);
-      break;
+      return null;
     case HostText:
       if (current !== null && wip.stateNode !== null) {
         // update
       } else {
         // mount
-        const instance = createTextInstance(wip.type, newProps);
+        const instance = createTextInstance(newProps.content);
         wip.stateNode = instance;
       }
       bubbleProperties(wip);
-
-      break;
+      return null;
     case FunctionComponent:
-      break;
+      bubbleProperties(wip);
+      return null;
     default:
       if (__DEV__) {
         console.log('unhandle completeWork wip.type', wip.type);
@@ -92,16 +91,16 @@ function appendAllChildren(parent: Instance, wip: FiberNode) {
 
 // record child effect and pass it to parent
 // so we can fast determine whether one the commit process
-function bubbleProperties(wip) {
-  let subTreeFlags = NoFlags;
+function bubbleProperties(wip: FiberNode) {
+  let subtreeFlags = NoFlags;
   let child = wip.child;
 
   while (child !== null) {
-    subTreeFlags |= child.subTreeFlags;
-    subTreeFlags |= child.flags;
+    subtreeFlags |= child.subtreeFlags;
+    subtreeFlags |= child.flags;
 
     child.return = wip;
     child = child.sibling;
   }
-  wip.subTreeFlags |= subTreeFlags;
+  wip.subtreeFlags |= subtreeFlags;
 }

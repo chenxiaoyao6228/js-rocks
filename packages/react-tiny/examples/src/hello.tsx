@@ -4,15 +4,7 @@
 import { h, createRoot } from '../../src/index';
 
 function App() {
-  return (
-    <div>
-      <Child />
-    </div>
-  );
+    return <div>Tester</div>;
 }
-
-function Child() {
-  return <span>Tester</span>;
-}
-debugger
 createRoot(document.getElementById('root') as HTMLElement).render(<App />);
+

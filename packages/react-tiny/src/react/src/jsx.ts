@@ -4,6 +4,7 @@ import { ElementType, Key, Props, ReactElementType, Ref } from '../../shared/Rea
 const ReactElement = function (type: ReactElementType, key: Key, ref: Ref, props: Props) {
   const element = {
     $$typeof: REACT_ELEMENT_TYPE,
+    type,
     key,
     ref,
     props,

@@ -12,18 +12,16 @@ export const commitMutationEffect = (finishedWork: FiberNode) => {
     // DFS to find the exact child that contains effect
     const child: FiberNode | null = nextEffect.child;
 
-    if ((nextEffect.subtreeFlags & MutationMask) !== NoFlags) {
+    if ((nextEffect.subtreeFlags & MutationMask) !== NoFlags && child !== null) {
       nextEffect = child;
     } else {
-      nextEffect = nextEffect.sibling;
-
-      while (nextEffect !== null) {
+      up: while (nextEffect !== null) {
         commitMutationEffectOnFiber(nextEffect);
         const sibling: FiberNode | null = nextEffect.sibling;
 
         if (sibling !== null) {
           nextEffect = sibling;
-          break;
+          break up;
         }
         nextEffect = nextEffect.return;
       }

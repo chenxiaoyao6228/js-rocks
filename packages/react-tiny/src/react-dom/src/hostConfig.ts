@@ -7,7 +7,7 @@ export const createInstance = (type: string, props: any): Instance => {
   return element;
 };
 
-export const createTextInstance = (content: string, props: any): Instance => {
+export const createTextInstance = (content: string): Instance => {
   return document.createTextNode(content);
 };
 

@@ -26,14 +26,14 @@ function ChildReconciler(shouldTrackEffects: boolean) {
     currentFiber: FiberNode | null,
     newChild?: ReactElementType
   ) {
-    const fiber = new FiberNode(HostText, {}, null);
+    const fiber = new FiberNode(HostText, { content: newChild }, null);
     fiber.return = returnFiber;
     return fiber;
   }
 
   // use bit operation to mark side effect
   function placeSingleChild(fiber: FiberNode) {
-    if (shouldTrackEffects && fiber.alternate !== null) {
+    if (shouldTrackEffects && fiber.alternate === null) {
       fiber.flags = fiber.flags | Placement;
     }
     return fiber;
@@ -64,5 +64,5 @@ function ChildReconciler(shouldTrackEffects: boolean) {
   };
 }
 
-export const mountChildFibers = ChildReconciler(true);
-export const reconcileChildFibers = ChildReconciler(false);
+export const mountChildFibers = ChildReconciler(false);
+export const reconcileChildFibers = ChildReconciler(true);
