@@ -1,10 +1,11 @@
 // need to execute build command bebore import
 // import { h } from '@js-rocks/react-tiny';
 
-import { h, createRoot } from '../../src/index';
+import { h, createRoot, useState } from '../../src/index';
 
 function App() {
-    return <div>Tester</div>;
+    const [num, setNum] = useState(0);
+    window.setNum = setNum;
+    return <div>{num}</div>;
 }
 createRoot(document.getElementById('root') as HTMLElement).render(<App />);
-

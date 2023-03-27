@@ -8,6 +8,7 @@ export interface UpdateQueue<State> {
   shared: {
     pending: Update<State> | null;
   };
+  dispatch: Action<State> | null;
 }
 
 // 🔺 action might also be a react component that consumes state
