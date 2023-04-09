@@ -33,6 +33,8 @@ export class FiberNode {
   subtreeFlags: Flags;
   memorizedState: any;
 
+  deletions: FiberNode[];
+
   constructor(tag: WorkTag, pendingProps: Props, key: Key) {
     // instance
     this.tag = tag;

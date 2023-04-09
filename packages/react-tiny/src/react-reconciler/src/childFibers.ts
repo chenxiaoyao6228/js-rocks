@@ -1,8 +1,8 @@
 import { REACT_ELEMENT_TYPE } from './../../shared/ReactSymbol';
 import { HostText } from './workTag';
-import { ReactElementType } from '../../shared/ReactTypes';
-import { FiberNode, createFiberFromElement } from './fiber';
-import { Placement } from './fiberFlag';
+import { Props, ReactElementType } from '../../shared/ReactTypes';
+import { FiberNode, createFiberFromElement, createWorkInProgress } from './fiber';
+import { ChildDeletion, Placement } from './fiberFlag';
 
 /**
  * return the next child fiber or null
@@ -10,15 +10,60 @@ import { Placement } from './fiberFlag';
  * @return {FiberNode}
  */
 function ChildReconciler(shouldTrackEffects: boolean) {
+  function deleteChild(returnFiber: FiberNode, childToDelete: FiberNode) {
+    if (!shouldTrackEffects) {
+      return;
+    }
+    const deletions = returnFiber.deletions;
+    if (deletions === null) {
+      returnFiber.deletions = [childToDelete];
+      returnFiber.flags |= ChildDeletion;
+    } else {
+      deletions.push(childToDelete);
+    }
+  }
   function reconcileSingleElement(
     returnFiber: FiberNode,
     currentFiber: FiberNode | null,
     newChild?: ReactElementType
   ) {
+    const key = newChild.key;
+    work: if (currentFiber !== null) {
+      // update process
+      if (currentFiber.key === key) {
+        // key equal
+        if (newChild.$$typeof === REACT_ELEMENT_TYPE) {
+          if (currentFiber.type === newChild.type) {
+            // type equal
+            const existing = useFiber(currentFiber, newChild.props);
+            existing.return = returnFiber;
+            return existing;
+          }
+          // delete old fiber
+          deleteChild(returnFiber, currentFiber);
+          break work;
+        } else {
+          if (__DEV__) {
+            console.warn('reconcileSingleElement: unimplemented reconciler type: ');
+            break work;
+          }
+        }
+      } else {
+        // delete old fiber
+        deleteChild(returnFiber, currentFiber);
+      }
+    }
     // createFiberNode
     const fiber = createFiberFromElement(newChild);
     fiber.return = returnFiber;
     return fiber;
+  }
+
+  function useFiber(fiber: FiberNode, pendingProps: Props): FiberNode {
+    const clone = createWorkInProgress(fiber, pendingProps);
+    clone.index = 0;
+    clone.sibling = null;
+    return clone;
   }
 
   function reconcileSingleTextNode(
@@ -26,6 +71,15 @@ function ChildReconciler(shouldTrackEffects: boolean) {
     currentFiber: FiberNode | null,
     newChild?: ReactElementType
   ) {
+    if (currentFiber !== null) {
+      // update
+      if (currentFiber.tag === HostText) {
+        const existing = useFiber(currentFiber, { content: newChild });
+        existing.return = returnFiber;
+        return existing;
+      }
+      deleteChild(returnFiber, currentFiber);
+    }
     const fiber = new FiberNode(HostText, { content: newChild }, null);
     fiber.return = returnFiber;
     return fiber;

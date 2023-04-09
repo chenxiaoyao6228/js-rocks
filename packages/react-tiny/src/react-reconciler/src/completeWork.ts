@@ -1,4 +1,4 @@
-import { Flags, NoFlags } from './fiberFlag';
+import { Flags, NoFlags, Update } from './fiberFlag';
 import {
   appendChildToContainer,
   appendInitialChild,
@@ -8,6 +8,10 @@ import {
 import { createInstance } from '../../react-dom/src/hostConfig';
 import { FiberNode } from './fiber';
 import { FunctionComponent, HostComponent, HostRoot, HostText } from './workTag';
+
+function markUpdate(fiber: FiberNode) {
+  fiber.flags |= Update;
+}
 
 /*
  * function of completeWork
@@ -41,6 +45,11 @@ export function completeWork(wip: FiberNode) {
     case HostText:
       if (current !== null && wip.stateNode !== null) {
         // update
+        const oldText = current.memoizedProps.content;
+        const newText = newProps.content;
+        if (newText !== oldText) {
+          markUpdate(wip);
+        }
       } else {
         // mount
         const instance = createTextInstance(newProps.content);
