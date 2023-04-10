@@ -4,7 +4,7 @@
 import { h, createRoot, useState } from '../../src/index';
 
 function App() {
-    const [num, setNum] = useState(0);
+    const [num, setNum] = useState(1);
     window.setNum = setNum;
     return <div>{num}</div>;
 }

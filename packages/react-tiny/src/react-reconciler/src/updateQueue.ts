@@ -19,6 +19,7 @@ export const createUpdate = <State>(action: Action<State>): Update<State> => {
 export const createUpdateQueue = <Action>() => {
   return {
     shared: { pending: null },
+    dispatch: null,
   } as UpdateQueue<Action>;
 };
 
