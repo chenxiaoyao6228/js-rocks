@@ -2,23 +2,27 @@
   "name": "@js-rocks/react-tiny",
   "version": "0.1.0",
   "description": "react",
+  "author": "ChenXiaoyao <chenxiaoyao6228@163.com> (http://www.chenxiaoyao.cn/)",
   "keywords": [
     "react"
   ],
-  "main": "lib/react-tiny.cjs.js",
-  "module": "lib/react-tiny.esm.js",
-  "author": "ChenXiaoyao <chenxiaoyao6228@163.com> (http://www.chenxiaoyao.cn/)",
+  "main": "dist/react-tiny.cjs.js",
+  "module": "dist/react-tiny.esm.js",
   "scripts": {
     "prettier-write": "prettier --parser=typescript \"src/**/*.{js,ts}\" --write",
     "eslint-fix": "eslint \"src/**/*.{js,ts}\" --fix",
     "typecheck": "tsc",
-    "build": "rollup -c rollup.config.js",
-    "build:watch": "rollup --watch -c rollup.config.js",
-    "test": "jest --selectProjects=react-tiny --c ../../jest.config.js",
-    "test:watch": "jest --selectProjects=react-tiny --c ../../jest.config.js --watch"
+    "build": "rimraf dist && rollup  -c rollup.config.js",
+    "build:watch": "rimraf dist && rollup --watch -c rollup.config.js",
+    "vitest": "vitest"
   },
   "devDependencies": {
-    "@babel/preset-react": "^7.18.6"
+    "@babel/core": "^7.8.7",
+    "@babel/preset-env": "^7.8.7",
+    "@babel/preset-react": "^7.10.1",
+    "babel-loader": "^8.0.6",
+    "core-js": "^3.6.4",
+    "vitest": "^0.29.1"
   },
   "dependencies": {
     "@js-rocks/lodash-tiny": "workspace:*"

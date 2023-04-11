@@ -16,6 +16,8 @@
 
 Modern front-end development is getting much easier thanks to the thriving ecology of Javascript, there are so many frameworks and libraries that ease the pain of building web applications, but sometimes frameworks can be troublesome, they make your code harder to reason about. Craftsman knows their tools well and builds one when the tools in hand do not meet their needs. Framework codes are just code, one effective way to learn them is to build an MVP version.
 
+The same opinion is also illustrated [here](https://indepth.dev/posts/1005/level-up-your-reverse-engineering-skills)
+
 ## 📦 Packages
 
 ### [🗡️ lodash-tiny](./packages/lodash-tiny/README.md)
