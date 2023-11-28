@@ -2,12 +2,6 @@
 
 A tiny react-like library.
 
-## Features
-
-- [React Api](https://reactjs.org/docs/react-api.html)
-- [Preact Docs: Differences to React](https://www.preactjs.com.cn/guide/v10/differences-to-react/)
-- [从 React 切换到 Nerv](https://nervjs.github.io/docs/guides/switching-to-nerv.html)
-
 ## Usage
 
 ```js
@@ -25,23 +19,6 @@ function App() {
 
 render(<App />, document.body);
 ```
-
-## TODO && Done
-
-- [ ] (understand JSX)
-- [ ] (change current architecture to fiber, fiber and reconciler)
-- [ ] (scheduler, lane model, time slicing)
-- [ ] (hooks support)
-- [ ] (context)
-- [ ] (batch update comparison with React and Vue3)
-- [ ] (diff algorithm comparison with React and Vue3)
-- [ ] (concurrent mode: suspense)
-- [ ] (Ref)
-- [ ] (Development mode support, Devtools support?)
-- [ ] (Error boundary)
-- [ ] (Custom renderer support?)
-- [ ] (Hydrate)
-- [ ] (HMR support?)
 
 ## Inspired by
 
